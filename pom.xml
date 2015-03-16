@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alu.ems</groupId>
-	<artifactId>com360</artifactId>
+	<artifactId>comoam</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>com 360</name>
 	<packaging>war</packaging>
