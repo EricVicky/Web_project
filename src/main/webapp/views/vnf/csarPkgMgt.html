@@ -1,0 +1,67 @@
+
+	<!-- Tab panes -->
+	<div class="tab-content" ng-controller="CsarPkgMgtController">
+
+		<div class="tab-pane fade in active" id="data">
+			<!-- /.row -->
+			<div class="row">
+    			<div class="col-md-8">
+       				 <h2><small>CSAR package List</small></h2>
+    			</div>
+    			<div class="col-md-2">
+    			     <div>&nbsp;&nbsp;&nbsp;</div>
+    			    <button type="button" class="btn btn-info" ng-click="showupload()">Upload new CSAR</button>
+    			</div>
+   				 <!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="table-responsive" id = "csarTable">
+							<table class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" 
+                           		   dt-column-defs="dtColumnDefs">
+								<thead>
+									<tr>
+										<th ng-repeat="item in menus">{{item}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="odd gradeX" ng-repeat="csar in data">
+										<td>{{csar.name}}</td>
+										<td>{{csar.csarType | showCsarType}}</td>
+										<td>{{csar.vendor}}</td>
+										<td>{{csar.ne_type}}</td>
+										<td>{{csar.ne_release}}</td>
+										<td>
+										   <div class="btn-group" dropdown is-open="status.isopen">
+										      <button type="button" ng-click="launchNE(csar.id)" class="btn  btn-xs btn-info">
+										        Launch vNE
+										      </button>
+										      <button type="button" class="btn btn-info btn-xs dropdown-toggle">
+										        <span class="caret"></span>
+										        <span class="sr-only">Split button!</span>
+										      </button>
+										      <ul class="dropdown-menu" role="menu">
+										        <!-- <li><a href="javascript:void(0);" ng-click = "editCsar(csar.id)">Edit</a></li> -->
+										        <li><a href="javascript:void(0);" ng-click = "removeCsar(csar.id)">Remove</a></li>
+										        <!--<li ng-show="{{csar.csarType | showWizard}}"><a href="javascript:void(0);" ng-click="showWizard(csar.ne_type,csar.ne_release,csar.id)"><strong>Ansible Wizard</strong></a>
+										        </li> -->
+										        <li/>
+										      </ul>
+										    </div>
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+						<!-- /.panel-body -->
+					</div></div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+		</div>
+	</div>

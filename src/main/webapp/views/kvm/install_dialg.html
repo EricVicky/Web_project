@@ -1,0 +1,221 @@
+<style type="text/css">
+.bwizard-steps {
+	display: inline-block;
+	margin: 0; padding: 0;
+	background: #fff }
+	.bwizard-steps .active {
+		color: #fff;
+		background: #007ACC }
+	.bwizard-steps .active:after {
+		border-left-color: #007ACC }
+	.bwizard-steps .active a {
+		color: #fff;
+		cursor: default }
+	.bwizard-steps .label {
+		position: relative;
+		top: -1px;
+		margin: 0 5px 0 0; padding: 1px 5px 2px }
+	.bwizard-steps .active .label {
+		background-color: #333;}
+	.bwizard-steps li {
+		display: inline-block; position: relative;
+		margin-right: 5px;
+		padding: 12px 17px 10px 30px;
+		*display: inline;
+		*padding-left: 17px;
+		background: #efefef;
+		line-height: 18px;
+		list-style: none;
+		zoom: 1; }
+	.bwizard-steps li:first-child {
+		padding-left: 12px;
+		-moz-border-radius: 4px 0 0 4px;
+		-webkit-border-radius: 4px 0 0 4px;
+		border-radius: 4px 0 0 4px; }
+	.bwizard-steps li:first-child:before {
+		border: none }
+	.bwizard-steps li:last-child {
+		margin-right: 0;
+		-moz-border-radius: 0 4px 4px 0;
+		-webkit-border-radius: 0 4px 4px 0;
+		border-radius: 0 4px 4px 0; }
+	.bwizard-steps li:last-child:after {
+		border: none }
+	.bwizard-steps li:before {
+		position: absolute;
+		left: 0; top: 0;
+		height: 0; width: 0;
+		border-bottom: 20px inset transparent;
+		border-left: 20px solid #fff;
+		border-top: 20px inset transparent;
+		content: "" }
+	.bwizard-steps li:after {
+		position: absolute;
+		right: -20px; top: 0;
+		height: 0; width: 0;
+		border-bottom: 20px inset transparent;
+		border-left: 20px solid #efefef;
+		border-top: 20px inset transparent;
+		content: "";
+		z-index: 2; }
+	.bwizard-steps a {
+		color: #333 }
+	.bwizard-steps a:hover {
+		text-decoration: none }
+.bwizard-steps.clickable li:not(.active) {
+	cursor: pointer }
+.bwizard-steps.clickable li:hover:not(.active) {
+	background: #ccc }
+.bwizard-steps.clickable li:hover:not(.active):after {
+	border-left-color: #ccc }
+.bwizard-steps.clickable li:hover:not(.active) a {
+	color: #08c }
+@media (max-width: 1024px) { 
+	/* badges only on small screens */
+	.bwizard-steps li:after,
+	.bwizard-steps li:before {
+		border: none }
+	.bwizard-steps li,
+	.bwizard-steps li.active,
+	.bwizard-steps li:first-child,
+	.bwizard-steps li:last-child {
+		margin-right: 0;
+		padding: 0;
+		background-color: transparent }
+}
+
+.modal-dialog {
+  width: 780px;
+}
+
+
+</style>
+<div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Install 1360COM on KVM</h4>
+      </div>
+      <div class="modal-body">
+		
+			<section id="wizard">
+				<div id="rootwizard">
+					<ul>
+					  	<li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
+						<li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Network</a></li>
+						<li><a href="#tab3" data-toggle="tab"><span class="label">3</span>VM Domain define</a></li>
+						<li><a href="#tab4" data-toggle="tab"><span class="label">4</span>Deploy</a></li>
+						<li><a href="#tab5" data-toggle="tab"><span class="label">5</span>Post validation</a></li>
+					</ul>
+					<div class="tab-content">
+					    <div class="tab-pane" id="tab1">
+						<div class="form-group">
+     						   <label for="comtype">COM Type:</label> 
+        					   <select id="comtype" class="form-control" required="" autofocus="">
+							<option>FCAPS</option>
+							<option>QoSAC</option>
+							<option>CM</option>
+							<option>OAM<option>
+						   </select>
+	   				        </div>
+						<div class="form-group">
+     						   <label for="gr">Support GR:</label> 
+        					   <select id="gr" class="form-control" required="" autofocus="">
+							<option>Yes</option>
+							<option>No</option>
+						   </select>
+	   				        </div>
+						<div class="form-group">
+     						   <label for="comtype">Timezone:</label> 
+        					   <select id="comtype" class="form-control" required="" autofocus="">
+							<option>Asia/shanghai</option>
+							<option>American/Newyork</option>
+							<option>London</option>
+						   </select>
+	   				        </div>
+						<div class="form-group">
+     						   <label for="active_host_IP">Active Host IP</label> 
+        					   <input type="text" id="active_host_IP" class="form-control" required="" autofocus=""/>
+	   				        </div>
+						<div class="form-group">
+     						   <label for="standby_host_IP">Active Host IP</label> 
+        					   <input type="text" id="standby_host_IP" class="form-control" required="" autofocus=""/>
+	   				        </div>
+					    </div>
+					    <div class="tab-pane" id="tab2">
+						<div class="form-group">
+						   <fieldset>
+						   	<legend>IP Config</legend>
+							<div class="form-group">
+     						        <label for="gateway">Gateway</label> 
+        					   	<input type="text" id="gateway" class="form-control" required="" autofocus=""/>
+							</div>
+							<div class="form-group">
+     						        <label for="netmask">Net Mask</label> 
+							<input type="text" id="netmask" class="form-control" required="" autofocus="" />
+							</div>
+							<div class="form-group">
+     						        <label for="OAM_IP">OAM VM</label> 
+        					        <input id="OAM_IP" class="form-control" required="" autofocus=""/>
+							</div>
+							<div class="form-group">
+     						        <label for="CM_IP">CM VM</label> 
+        					        <input id="CM_IP" class="form-control" required="" autofocus=""/>
+							</div>
+							<div class="form-group">
+     						        <label for="DB_IP">DB VM</label> 
+        					        <input id="DB_IP" class="form-control" required="" autofocus=""/>
+							</div>
+						   </fieldset>
+						</div>
+					    </div>
+					    <div class="tab-pane" id="tab3">
+						<div class="form-group">
+     						   <label for="res_prefix">Prefix of VM instance </label> 
+        					   <input type="text" id="res_prefix" class="form-control" required="" autofocus=""/>
+						</div>
+						<div class="form-group">
+     						   <label for="cpu">CPU</label> 
+						   <div class="input-group">
+        					   	<input type="text" id="cpu" class="form-control" required="" autofocus=""/>
+						   	<span class="input-group-addon">vCPUs</span>
+						   </div>
+						</div>
+						<div class="form-group">
+     						   <label for="memory">Memory</label> 
+						   <div class="input-group">
+        					   	<input type="text" id="memory" class="form-control" required="" autofocus=""/>
+						   	<span class="input-group-addon">MB</span>
+						   </div>
+						</div>
+						<div class="form-group">
+						   <fieldset>
+						   <legend>Image</legend>
+     						   <label for="oam_image">OAM/CM image</label> 
+        					   <select id="oam_image" class="form-control" required="" autofocus="">
+							<option>Redhat+orac_client</option>
+							<option>Redhat+orac_server</option>
+						   </select>
+     						   <label for="db_image">DB image</label> 
+        					   <select id="db_image" class="form-control" required="" autofocus="">
+							<option>Redhat+orac_client</option>
+							<option>Redhat+orac_server</option>
+						   </select>
+						   </fieldset>
+						</div>
+					    </div>
+						<div class="tab-pane" id="tab4">
+							4
+					    </div>
+						<div class="tab-pane" id="tab5">
+							5
+					    </div>
+						<ul class="pager wizard">
+							<li class="previous first" style="display:none;"><a href="#">First</a></li>
+							<li class="previous"><a href="#">Previous</a></li>
+							<li class="next last" style="display:none;"><a href="#">Last</a></li>
+						  	<li class="next"><a href="#">Next</a></li>
+						</ul>
+					</div>
+				</div>
+	</div>
+      </div>

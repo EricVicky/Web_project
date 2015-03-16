@@ -1,0 +1,32 @@
+<div class="panel-body">
+
+	<!-- Tab panes -->
+	<div class="tab-content" ng-controller="SubnetController">
+		<div class="tab-pane fade in active" id="network">
+			<!-- /.row -->
+			<div class="row">
+    			<div class="col-md-12">
+    				<h2><small>Subnet Detail: {{subnetObj.name}}</small></h2>
+    				<dl>
+					    <dt>Name</dt>
+					    <dd>{{subnetObj.name}}</dd>
+					    <dt>ID</dt>
+					    <dd>{{subnetObj.id}}</dd>
+					    <dt>Network ID</dt>
+					    <dd>{{subnetObj.network_id}}</dd>
+					    <dt>IP Version</dt>
+					    <dd>{{subnetObj.ip_version}}</dd>
+					    <dt>CIDR</dt>
+					    <dd>{{subnetObj.cidr}}</dd>
+					    <dt>DHCP</dt>
+					    <dd>{{subnetObj.enable_dhcp}}</dd>
+					    <dt>Gateway IP</dt>
+					    <dd>{{subnetObj.gateway_ip}}</dd>
+					</dl>
+    			</div>
+   				 <!-- /.col-lg-12 -->
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,139 @@
+<!-- DataTables CSS -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">IMS Resource Pool</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row" ng-controller="summaryController">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-flash fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"> <loading/>{{summaryData.maxTotalCores}}CPU</div>
+                        <div>{{summaryData.totalCoresUsed}} used</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+	            <div class="panel-footer">
+	                <span class="pull-left">CPU Usage</span>
+	                <span class="pull-right">{{summaryData.totalCoresUsed/summaryData.maxTotalCores | percentage:2}}</span>
+	                <div class="clearfix"></div>
+	            </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"><loading/>{{summaryData.maxTotalRAMSize/1000 | number:0}}G</div>
+                        <div>{{summaryData.totalRAMUsed/1000 | number:0}}G used</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+	            <div class="panel-footer">
+	                <span class="pull-left">Memory Usage</span>
+	                <span class="pull-right">{{summaryData.totalRAMUsed/summaryData.maxTotalRAMSize | percentage:2}}</span>
+	                <div class="clearfix"></div>
+	            </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-database fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"><loading/>{{summaryData.maxTotalVolumeGigabytes}}G</div>
+                        <div>{{summaryData.totalVolumesUsed}}G used</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+	            <div class="panel-footer">
+	                <span class="pull-left">Storage Usage</span>
+	                <span class="pull-right">{{summaryData.totalVolumesUsed/summaryData.maxTotalVolumeGigabytes | percentage:2}}</span>
+	                <div class="clearfix"></div>
+	            </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-cubes fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"><loading/>{{summaryData.maxTotalInstances}}VM</div>
+                        <div>{{summaryData.totalInstancesUsed}} created</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+	            <div class="panel-footer">
+	                <span class="pull-left">Instance Usage</span>
+	                <span class="pull-right">{{summaryData.totalInstancesUsed/summaryData.maxTotalInstances | percentage:2}}</span>
+	                <div class="clearfix"></div>
+	            </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">VNF list</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive" ng-controller="vnfDashBoardController">
+                    <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" 
+                           dt-column-defs="dtColumnDefs"  class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th ng-repeat="item in menus">{{item}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" ng-repeat="stack in stacks">
+                                <td>{{stack.name}}</td>
+                                <td>{{stack.ne_type}}</td>
+                                <td>{{stack.ne_release}}</td>
+                                <td>{{stack.creation_time | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+                                <td>{{stack.updated_time | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+                                <td class="center">{{stack.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+

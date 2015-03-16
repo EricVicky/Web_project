@@ -1,0 +1,48 @@
+<div class="modal-header">
+	<h3 class="modal-title">Upload CSAR Package</h3>
+</div>
+<div align="center" class="modal-body">
+	<form id="fileupload" method="POST" enctype="multipart/form-data" ng-submit="uploadCSAR()">
+ 	<div style="width: 80%" class="input-group col-lg-6">
+  		<span class="input-group-addon">Vendor:</span>
+  		<input type="text" class="form-control" ng-model="input.vendor" id="vendor" value="ALU">
+	</div>
+	<br>
+  	<div style="width: 80%" class="input-group col-lg-6">
+  		<span class="input-group-addon">NE Type:</span>
+  	     <select class="form-control" ng-model="input.neType">
+	         <option>5420_CTS</option>
+	         <option>5900_MRF</option>
+	         <option>5060_MGC8</option>
+	         <option>8615_IeCCF</option>
+	         <option>5450_ISC</option>
+	         <option>5420_SCG</option>
+         </select>	     
+	</div>
+	<br>
+  	<div style="width: 80%" class="input-group col-lg-6">
+  		<span class="input-group-addon">NE Release:</span>
+  		<input type="text" class="form-control" ng-model="input.neRelease" id="neRelease"
+  			placeholder="NE Release" >
+	</div>
+	<br>
+	 <div style="width: 80%" class="input-group col-lg-6">
+  		<span class="input-group-addon">CSAR Type:</span>
+  	    <select class="form-control" ng-model="input.csarType">
+	         <option value="1">Ansible-CSAR</option>
+	         <option value="0">Service-CSAR</option>
+        </select>	     
+	</div>
+	<br>
+	<div style="width: 80%" class="input-group col-lg-6">
+  		<span class="input-group-addon">File to upload:</span>
+  		<input type="file" class="form-control" id="file" multiple id="file">
+	</div>
+	<br>
+	<div align="right" style="width: 90%" class="input-group col-lg-6">		
+		<input type="submit" class="btn btn-primary" value="Upload">
+		&nbsp;&nbsp;
+		<input type="reset" class="btn btn-primary" value="Reset">
+		</div>
+	</form>
+</div>

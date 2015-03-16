@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YO TEST</title>
+<link rel="stylesheet" type="text/css" href="../../main/webapp/vendor/jasmine/jasmine.css">
+<!-- Jasmine -->
+<script src="../../main/webapp/vendor/jasmine/jasmine.js"></script>
+<script src="../../main/webapp/vendor/jasmine/jasmine-html.js"></script>
+<script src="../../main/webapp/vendor/jasmine/boot.js"></script>
+
+</head>
+<body>
+	<h1>YO TEST</h1>
+
+	<script src="../../main/webapp/vendor/angularjs/angular.js"></script>
+	<script src="../../main/webapp/vendor/angular-mocks/angular-mocks.js"></script>
+	<script src="../../main/webapp/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="../../main/webapp/app/app.js"></script>
+	<script src="../../main/webapp/app/route.js"></script>
+	<script src="../../main/webapp/app/login/loginController.js"></script>
+    <script src="../../main/webapp/app/compute/ComputeApp.js"></script>
+    <script src="../../main/webapp/app/compute/ComputeServices.js"></script>
+	<script src="../../main/webapp/app/directives.js"></script>
+	
+	<script src="../../main/webapp/app/compute/InstanceController.js"></script>
+	<script src="../../main/webapp/app/compute/KeyPairController.js"></script>
+	<script src="../../main/webapp/app/compute/SecurityGroupController.js"></script>
+	<script src="../../main/webapp/app/compute/ImageController.js"></script>
+	<script src="../../main/webapp/app/storage/StorageController.js"></script>
+	
+	<script src="../../main/webapp/app/network/NetworkApp.js"></script>
+	<script src="../../main/webapp/app/network/NetworkRoute.js"></script>
+	<script src="../../main/webapp/app/network/NetworkServices.js"></script>
+	<script src="../../main/webapp/app/network/NetworkController.js"></script>
+	<script src="../../main/webapp/app/network/NetworkFilters.js"></script>
+	
+	<!-- use Jasmine to run and display test results -->
+	<script type="text/javascript">
+		var jasmineEnv = jasmine.getEnv();
+		jasmineEnv.addReporter(new jasmine.HtmlReporter());
+		jasmineEnv.execute();
+	</script>
+</body>
+</html>

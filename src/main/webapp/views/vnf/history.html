@@ -1,0 +1,38 @@
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="history" ng-controller="OperationHistoryController">
+			<!-- /.row -->
+			<div class="row" sytle="height:10px"></div>
+			<div class="row">
+    			<div class="col-md-10">
+       				 <h2><small><abbr title="Virtual Network Function">VNF</abbr> Operation History List</small></h2>
+    			</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+				    <accordion  ng-repeat="item in operations">
+				    	<accordion-group id="item.opId" is-open="item.opened">
+				    		<accordion-heading>
+				    			<span ng-class="item.currentStatus | getOperationStyle">{{item.currentStatus | getOperationStatus}}</span>
+ 				    			{{item | getOperationDesc}} 
+				    			 [ Start: {{item.startTime | date:'yyyy-MM-dd HH-mm-ss'}}, End: {{item.endTime | date:'yyyy-MM-dd HH-mm-ss'}} ]
+ 				    			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': item.opened, 'glyphicon-chevron-right': !item.opened}"></i>
+				    		</accordion-heading>
+				    		<alert ng-show="item.currentStatus | isShowError" type="danger">{{item.note}}</alert>
+       						<div class="progress">
+  								<progressbar ng-class="item.currentStatus | getProgressStyle" value="item.currentPercentage" type="{{item.currentStatus | getProgressType}}">{{item.currentPercentage}}%</progressbar>
+							</div>
+				    		<ul class="list-group" ng-repeat="step in item.steps">
+								<li class="list-group-item" id ={{step.id}} >
+    								<span class="badge">{{step.stepStatus}}</span>
+   									 {{step.stepAlias}}
+ 								</li>
+							</ul>
+				    	</accordion-group>						
+						<!-- /.panel -->
+					</accordion>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+		</div>
+	</div>

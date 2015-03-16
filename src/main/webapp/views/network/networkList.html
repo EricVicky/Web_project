@@ -1,0 +1,46 @@
+<div class="panel-body">
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="network">
+			<!-- /.row -->
+			<div class="row">
+    			<div class="col-md-12">
+       				 <h2><small>Network List</small></h2>
+    			</div>
+   				 <!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+				<div class="panel panel-default">
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="table-responsive" ng-controller="NetworkController">
+							<table class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" 
+                           		   dt-column-defs="dtColumnDefs">
+								<thead>
+									<tr>
+										<th ng-repeat="item in menus">{{item}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="odd gradeX" ng-repeat="network in networkData">
+										<td><a ui-sref-active="active" href="" ng-click="openNetworkDetail(network.id)">{{network.name}}</a></td>
+										<td ng-repeat="subnet in network.neutron_subnets">{{subnet.name}} - {{subnet.cidr}}</td>
+										<td>{{network.status}}</td>
+										<td>{{network.admin_state_up | isAdminUp}}</td>
+										<td>{{network.shared | yesno}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+					</div>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+		</div>
+	</div>
+</div>

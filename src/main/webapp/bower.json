@@ -1,0 +1,34 @@
+{
+  "name": "com360",
+  "version": "0.0.1",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/3rd_components/",
+    "test",
+    "tests",
+    "vendor/"
+  ],
+  "dependencies": {
+    "angular-resource": "~1.3.5",
+    "angular-bootstrap": "~0.12.0",
+    "angular-ui-grid": "~3.0.0-rc.16",
+    "angular-ui-router": "~0.2.13",
+    "bootstrap-wizard": "~1.0.0",
+    "datatables-bootstrap3": "*",
+    "datatables": "~1.10.4",
+    "font-awesome": "~4.2.0",
+    "metisMenu": "~1.1.3",
+    "morris": "~0.5.2",
+    "timeline-css": "~0.1.0"
+  },
+  "description": "com360",
+  "authors": [
+    "Alcatel-Lucent"
+  ],
+  "devDependencies": {
+    "angular-ui-grid": "~3.0.0-rc.16"
+  }
+}

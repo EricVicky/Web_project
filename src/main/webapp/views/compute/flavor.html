@@ -1,0 +1,45 @@
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active">
+			<!-- /.row -->
+			<div class="row">
+    			<div class="col-md-12">
+       				 <h2><small>Flavor List</small></h2>
+    			</div>
+   				 <!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+				<div class="panel panel-default">
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="table-responsive" ng-controller="FlavorController">
+							<table class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" 
+                           		   dt-column-defs="dtColumnDefs">
+								<thead>
+									<tr>
+										<th ng-repeat="item in menus">{{item}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="odd gradeX" ng-repeat="flavor in flavors">
+										<td>{{flavor.name}}</td>
+										<td>{{flavor.vcpus}}</td>
+										<td>{{flavor.disk}}G</td>
+									    <td>{{flavor.ephemeraldisk}}G</td>
+									    <td>{{flavor.totaldisk}}G</td>
+										<td>{{flavor.ram}}M</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+					</div>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+		</div>
+	</div>

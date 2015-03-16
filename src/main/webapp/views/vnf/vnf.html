@@ -1,0 +1,13 @@
+<div class="panel-body" ng-init="tab = 0">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" ng-controller="ComputeTabController">
+		<li ng-click="tab = 1" ng-class="{active:tab===1}"><a ui-sref-active="active" ui-sref="main.vnf.csarPkgMgt" data-toggle="tab">CSAR Package Management</a></li>
+		<li ng-click="tab = 2" ng-class="{active:tab===2}"><a ui-sref-active="active" ui-sref="main.vnf.operation" data-toggle="tab">VNF Operations</a></li>
+		<li ng-click="tab = 4" ng-class="{active:tab===4}"><a ui-sref-active="active" ui-sref="main.vnf.neList" data-toggle="tab">Cloud NE List</a></li>
+		<li ng-click="tab = 3" ng-class="{active:tab===3}"><a ui-sref-active="active" ui-sref="main.vnf.history" data-toggle="tab">History</a></li>
+		<li ng-click="tab = 5" ng-class="{active:tab===5}"><a ui-sref-active="active" ui-sref="main.vnf.autoOperation" data-toggle="tab">Auto VNF Operations</a></li>
+	
+	</ul>
+	<div ui-view>
+	</div>
+</div>

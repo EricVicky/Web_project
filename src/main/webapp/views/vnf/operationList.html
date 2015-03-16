@@ -1,0 +1,48 @@
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="operations" ng-controller="OperationListController">
+			<!-- /.row -->
+			<div class="row" sytle="height:10px"></div>
+			<div class="row">
+    			<div class="col-md-10">
+       				 <h2><small>VNF Operation List</small></h2>
+    			</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+				    <accordion  ng-repeat="item in operations">
+				    	<accordion-group id="item.opId" is-open="item.opened">
+				    		<accordion-heading>
+				    			<span ng-class="item.currentStatus | getOperationStyle">{{item.currentStatus | getOperationStatus}}</span>
+				    			 {{item | getOperationDesc}} 
+				    			 [ Start: {{item.startTime | date:'yyyy-MM-dd HH-mm-ss'}}, End: {{item.endTime | date:'yyyy-MM-dd HH-mm-ss'}} ]
+ 				    			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': item.opened, 'glyphicon-chevron-right': !item.opened}"></i>
+				    		</accordion-heading>
+				    		<alert ng-show="item.currentStatus | isShowError" type="danger">{{item.note}}</alert>
+       						<div class="progress">
+  								<progressbar ng-class="item.currentStatus | getProgressStyle" value="item.currentPercentage" type="{{item.currentStatus | getProgressType}}">{{item.currentPercentage}}%</progressbar>
+							</div>
+				    		<ul class="list-group" ng-repeat="step in item.steps" style="height:35px;">
+								<li class="list-group-item" id ={{step.id}} >
+									 <div class="input-group">
+  										<div style="margin-top:6px;">{{step.stepAlias}}</div>
+  										<div class="input-group-btn">
+    										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:150px;">{{step.stepStatus}} <span class="caret" style="visibility: {{step.stepStatus | showOrNot}}"></span></button>
+        									<!-- when failed show -->
+        									<ul class="dropdown-menu dropdown-menu-right" role="menu" style="visibility: {{step.stepStatus | showOrNot}}">
+          										<li><a href="javascript: void(0)" ng-click = "doResume(item.opId)">Resume</a></li>
+        									</ul>
+  										</div>
+									</div>
+ 								</li>
+							</ul>
+				    	</accordion-group>						
+						<!-- /.panel -->
+					</accordion>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			
+			
+		</div>
+	</div>

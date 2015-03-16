@@ -1,0 +1,119 @@
+<style type="text/css">
+<!-- 
+dd{
+ text-indent: 1em; /*em是相对单位，2em即现在一个字大小的两倍*/
+}
+-->
+</style>
+<div class="panel-body">
+	<!-- Tab panes -->
+	<div class="row">
+		<div class="col-md-8">
+			<h3>Instance Details: {{instanceDetail.instance.name}}</h3>
+		</div>
+ 		<div class="col-md-2">
+  		    <div>&nbsp;&nbsp;&nbsp;</div>
+  		    <button type="button" class="btn btn-info" ng-click="backToInstances()">Back to Instances</button>
+  		</div> 
+ 		<!-- /.col-lg-12 -->
+	</div>
+	<div class="tab-content">
+		<div class="col-md-12">
+		  <h4>Info</h4>
+		  <hr class="header_rule">
+		  <dl>
+		    <dt>Name</dt>
+		    <dd>{{instanceDetail.instance.name}}</dd>
+		    <dt>ID</dt>
+		    <dd>{{instanceDetail.instance.id}}</dd>
+		    <dt>Status</dt>
+		    <dd>{{instanceDetail.instance.status}}</dd>
+		    <dt>Availability Zone</dt>
+		    <dd>{{instanceDetail.instance.availability_zone}}</dd>
+		    <dt>Created</dt>
+		    <dd>{{instanceDetail.instance.created | date:'yyyy-MM-dd HH:mm:ss Z'}}</dd>
+		    <dt>Uptime</dt>
+		    <dd>{{instanceDetail.instance.updated | date:'yyyy-MM-dd HH:mm:ss Z'}}</dd>
+		  </dl>
+		</div>
+		
+		<div class="col-md-12">
+		  <h4>Specs</h4>
+		  <hr class="header_rule">
+		  <dl>
+		    <dt>Flavor</dt>
+		    <dd>{{instanceDetail.flavor.name}}</dd>
+		    <dt>RAM</dt>
+		    <dd>{{instanceDetail.flavor.ram}}MB</dd>
+		    <dt>VCPUs</dt>
+		    <dd>{{instanceDetail.flavor.vcpus}} VCPU</dd>
+		    <dt>Disk</dt>
+		    <dd>{{instanceDetail.flavor.disk}}GB</dd>
+		  </dl>
+		</div>
+		
+		<div class="col-md-12">
+		  <h4>IP Addresses</h4>
+		  <hr class="header_rule">
+		  <dl>
+		  	<div ng-repeat="(key,address) in instanceDetail.addresses">
+			    <dt>{{key}}</dt>
+			    <dd ng-repeat="val in address">{{val.addr}}</dd>
+		    </div>
+		  </dl>
+		</div>
+		
+<!-- 		<div class="security_groups row-fluid detail">
+		  <h4>Security Groups</h4>
+		  <hr class="header_rule">
+		  <dl>
+		    <dt>AnodeOamSecurityGroup</dt>
+		    <dd>
+		      <ul>
+		        <li>ALLOW IPv4 8080/tcp to 0.0.0.0/0</li>
+		      </ul>
+		    </dd>
+		    <dt>AnodeIntSecurityGroup</dt>
+		    <dd>
+		      <ul>
+		        <li>ALLOW IPv4 40000/tcp from 0.0.0.0/0</li>
+		      </ul>
+		    </dd>
+		    <dt>AnodeExtSecurityGroup</dt>
+		    <dd>
+		      <ul>
+		        <li>ALLOW IPv4 8989-8990/tcp from 0.0.0.0/0</li>
+		      </ul>
+		    </dd>
+		  </dl>
+		</div>
+ -->		
+		<div class="col-md-12">
+		  <h4>Meta</h4>
+		  <hr class="header_rule">
+		  <dl>
+		    <dt>Key Name</dt>
+		    <dd>{{instanceDetail.instance.key_name}}</dd>
+		    <!-- <dt>Image Name</dt>
+		    <dd>{{instanceDetail.instance.image}}</dd> -->
+		  	<div ng-repeat="(key,value) in instanceDetail.metaData">
+			    <dt>{{key}}</dt>
+			    <dd>{{value}}</dd>
+		    </div>
+		  </dl>
+		</div>
+		
+		<div class="col-md-12" style="display: {{instanceDetail.volumes | isDisplay}}">
+		    <h4>Volumes Attached</h4>
+		    <hr class="header_rule">
+		    <dl>
+		        <dt>Attached To</dt>
+		        <dd ng-repeat="volume in instanceDetail.volumes">
+					{{volume.display_name}}<span> on vdb</span>
+		        </dd>
+		    </dl>
+		</div>
+		
+		
+	</div>
+</div>

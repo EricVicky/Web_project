@@ -1,0 +1,18 @@
+{
+  "name": "timline-css",
+  "version": "0.1.0",
+  "description": "A SASS mixin to generate timeline / breadcrumbs CSS.",
+  "main": "css/timeline.css",
+  "license": "MIT",
+  "homepage": "http://github.com/sayanee/timeline-css",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "97e0042d2255dfa07c33f157d3aa2853a9f72c37"
+  },
+  "_source": "https://github.com/sayanee/timeline-css.git",
+  "_target": "~0.1.0",
+  "_originalSource": "timeline-css",
+  "_direct": true
+}

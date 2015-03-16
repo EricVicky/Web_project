@@ -1,0 +1,50 @@
+<div class="panel-body">
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="network">
+			<!-- /.row -->
+			<div class="row">
+    			<div class="col-md-8">
+       				 <h2><small>Security Group Rules: {{secGroupDetailData.name}}</small></h2>
+    			</div>
+   				<div class="col-md-2">
+    			     <div>&nbsp;&nbsp;&nbsp;</div>
+    			    <button type="button" class="btn btn-info" ng-click="backToSecGroups()">Back to Security Group</button>
+    			</div> 
+   				<!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+				<div class="panel panel-default">
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" 
+                           		   dt-column-defs="dtColumnDefs">
+								<thead>
+									<tr>
+										<th ng-repeat="item in menus">{{item}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="odd gradeX" ng-repeat="rule in secGroupDetailData.security_group_rules">
+										<td>{{rule.direction}}</td>
+										<td>{{rule.ethertype}}</td>
+										<td>{{rule.protocol}}</td>
+										<td>{{rule.port_range_min}} - {{rule.port_range_max}}</td>
+										<td>{{rule.remote_ip_prefix}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+					</div>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+		</div>
+	</div>
+</div>
