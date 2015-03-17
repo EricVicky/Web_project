@@ -1,5 +1,5 @@
 var app = angular.module('comoam', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', ]);
+		'rcForm', 'rest' ]);
 app.controller('kvmctr', function($scope, $q, $timeout) {
 			$scope.user = {};
 			$scope.user = {};
