@@ -1,4 +1,5 @@
 'use strict';
+angular.module('rest', [ 'ngResource', ]);
 
 angular.module('rest').factory('OSService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];

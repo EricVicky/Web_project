@@ -3,14 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alu.omc.oam.kvm.model.KvmFlavor;
 @RestController
-@RequestMapping("/rest/kvm/compute")
+@RequestMapping("/kvm/compute")
 public class FlavorController
 {
-    @RequestMapping("/flavor/list")
+    @RequestMapping(value="/flavor/list", method=RequestMethod.GET)
     public List<KvmFlavor> getFlavorList()
     {
         List<KvmFlavor> flavorlist = new ArrayList<KvmFlavor>(10);
