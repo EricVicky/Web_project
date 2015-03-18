@@ -1,87 +1,126 @@
 <div class="container" >
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-          <h1>Simple Wizard</h1>
-          <div ng-controller="kvmctr"  
-               rc-wizard="sampleWizard" >
-            <ul class="nav rc-nav-wizard">
-              <li class="active">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+          <h1 class="modal-title"><center>Install 1360COM on KVM</center></h1>
+          <hr>
+          <div ng-controller="kvmctr" rc-wizard="sampleWizard">
+            <ul class="bwizard-steps">
+              <li>
                 <a class="active" href="#first" data-toggle="tab">
-                  <span class="badge">1</span>
-                  <span>First Step</span>
+                  <span class="label"><h7>1</h7></span>
+                  <span>COM Type2</span>
                 </a>
               </li>
               <li>
-                <a href="#second" data-toggle="tab">
-                  <span class="badge">2</span>
-                  <span>Second Step</span>
+                <a class="active" href="#second" data-toggle="tab">
+                  <span class="label"><h7>2</h7></span>
+                  <span>Network</span>
                 </a>
               </li>
               <li>
-                <a href="#last" data-toggle="tab">
-                  <span class="badge">3</span>
-                  <span>Last Step</span>
+                <a class="active" href="#third" data-toggle="tab">
+                  <span class="label"><h7>3</h5></span>
+                  <span>VM Domain Define</span>
+                </a>
+              </li>
+              <li>
+                <a class="active" href="#forth" data-toggle="tab">
+                  <span class="label"><h7>4</h5></span>
+                  <span>Deploy</span>
+                </a>
+              </li>
+              <li>
+                <a class="active" href="#fifth" data-toggle="tab">
+                  <span class="label"><h7>5</h7></span>
+                  <span>Post Validation</span>
                 </a>
               </li>
             </ul>
             <div class="tab-content">
               <form class="tab-pane active" id="first" name="firstForm" 
                     rc-submit="saveState()" rc-step novalidate>
-                <h2>Enter first step data</h2>
-                <div class="form-group"
-                     ng-class="{'has-error': rc.firstForm.needsAttention(firstForm.firstName)}">
-                  <label class="control-label">First Name</label>
-                  <input name="firstName" class="form-control" type="text" required
-                         ng-model="user.firstName"/>
+                <div class="form-group">
+                  <label class="control-label">COM Type</label>
+                  <select ng-controller="kvmctr" name="com_type" ng-model="com.type" class="form-control" ng-options="t.type for t in com_types"><option value="">-- Please Select --</option></select>
                 </div>
-                <div class="form-group"
-                     ng-class="{'has-error': rc.firstForm.needsAttention(firstForm.lastName)}">
-                  <label class="control-label">Last Name</label>
-                  <input name="lastName" class="form-control" type="text" required
-                         ng-model="user.lastName" />
+                <div class="form-group">
+                  <label class="control-label">Suppoer GR</label>
+                  <select ng-controller="kvmctr" name="support_gr" ng-model="support.gr" class="form-control" ng-options="g.gr for g in support_grs"><option value="">-- Please Select --</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Timezone</label>
+                  <select ng-controller="kvmctr" name="time_zone" ng-model="timezone" class="form-control" ng-options="t.timezone for t in timezones"><option value="">-- Please Select --</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Active Host IP</label>
+                  <input name="ahostIP" class="form-control" type="text" ng-model="ahostIP"/>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Standby Host IP</label>
+                  <input name="shostIP" class="form-control" type="text" ng-model="shostIP"/>
                 </div>
               </form>
               <form class="tab-pane" id="second" name="secondForm" rc-submit rc-step>
-                <h2>Enter second step data</h2>
+                <h2>IP Config</h2>
+                <hr>
                 <div class="form-group">
-                  <label class="control-label">Street Address</label>
-                  <input name="streetAddress" class="form-control" type="text" 
-                         ng-model="user.streetAddress" />
+                  <label class="control-label">Gateway</label>
+                  <input name="gateway" class="form-control" type="text" 
+                         ng-model="gateway" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">City</label>
-                  <input name="city" class="form-control" type="text" 
-                         ng-model="user.city" />
+                  <label class="control-label">Net mask</label>
+                  <input name="netmask" class="form-control" type="text" 
+                         ng-model="netmask" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">State</label>
-                  <input name="state" class="form-control" type="text" 
-                         ng-model="user.state" />
+                  <label class="control-label">OAM VM</label>
+                  <input name="oam_vm" class="form-control" type="text" 
+                         ng-model="oam_vm" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">City</label>
-                  <input name="postalCode" class="form-control" type="text" 
-                         ng-model="user.postalCode" />
+                  <label class="control-label">CM VM</label>
+                  <input name="cm_vm" class="form-control" type="text" 
+                         ng-model="cm_vm" />
+                </div>
+                <div class="form-group">
+                  <label class="control-label">DB VM</label>
+                  <input name="db_vm" class="form-control" type="text" 
+                         ng-model="db_vm" />
                 </div>
               </form>
-              <form class="tab-pane" id="last" name="lastForm" rc-submit="completeWizard()" rc-step>
-                <h2>Finish last step</h2>
+              <form class="tab-pane" id="third" name="thirdForm" rc-submit rc-step>
                 <div class="form-group">
-                  <label class="control-label">First Name:</label>
-                  <p class="form-control-static">{{ user.firstName }}</p>
+                  <label class="control-label">Prefix of VM Instance</label>
+                  <input name="instance" class="form-control" type="text" 
+                         ng-model="instance" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Last Name:</label>
-                  <p class="form-control-static">{{ user.lastName }}</p>
+                  <label class="control-label">CPU(vCPUs)</label>
+                  <input name="cpu" class="form-control" type="text" 
+                         ng-model="cpu" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Address:</label>
-                  <p class="form-control-static">
-                    {{ user.streetAddress }}
-                    <br />
-                    {{ user.city }}, {{ user.state }} {{ user.postalCode }}
-                  </p>
+                  <label class="control-label">Memory(MB)</label>
+                  <input name="memory" class="form-control" type="text" 
+                         ng-model="memory" />
                 </div>
+                <h2>Image</h2>
+                <hr>
+                <div class="form-group">
+                  <label class="control-label">OAM/CM image</label>
+                  <select ng-controller="kvmctr" name="oam_cm_image" ng-model="oam.cm.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">DB image</label>
+                  <select ng-controller="kvmctr" name="db_image" ng-model="db.image" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
+                </div>
+              </form>
+              <form class="tab-pane" id="forth" name="forthForm" rc-submit rc-step>
+                <span>To be continued</span>
+              </form>
+              <form class="tab-pane" id="fifth" name="fifthForm" rc-submit rc-step>
+                <span>To be continued</span>
               </form>
             </div>
             <div class="form-group">

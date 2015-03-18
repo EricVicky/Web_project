@@ -435,8 +435,8 @@ var rcWizardStepDirective = {
         var wizardController = controllers[0];
         
         // find all the optional controllers for the step
-        var formController = controllers.length > 1 ? controllers[1] : null;
-        var submitController = controllers.length > 2 ? controllers[2] : null;
+        var formController = controllers.length > 3 ? controllers[3] : null;
+        var submitController = controllers.length > 4 ? controllers[4] : null;
         
         // add the step to the wizard controller
         var step = wizardController.addStep({ 
