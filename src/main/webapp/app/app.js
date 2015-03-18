@@ -1,7 +1,7 @@
 var app = angular.module('comoam', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
 		'rcForm', 'rest' ]);
+
 app.controller('kvmctr', function($scope, $q, $timeout) {
-			$scope.user = {};
 			$scope.user = {};
 			$scope.saveState = function() {
 				var deferred = $q.defer();
@@ -13,6 +13,8 @@ app.controller('kvmctr', function($scope, $q, $timeout) {
 			$scope.completeWizard = function() {
 				alert('Completed!');
 			}
+            $scope.ahostIP="IPV4/IPV6";
+            $scope.shostIP="IPV4/IPV6";
             $scope.com_types = [{
                 type: 'FCAPS'
             }, {
@@ -46,8 +48,4 @@ app.controller('kvmctr', function($scope, $q, $timeout) {
             }];
 
 			//$('#myModal').modal('show');
-<<<<<<< HEAD
 } );
-=======
-		} );
->>>>>>> a0534237c8179937eed085d26950e15bbe846e6c
