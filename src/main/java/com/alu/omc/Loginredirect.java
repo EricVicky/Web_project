@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Loginredirect
 {
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/login", method = RequestMethod.GET)
     public void method(HttpServletResponse response) {
         response.setHeader("Location", "https://www.163.com");
         try

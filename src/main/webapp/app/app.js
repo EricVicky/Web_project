@@ -1,8 +1,9 @@
-var app = angular.module('comoam', [ 'ui.router', 'ui.bootstrap', 'rcWizard','rcForm', ]);
-
+var app = angular.module('comoam', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
+		'rcForm', 'rest' ]);
 app.controller('kvmctr', function($scope, $q, $timeout) {
 			$scope.user = {};
-			$scope.saveState = function() {  
+			$scope.user = {};
+			$scope.saveState = function() {
 				var deferred = $q.defer();
 				$timeout(function() { 
 					deferred.resolve();
@@ -45,4 +46,8 @@ app.controller('kvmctr', function($scope, $q, $timeout) {
             }];
 
 			//$('#myModal').modal('show');
+<<<<<<< HEAD
 } );
+=======
+		} );
+>>>>>>> a0534237c8179937eed085d26950e15bbe846e6c
