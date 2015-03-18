@@ -8,7 +8,7 @@
               <li>
                 <a class="active" href="#first" data-toggle="tab">
                   <span class="label"><h7>1</h7></span>
-                  <span>COM Type2</span>
+                  <span>COM Type</span>
                 </a>
               </li>
               <li>
@@ -41,15 +41,15 @@
                     rc-submit="saveState()" rc-step novalidate>
                 <div class="form-group">
                   <label class="control-label">COM Type</label>
-                  <select ng-controller="kvmctr" name="com_type" ng-model="com.type" class="form-control" ng-options="t.type for t in com_types"><option value="">-- Please Select --</option></select>
+                  <select name="com_type" ng-model="com.type" class="form-control" ng-options="t.type for t in com_types"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Suppoer GR</label>
-                  <select ng-controller="kvmctr" name="support_gr" ng-model="support.gr" class="form-control" ng-options="g.gr for g in support_grs"><option value="">-- Please Select --</option></select>
+                  <select name="support_gr" ng-model="support.gr" class="form-control" ng-options="g.gr for g in support_grs"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Timezone</label>
-                  <select ng-controller="kvmctr" name="time_zone" ng-model="timezone" class="form-control" ng-options="t.timezone for t in timezones"><option value="">-- Please Select --</option></select>
+                  <select name="time_zone" ng-model="timezone" class="form-control" ng-options="t.timezone for t in timezones"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Active Host IP</label>
@@ -109,11 +109,11 @@
                 <hr>
                 <div class="form-group">
                   <label class="control-label">OAM/CM image</label>
-                  <select ng-controller="kvmctr" name="oam_cm_image" ng-model="oam.cm.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
+                  <select name="oam_cm_image" ng-model="oam.cm.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">DB image</label>
-                  <select ng-controller="kvmctr" name="db_image" ng-model="db.image" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
+                  <select name="db_image" ng-model="db.image" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
                 </div>
               </form>
               <form class="tab-pane" id="forth" name="forthForm" rc-submit rc-step>
