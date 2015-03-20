@@ -4,29 +4,41 @@ angular.module('rest', [ 'ngResource', ]);
 angular.module('rest').factory('OSService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl + "rest/";
-	var flavor = $resource(restUrl + "os/compute/flavor");
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
-		flavorlist: function () {
-			return flavor.query();
-		},
-		flavor: function () {
-			return flavor.get();
-		},
+		getFlavorStore: function (success, error) {
+			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
+			flavorRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		}
 	};
 }).factory('KVMService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
-	var restUrl = baseUrl + "rest/";
-	var flavor = $resource(restUrl + "kvm/compute/flavor");
+	var restUrl = baseUrl;
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
-		flavorlist: function () {
-			return flavor.query();
-		},
-		flavor: function () {
-			return flavor.get();
-		},
+		getFlavorStore: function (success, error) {
+			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
+			flavorRes.get(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		}
 	};
 });

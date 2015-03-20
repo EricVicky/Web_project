@@ -3,7 +3,7 @@
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
           <h1 class="modal-title"><center>Install 1360COM on KVM</center></h1>
           <hr>
-          <div ng-controller="kvmctr" rc-wizard="sampleWizard">
+          <div ng-controller="osctr" rc-wizard="sampleWizard">
             <ul class="bwizard-steps">
               <li>
                 <a class="active" href="#first" data-toggle="tab">
@@ -95,7 +95,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">Flavor flavor</label> 
-								<select name="oam_flavor" ng-model="oam_flavor" class="form-control" ng-options="fl.label for fl in flavorStore[comType]['oam']">
+								<select name="oam_flavor" ng-model="oam_flavor" class="form-control" ng-options="fl.for fl in flavorStore[comType]['oam']">
 								<option value="">-- Please Select --</option></select>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">Flavor flavor</label>
-								 <select name="cm_flavor" ng-model="cm_flavor" class="form-control" ng-options="fl.label for fl in flavorStore[comType]['cm']">
+								 <select name="cm_flavor" ng-model="cm_flavor" class="form-control" ng-options="fl.name for fl in flavorStore">
 								 <option value="">-- Please Select --</option></select>
 							</div>
 						</div>
