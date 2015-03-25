@@ -42,7 +42,11 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             $scope.shostIP="IPV4/IPV6";
             $scope.com_types = [ 'FCAPS', 'QOSAC', 'CM' ,'OAM' ];
             $scope.gr_options = ['Yes' , 'No' ];
-            (function (comType, vm){
+            $scope.timezones = [ 'Asia/Shanghai' , 'American/New York' , 'London'];
+            $scope.oam_cm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
+            $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
+			//$('#myModal').modal('show');
+			(function (comType, vm){
             	KVMService.getFlavorStore(
             			function(data) {
             				$log.info(data);
@@ -52,8 +56,4 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             				$log.error(response);
             			});
             })();
-            $scope.timezones = [ 'Asia/Shanghai' , 'American/New York' , 'London'];
-            $scope.oam_cm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
-            $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
-			//$('#myModal').modal('show');
 } );
