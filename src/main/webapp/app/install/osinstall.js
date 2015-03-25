@@ -14,10 +14,12 @@ app.controller('osctr', function($scope, $q, $timeout, $log, OSService) {
 				$scope.deploy();
 				alert('Completed!');
 			}
-            $scope.ahostIP="IPV4/IPV6";
-            $scope.shostIP="IPV4/IPV6";
-            $scope.com_types = [ 'FCAPS', 'QOSAC', 'CM' ,'OAM' ];
-            $scope.gr_options = ['True' , 'False' ];
+            $scope.heat_version = [ 'juno' , 'icehouse','havana'];
+            $scope.config_drive = [ 'True', 'False' ];
+            $scope.oamcm_image = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
+            $scope.db_image = [ 'Redhat+orac_client', 'Redhat+orac_server'];
+            $scope.private_network = [ 'True', 'False'];
+            $scope.installConfig ={};
             $scope.deploy = function (){
             	OSService.deploy(
             			$scope.installConfig,
@@ -33,17 +35,6 @@ app.controller('osctr', function($scope, $q, $timeout, $log, OSService) {
             			function(data) {
             				$log.info(data);
             				$scope.flavorStore = data;
-            			}, 
-            			function(response){
-            				$log.error(response);
-            			}
-            	);
-            })();
-            (function (){
-            	OSService.getSecurityGroupStore(
-            			function(data) {
-            				$log.info(data);
-            				$scope.securityGroup = data;
             			}, 
             			function(response){
             				$log.error(response);

@@ -1,44 +1,57 @@
-  .bwizard-steps {
+.bwizard-steps {
   display: inline-block;
-  margin: 0; padding: 0;
+  margin: 0; 
+  padding: 0;
   background: #fff 
+}
+.bwizard-steps .active {
+    color: #fff;
+    border-left: 20px solid #FFF; 
+
   }
-  .bwizard-steps .active {
-    background: #E5F3F0 
+  body{
+    padding-right: 180px;
   }
   .bwizard-steps .active:after {
     border-left-color: #007ACC 
   }
   .bwizard-steps .active a {
     color: #fff;
+    cursor: default; 
   }
   .bwizard-steps .label {
     position: relative;
     top: -1px;
-    margin: 0 5px 0 0; padding: 1px 5px 2px 
+    margin: 0 5px 0 0; 
+    padding: 1px 5px 2px;
+    color:#000;
+    cursor: default;  
   }
   .bwizard-steps .active .label {
     background-color: #333;
+    color:#fff; 
+  }
+  .form-control{
+    height:unset;
   }
   .bwizard-steps li {
-    display: inline-block; position: relative;
-    margin-right: 5px;
-    padding: 1px 13px 1px 30px;
+    display: inline-block; 
+    position: relative;
+    margin-right: 10px;
     *display: inline;
     *padding-left: 17px;
     background: #efefef;
-    line-height: 18px;
+    line-height: 20px;
     list-style: none;
     zoom: 1; 
+    cursor: default;
   }
   .bwizard-steps li:first-child {
-    padding-left: 10px;
+    padding-left: 1px;
     -moz-border-radius: 4px 0 0 4px;
     -webkit-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px; 
-  }
-  .bwizard-steps li a {
-    cursor: unset;
+    cursor: default; 
   }
   .bwizard-steps li:first-child:before {
     border: none 
@@ -48,22 +61,26 @@
     -moz-border-radius: 0 4px 4px 0;
     -webkit-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0; 
+    cursor: default; 
   }
   .bwizard-steps li:last-child:after {
     border: none 
   }
   .bwizard-steps li:before {
     position: absolute;
-    left: 0; top: 0;
-    height: 0; width: 0;
+    left: 0; 
+    top: 0;
+    height: 0; 
+    width: 0;
     border-bottom: 20px inset transparent;
     border-left: 20px solid #fff;
     border-top: 20px inset transparent;
-    content: "" 
+    content: "";
+    cursor: default;  
   }
   .bwizard-steps li:after {
     position: absolute;
-    right: -17px; 
+    right: -20px; 
     top: 0;
     height: 0; 
     width: 0;
@@ -72,25 +89,27 @@
     border-top: 20px inset transparent;
     content: "";
     z-index: 2; 
+    cursor: default; 
   }
   .bwizard-steps a {
-    color: #333 
+    color: #333; 
+    cursor: default;
   }
-  .bwizard-steps a:hover {
-    text-decoration: none 
+  .bwizard-steps a:hover:not(.active){
+    text-decoration: none;
+    background: none;
   }
 .bwizard-steps.clickable li:not(.active) {
-  cursor:default
+  cursor: default;
 }
 .bwizard-steps.clickable li:hover:not(.active) {
-  background: #ccc 
+  background: #ccc;
 }
 .bwizard-steps.clickable li:hover:not(.active):after {
-  border-left-color: #ccc 
+  border-left-color: #ccc;
 }
 .bwizard-steps.clickable li:hover:not(.active) a {
   color: #08c;
-  background: #ccc  
 }
 @media (max-width: 1024px) { 
   /* badges only on small screens */
@@ -109,5 +128,6 @@
 }
 
 .modal-dialog {
-  width: 780px;
+  width: 770px;
 }
+

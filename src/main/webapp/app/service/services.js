@@ -22,15 +22,7 @@ rest.factory('OSService', function($location, $resource, $log) {
 		},
 		deploy: function (config, success, error) {
 			var flavorRes = $resource(restUrl + "kvm/deployment");
-			flavorRes.save(
-				config,	
-				}
-			);
-		},
-		getSecurityGroupStore: function (success, error) {
-			var securityGroupRes = $resource(restUrl + "nfv/os/compute/securitygroup/list");
-			securityGroupRes.query(
-				// success
+			flavorRes.save(config,
 				function (data) {
 					$log.info(data);
 					success(data);
@@ -39,8 +31,6 @@ rest.factory('OSService', function($location, $resource, $log) {
 				function (response) {
 					error(response);
 				});
-				}
-			);
 		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(baseUrl + "data/comType.json");

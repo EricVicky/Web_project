@@ -16,7 +16,6 @@ public class OSCOMConfig implements InstallConfig, Serializable
      */
     private static final long  serialVersionUID       = -3535916139459672300L;
     private boolean            config_drive           = false;
-    private boolean            support_com_gr         = true;
     private String             deployment_prifix;
     private boolean            enable_private_network = true;
     private BlockAvailZone     block_storage_avail_zone;
@@ -24,8 +23,59 @@ public class OSCOMConfig implements InstallConfig, Serializable
     private COMProvidernetwork com_provider_network;
     private Map vm_config;
     private COMType            comType;
+    private String timezone;
+    private boolean com_private_network;
+    private String template_version;
+    private String stack_name;
+    private String deployment_prefix;
+    
 
-    @Override
+
+	public boolean getCom_private_network() {
+		return com_private_network;
+	}
+
+	public void setCom_private_network(boolean com_private_network) {
+		this.com_private_network = com_private_network;
+	}
+
+	public String getTemplate_version() {
+		return template_version;
+	}
+
+	public void setTemplate_version(String template_version) {
+		this.template_version = template_version;
+	}
+
+	public String getStack_name() {
+		return stack_name;
+	}
+
+	public void setStack_name(String stack_name) {
+		this.stack_name = stack_name;
+	}
+
+	public String getDeployment_prefix() {
+		return deployment_prefix;
+	}
+
+	public void setDeployment_prefix(String deployment_prefix) {
+		this.deployment_prefix = deployment_prefix;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
+	}
+
+	@Override
     public Environment getEnvironment()
     {
         // TODO Auto-generated method stub
@@ -38,7 +88,7 @@ public class OSCOMConfig implements InstallConfig, Serializable
         // TODO Auto-generated method stub
         return comType;
     }
-
+    
     public class ComputeAvailZone implements Serializable
     {
         /**
@@ -231,16 +281,6 @@ public class OSCOMConfig implements InstallConfig, Serializable
         this.config_drive = config_drive;
     }
 
-    public boolean getSupport_com_gr()
-    {
-        return support_com_gr;
-    }
-
-    public void setSupport_com_gr(boolean support_com_gr)
-    {
-        this.support_com_gr = support_com_gr;
-    }
-
     public String getDeployment_prifix()
     {
         return deployment_prifix;
@@ -307,12 +347,12 @@ public class OSCOMConfig implements InstallConfig, Serializable
         return this.comType + "," + this.getEnvironment();
     }
 
-    public Map<String, VMConfig> getVm_config()
+    public Map getVm_config()
     {
         return vm_config;
     }
 
-    public void setVm_config(Map<String, VMConfig> vm_config)
+    public void setVm_config(Map vm_config)
     {
         this.vm_config = vm_config;
     }

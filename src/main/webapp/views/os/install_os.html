@@ -19,95 +19,84 @@
             <div class="tab-pane" id="tab1" name="tab1">
               <div class="form-group">
                 <label class="control-label">COM Type</label>
-                  <select name="com_type" ng-model="comType" class="form-control" ng-options="ct.Name for ct in comTypeStore">
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label class="control-label">Support GR</label>
-                  <select name="support_gr" ng-model="supportGr" class="form-control" ng-options="g for g in support_gr">
+                  <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore">
                   </select>
               </div>
               <div class="form-group">
                   <label class="control-label">Timezone</label>
-                  <select name="time_zone" ng-model="timezone" class="form-control" ng-options="t.Time for t in timezoneStore">
+                  <select name="time_zone" ng-model="installConfig.timezone" class="form-control" ng-options="t.Time as t.Time for t in timezoneStore">
                   </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Openstack RC File</label>
-                <input type="file" name="rc_file" ng-model="rcFile" class="form-control">
+                <input type="file" name="rc_file" ng-model="installConfig.rcFile" class="form-control">
               </div>
             </div>
             <div class="tab-pane" id="tab2" name="tab2">
               <div class="form-group">
                 <label class="control-label">Network</label>
-                <select name="network" ng-model="network" class="form-control" ng-options="n.name for n in networkStore">
+                <select name="network" ng-model="installConfig.com_provider_network.network" class="form-control" ng-options="n.name as n.name for n in networkStore">
                 </select>
-                {{network.id}}
               </div>
               <div class="form-group">
                 <label class="control-label">Sub Network</label>
-                <select name="sub_network" ng-model="subNetwork" class="form-control" ng-options="sn.name for sn in subNetworkStore">
+                <select name="sub_network" ng-model="installConfig.com_provider_network.subnet" class="form-control" ng-options="sn.name as sn.name for sn in subNetworkStore">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Private Network</label>
-                <select name="private_network" ng-model="privateNetwork" class="form-control" ng-options="pn for pn in private_network">
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label">Security Group</label>
-                <select name="security_group" ng-model="securityGroup" class="form-control" ng-options="sg.name for sg in securityGroup">
+                <select name="private_network" ng-model="installConfig.com_private_network" class="form-control" ng-options="pn for pn in private_network">
                 </select>
               </div>
             </div>
             <div class="tab-pane" id="tab3" name="tab3">
               <div class="form-group">
-                <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM' || comType.Name=='QoSAC'">
+                <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                   <legend>OAM VM</legend>
                   <div class="form-group">
                     <label class="control-label">IP Address</label> 
-                    <input name="oam_ip_address" class="form-control" type="text" ng-model="oamIpAddress" />
+                    <input name="oam_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" />
                   </div>
                   <div class="form-group">
                     <label class="control-label">Flavor</label>
-                    <select name="oam_flavor" ng-model="oamFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    <select name="oam_flavor" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="oam_disk" class="form-control" type="text" ng-model="oamDisk" />
+                    <input name="oam_disk" class="form-control" type="text" ng-model="installConfig.vm_config.oam.com_data_vol_size" />
                   </div>
                 </fieldset>
-                <fieldset ng-if="comType.Name=='FCAPS' ||  comType.Name=='CM'">
+                <fieldset ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM'">
                   <legend>CM VM</legend>
                   <div class="form-group">
                     <label class="control-label">IP Address</label> 
-                    <input name="cm_ip_address" class="form-control" type="text" ng-model="cmIpAddress" />
+                    <input name="cm_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" />
                   </div>
                   <div class="form-group">
                     <label class="control-label">Flavor</label>
-                    <select name="cm_flavor" ng-model="cmFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    <select name="cm_flavor" ng-model="installConfig.vm_config.cm.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="cm_disk" class="form-control" type="text" ng-model="cmDisk" />
+                    <input name="cm_disk" class="form-control" type="text" ng-model="installConfig.vm_config.cm.com_data_vol_size" />
                   </div>
                 </fieldset>
-                <fieldset ng-if="comType.Name=='FCAPS' ||  comType.Name=='CM' || comType.Name=='OAM'">
+                <fieldset ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM' || installConfig.comType=='OAM'">
                   <legend>DB VM</legend>
                   <div class="form-group">
                     <label class="control-label">IP Address</label> 
-                    <input name="db_ip_address" class="form-control" type="text" ng-model="dbIpAddress" />
+                    <input name="db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.vm_config.db.provider_ip_address" />
                   </div>
                   <div class="form-group">
                     <label class="control-label">Flavor</label>
-                    <select name="db_flavor" ng-model="dbFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    <select name="db_flavor" ng-model="installConfig.vm_config.db.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="db_disk" class="form-control" type="text" ng-model="dbDisk" />
+                    <input name="db_disk" class="form-control" type="text" ng-model="installConfig.vm_config.db.com_data_vol_size" />
                   </div>
                 </fieldset>
               </div>
@@ -115,40 +104,40 @@
             <div class="tab-pane" id="tab4">
               <div class="form-group">
                 <label class="control-label">Heat Version</label>
-                <select name="heat_version" ng-model="heatVersion" class="form-control" ng-options="hv for hv in heat_version">
+                <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Config Drive</label>
-                <select name="config_drive" ng-model="configDrive" class="form-control" ng-options="cd for cd in config_drive">
+                <select name="config_drive" ng-model="installConfig.config_drive" class="form-control" ng-options="cd for cd in config_drive">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Stack Name</label>
-                <input name="stack_name" class="form-control" type="text" ng-model="stackName">
+                <input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name">
               </div>
               <div class="form-group">
                 <label class="control-label">Prefix of stack resource</label>
-                <input name="stack_resource" class="form-control" type="text" ng-model="stackResource">
+                <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix">
               </div>
               <div class="form-group">
                 <label class="control-label">Compute Avail Zone</label>
-                <select name="compute_avail_zone" ng-model="computeAvailZone" class="form-control" ng-options="caz.zoneName for caz in computeAvailZoneStore">
+                <select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Block Storage Avail Zone</label>
-                <select name="block_storage_avail_zone" ng-model="blockStorageAvailZone" class="form-control" ng-options="bsaz.zoneName for bsaz in computeAvailZoneStore">
+                <select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="bsaz.zoneName as bsaz.zoneName for bsaz in computeAvailZoneStore">
                 </select>
               </div>
               <div class="form-group">
                   <legend>Image</legend>
-                  <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM' || comType.Name=='QoSAC'">
+                  <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                     <label class="control-label">OAM/CM image</label>
                     <select name="oamcm_image" ng-model="oamcmImage" class="form-control" ng-options="oi for oi in oamcm_image">
                     </select>
                   </fieldset>
-                  <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM'">
+                  <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
                     <label class="control-label">DB image</label>
                     <select name="db_image" ng-model="dbImage" class="form-control" ng-options="di for di in db_image">
                     </select>
