@@ -1,175 +1,184 @@
 <div class="container" >
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <h1 class="modal-title"><center>Install 1360COM on KVM</center></h1>
-          <hr>
-          <div ng-controller="osctr" rc-wizard="sampleWizard">
+  <div class="row">
+    <div class="col-xs-12 col-md-6" style="width: 82%">
+      <div class="modal-header">
+        <h1 class="modal-title">Install 1360COM on Openstack</h1>
+      </div>
+      <div ng-controller="osctr" rc-wizard="sampleWizard" class="modal-body">
+        <section id="wizard">
+          <div id="rootwizard">
             <ul class="bwizard-steps">
-              <li>
-                <a class="active" href="#first" data-toggle="tab">
-                  <span class="label"><h7>1</h7></span>
-                  <span>COM Type</span>
-                </a>
-              </li>
-              <li>
-                <a class="active" href="#second" data-toggle="tab">
-                  <span class="label"><h7>2</h7></span>
-                  <span>Network</span>
-                </a>
-              </li>
-              <li>
-                <a class="active" href="#third" data-toggle="tab">
-                  <span class="label"><h7>3</h5></span>
-                  <span>VM Domain Define</span>
-                </a>
-              </li>
-              <li>
-                <a class="active" href="#forth" data-toggle="tab">
-                  <span class="label"><h7>4</h5></span>
-                  <span>Deploy</span>
-                </a>
-              </li>
-              <li>
-                <a class="active" href="#fifth" data-toggle="tab">
-                  <span class="label"><h7>5</h7></span>
-                  <span>Post Validation</span>
-                </a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <form class="tab-pane active" id="first" name="firstForm" 
-                    rc-submit="saveState()" rc-step novalidate>
-                <div class="form-group">
-                  <label class="control-label">COM Type</label>
-                  <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="t for t in com_types"><option value="">-- Please Select --</option></select>
-                </div>
-                <div class="form-group">
+              <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
+              <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Network</a></li>
+              <li><a href="#tab3" data-toggle="tab"><span class="label">3</span>VNF Components Config</a></li>
+              <li><a href="#tab4" data-toggle="tab"><span class="label">4</span>Heat stack</a></li>
+              <li><a href="#tab5" data-toggle="tab"><span class="label">5</span>Deploy</a></li>
+              <li><a href="#tab6" data-toggle="tab"><span class="label">6</span>Post validation</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab1" name="tab1">
+              <div class="form-group">
+                <label class="control-label">COM Type</label>
+                  <select name="com_type" ng-model="comType" class="form-control" ng-options="ct.Name for ct in comTypeStore">
+                  </select>
+              </div>
+              <div class="form-group">
                   <label class="control-label">Support GR</label>
-                  <select name="gr" ng-model="installConfig.support_com_gr" class="form-control" ng-options="g for g in gr_options"><option value="">-- Please Select --</option></select>
-                </div>
-                <div class="form-group">
+                  <select name="support_gr" ng-model="supportGr" class="form-control" ng-options="g for g in support_gr">
+                  </select>
+              </div>
+              <div class="form-group">
                   <label class="control-label">Timezone</label>
-                  <select name="time_zone" ng-model="installConfig.timezone" class="form-control" ng-options="timezone for timezone in timezones"><option value="">-- Please Select --</option></select>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Active Host IP</label>
-                  <input name="ahostIP" class="form-control" type="text" ng-model="ahostIP"  required>
-                  <span style="color:red" ng-show="firstForm.ahostIP.$dirty && firstForm.ahostIP.$invalid">
-                    <span ng-show="firstForm.ahostIP.$error.required">Active Host IP is required.</span>
-                  </span>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Standby Host IP</label>
-                  <input name="shostIP" class="form-control" type="text" ng-model="shostIP"  required>
-                  <span style="color:red" ng-show="firstForm.shostIP.$dirty && firstForm.shostIP.$invalid">
-                    <span ng-show="firstForm.shostIP.$error.required">Standby Host IP is required.</span>
-                  </span>
-                </div>
-              </form>
-              <form class="tab-pane" id="second" name="secondForm" rc-submit rc-step>
-                <h2>IP Config</h2>
-                <hr>
-                <div class="form-group">
-                  <label class="control-label">Gateway</label>
-                  <input name="gateway" class="form-control" type="text" 
-                         ng-model="gateway" />
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Net mask</label>
-                  <input name="netmask" class="form-control" type="text" 
-                         ng-model="netmask" />
-                </div>
-              </form>
-              <form class="tab-pane" id="third" name="thirdForm" rc-submit rc-step>
-						<div class="form-group">
-							<label class="control-label">Prefix of VM Instance</label> <input
-								name="instance" class="form-control" type="text"
-								ng-model="instance" />
-						</div>
-						<fieldset ng-if="comType=='FCAPS' || comType=='OAM' || comType=='CM' || comType=='QOSAC'">
-						<legend>OAM VM</legend>
-						<div class="slide-animate" >
-							<div class="form-group">
-								<label class="control-label">IP Address</label> 
-								<input name="oam_vm" class="form-control" type="text" ng-model="oam_vm" />
-							</div>
-							<div class="form-group">
-								<label class="control-label">Flavor flavor</label> 
-								<select name="oam_flavor" ng-model="oam_flavor" class="form-control" ng-options="fl.label for fl in flavorStore[comType]['oam']">
-								<option value="">-- Please Select --</option></select>
-							</div>
-						</div>
-						</fieldset>
-
-						<fieldset ng-if="comType=='FCAPS' ||  comType=='CM' ">
-						<legend>CM VM</legend>
-						<div class="slide-animate" >
-							<div class="form-group">
-								<label class="control-label">IP Address</label>
-								 <input name="cm_vm" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" />
-							</div>
-							<div class="form-group">
-								<label class="control-label">Flavor flavor</label>
-								 <select name="cm_flavor" ng-model="vmconfig.cm_fl" class="form-control" ng-options="fl.name for fl in flavorStore">
-								 <option value="">-- Please Select --</option></select>
-							</div>
-						</div>
-						</fieldset>
-
-						<legend>DB VM</legend>
-						<div class="slide-animate" >
-							<div class="form-group">
-								<label class="control-label">IP Address</label> 
-								<input name="db_vm" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" />
-							</div>
-							<div class="form-group">
-								<label class="control-label">Flavor flavor</label> 
-								<select name="db_flavor" ng-model="db_flavor" class="form-control" ng-options="fl.label for fl in flavorStore[comType]['db']">
-									<option value="">-- Please Select --</option>
-								</select>
-							</div>
-						</div>
-                <h2>Image</h2>
-                <hr>
-                <div class="form-group">
-                  <label class="control-label">OAM/CM image</label>
-                  <select name="oam_cm_image" ng-model="installConfig.vm_config.oam.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">flavor</label>
-                  <select name="db_image" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
-                </div>
-              </form>
-              <form class="tab-pane" id="forth" name="forthForm" rc-submit rc-step>
-							<div class="form-group">
-								<label class="control-label">block_storage_avial</label> 
-								<input name="installConfig.block_storage_avail_zone.zoneA" class="form-control" type="text" ng-model="installConfig.block_storage_avail_zone.zoneA" />
-							</div>
-							<div class="form-group">
-								<label class="control-label">block_storage_avial</label> 
-								<input name="installConfig.block_storage_avail_zone.zoneB" class="form-control" type="text" ng-model="installConfig.block_storage_avail_zone.zoneB" />
-							</div>
-              </form>
-              <form class="tab-pane" id="fifth" name="fifthForm" rc-submit rc-step>
-                <span>To be continued</span>
-              </form>
+                  <select name="time_zone" ng-model="timezone" class="form-control" ng-options="t.Time for t in timezoneStore">
+                  </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Openstack RC File</label>
+                <input type="file" name="rc_file" ng-model="rcFile" class="form-control">
+              </div>
             </div>
+            <div class="tab-pane" id="tab2" name="tab2">
+              <div class="form-group">
+                <label class="control-label">Network</label>
+                <select name="network" ng-model="network" class="form-control" ng-options="n.name for n in networkStore">
+                </select>
+                {{network.id}}
+              </div>
+              <div class="form-group">
+                <label class="control-label">Sub Network</label>
+                <select name="sub_network" ng-model="subNetwork" class="form-control" ng-options="sn.name for sn in subNetworkStore">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Private Network</label>
+                <select name="private_network" ng-model="privateNetwork" class="form-control" ng-options="pn for pn in private_network">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Security Group</label>
+                <select name="security_group" ng-model="securityGroup" class="form-control" ng-options="sg.name for sg in securityGroup">
+                </select>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab3" name="tab3">
+              <div class="form-group">
+                <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM' || comType.Name=='QoSAC'">
+                  <legend>OAM VM</legend>
+                  <div class="form-group">
+                    <label class="control-label">IP Address</label> 
+                    <input name="oam_ip_address" class="form-control" type="text" ng-model="oamIpAddress" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Flavor</label>
+                    <select name="oam_flavor" ng-model="oamFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="oam_disk" class="form-control" type="text" ng-model="oamDisk" />
+                  </div>
+                </fieldset>
+                <fieldset ng-if="comType.Name=='FCAPS' ||  comType.Name=='CM'">
+                  <legend>CM VM</legend>
+                  <div class="form-group">
+                    <label class="control-label">IP Address</label> 
+                    <input name="cm_ip_address" class="form-control" type="text" ng-model="cmIpAddress" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Flavor</label>
+                    <select name="cm_flavor" ng-model="cmFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="cm_disk" class="form-control" type="text" ng-model="cmDisk" />
+                  </div>
+                </fieldset>
+                <fieldset ng-if="comType.Name=='FCAPS' ||  comType.Name=='CM' || comType.Name=='OAM'">
+                  <legend>DB VM</legend>
+                  <div class="form-group">
+                    <label class="control-label">IP Address</label> 
+                    <input name="db_ip_address" class="form-control" type="text" ng-model="dbIpAddress" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Flavor</label>
+                    <select name="db_flavor" ng-model="dbFlavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="db_disk" class="form-control" type="text" ng-model="dbDisk" />
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab4">
+              <div class="form-group">
+                <label class="control-label">Heat Version</label>
+                <select name="heat_version" ng-model="heatVersion" class="form-control" ng-options="hv for hv in heat_version">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Config Drive</label>
+                <select name="config_drive" ng-model="configDrive" class="form-control" ng-options="cd for cd in config_drive">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Stack Name</label>
+                <input name="stack_name" class="form-control" type="text" ng-model="stackName">
+              </div>
+              <div class="form-group">
+                <label class="control-label">Prefix of stack resource</label>
+                <input name="stack_resource" class="form-control" type="text" ng-model="stackResource">
+              </div>
+              <div class="form-group">
+                <label class="control-label">Compute Avail Zone</label>
+                <select name="compute_avail_zone" ng-model="computeAvailZone" class="form-control" ng-options="caz.zoneName for caz in computeAvailZoneStore">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Block Storage Avail Zone</label>
+                <select name="block_storage_avail_zone" ng-model="blockStorageAvailZone" class="form-control" ng-options="bsaz.zoneName for bsaz in computeAvailZoneStore">
+                </select>
+              </div>
+              <div class="form-group">
+                  <legend>Image</legend>
+                  <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM' || comType.Name=='QoSAC'">
+                    <label class="control-label">OAM/CM image</label>
+                    <select name="oamcm_image" ng-model="oamcmImage" class="form-control" ng-options="oi for oi in oamcm_image">
+                    </select>
+                  </fieldset>
+                  <fieldset ng-if="comType.Name=='FCAPS' || comType.Name=='OAM' || comType.Name=='CM'">
+                    <label class="control-label">DB image</label>
+                    <select name="db_image" ng-model="dbImage" class="form-control" ng-options="di for di in db_image">
+                    </select>
+                  </fieldset>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab5">
+              <div class="form-group">
+              <label class="control-label">To be continued</label>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab6">
+              <div class="form-group">
+              <label class="control-label">To be continued</label>
+              </div>
+            </div>
+          </div>
             <div class="form-group">
               <div class="pull-right">
                 <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
                 <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
-                   ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength" ng-disabled="firstForm.ahostIP.$dirty && firstForm.ahostIP.$invalid ||  
-      firstForm.shostIP.$dirty && firstForm.shostIP.$invalid">Continue</a>
+                   ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
               </div>
+              <br>
             </div>
           </div>
-        </div>
       </div>
     </div>
-</div><!-- /.modal -->
-</div>
-</div>
+  </div>
 </div>
