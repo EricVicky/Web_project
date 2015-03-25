@@ -19,6 +19,20 @@ angular.module('rest').factory('OSService', function($location, $resource, $log)
 				function (response) {
 					error(response);
 				});
+		},
+		deploy: function (config, success, error) {
+			var flavorRes = $resource(restUrl + "kvm/deployment");
+			flavorRes.save(
+				config,	
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
 		}
 	};
 }).factory('KVMService', function($location, $resource, $log) {

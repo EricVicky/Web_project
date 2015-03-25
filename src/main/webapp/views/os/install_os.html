@@ -41,15 +41,15 @@
                     rc-submit="saveState()" rc-step novalidate>
                 <div class="form-group">
                   <label class="control-label">COM Type</label>
-                  <select name="com_type" ng-model="comType" class="form-control" ng-options="t for t in com_types"><option value="">-- Please Select --</option></select>
+                  <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="t for t in com_types"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Support GR</label>
-                  <select name="gr" ng-model="gr" class="form-control" ng-options="g for g in gr_options"><option value="">-- Please Select --</option></select>
+                  <select name="gr" ng-model="installConfig.support_com_gr" class="form-control" ng-options="g for g in gr_options"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Timezone</label>
-                  <select name="time_zone" ng-model="timezone" class="form-control" ng-options="timezone for timezone in timezones"><option value="">-- Please Select --</option></select>
+                  <select name="time_zone" ng-model="installConfig.timezone" class="form-control" ng-options="timezone for timezone in timezones"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Active Host IP</label>
@@ -95,7 +95,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">Flavor flavor</label> 
-								<select name="oam_flavor" ng-model="oam_flavor" class="form-control" ng-options="fl.for fl in flavorStore[comType]['oam']">
+								<select name="oam_flavor" ng-model="oam_flavor" class="form-control" ng-options="fl.label for fl in flavorStore[comType]['oam']">
 								<option value="">-- Please Select --</option></select>
 							</div>
 						</div>
@@ -106,22 +106,21 @@
 						<div class="slide-animate" >
 							<div class="form-group">
 								<label class="control-label">IP Address</label>
-								 <input name="cm_vm" class="form-control" type="text" ng-model="cm_vm" />
+								 <input name="cm_vm" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">Flavor flavor</label>
-								 <select name="cm_flavor" ng-model="cm_flavor" class="form-control" ng-options="fl.name for fl in flavorStore">
+								 <select name="cm_flavor" ng-model="vmconfig.cm_fl" class="form-control" ng-options="fl.name for fl in flavorStore">
 								 <option value="">-- Please Select --</option></select>
 							</div>
 						</div>
 						</fieldset>
 
-						<fieldset ng-if="comType=='FCAPS' ||  comType=='CM' || comType=='OAM' ">
 						<legend>DB VM</legend>
 						<div class="slide-animate" >
 							<div class="form-group">
 								<label class="control-label">IP Address</label> 
-								<input name="db_vm" class="form-control" type="text" ng-model="db_vm" />
+								<input name="db_vm" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">Flavor flavor</label> 
@@ -130,20 +129,26 @@
 								</select>
 							</div>
 						</div>
-						</fieldset>
                 <h2>Image</h2>
                 <hr>
                 <div class="form-group">
                   <label class="control-label">OAM/CM image</label>
-                  <select name="oam_cm_image" ng-model="oam.cm.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
+                  <select name="oam_cm_image" ng-model="installConfig.vm_config.oam.image" class="form-control" ng-options="o.image for o in oam_cm_images"><option value="">-- Please Select --</option></select>
                 </div>
                 <div class="form-group">
-                  <label class="control-label">DB image</label>
-                  <select name="db_image" ng-model="db.image" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
+                  <label class="control-label">flavor</label>
+                  <select name="db_image" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="d.image for d in db_images"><option value="">-- Please Select --</option></select>
                 </div>
               </form>
               <form class="tab-pane" id="forth" name="forthForm" rc-submit rc-step>
-                <span>To be continued</span>
+							<div class="form-group">
+								<label class="control-label">block_storage_avial</label> 
+								<input name="installConfig.block_storage_avail_zone.zoneA" class="form-control" type="text" ng-model="installConfig.block_storage_avail_zone.zoneA" />
+							</div>
+							<div class="form-group">
+								<label class="control-label">block_storage_avial</label> 
+								<input name="installConfig.block_storage_avail_zone.zoneB" class="form-control" type="text" ng-model="installConfig.block_storage_avail_zone.zoneB" />
+							</div>
               </form>
               <form class="tab-pane" id="fifth" name="fifthForm" rc-submit rc-step>
                 <span>To be continued</span>
@@ -156,7 +161,7 @@
                 <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength" ng-disabled="firstForm.ahostIP.$dirty && firstForm.ahostIP.$invalid ||  
       firstForm.shostIP.$dirty && firstForm.shostIP.$invalid">Continue</a>
-                <a class="btn btn-primary" ng-click="rc.sampleWizard.forward()" 
+                <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
               </div>
             </div>

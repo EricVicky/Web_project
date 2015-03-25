@@ -14,5 +14,6 @@ public class CloudDeployController
     public void deploy( @RequestBody OSCOMConfig config)
     {
         System.out.print(config.toString());
+        
     }
 }
