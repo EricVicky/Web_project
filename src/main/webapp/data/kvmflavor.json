@@ -27,7 +27,7 @@
 				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6", "disk": "580"} 
  				 ]
         },
-        "QOSAC":{
+        "QoSAC":{
  			"oam": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2", "disk": "360"}, 
 				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3", "disk": "480"}, 
 				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6", "disk": "580"} 

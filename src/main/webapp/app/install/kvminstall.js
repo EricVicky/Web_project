@@ -1,31 +1,6 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
 		'rcForm', 'rest' ]);
 
-angular.module("rcWizard").directive({
-	  'rcStep': function () {
-		    return {
-		      restrict: 'A',
-		      require: ['^rcWizard', '?form', '?rcSubmit'],
-		      link: function (scope, element, attributes, controllers) {
-		        
-		        var wizardController = controllers[0];
-		        
-		        // find all the optional controllers for the step
-		        var formController = controllers.length > 3 ? controllers[3] : null;
-		        var submitController = controllers.length > 4 ? controllers[4] : null;
-		        
-		        // add the step to the wizard controller
-		        var step = wizardController.addStep({ 
-		          'element': element, 
-		          'attributes': attributes, 
-		          'formController': formController,
-		          'submitController': submitController });
-		      }
-		    };
-		  }
-}
-);
-
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 			$scope.user = {};
 			$scope.saveState = function() {
@@ -36,17 +11,23 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 				return deferred.promise;
 			};
 			$scope.completeWizard = function() {
+				$scope.deploy();
 				alert('Completed!');
 			}
-            $scope.ahostIP="IPV4/IPV6";
-            $scope.shostIP="IPV4/IPV6";
-            $scope.com_types = [ 'FCAPS', 'QOSAC', 'CM' ,'OAM' ];
-            $scope.gr_options = ['Yes' , 'No' ];
-            $scope.timezones = [ 'Asia/Shanghai' , 'American/New York' , 'London'];
-            $scope.oam_cm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
+            $scope.oamcm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server'];
             $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
-			//$('#myModal').modal('show');
-			(function (comType, vm){
+            $scope.installConfig ={};
+			$scope.deploy = function (){
+            	KVMService.deploy(
+                 		$scope.installConfig,
+            			function(data){
+            				$log.info(data);
+            			}, 
+            			function(response){
+            					$log.info(response);
+            			});
+            };
+			(function (){
             	KVMService.getFlavorStore(
             			function(data) {
             				$log.info(data);
@@ -55,5 +36,27 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             			function(response){
             				$log.error(response);
             			});
+            })();
+            (function (){
+            	KVMService.getComTypeStore(
+            			function(data) {
+            				$log.info(data);
+            				$scope.comTypeStore = data;
+            			}, 
+            			function(response){
+            				$log.error(response);
+            			}
+            	);
+            })();
+            (function (){
+            	KVMService.getTimezoneStore(
+            			function(data) {
+            				$log.info(data);
+            				$scope.timezoneStore = data;
+            			}, 
+            			function(response){
+            				$log.error(response);
+            			}
+            	);
             })();
 } );

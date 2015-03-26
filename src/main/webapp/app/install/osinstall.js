@@ -16,8 +16,8 @@ app.controller('osctr', function($scope, $q, $timeout, $log, OSService) {
 			}
             $scope.heat_version = [ 'juno' , 'icehouse','havana'];
             $scope.config_drive = [ 'True', 'False' ];
-            $scope.oamcm_image = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
-            $scope.db_image = [ 'Redhat+orac_client', 'Redhat+orac_server'];
+            $scope.oamcm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
+            $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
             $scope.private_network = [ 'True', 'False'];
             $scope.installConfig ={};
             $scope.deploy = function (){
@@ -25,12 +25,12 @@ app.controller('osctr', function($scope, $q, $timeout, $log, OSService) {
             			$scope.installConfig,
             			function(data){
             				$log.info(data);
-            				}, 
+            			}, 
             			function(response){
             					$log.info(response);
-            					});
+            			});
             };
-            (function (comType, vm){
+            (function (){
             	OSService.getFlavorStore(
             			function(data) {
             				$log.info(data);
