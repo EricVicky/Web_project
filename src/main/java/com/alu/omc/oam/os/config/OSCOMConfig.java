@@ -3,12 +3,15 @@ package com.alu.omc.oam.os.config;
 import java.io.Serializable;
 import java.util.Map;
 
+import com.alu.omc.oam.AnsibleVars;
+import com.alu.omc.oam.COMConfig;
 import com.alu.omc.oam.COMType;
 import com.alu.omc.oam.Environment;
+import com.alu.omc.oam.Inventory;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OSCOMConfig implements InstallConfig, Serializable
+public class OSCOMConfig extends COMConfig implements  Serializable
 {
 
     /**
@@ -355,6 +358,20 @@ public class OSCOMConfig implements InstallConfig, Serializable
     public void setVm_config(Map vm_config)
     {
         this.vm_config = vm_config;
+    }
+
+    @Override
+    public Inventory getInventory()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public AnsibleVars getVars()
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

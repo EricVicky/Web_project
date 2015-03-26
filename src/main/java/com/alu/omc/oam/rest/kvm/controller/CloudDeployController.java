@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alu.omc.oam.Action;
+import com.alu.omc.oam.PlaybookFactory;
 import com.alu.omc.oam.os.config.OSCOMConfig;
 
 @RestController
@@ -14,6 +16,7 @@ public class CloudDeployController
     public void deploy( @RequestBody OSCOMConfig config)
     {
         System.out.print(config.toString());
+        PlaybookFactory.getInstance().getPlaybook(Action.INSTALL, config);
         
     }
 }
