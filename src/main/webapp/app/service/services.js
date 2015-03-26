@@ -18,11 +18,12 @@ rest.factory('OSService', function($location, $resource, $log) {
 				// error
 				function (response) {
 					error(response);
-				});
+				}
+			);
 		},
 		deploy: function (config, success, error) {
-			var flavorRes = $resource(restUrl + "kvm/deployment");
-			flavorRes.save(config,
+			var deployRes = $resource(restUrl + "os/deployment");
+			deployRes.save(config,
 				function (data) {
 					$log.info(data);
 					success(data);
@@ -30,7 +31,8 @@ rest.factory('OSService', function($location, $resource, $log) {
 				// error
 				function (response) {
 					error(response);
-				});
+				}
+			);
 		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(baseUrl + "data/comType.json");
@@ -114,6 +116,46 @@ rest.factory('KVMService', function($location, $resource, $log) {
 		getFlavorStore: function (success, error) {
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
 			flavorRes.get(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		},
+		deploy: function (config, success, error) {
+			var deployRes = $resource(restUrl + "kvm/deployment");
+			deployRes.save(config,
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
+		getComTypeStore: function(success,error) {
+			var comTypeRes = $resource(restUrl + "data/comType.json");
+			comTypeRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		},
+		getTimezoneStore: function(success,error) {
+			var timezoneRes = $resource(baseUrl + "data/timezone.json");
+			timezoneRes.query(
 				// success
 				function (data) {
 					$log.info(data);
