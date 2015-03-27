@@ -122,6 +122,13 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 
 	@Override
 	public String getVars() {
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    while(it.hasNext()){
+	        String name = it.next();
+	        @SuppressWarnings("unchecked")
+            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name));
+	    }
 		Yaml yaml = new Yaml();
         return yaml.dump(this);	
 	}
