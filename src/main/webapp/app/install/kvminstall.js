@@ -14,9 +14,35 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 				$scope.deploy();
 				alert('Completed!');
 			}
-            $scope.oamcm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server'];
-            $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
-            $scope.installConfig ={};
+            $scope.installConfig ={
+            		comType: "FCAPS",
+            		deployment_prefix: "sun",
+            		host_ip: "135.251.236.98",
+            		support_gr: false,
+            		timezone: "Africa/Casablanca",
+            		vm_config: {
+            		  oam:{
+            		    ip_address: "10.223.0.50",
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    netmask: "255.255.255.240",
+            		    gateway: "10.223.0.62",
+            		  },
+            		  db:{
+            		    ip_address: "10.223.0.54",
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    netmask: "255.255.255.240",
+            		    gateway: "10.223.0.62",
+            		  },
+            		  cm:{
+            		    ip_address: "135.251.236.105",
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    netmask: "255.255.255.240",
+            		    gateway: "135.251.236.110",
+            		    hostname: "sun-cm-1"
+            		  }
+            		}
+
+            };
 			$scope.deploy = function (){
             	KVMService.deploy(
                  		$scope.installConfig,

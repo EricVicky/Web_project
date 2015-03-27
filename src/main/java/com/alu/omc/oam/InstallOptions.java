@@ -12,8 +12,8 @@ public class InstallOptions
 {
     private static Map  opMap  = new HashMap();
     private final static String INSTALL_OPTIONS_JSOM_FILE = "install_option_map.json";
-    static
-    {
+
+    public static String get(COMType comType, String vm){
         try
         {
             URI uri = InstallOptions.class.getResource(INSTALL_OPTIONS_JSOM_FILE).toURI();
@@ -24,10 +24,7 @@ public class InstallOptions
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-    
-    public static String get(COMType comType, String vm){
-        Map<String, String> comTypeOptions = (Map)opMap.get(comType);
+        Map<String, String> comTypeOptions = (Map)opMap.get(comType.toString());
         return comTypeOptions.get(vm);
 
     }
