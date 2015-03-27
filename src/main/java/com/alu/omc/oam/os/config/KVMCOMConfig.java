@@ -1,6 +1,7 @@
 package com.alu.omc.oam.os.config;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
@@ -8,6 +9,8 @@ import org.yaml.snakeyaml.Yaml;
 import com.alu.omc.oam.COMConfig;
 import com.alu.omc.oam.COMType;
 import com.alu.omc.oam.Environment;
+import com.alu.omc.oam.Group;
+import com.alu.omc.oam.Host;
 import com.alu.omc.oam.Inventory;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
@@ -21,7 +24,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private Map vm_config;
 	private boolean support_gr;
 	private String timezone;
-	private String active_host_ip;
+	private String host_ip;
 	private String deployment_prefix;
 	
 	
@@ -46,12 +49,12 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 		this.deployment_prefix = deployment_prefix;
 	}
 
-	public String getActive_host_ip() {
-		return active_host_ip;
+	public String getHost_ip() {
+		return host_ip;
 	}
 
-	public void setActive_host_ip(String active_host_ip) {
-		this.active_host_ip = active_host_ip;
+	public void setHost_ip(String host_ip) {
+		this.host_ip = host_ip;
 	}
 	
     public String getTimezone() {
@@ -96,8 +99,25 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 
 	@Override
 	public Inventory getInventory() {
-		// TODO Auto-generated method stub
-		return null;
+	    Inventory inv = new Inventory();
+	    Group hostg = new Group("host");
+	    hostg.add(new Host(this.host_ip));
+	    inv.addGroup(hostg);
+	    @SuppressWarnings("unchecked")
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    Group allVM = new Group("allvm");
+	    inv.addGroup(allVM);
+	    while(it.hasNext()){
+	        String name = it.next();
+	        @SuppressWarnings("unchecked")
+            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        String ipAddress = vmcfg.get("ip_address");
+	        Group g = new Group(name);
+	        allVM.add(g);
+	        g.add(new Host(ipAddress));
+	        inv.addGroup(g);
+	    }
+		return inv;
 	}
 
 	@Override
