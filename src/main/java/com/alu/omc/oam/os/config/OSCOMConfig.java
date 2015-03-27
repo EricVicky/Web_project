@@ -3,7 +3,8 @@ package com.alu.omc.oam.os.config;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.alu.omc.oam.AnsibleVars;
+import org.yaml.snakeyaml.Yaml;
+
 import com.alu.omc.oam.COMConfig;
 import com.alu.omc.oam.COMType;
 import com.alu.omc.oam.Environment;
@@ -368,10 +369,10 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     }
 
     @Override
-    public AnsibleVars getVars()
+    public String getVars()
     {
-        // TODO Auto-generated method stub
-        return null;
+    	Yaml yaml = new Yaml();
+        return yaml.dump(this);
     }
 
 
