@@ -105,7 +105,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	    inv.addGroup(hostg);
 	    @SuppressWarnings("unchecked")
         Iterator<String> it = vm_config.keySet().iterator(); 
-	    Group allVM = new Group("allvm");
+	    Group allVM = new Group("allvm:children");
 	    inv.addGroup(allVM);
 	    while(it.hasNext()){
 	        String name = it.next();
@@ -127,7 +127,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name));
+	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name).concat("-1"));
 	    }
 		Yaml yaml = new Yaml();
         return yaml.dump(this);	
