@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>COM admin tool</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,8 +59,17 @@
 
 </head>
 <body ng-app="comoam">
-	<div class="modal-dialog">
-		<div ui-view></div>
+	<div class="center">
+		<h3>Click the button to start install</h3>
+	</div>
+	<div class="center">
+		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#start" data-backdrop="static">START</button>
+	</div>
+
+	<div class="modal fade" id="start" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div ui-view></div>
+		</div>
 	</div>
 </body>
 </html>

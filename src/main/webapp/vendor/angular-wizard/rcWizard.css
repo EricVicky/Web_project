@@ -11,6 +11,10 @@
   }
   body{
     padding-right: 180px;
+    width:auto;
+    position: absolute;
+    padding: 200px 100px 100px 400px;
+    background-color: "red";
   }
   .bwizard-steps .active:after {
     border-left-color: #007ACC 
@@ -111,7 +115,7 @@
 .bwizard-steps.clickable li:hover:not(.active) a {
   color: #08c;
 }
-@media (max-width: 1024px) { 
+@media (min-width: @screen-md-min) { 
   /* badges only on small screens */
   .bwizard-steps li:after,
   .bwizard-steps li:before {
@@ -128,6 +132,7 @@
 }
 
 .modal-dialog {
-  width: 770px;
+  width: auto;
+
 }
 
