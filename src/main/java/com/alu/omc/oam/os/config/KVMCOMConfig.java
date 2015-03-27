@@ -12,6 +12,7 @@ import com.alu.omc.oam.Environment;
 import com.alu.omc.oam.Group;
 import com.alu.omc.oam.Host;
 import com.alu.omc.oam.Inventory;
+import com.alu.omc.oam.util.YamlFormatterUtil;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
 	  
@@ -130,7 +131,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name).concat("-1"));
 	    }
 		Yaml yaml = new Yaml();
-        return yaml.dump(this);	
+        return YamlFormatterUtil.format(yaml.dump(this));	
 	}
     
 
