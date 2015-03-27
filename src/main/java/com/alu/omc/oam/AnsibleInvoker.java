@@ -12,7 +12,7 @@ public class AnsibleInvoker
     {
         Ansibleworkspace workspace =  new Ansibleworkspace();
         String command = ANSIBLE_COMMAND.concat(pc.prepare(workspace));
-        CommandExec commandExec = new CommandExec("ansible-playbook -i hosts.sun.bak --tags prepare site.yml >> logfile", null, null, new File(workspace.getWorkingdir()));
+        CommandExec commandExec = new CommandExec("ansible-playbook -i hosts --tags prepare site.yml > logfile", null, null, new File(workspace.getWorkingdir()));
         commandExec.execute();
     }
     
