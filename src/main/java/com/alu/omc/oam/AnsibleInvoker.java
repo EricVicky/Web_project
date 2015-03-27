@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.alu.omc.oam.util.CommandExec;
+import com.alu.omc.oam.util.CommandResult;
 
 public class AnsibleInvoker
 {
@@ -12,7 +13,7 @@ public class AnsibleInvoker
     {
         Ansibleworkspace workspace =  new Ansibleworkspace();
         String command = ANSIBLE_COMMAND.concat(pc.prepare(workspace));
-        CommandExec commandExec = new CommandExec("ansible-playbook -i hosts --tags prepare site.yml > logfile", null, null, new File(workspace.getWorkingdir()));
+        CommandExec commandExec = new CommandExec(command, null, null, new File(workspace.getWorkingdir()));
         commandExec.execute();
     }
     
