@@ -13,7 +13,7 @@ public class PlaybookCall
 private Playbook playbook;
 private String parameter;
 private Inventory inventory;
-private AnsibleVars vars;
+private String vars;
 private final String VAR_FILE_NAME = "group_vars/all";
 private final String HOSTS_FILE_NAME = "hosts";
 
@@ -25,7 +25,7 @@ public PlaybookCall(COMConfig config, Action action){
 public String prepare(Ansibleworkspace space){
     try
     {
-        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(VAR_FILE_NAME)), this.vars.toYaml());
+        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(VAR_FILE_NAME)), this.vars);
         FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)),this.inventory.toInf()); 
     }
     catch (IOException e)
