@@ -11,6 +11,7 @@ import com.alu.omc.oam.COMType;
 import com.alu.omc.oam.Environment;
 import com.alu.omc.oam.Group;
 import com.alu.omc.oam.Host;
+import com.alu.omc.oam.InstallOptions;
 import com.alu.omc.oam.Inventory;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
@@ -128,6 +129,8 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
 	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name));
+	        String istoption = InstallOptions.get(this.getComType(), name);
+	        vmcfg.put("install_options", istoption );
 	    }
 		Yaml yaml = new Yaml();
         return yaml.dump(this);	
