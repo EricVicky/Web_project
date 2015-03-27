@@ -1,0 +1,19 @@
+{
+"FCAPS":{
+	"oam": "install_options_FCAPS_oamvm.j2",
+	"cm": "install_options_FCAPS_cmvm.j2",
+	"db": "install_options_FCAPS_dbvm.j2"
+},
+"CM":{
+	"oam": "install_options_CM_oamvm.j2",
+	"cm": "install_options_CM_cmvm.j2",
+	"db": "install_options_CM_dbvm.j2"
+},
+"OAM":{
+	"oam": "install_options_OAM_oamvm.j2",
+	"db": "install_options_OAM_dbvm.j2"
+},
+"QoSAC":{
+	"oam": "install_options_QoSAC_oamvm.j2"
+}
+}
