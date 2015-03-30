@@ -18,7 +18,10 @@
   .modal-body {
     position: relative;
     padding: 10px;
-}
+  }
+  .nav-pills > li > a {
+    border-radius: 4px 0px 0px 4px;
+  }
   .bwizard-steps .active:after {
     border-left-color: #007ACC 
   }
@@ -44,7 +47,7 @@
   .bwizard-steps li {
     display: inline-block; 
     position: relative;
-    margin-right: 10px;
+    margin-right: 5px;
     *display: inline;
     *padding-left: 17px;
     background: #efefef;
@@ -92,11 +95,11 @@
   }
   .bwizard-steps li:after {
     position: absolute;
-    right: -20px; 
+    right: -19px; 
     top: 0;
     height: 0; 
     width: auto;
-    border-bottom: 20px inset transparent;
+    border-bottom: 21px inset transparent;
     border-left: 20px solid #efefef;
     border-top: 20px inset transparent;
     content: "";

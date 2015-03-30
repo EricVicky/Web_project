@@ -17,8 +17,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             $scope.installConfig ={
             		comType: "FCAPS",
             		deployment_prefix: "sun",
-            		host_ip: "135.251.236.98",
-            		support_gr: false,
+            		active_host_ip: "135.251.236.98",
             		timezone: "Africa/Casablanca",
             		vm_config: {
             		  oam:{
