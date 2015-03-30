@@ -1,7 +1,7 @@
 'use strict';
-var websocket = angular.module('orchWebsocket', []);
+var websocket = angular.module('websocket', []);
 
-websocket.factory('OrchWebsocketService', function($log) {
+websocket.factory('websocketService', function($log) {
 
 	var parentUrl = parent.window.location.href;
 	var baseUrl = parentUrl.split("#", 1)[0];

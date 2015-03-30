@@ -1,5 +1,5 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', 'rest' ]);
+		'rcForm', 'rest', 'websocket' ]);
 
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 			$scope.user = {};
@@ -43,11 +43,21 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             		}
 
             };
+            
+            $scope.logtail = function(data){
+        		$scope.socket = WebsocketService.connect("/comoam", function(socket) {
+        			socket.stomp.subscribe('/log/tail', $scope.showlog);
+        		})
+            }
+            
+            $scope.showlog= function(data){
+            	$log.info(data);
+            }
 			$scope.deploy = function (){
             	KVMService.deploy(
                  		$scope.installConfig,
             			function(data){
-            				$log.info(data);
+                 			$scope.logtail(data);
             			}, 
             			function(response){
             					$log.info(response);

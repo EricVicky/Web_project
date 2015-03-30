@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
- xmlns:context="http://www.springframework.org/schema/context"
- xmlns:mvc="http://www.springframework.org/schema/mvc"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:websocket="http://www.springframework.org/schema/websocket"
- xmlns:p="http://www.springframework.org/schema/p"
- xmlns:jee="http://www.springframework.org/schema/jee"
- xmlns:aop="http://www.springframework.org/schema/aop"
- xsi:schemaLocation="
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
@@ -20,5 +18,37 @@
 		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
         http://www.springframework.org/schema/websocket
         http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd">
-  
+
+	<!-- TODO: the initialization should be in sequence, the common should be 
+		initialized first! -->
+	<context:component-scan
+		base-package="com.alu.omc.oam" />
+	<mvc:annotation-driven />
+
+	<aop:aspectj-autoproxy />
+	<websocket:message-broker
+		application-destination-prefix="/app">
+
+		<websocket:stomp-endpoint path="/oam">
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+
+		<websocket:simple-broker prefix="/log, /topic" />
+
+	</websocket:message-broker>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>i18n/messages</value>
+				<value>i18n/platform</value>
+				<value>i18n/configuration</value>
+				<value>i18n/xmccommon</value>
+				<value>i18n/nemgt</value>
+			</list>
+		</property>
+
+	</bean>
+
 </beans>
