@@ -15,6 +15,8 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 				alert('Completed!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
+			var count=0;
+
             $scope.installConfig ={
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",

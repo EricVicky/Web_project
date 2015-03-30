@@ -10,6 +10,7 @@
       <div ng-controller="kvmctr" rc-wizard="sampleWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
+          <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
             <ul class="bwizard-steps">
               <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
               <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Image</a></li>
@@ -17,7 +18,6 @@
               <li><a href="#tab4" data-toggle="tab"><span class="label">4</span>Deploy</a></li>
               <li><a href="#tab5" data-toggle="tab"><span class="label">5</span>Post validation</a></li>
             </ul>
-          <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
           <div class="modal-body">
           <div class="tab-content">
           <div class="carousel-inner">
@@ -124,7 +124,7 @@
             </div>
             <div class="item">
             <div class="tab-pane" id="tab5">
-              <div class="form-group">
+              <div ng-controller="kvmctr" class="form-group">
               <label class="control-label">To be continued</label>
               </div>
             </div>
@@ -132,19 +132,19 @@
           </div>
           </div>
           </div>
-          </div>
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" data-target="#myCarousel" data-slide="prev" ng-click="rc.sampleWizard.backward()"
+                <a ng-controller="kvmctr" class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-target="#myCarousel" data-slide="next" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
+                <a ng-controller="kvmctr" class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
               </div>
               <br>
             </div>
+          </div>
           </div>
           </div>
         </section>
