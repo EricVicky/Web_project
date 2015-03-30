@@ -3,19 +3,31 @@ package com.alu.omc.oam;
 import java.io.File;
 import java.io.IOException;
 
-import com.alu.omc.oam.util.CommandExec;
-import com.alu.omc.oam.util.CommandResult;
+import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.alu.omc.oam.util.CommandExec;
+
+@Component
+@Scope(value="prototype")
 public class AnsibleInvoker
 {
     private static final String ANSIBLE_COMMAND = "ansible-playbook ";
+    @Resource
+    private Ansibleworkspace ansibleworkspace;
     public void invoke(PlaybookCall pc) throws IOException, InterruptedException
     {
-        Ansibleworkspace workspace =  new Ansibleworkspace();
-        String command = ANSIBLE_COMMAND.concat(pc.prepare(workspace));
-        CommandExec commandExec = new CommandExec(command, null, null, new File(workspace.getWorkingdir()));
+        String command = ANSIBLE_COMMAND.concat(pc.prepare(ansibleworkspace));
+        CommandExec commandExec = new CommandExec(command, null, null, new File(ansibleworkspace.getWorkingdir()));
         commandExec.execute();
     }
+    
+    public File getLogFile(){
+        return ansibleworkspace.getLogFile();
+    }
+    
     
     
     
