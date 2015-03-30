@@ -42,13 +42,11 @@
             <div class="tab-pane" id="tab2" name="tab2">
               <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                     <label class="control-label">OAM/CM image</label>
-                    <select name="oamcm_image" ng-model="oamcm_image" class="form-control" ng-options="oi for oi in oamcm_images">
-                    </select>
+                    <input name="oam_cm_image" class="form-control" type="text" ng-model="installConfig.oam_cm_image" />
                   </fieldset>
                   <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
                     <label class="control-label">DB image</label>
-                    <select name="db_image" ng-model="db_image" class="form-control" ng-options="di for di in db_images">
-                    </select>
+                    <input name="db_image" class="form-control" type="text" ng-model="installConfig.db_image" />
               </fieldset>
             </div>
             <div class="tab-pane" id="tab3" name="tab3">

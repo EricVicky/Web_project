@@ -11,7 +11,10 @@ import com.alu.omc.oam.COMType;
 import com.alu.omc.oam.Environment;
 import com.alu.omc.oam.Group;
 import com.alu.omc.oam.Host;
+import com.alu.omc.oam.InstallOptions;
 import com.alu.omc.oam.Inventory;
+import com.alu.omc.oam.VMType;
+import com.alu.omc.oam.util.YamlFormatterUtil;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
 	  
@@ -26,6 +29,8 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private String timezone;
 	private String host_ip;
 	private String deployment_prefix;
+	private String oam_cm_image;
+	private String db_image;
 	
 	
 	@Override
@@ -105,7 +110,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	    inv.addGroup(hostg);
 	    @SuppressWarnings("unchecked")
         Iterator<String> it = vm_config.keySet().iterator(); 
-	    Group allVM = new Group("allvm");
+	    Group allVM = new Group("allvm:children");
 	    inv.addGroup(allVM);
 	    while(it.hasNext()){
 	        String name = it.next();
@@ -127,14 +132,41 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name));
+	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(name).concat("-1"));
+	        String istoption = InstallOptions.get(this.getComType(), name);
+	        vmcfg.put("install_options", istoption );
+	        vmcfg.put("imgname", this.getVMImageName(name));
 	    }
 		Yaml yaml = new Yaml();
-        return yaml.dump(this);	
+        return YamlFormatterUtil.format(yaml.dump(this));	
 	}
-    
 
+    public String getOam_cm_image()
+    {
+        return oam_cm_image;
+    }
+
+    public void setOam_cm_image(String oam_cm_image)
+    {
+        this.oam_cm_image = oam_cm_image;
+    }
+
+    public String getDb_image()
+    {
+        return db_image;
+    }
+
+    public void setDb_image(String db_image)
+    {
+        this.db_image = db_image;
+    }
     
-    
+    private String getVMImageName(String vmname){
+       if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
+           return this.oam_cm_image;
+       }else{
+           return this.db_image;
+       }
+    }
     
 }

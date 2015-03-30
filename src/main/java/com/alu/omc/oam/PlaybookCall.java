@@ -34,7 +34,7 @@ public String prepare(Ansibleworkspace space){
         e.printStackTrace();
         return null;
     }
-    return this.playbook.getFilePath(space);
+    return "-i " + space.getWorkingdir() + HOSTS_FILE_NAME + " --tags prepare " + this.playbook.getFilePath(space);
 }
 
 }
