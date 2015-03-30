@@ -10,7 +10,6 @@
       <div ng-controller="kvmctr" rc-wizard="sampleWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
-          <div class="modal-body">
             <ul class="bwizard-steps">
               <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
               <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Image</a></li>
@@ -18,7 +17,11 @@
               <li><a href="#tab4" data-toggle="tab"><span class="label">4</span>Deploy</a></li>
               <li><a href="#tab5" data-toggle="tab"><span class="label">5</span>Post validation</a></li>
             </ul>
+          <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+          <div class="modal-body">
           <div class="tab-content">
+          <div class="carousel-inner">
+            <div class="active item">
             <div class="tab-pane" id="tab1" name="tab1">
               <div class="form-group">
                 <label class="control-label">COM Type</label>
@@ -39,6 +42,8 @@
                   <input name="deployment_prefix" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of VM Instance"/>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab2" name="tab2">
               <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                     <label class="control-label">OAM/CM image</label>
@@ -49,6 +54,8 @@
                     <input name="db_image" class="form-control" type="text" ng-model="installConfig.db_image" title="DB image"/>
               </fieldset>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab3" name="tab3">
               <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                   <legend>OAM VM</legend>
@@ -95,6 +102,11 @@
                     <select name="cm_flavor" ng-model="installConfig.vm_config.cm.flavor" class="form-control" ng-options="fl.label for fl in flavorStore[installConfig.comType]['cm']" title="Flavor">
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label class="control-label">Support ARS</label> 
+                    <select name="support_ars" class="form-control" type="text" ng-model="installConfig.vm_config.cm.support_ars" ng-options="sa for sa in support_ars" title="Support ARS">
+                    </select>
+                  </div>
                   <h4>Network:</h4>
                     <label class="control-label">netmask</label>
                     <input name="cm_netmask" class="form-control" type="text" ng-model="installConfig.vm_config.cm.netmask" title="netmask"/>
@@ -102,24 +114,31 @@
                     <input name="cm_gateway" class="form-control" type="text" ng-model="installConfig.vm_config.cm.gateway" title="gateway"/>
               </fieldset>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab4">
               <div class="form-group">
               <label class="control-label">To be continued</label>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab5">
               <div class="form-group">
               <label class="control-label">To be continued</label>
               </div>
             </div>
+            </div>
+          </div>
+          </div>
           </div>
           </div>
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
+                <a class="btn btn-default" data-target="#myCarousel" data-slide="prev" ng-click="rc.sampleWizard.backward()"
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
+                <a class="btn btn-primary" data-target="#myCarousel" data-slide="next" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>

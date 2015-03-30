@@ -14,11 +14,10 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 				$scope.deploy();
 				alert('Completed!');
 			}
+			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
-            		comType: "FCAPS",
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",
-            		timezone: "Africa/Casablanca",
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
