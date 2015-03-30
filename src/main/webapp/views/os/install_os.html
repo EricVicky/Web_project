@@ -1,5 +1,5 @@
 <div class="modal-content col-md-8 col-md-offset-1" style="width: 920px">
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-8" style="width: 900px">
       <div class="modal-header">
@@ -10,6 +10,7 @@
       <div ng-controller="osctr" rc-wizard="sampleWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
+          <div class="modal-body">
             <ul class="bwizard-steps">
               <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
               <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Network</a></li>
@@ -158,6 +159,8 @@
               </div>
             </div>
           </div>
+          </div>
+          <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
                 <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
@@ -169,6 +172,7 @@
               </div>
               <br>
             </div>
+          </div>
           </div>
         </section>
       </div>
