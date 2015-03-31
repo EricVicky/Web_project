@@ -19,20 +19,25 @@ public class Ansibleworkspace
         return workingDir;
     }
 
-    public Ansibleworkspace()
-    {
-        this.workingDir = workDirRoot.concat(String.valueOf(new Date()
-                .getTime()));
-    }
-
     public Ansibleworkspace(String workingDir)
     {
         this.workingDir = workingDir;
     }
 
-    public File getLogFile()
+    public String getWorkDirRoot()
     {
-        return new File(this.workingDir.concat("/").concat(this.logFileName));
+        return workDirRoot;
     }
 
+    public Ansibleworkspace()
+    {
+        this.workingDir = workDirRoot.concat(
+                String.valueOf(new Date().getTime())).concat(File.separator);
+    }
+
+    public File getLogFile()
+    {
+        return new File(this.workingDir.concat(File.separator).concat(
+                this.logFileName));
+    }
 }
