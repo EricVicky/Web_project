@@ -12,14 +12,21 @@ import org.springframework.stereotype.Component;
 public class Ansibleworkspace
 {
     @Value("${ansible.workspace}")
-    String workDirRoot ;
-    String       workingDir  = workDirRoot;
+    String workDirRoot;
+    String workingDir = workDirRoot;
     @Value("${ansible.log}")
-    String       logFileName;
+    String logFileName;
 
     public String getWorkingdir()
     {
-        return workingDir;
+        if (this.workingDir == null)
+        {
+            this.workingDir = workDirRoot.concat(
+                    String.valueOf(new Date().getTime()))
+                    .concat(File.separator);
+
+        }
+        return this.workingDir;
     }
 
     public Ansibleworkspace(String workingDir)
@@ -34,13 +41,11 @@ public class Ansibleworkspace
 
     public Ansibleworkspace()
     {
-        this.workingDir = workDirRoot.concat(
-                String.valueOf(new Date().getTime())).concat(File.separator);
     }
 
     public File getLogFile()
     {
-        return new File(this.workingDir.concat(File.separator).concat(
+        return new File(this.getWorkingdir().concat(File.separator).concat(
                 this.logFileName));
     }
 }
