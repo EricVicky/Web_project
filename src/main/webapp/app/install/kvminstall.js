@@ -2,7 +2,7 @@ var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard'
 		'rcForm', 'rest', 'websocket' ]);
 
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
-			$scope.user = {};
+			var count=0;
 			$scope.saveState = function() {
 				var deferred = $q.defer();
 				$timeout(function() { 
@@ -15,8 +15,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 				alert('Completed!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
-			var count=0;
-
             $scope.installConfig ={
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",
@@ -96,3 +94,26 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             	);
             })();
 } );
+
+app.directive('userValidator', ['$log', function($log) {
+      return {
+          restrict: 'A',
+          require: 'ngModel',
+          link: function($scope, $element, $attrs, $ngModelCtrl) {
+              var verifyRule = [/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/];
+              var verify = function(input) {
+                  return (verifyRule[0].test(input));
+              };
+              $ngModelCtrl.$parsers.push(function(input) {
+                  var validity = verify(input);
+                  $ngModelCtrl.$setValidity('defined', validity);
+                  return validity ? input : false;
+              });
+              $ngModelCtrl.$formatters.push(function(input) {
+                  var validity = verify(input);
+                  $ngModelCtrl.$setValidity('defined', validity);
+                  return validity ? input : false;
+              })
+          }
+      }
+    }]);
