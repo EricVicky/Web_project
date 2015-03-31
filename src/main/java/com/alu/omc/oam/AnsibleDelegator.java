@@ -15,10 +15,11 @@ public class AnsibleDelegator
 {
     @Resource
     WebsocketSender websocketSender;
+    @Resource
+    AnsibleInvoker ansibleInvoker;
 
     public void execute(Action action, COMConfig config){
         PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
-        AnsibleInvoker ansibleInvoker = new AnsibleInvoker();
         Tailer.create(ansibleInvoker.getLogFile(), new Loglistener(websocketSender), 5000);
         try
         {

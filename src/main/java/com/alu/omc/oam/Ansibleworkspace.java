@@ -14,8 +14,13 @@ public class Ansibleworkspace
  String workingDir = workDirRoot;
  String logFileName = "log.txt";
  public String getWorkingdir(){
-     return workingDir ;
+     return workingDir;
  }
+ 
+ public String getWorkDirRoot() {
+	 return workDirRoot;
+ }
+ 
  public  Ansibleworkspace(){
     this.workingDir = workDirRoot.concat(String.valueOf(new Date().getTime())); 
  }
