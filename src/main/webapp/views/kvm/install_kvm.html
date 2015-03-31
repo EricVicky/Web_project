@@ -135,9 +135,9 @@
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a ng-controller="kvmctr" class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
+                <a class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a ng-controller="kvmctr" class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
+                <a class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
