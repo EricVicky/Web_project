@@ -1,9 +1,11 @@
 package com.alu.omc.oam;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.Tailer;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +17,16 @@ public class AnsibleDelegator
 {
     @Resource
     WebsocketSender websocketSender;
-
+    @Resource
+    IAnsibleInvoker ansibleInvoker; 
     public void execute(Action action, COMConfig config){
         PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
-        AnsibleInvoker ansibleInvoker = new AnsibleInvoker();
-        Tailer.create(ansibleInvoker.getLogFile(), new Loglistener(websocketSender), 5000);
         try
         {
+            //for test only
+            mockAnsibleInvoker();
             ansibleInvoker.invoke(playbookCall);
+            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 5000);
         }
         catch (IOException e)
         {
@@ -34,5 +38,55 @@ public class AnsibleDelegator
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
+    } 
+    
+    private void mockAnsibleInvoker(){
+        ansibleInvoker = new IAnsibleInvoker() {
+            @Override
+            public void invoke(PlaybookCall pc) throws IOException,
+                    InterruptedException
+            {
+              final File logFile = this.getWorkSpace().getLogFile();  
+              new Thread(new Runnable(){
+
+                @Override
+                public void run()
+                {
+                    int i = 1;
+                    while(true){
+                        try
+                        {
+                            FileUtils.writeStringToFile(logFile, "line"+i, true);
+                            try
+                            {
+                                Thread.sleep(3000L);
+                            }
+                            catch (InterruptedException e)
+                            {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                        catch (IOException e)
+                        {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                  
+              }).start();
+            }
+
+            @Override
+            public Ansibleworkspace getWorkSpace()
+            {
+                System.out.println("log file path=" + new File("./").getAbsolutePath());
+                Ansibleworkspace workspace = new Ansibleworkspace("./"); 
+                return workspace ;
+            }
+            
+        };
+        
     } 
 }

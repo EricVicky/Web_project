@@ -1,7 +1,7 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
 		'rcForm', 'rest', 'websocket' ]);
 
-app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
+app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
 			$scope.user = {};
 			$scope.saveState = function() {
 				var deferred = $q.defer();
@@ -43,7 +43,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             };
             
             $scope.logtail = function(data){
-        		$scope.socket = WebsocketService.connect("/comoam", function(socket) {
+        		$scope.socket = websocketService.connect("/oam", function(socket) {
         			socket.stomp.subscribe('/log/tail', $scope.showlog);
         		})
             }

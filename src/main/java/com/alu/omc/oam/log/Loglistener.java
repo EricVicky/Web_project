@@ -9,7 +9,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 public class Loglistener implements TailerListener
 {
     WebsocketSender sender;
-    String topic = "log";
+    String topic = "/log/tail";
     
     @Override
     public void init(Tailer paramTailer)

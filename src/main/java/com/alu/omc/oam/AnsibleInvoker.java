@@ -12,7 +12,7 @@ import com.alu.omc.oam.util.CommandExec;
 
 @Component
 @Scope(value="prototype")
-public class AnsibleInvoker
+public class AnsibleInvoker implements IAnsibleInvoker
 {
     private static final String ANSIBLE_COMMAND = "ansible-playbook ";
     @Resource
@@ -24,8 +24,11 @@ public class AnsibleInvoker
         commandExec.execute();
     }
     
-    public File getLogFile(){
-        return ansibleworkspace.getLogFile();
+    @Override
+    public Ansibleworkspace getWorkSpace()
+    {
+        // TODO Auto-generated method stub
+        return ansibleworkspace;
     }
     
     
