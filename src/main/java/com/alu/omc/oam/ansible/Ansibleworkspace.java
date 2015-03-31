@@ -1,6 +1,7 @@
 package com.alu.omc.oam.ansible;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +42,8 @@ public class Ansibleworkspace
 
     public Ansibleworkspace()
     {
+        this.workingDir = workDirRoot.concat(
+        		new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS").format(new Date())).concat(File.separator);
     }
 
     public File getLogFile()
