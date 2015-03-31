@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alu.omc.oam.Action;
-import com.alu.omc.oam.AnsibleDelegator;
-import com.alu.omc.oam.Playbook;
-import com.alu.omc.oam.PlaybookFactory;
-import com.alu.omc.oam.os.config.KVMCOMConfig;
-import com.alu.omc.oam.os.config.OSCOMConfig;
+import com.alu.omc.oam.ansible.AnsibleDelegator;
+import com.alu.omc.oam.ansible.Playbook;
+import com.alu.omc.oam.ansible.PlaybookFactory;
+import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.OSCOMConfig;
 
 @RestController
 public class CloudDeployController

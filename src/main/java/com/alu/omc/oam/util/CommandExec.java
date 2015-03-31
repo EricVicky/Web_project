@@ -26,7 +26,7 @@ import java.io.InputStreamReader;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class CommandExec {
+public class CommandExec implements ICommandExec {
 
     private Runtime runtime = Runtime.getRuntime();
     private String command;

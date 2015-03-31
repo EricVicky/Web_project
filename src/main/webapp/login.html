@@ -9,7 +9,7 @@ body {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
-  background: #ffffff url('../../../images/login/logo-splash.png') no-repeat center 30px;
+  background: #ffffff url('../images/login/logo-splash.png') no-repeat center 30px;
   position: absolute;
   top: 80px;
   left: 50%;
@@ -63,8 +63,8 @@ body {
 
 		<form class="form-signin" role="form" ng-controller="logincontroller">
 			<div class="alert alert-danger" style="height: 40px" role="alert" ng-show="isShow">Invalid username and password</div>
-			<input type="text" class="form-control" placeholder="UserName" required autofocus  value="{{_user.username}}"> <br />
-			<input type="password" class="form-control" placeholder="Password" required  value="{{_user.password}}">
+			<input type="text" class="form-control" placeholder="UserName" required autofocus  value="{{loginInfo.username}}"> <br />
+			<input type="password" class="form-control" placeholder="Password" required  value="{{loginInfo.password}}">
 			<div class="checkbox">
 				<label> <input type="checkbox" value="remember-me" />Remember me
 				</label>
