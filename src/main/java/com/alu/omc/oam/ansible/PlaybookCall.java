@@ -1,4 +1,4 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.util.CopyUtils;
 
 public class PlaybookCall

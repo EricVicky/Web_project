@@ -1,4 +1,4 @@
-package com.alu.omc.oam.conf;
+package com.alu.omc.oam.os.conf;
 
 public class OpenstackConfig {
     private String osUsername;

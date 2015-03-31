@@ -1,8 +1,6 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.util;
 
 import java.io.IOException;
-
-import com.alu.omc.oam.util.CommandResult;
 
 public interface ICommandExec
 {

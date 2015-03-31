@@ -1,4 +1,4 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.config;
 
 import java.io.File;
 import java.net.URI;

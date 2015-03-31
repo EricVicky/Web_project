@@ -1,4 +1,4 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
 
 import java.util.ArrayList;
 import java.util.List;

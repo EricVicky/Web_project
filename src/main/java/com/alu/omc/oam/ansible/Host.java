@@ -1,4 +1,4 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
 
 import org.apache.commons.lang3.StringUtils;
 

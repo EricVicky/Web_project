@@ -1,8 +1,9 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
 
 import java.io.File;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Component;
 @Scope(value = "prototype")
 public class Ansibleworkspace
 {
-    final String workDirRoot = "/home/ansible/";
+    @Value("${ansible.workspace}")
+    String workDirRoot ;
     String       workingDir  = workDirRoot;
-    String       logFileName = "log.txt";
+    @Value("${ansible.log}")
+    String       logFileName;
 
     public String getWorkingdir()
     {

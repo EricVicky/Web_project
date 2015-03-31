@@ -1,4 +1,4 @@
-package com.alu.omc.oam.os.config;
+package com.alu.omc.oam.config;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -6,14 +6,9 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
-import com.alu.omc.oam.COMConfig;
-import com.alu.omc.oam.COMType;
-import com.alu.omc.oam.Environment;
-import com.alu.omc.oam.Group;
-import com.alu.omc.oam.Host;
-import com.alu.omc.oam.InstallOptions;
-import com.alu.omc.oam.Inventory;
-import com.alu.omc.oam.VMType;
+import com.alu.omc.oam.ansible.Group;
+import com.alu.omc.oam.ansible.Host;
+import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{

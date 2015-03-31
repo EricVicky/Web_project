@@ -1,6 +1,5 @@
-package com.alu.omc.oam.os.config;
+package com.alu.omc.oam.ansible;
 
-import com.alu.omc.oam.Inventory;
 
 public interface PlaybookCallFact
 {

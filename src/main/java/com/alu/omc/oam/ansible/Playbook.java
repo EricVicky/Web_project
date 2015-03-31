@@ -1,4 +1,5 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
+
 
 public class Playbook
 {

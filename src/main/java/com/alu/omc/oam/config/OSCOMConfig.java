@@ -1,14 +1,11 @@
-package com.alu.omc.oam.os.config;
+package com.alu.omc.oam.config;
 
 import java.io.Serializable;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
-import com.alu.omc.oam.COMConfig;
-import com.alu.omc.oam.COMType;
-import com.alu.omc.oam.Environment;
-import com.alu.omc.oam.Inventory;
+import com.alu.omc.oam.ansible.Inventory;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

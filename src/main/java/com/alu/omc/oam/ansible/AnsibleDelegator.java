@@ -1,4 +1,4 @@
-package com.alu.omc.oam;
+package com.alu.omc.oam.ansible;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.log.Loglistener;
 import com.alu.omc.oam.service.WebsocketSender;
 
