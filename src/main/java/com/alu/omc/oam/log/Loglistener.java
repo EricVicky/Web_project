@@ -2,6 +2,8 @@ package com.alu.omc.oam.log;
 
 import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -11,18 +13,17 @@ public class Loglistener implements TailerListener
     WebsocketSender sender;
     String topic = "/log/tail";
     
+    private static Logger log = LoggerFactory.getLogger(Loglistener.class);
     @Override
     public void init(Tailer paramTailer)
     {
-        // TODO Auto-generated method stub
-        
+       log.info("init....");; 
     }
 
     @Override
     public void fileNotFound()
     {
-        // TODO Auto-generated method stub
-        
+       log.error("file not found"); 
     }
 
     @Override
@@ -41,8 +42,7 @@ public class Loglistener implements TailerListener
     @Override
     public void handle(Exception paramException)
     {
-        // TODO Auto-generated method stub
-        
+       log.error(paramException.getMessage()); 
     }
     
     public Loglistener(WebsocketSender sender){

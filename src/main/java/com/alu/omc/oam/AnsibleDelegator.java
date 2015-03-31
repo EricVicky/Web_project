@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.Tailer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.log.Loglistener;
@@ -15,6 +17,8 @@ import com.alu.omc.oam.service.WebsocketSender;
 @Component
 public class AnsibleDelegator
 {
+    
+    private static Logger log = LoggerFactory.getLogger(AnsibleDelegator.class);
     @Resource
     WebsocketSender websocketSender;
     @Resource
@@ -24,9 +28,9 @@ public class AnsibleDelegator
         try
         {
             //for test only
-            mockAnsibleInvoker();
+           // mockAnsibleInvoker();
             ansibleInvoker.invoke(playbookCall);
-            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 5000);
+            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 1000, true);
         }
         catch (IOException e)
         {
@@ -56,7 +60,8 @@ public class AnsibleDelegator
                     while(true){
                         try
                         {
-                            FileUtils.writeStringToFile(logFile, "line"+i, true);
+                            FileUtils.writeStringToFile(logFile, "line"+i +"\n", true);
+                            i++;
                             try
                             {
                                 Thread.sleep(3000L);

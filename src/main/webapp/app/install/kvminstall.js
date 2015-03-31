@@ -15,6 +15,8 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 				alert('Completed!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
+			var count=0;
+
             $scope.installConfig ={
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",
@@ -64,7 +66,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			(function (){
             	KVMService.getFlavorStore(
             			function(data) {
-            				$log.info(data);
             				$scope.flavorStore = data.Flavors;
             			}, 
             			function(response){
@@ -74,7 +75,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             (function (){
             	KVMService.getComTypeStore(
             			function(data) {
-            				$log.info(data);
             				$scope.comTypeStore = data;
             			}, 
             			function(response){
@@ -85,7 +85,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             (function (){
             	KVMService.getTimezoneStore(
             			function(data) {
-            				$log.info(data);
             				$scope.timezoneStore = data;
             			}, 
             			function(response){
