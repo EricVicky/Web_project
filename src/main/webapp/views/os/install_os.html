@@ -10,6 +10,7 @@
       <div ng-controller="osctr" rc-wizard="sampleWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
+          <div id="COMcarousel" class="carousel slide" data-interval="false" data-ride="carousel">
             <ul class="bwizard-steps">
               <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
               <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Network</a></li>
@@ -20,6 +21,8 @@
             </ul>
           <div class="modal-body">
           <div class="tab-content">
+          <div class="carousel-inner">
+            <div class="active item">
             <div class="tab-pane" id="tab1" name="tab1">
               <div class="form-group">
                 <label class="control-label">COM Type</label>
@@ -36,6 +39,8 @@
                 <input type="file" name="rc_file" ng-model="installConfig.rcFile" class="form-control">
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab2" name="tab2">
               <div class="form-group">
                 <label class="control-label">Network</label>
@@ -53,6 +58,8 @@
                 </select>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab3" name="tab3">
               <div class="form-group">
                 <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -105,6 +112,8 @@
                 </fieldset>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab4">
               <div class="form-group">
                 <label class="control-label">Heat Version</label>
@@ -148,11 +157,15 @@
                   </fieldset>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab5">
               <div class="form-group">
               <label class="control-label">To be continued</label>
               </div>
             </div>
+            </div>
+            <div class="item">
             <div class="tab-pane" id="tab6">
               <div class="form-group">
               <label class="control-label">To be continued</label>
@@ -160,18 +173,20 @@
             </div>
           </div>
           </div>
+          </div>
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
+                <a class="btn btn-default" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1"
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
+                <a class="btn btn-primary" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
               </div>
               <br>
             </div>
+          </div>
           </div>
           </div>
         </section>
