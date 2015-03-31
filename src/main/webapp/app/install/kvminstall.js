@@ -2,6 +2,7 @@ var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard'
 		'rcForm', 'rest', 'websocket' ]);
 
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
+			var logviewer = $('#logviewer')
 			$scope.user = {};
 			$scope.saveState = function() {
 				var deferred = $q.defer();
@@ -16,7 +17,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			}
 			$scope.support_ars = [ 'True', 'False' ];
 			var count=0;
-
+			
             $scope.installConfig ={
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",
@@ -52,6 +53,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             
             $scope.showlog= function(data){
             	$log.info(data);
+            	logviewer.append(data.body + "\n");
             }
 			$scope.deploy = function (){
             	KVMService.deploy(

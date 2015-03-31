@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.log.Loglistener;
@@ -30,27 +31,21 @@ public class AnsibleDelegator
         try
         {
             //for test only
-           // mockAnsibleInvoker();
+            mockAnsibleInvoker();
             ansibleInvoker.invoke(playbookCall);
-            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 1000, true);
+            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 2000, true);
         }
-        catch (IOException e)
+        catch (AnsibleException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
+       
     } 
     
     private void mockAnsibleInvoker(){
         ansibleInvoker = new IAnsibleInvoker() {
             @Override
-            public void invoke(PlaybookCall pc) throws IOException,
-                    InterruptedException
+            public void invoke(PlaybookCall pc) 
             {
               final File logFile = this.getWorkSpace().getLogFile();  
               new Thread(new Runnable(){
@@ -88,8 +83,8 @@ public class AnsibleDelegator
             @Override
             public Ansibleworkspace getWorkSpace()
             {
-                System.out.println("log file path=" + new File("./").getAbsolutePath());
-                Ansibleworkspace workspace = new Ansibleworkspace("./"); 
+                log.info("log file path=" + new File("./").getAbsolutePath());
+                Ansibleworkspace workspace = new Ansibleworkspace("./", "log.txt"); 
                 return workspace ;
             }
             

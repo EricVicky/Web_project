@@ -1,9 +1,9 @@
 package com.alu.omc.oam.ansible;
 
-import java.io.IOException;
+import com.alu.omc.oam.ansible.exception.AnsibleException;
 
 public interface IAnsibleInvoker
 {
-    public void invoke(PlaybookCall pc) throws IOException, InterruptedException;
+    public void invoke(PlaybookCall pc) throws AnsibleException;
     public Ansibleworkspace getWorkSpace();
 }
