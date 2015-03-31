@@ -1,8 +1,13 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
 		'rcForm', 'rest', 'websocket' ]);
 
+<<<<<<< HEAD
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 			var count=0;
+=======
+app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
+			$scope.user = {};
+>>>>>>> 5475735915aba9fbb6309774bb34936c7ea17bb9
 			$scope.saveState = function() {
 				var deferred = $q.defer();
 				$timeout(function() { 
@@ -43,7 +48,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             };
             
             $scope.logtail = function(data){
-        		$scope.socket = WebsocketService.connect("/comoam", function(socket) {
+        		$scope.socket = websocketService.connect("/oam", function(socket) {
         			socket.stomp.subscribe('/log/tail', $scope.showlog);
         		})
             }
@@ -64,7 +69,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
 			(function (){
             	KVMService.getFlavorStore(
             			function(data) {
-            				$log.info(data);
             				$scope.flavorStore = data.Flavors;
             			}, 
             			function(response){
@@ -74,7 +78,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             (function (){
             	KVMService.getComTypeStore(
             			function(data) {
-            				$log.info(data);
             				$scope.comTypeStore = data;
             			}, 
             			function(response){
@@ -85,7 +88,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
             (function (){
             	KVMService.getTimezoneStore(
             			function(data) {
-            				$log.info(data);
             				$scope.timezoneStore = data;
             			}, 
             			function(response){

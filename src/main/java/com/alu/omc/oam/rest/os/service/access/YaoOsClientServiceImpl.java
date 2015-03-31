@@ -7,8 +7,8 @@ import org.openstack4j.api.types.Facing;
 import org.openstack4j.openstack.OSFactory;
 import org.springframework.stereotype.Service;
 
-import com.alu.omc.oam.conf.ConfigCache;
-import com.alu.omc.oam.conf.OpenstackConfig;
+import com.alu.omc.oam.os.conf.ConfigCache;
+import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.rest.os.YaoOSFactory;
 
 @Service
