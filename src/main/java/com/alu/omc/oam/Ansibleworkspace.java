@@ -22,11 +22,11 @@ public class Ansibleworkspace
  }
  
  public  Ansibleworkspace(){
-    this.workingDir = workDirRoot.concat(String.valueOf(new Date().getTime())); 
+    this.workingDir = workDirRoot.concat(String.valueOf(new Date().getTime())).concat(File.separator); 
  }
  
  public File getLogFile(){
-     return new File(this.workingDir.concat("/").concat(this.logFileName));
+     return new File(this.workingDir.concat(File.separator).concat(this.logFileName));
  }
  
 }

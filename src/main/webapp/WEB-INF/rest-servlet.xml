@@ -26,6 +26,7 @@
 	<mvc:annotation-driven />
 
 	<aop:aspectj-autoproxy />
+	<aop:config proxy-target-class="true"/>
 	<websocket:message-broker
 		application-destination-prefix="/app">
 

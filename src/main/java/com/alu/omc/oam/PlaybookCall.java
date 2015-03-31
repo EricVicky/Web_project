@@ -35,7 +35,7 @@ public String prepare(Ansibleworkspace space){
         log.info("Write host file to working directory...");
         FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)),this.inventory.toInf()); 
         log.info("Copy ansible codes to working directory...");
-        CopyUtils.copyFiles(space.getWorkDirRoot() + "code/", space.getWorkingdir());
+        CopyUtils.copyFiles(space.getWorkDirRoot() + "code" + File.separator, space.getWorkingdir());
     }
     catch (IOException e)
     {
@@ -43,7 +43,7 @@ public String prepare(Ansibleworkspace space){
         e.printStackTrace();
         return null;
     }
-    return "-i " + space.getWorkingdir() + File.separator + HOSTS_FILE_NAME + " --tags prepare " + this.playbook.getFilePath(space);
+    return "-i " + space.getWorkingdir() + HOSTS_FILE_NAME + " --tags prepare " + this.playbook.getFilePath(space);
 }
 
 }
