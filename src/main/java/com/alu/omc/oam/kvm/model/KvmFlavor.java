@@ -24,7 +24,7 @@ public int getVcpu()
 }
 public void setVcpu(int vCpu)
 {
-    this.vcpu = vcpu;
+    this.vcpu = vCpu;
 }
 @JsonProperty("disk")
 public int getDisk()
