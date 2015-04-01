@@ -31,9 +31,9 @@ public class AnsibleDelegator
         try
         {
             //for test only
-            mockAnsibleInvoker();
+            //mockAnsibleInvoker();
             ansibleInvoker.invoke(playbookCall);
-            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 2000, true);
+            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 2000, false);
         }
         catch (AnsibleException e)
         {

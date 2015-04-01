@@ -18,13 +18,31 @@ public class AnsibleInvoker implements IAnsibleInvoker
     private static final String ANSIBLE_COMMAND = "ansible-playbook ";
     @Resource
     private Ansibleworkspace ansibleworkspace;
-    public void invoke(PlaybookCall pc) throws AnsibleException
+    public void invoke(final PlaybookCall pc) throws AnsibleException
     {
         try
         {
-            String command = ANSIBLE_COMMAND.concat(pc.prepare(ansibleworkspace));
-            CommandExec commandExec = new CommandExec(command, null, null, new File(ansibleworkspace.getWorkingdir()));
-            commandExec.execute();
+        	Thread thread = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					String command = ANSIBLE_COMMAND.concat(pc.prepare(ansibleworkspace));
+		            CommandExec commandExec = new CommandExec(command, null, null, new File(ansibleworkspace.getWorkingdir()));
+		            try {
+						commandExec.execute();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+        		
+        	});
+        	
+        	thread.start();
+            
         }
         catch (Exception e)
         {
