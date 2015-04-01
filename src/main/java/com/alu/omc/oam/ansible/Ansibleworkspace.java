@@ -23,16 +23,17 @@ public class Ansibleworkspace
         if (this.workingDir == null)
         {
             this.workingDir = workDirRoot.concat(
-                    String.valueOf(new Date().getTime()))
-                    .concat(File.separator);
+                    new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS")
+                            .format(new Date())).concat(File.separator);
 
         }
         return this.workingDir;
     }
 
-    public Ansibleworkspace(String workingDir)
+    public Ansibleworkspace(String workingDir, String logFile)
     {
         this.workingDir = workingDir;
+        this.logFileName = logFile;
     }
 
     public String getWorkDirRoot()
@@ -42,8 +43,10 @@ public class Ansibleworkspace
 
     public Ansibleworkspace()
     {
-        this.workingDir = workDirRoot.concat(
-        		new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS").format(new Date())).concat(File.separator);
+    }
+    
+    public void setLogFile(){
+        
     }
 
     public File getLogFile()

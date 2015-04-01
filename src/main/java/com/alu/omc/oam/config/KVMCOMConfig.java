@@ -163,5 +163,12 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
            return this.db_image;
        }
     }
+
+	@Override
+	public String getCfg() {
+		StringBuilder cfg = new StringBuilder("[defaults]");
+		cfg.append("\r\n").append("host_key_checking = false");
+		return cfg.toString();
+	}
     
 }

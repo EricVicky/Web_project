@@ -9,7 +9,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
-import com.alu.omc.oam.util.CopyUtils;
 
 public class PlaybookCall
 {
@@ -20,6 +19,7 @@ private Playbook playbook;
 private String parameter;
 private Inventory inventory;
 private String vars;
+private String cfg;
 private final String VAR_FILE_NAME = "group_vars/all";
 private final String HOSTS_FILE_NAME = "hosts";
 private static final Log log = LogFactory.getLog(PlaybookCall.class);
@@ -27,6 +27,7 @@ private static final Log log = LogFactory.getLog(PlaybookCall.class);
 public PlaybookCall(COMConfig config, Action action){
    this.inventory = config.getInventory();
    this.vars = config.getVars();
+   this.cfg = config.getCfg();
    this.playbook = PlaybookFactory.getInstance().getPlaybook(action, config);
 }
 public String prepare(Ansibleworkspace space){
@@ -37,7 +38,9 @@ public String prepare(Ansibleworkspace space){
         log.info("Write host file to working directory...");
         FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)),this.inventory.toInf()); 
         log.info("Copy ansible codes to working directory...");
-        CopyUtils.copyFiles(space.getWorkDirRoot() + "code" + File.separator, space.getWorkingdir());
+        FileUtils.copyDirectory(new File(space.getWorkDirRoot() + "code"), new File(space.getWorkingdir()));
+        FileUtils.writeStringToFile(new File(space.getWorkingdir() + "ansible.cfg"), 
+        		cfg.concat("\r\n").concat("log_path=" + space.getLogFile()));
     }
     catch (IOException e)
     {
@@ -47,5 +50,7 @@ public String prepare(Ansibleworkspace space){
     }
     return "-i " + space.getWorkingdir() + HOSTS_FILE_NAME + " --tags prepare " + this.playbook.getFilePath(space);
 }
+
+
 
 }

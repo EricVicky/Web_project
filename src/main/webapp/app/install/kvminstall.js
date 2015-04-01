@@ -1,13 +1,9 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
 		'rcForm', 'rest', 'websocket' ]);
 
-<<<<<<< HEAD
-app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService) {
-			var count=0;
-=======
 app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
+			var logviewer = $('#logviewer');
 			$scope.user = {};
->>>>>>> 5475735915aba9fbb6309774bb34936c7ea17bb9
 			$scope.saveState = function() {
 				var deferred = $q.defer();
 				$timeout(function() { 
@@ -20,6 +16,8 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 				alert('Completed!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
+			var count=0;
+
             $scope.installConfig ={
             		deployment_prefix: "sun",
             		active_host_ip: "135.251.236.98",
@@ -55,6 +53,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             
             $scope.showlog= function(data){
             	$log.info(data);
+            	logviewer.append(data.body + "\n");
             }
 			$scope.deploy = function (){
             	KVMService.deploy(
@@ -96,26 +95,3 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	);
             })();
 } );
-
-app.directive('userValidator', ['$log', function($log) {
-      return {
-          restrict: 'A',
-          require: 'ngModel',
-          link: function($scope, $element, $attrs, $ngModelCtrl) {
-              var verifyRule = [/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/];
-              var verify = function(input) {
-                  return (verifyRule[0].test(input));
-              };
-              $ngModelCtrl.$parsers.push(function(input) {
-                  var validity = verify(input);
-                  $ngModelCtrl.$setValidity('defined', validity);
-                  return validity ? input : false;
-              });
-              $ngModelCtrl.$formatters.push(function(input) {
-                  var validity = verify(input);
-                  $ngModelCtrl.$setValidity('defined', validity);
-                  return validity ? input : false;
-              })
-          }
-      }
-    }]);

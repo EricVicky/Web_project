@@ -10,7 +10,7 @@
       <div ng-controller="kvmctr" rc-wizard="sampleWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
-          <div id="COMcarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+          <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
             <ul class="bwizard-steps">
               <li><a href="#tab1" data-toggle="tab"><span class="label">1</span>COM Type</a></li>
               <li><a href="#tab2" data-toggle="tab"><span class="label">2</span>Image</a></li>
@@ -23,7 +23,6 @@
           <div class="carousel-inner">
             <div class="active item">
             <div class="tab-pane" id="tab1" name="tab1">
-            <form name="tab1" novalidate>
               <div class="form-group">
                 <label class="control-label">COM Type</label>
                   <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore" title="COM Type">
@@ -36,45 +35,28 @@
               </div>
               <div class="form-group">
                   <label class="control-label">Active Host IP</label> 
-                  <input name="active_host_ip" class="form-control" type="text" ng-model="installConfig.active_host_ip" title="Active Host IP" user-validator='active_host_ip' required>
-                  <span style="color:red" ng-show="tab1.active_host_ip.$dirty && tab1.active_host_ip.$invalid">
-                    <label ng-show="tab1.active_host_ip.$error.required && tab1.active_host_ip.$dirty">Active Host IP is required.</label>
-                    <label ng-show="tab1.active_host_ip.$error.defined && tab1.active_host_ip.$dirty">invalid Active Host IP.</label>
-                  </span>
+                  <input name="active_host_ip" class="form-control" type="text" ng-model="installConfig.active_host_ip" title="Active Host IP"/>
               </div>
               <div class="form-group">
                   <label class="control-label">Prefix of VM Instance</label> 
-                  <input name="deployment_prefix" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of VM Instance" required/>
-                  <span style="color:red" ng-show="tab1.deployment_prefix.$dirty && tab1.deployment_prefix.$invalid">
-                    <span ng-show="tab1.deployment_prefix.$error.required">Prefix of VM Instance is required.</span>
-                  </span>
+                  <input name="deployment_prefix" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of VM Instance"/>
               </div>
-            </form>
             </div>
             </div>
             <div class="item">
             <div class="tab-pane" id="tab2" name="tab2">
-            <form name="tab2" novalidate>
               <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-                <label class="control-label">OAM/CM image</label>
-                <input name="oam_cm_image" class="form-control" type="text" ng-model="installConfig.oam_cm_image" title="OAM/CM image" required/>
-                <span style="color:red" ng-show="tab2.oam_cm_image.$dirty && tab2.oam_cm_image.$invalid">
-                    <span ng-show="tab2.oam_cm_image.$error.required">OAM/CM image is required.</span>
-                </span>
+                    <label class="control-label">OAM/CM image</label>
+                    <input name="oam_cm_image" class="form-control" type="text" ng-model="installConfig.oam_cm_image" title="OAM/CM image"/>
+                  </fieldset>
+                  <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+                    <label class="control-label">DB image</label>
+                    <input name="db_image" class="form-control" type="text" ng-model="installConfig.db_image" title="DB image"/>
               </fieldset>
-              <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-                <label class="control-label">DB image</label>
-                <input name="db_image" class="form-control" type="text" ng-model="installConfig.db_image" title="DB image" required/>
-                <span style="color:red" ng-show="tab2.db_image.$dirty && tab2.db_image.$invalid">
-                    <span ng-show="tab2.db_image.$error.required">DB image is required.</span>
-                </span>
-              </fieldset>
-            </form>
             </div>
             </div>
             <div class="item">
             <div class="tab-pane" id="tab3" name="tab3">
-            <form name="tab3" novalidate>
               <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                   <legend>OAM VM</legend>
                   <div class="form-group">
@@ -131,25 +113,20 @@
                     <label class="control-label">gateway</label>
                     <input name="cm_gateway" class="form-control" type="text" ng-model="installConfig.vm_config.cm.gateway" title="gateway"/>
               </fieldset>
-            </form>
             </div>
             </div>
             <div class="item">
             <div class="tab-pane" id="tab4">
-            <form name="tab4" novalidate>
               <div class="form-group">
               <label class="control-label">To be continued</label>
               </div>
-            </form>
             </div>
             </div>
             <div class="item">
             <div class="tab-pane" id="tab5">
-            <form name="tab5" novalidate>
               <div ng-controller="kvmctr" class="form-group">
-              <label class="control-label">To be continued</label>
+              <pre id="logviewer"></pre>
               </div>
-            </form>
             </div>
             </div>
           </div>
@@ -158,9 +135,9 @@
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
+                <a class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
                    ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
+                <a class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
                    ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
                    ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
