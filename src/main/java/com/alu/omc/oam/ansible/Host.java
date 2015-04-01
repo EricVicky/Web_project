@@ -63,7 +63,7 @@ import org.apache.commons.lang3.StringUtils;
         {
             return StringUtils.join(new String[] { this.ip_address,
                     "ansible_ssh_user=".concat(this.user),
-                    "ansible_ssh_password=".concat(this.password) }, " ");
+                    "ansible_ssh_pass=".concat(this.password).concat("\n") }, " ");
         }
 
     }
