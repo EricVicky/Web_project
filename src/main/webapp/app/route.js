@@ -1,7 +1,5 @@
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider,
     $modalProvider) {
-    $urlRouterProvider.otherwise('/main');
-
     $stateProvider.state('noChange', {
         url: '/#',
     }).state('login', {

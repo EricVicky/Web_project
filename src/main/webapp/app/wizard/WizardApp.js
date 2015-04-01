@@ -1,1 +1,0 @@
-var wizard = angular.module('yao.wizard', ['yao.wizard.services']);

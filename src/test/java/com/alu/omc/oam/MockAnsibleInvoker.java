@@ -1,12 +1,11 @@
 package com.alu.omc.oam;
 
-import java.io.IOException;
-
 import javax.annotation.Resource;
 
 import com.alu.omc.oam.ansible.Ansibleworkspace;
 import com.alu.omc.oam.ansible.IAnsibleInvoker;
 import com.alu.omc.oam.ansible.PlaybookCall;
+import com.alu.omc.oam.ansible.exception.AnsibleException;
 
 public class MockAnsibleInvoker implements IAnsibleInvoker
 {
@@ -14,8 +13,7 @@ public class MockAnsibleInvoker implements IAnsibleInvoker
     @Resource
     private Ansibleworkspace ansibleworkspace;
     @Override
-    public void invoke(PlaybookCall pc) throws IOException,
-            InterruptedException
+    public void invoke(PlaybookCall pc) throws AnsibleException
     {
               
     }
