@@ -29,8 +29,6 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     private String template_version;
     private String stack_name;
     private String deployment_prefix;
-    
-
 
 	public boolean getCom_private_network() {
 		return com_private_network;
@@ -371,6 +369,12 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     	Yaml yaml = new Yaml();
         return yaml.dump(this);
     }
+    
+    @Override
+	public String getCfg() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }
