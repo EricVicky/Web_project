@@ -1,36 +1,36 @@
 {"Flavors": {
         "FCAPS":{
- 			"oam": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"oam": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ],
- 			"cm": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"cm": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ],
- 			"db": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"db": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ]
         },
         "CM":{
- 			"oam": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"oam": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ],
- 			"cm": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"cm": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ],
- 			"db": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"db": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ]
         },
         "QoSAC":{
- 			"oam": [ {"label": "small(1*2*360)", "vCpu": "1", "memory": "2000000", "disk": "360"}, 
-				   {"label": "medium(2*4*480)","vCpu": "2", "memory": "3000000", "disk": "480"}, 
-				   {"label": "large(3*6*580)","vCpu": "3", "memory": "6000000", "disk": "580"} 
+ 			"oam": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ]
         }
      }
