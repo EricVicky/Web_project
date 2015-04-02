@@ -20,17 +20,17 @@
             <div class="tab-pane" id="tab1" name="tab1">
               <div class="form-group">
                 <label class="control-label">COM Type</label>
-                  <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore">
+                  <select name="com_type" ng-model="installConfig.comType" class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore" title="COM Type" validation="required">
                   </select>
               </div>
               <div class="form-group">
                   <label class="control-label">Timezone</label>
-                  <select name="time_zone" ng-model="installConfig.timezone" class="form-control" ng-options="t.Time as t.Time for t in timezoneStore">
+                  <select name="time_zone" ng-model="installConfig.timezone" class="form-control" ng-options="t.Time as t.Time for t in timezoneStore" title="Timezone" validation="required">
                   </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Openstack RC File</label>
-                <input type="file" name="rc_file" ng-model="installConfig.rcFile" class="form-control">
+                <input type="file" name="rc_file" ng-model="installConfig.rcFile" class="form-control" title="Openstack RC File" validation="required">
               </div>
             </div>
             </div>
@@ -38,17 +38,17 @@
             <div class="tab-pane" id="tab2" name="tab2">
               <div class="form-group">
                 <label class="control-label">Network</label>
-                <select name="network" ng-model="installConfig.com_provider_network.network" class="form-control" ng-options="n.name as n.name for n in networkStore">
+                <select name="network" ng-model="installConfig.com_provider_network.network" class="form-control" ng-options="n.name as n.name for n in networkStore" title="Network" validation="required">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Sub Network</label>
-                <select name="sub_network" ng-model="installConfig.com_provider_network.subnet" class="form-control" ng-options="sn.name as sn.name for sn in subNetworkStore">
+                <select name="sub_network" ng-model="installConfig.com_provider_network.subnet" class="form-control" ng-options="sn.name as sn.name for sn in subNetworkStore" title="Sub Network" validation="required">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Private Network</label>
-                <select name="private_network" ng-model="installConfig.com_private_network" class="form-control" ng-options="pn for pn in private_network">
+                <select name="private_network" ng-model="installConfig.com_private_network" class="form-control" ng-options="pn for pn in private_network" title="Private Network" validation="required">
                 </select>
               </div>
             </div>
@@ -60,15 +60,15 @@
                   <legend>OAM VM</legend>
                   <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
-                    <input name="oam_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" />
+                    <input name="oam_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" title="IP Address" validation="ipv4|required"/>
                   </div>
                   <div class="form-group col-md-6">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="oam_disk" class="form-control" type="text" ng-model="installConfig.vm_config.oam.com_data_vol_size" />
+                    <input name="oam_disk" class="form-control" type="text" ng-model="installConfig.vm_config.oam.com_data_vol_size" title="Disk(GB)" validation="int|required"/>
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
-                    <select name="oam_flavor" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
+                    <select name="oam_flavor" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore" title="Flavor" validation="required">
                     </select>
                   </div>
                 </fieldset>
@@ -76,15 +76,15 @@
                   <legend>CM VM</legend>
                   <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
-                    <input name="cm_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" />
+                    <input name="cm_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" title="IP Address" validation="ipv4|required"/>
                   </div>
                   <div class="form-group col-md-6">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="cm_disk" class="form-control" type="text" ng-model="installConfig.vm_config.cm.com_data_vol_size" />
+                    <input name="cm_disk" class="form-control" type="text" ng-model="installConfig.vm_config.cm.com_data_vol_size" title="Disk(GB)" validation="int|required"/>
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
-                    <select name="cm_flavor" ng-model="installConfig.vm_config.cm.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
+                    <select name="cm_flavor" ng-model="installConfig.vm_config.cm.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore" title="Flavor" validation="required">
                     </select>
                   </div>
                 </fieldset>
@@ -92,15 +92,15 @@
                   <legend>DB VM</legend>
                   <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
-                    <input name="db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.vm_config.db.provider_ip_address" />
+                    <input name="db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.vm_config.db.provider_ip_address" title="IP Address" validation="ipv4|required"/>
                   </div>
                   <div class="form-group col-md-6">
                     <label class="control-label">Disk(GB)</label>
-                    <input name="db_disk" class="form-control" type="text" ng-model="installConfig.vm_config.db.com_data_vol_size" />
+                    <input name="db_disk" class="form-control" type="text" ng-model="installConfig.vm_config.db.com_data_vol_size" title="Disk(GB)" validation="int|required"/>
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
-                    <select name="db_flavor" ng-model="installConfig.vm_config.db.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
+                    <select name="db_flavor" ng-model="installConfig.vm_config.db.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore" title="Flavor" validation="required">
                     </select>
                   </div>
                 </fieldset>
@@ -111,42 +111,42 @@
             <div class="tab-pane" id="tab4">
               <div class="form-group">
                 <label class="control-label">Heat Version</label>
-                <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version">
+                <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version" title="Heat Version" validation="required">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Config Drive</label>
-                <select name="config_drive" ng-model="installConfig.config_drive" class="form-control" ng-options="cd for cd in config_drive">
+                <select name="config_drive" ng-model="installConfig.config_drive" class="form-control" ng-options="cd for cd in config_drive" title="Config Drive" validation="required">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Stack Name</label>
-                <input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name">
+                <input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required">
               </div>
               <div class="form-group">
                 <label class="control-label">Prefix of stack resource</label>
-                <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix">
+                <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required">
               </div>
               <div class="form-group">
                 <label class="control-label">Compute Avail Zone</label>
-                <select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore">
+                <select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore" title="Compute Avail Zone" validation="required">
                 </select>
               </div>
               <div class="form-group">
                 <label class="control-label">Block Storage Avail Zone</label>
-                <select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="bsaz.zoneName as bsaz.zoneName for bsaz in computeAvailZoneStore">
+                <select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="bsaz.zoneName as bsaz.zoneName for bsaz in computeAvailZoneStore" title="Block Storage Avail Zone" validation="required">
                 </select>
               </div>
               <div class="form-group">
                   <legend>Image</legend>
                   <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                     <label class="control-label">OAM/CM image</label>
-                    <select name="oamcm_image" ng-model="oamcm_image" class="form-control" ng-options="o for o in oamcm_images">
+                    <select name="oamcm_image" ng-model="oamcm_image" class="form-control" ng-options="o for o in oamcm_images" title="OAM/CM image" validation="required">
                     </select>
                   </fieldset>
                   <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
                     <label class="control-label">DB image</label>
-                    <select name="db_image" ng-model="db_image" class="form-control" ng-options="d for d in db_images">
+                    <select name="db_image" ng-model="db_image" class="form-control" ng-options="d for d in db_images" title="DB image" validation="required">
                     </select>
                   </fieldset>
               </div>
