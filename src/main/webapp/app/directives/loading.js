@@ -1,12 +1,12 @@
 'use strict';
 
-var directives = angular.module('yao.directives', []);
+var directives = angular.module('common', []);
 
 directives.directive('loading', function() {
     return {
         restrict: 'AE',
         replace: true,
-        template: '<span class="loading"><img src="images/loading.gif"/></span>',
+        template: '<span class="loading"><img src="images/loading_black.gif"/></span>',
         link: function(scope, element, attr) {
             scope.$watch('loading', function(val) {
                 if (val)
@@ -18,14 +18,3 @@ directives.directive('loading', function() {
     }
 });
 
-directives.directive('installTemplate', function() {
-    return {
-        templateUrl: 'views/wizard/publish.html'
-    };
-});
-
-directives.directive('mrfTemplate', function() {
-    return {
-        templateUrl: 'views/wizard/mrfWizard.html'
-    };
-});
