@@ -46,6 +46,10 @@
                   <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
                     <label class="control-label">DB image</label>
                     <input name="db_image" class="form-control" type="text" ng-model="installConfig.db_image" title="DB image"/>
+                    <label class="control-label">COM ISO image</label>
+                    <input name="com_iso" class="form-control" type="text" ng-model="installConfig.com_iso" title="COM ISO"/>
+                    <label class="control-label">VM image directory</label>
+                    <input name="vm_img_dir" class="form-control" type="text" ng-model="installConfig.vm_img_dir" title="VM image directory"/>
               </fieldset>
             </div>
             </div>
