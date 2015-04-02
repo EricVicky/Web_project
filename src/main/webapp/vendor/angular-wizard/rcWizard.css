@@ -1,12 +1,12 @@
 .bwizard-steps {
   display: inline-block;
-  margin: 0; 
-  padding: 0;
+  margin: 10px;
+  padding: 10px;
   background: #fff 
 }
 .bwizard-steps .active {
     color: #fff;
-    border-left: 20px solid #FFF; 
+    border-left: 16px solid #FFF; 
 
   }
 
@@ -15,10 +15,11 @@
     padding: 10px;
   }
   .nav-pills > li > a {
-    border-radius: 4px 0px 0px 4px;
+    border-radius: 5px 0px 0px 5px;
+    padding: 10px 10px 10px 18px;
   }
   .bwizard-steps .active:after {
-    border-left-color: #007ACC 
+    border-left-color: #337AB7;
   }
   .bwizard-steps .active a {
     color: #fff;
@@ -42,7 +43,7 @@
   .bwizard-steps li {
     display: inline-block; 
     position: relative;
-    margin-right: 5px;
+    margin-right: 2px;
     *display: inline;
     *padding-left: 17px;
     background: #efefef;
@@ -89,20 +90,21 @@
     cursor: default;  
   }
   .bwizard-steps li:after {
-    position: absolute;
-    right: -19px; 
-    top: 0;
-    height: 0; 
-    width: auto;
-    border-bottom: 21px inset transparent;
-    border-left: 20px solid #efefef;
-    border-top: 20px inset transparent;
-    content: "";
-    z-index: 2; 
-    cursor: default; 
-  }
+  position: absolute;
+  right: -19px;
+  top: 0px;
+  height: 40px;
+  width: 0px;
+  border-bottom: 20px inset transparent;
+  border-left: 20px solid #efefef;
+  border-top: 20px inset transparent;
+  border-right: 0px inset transparent;
+  content: "";
+  z-index: 2;
+  cursor: default;
+}
   .bwizard-steps a {
-    color: #333; 
+    color: #6B6BCF; 
     cursor: default;
   }
   .bwizard-steps a:hover:not(.active){
@@ -140,5 +142,31 @@
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
 	  color: #fff;
       background-color: #337ab7;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 100;
+    color: #6B6BCF;
+}
+
+legend {
+    display: block;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: inherit;
+    color: #337AB7;
+    border-width: 0px 0px 1px;
+    border-style: none none solid;
+    border-color: -moz-use-text-color -moz-use-text-color #E5E5E5;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
 }
 
