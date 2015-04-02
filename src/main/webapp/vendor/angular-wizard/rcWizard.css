@@ -1,12 +1,12 @@
 .bwizard-steps {
   display: inline-block;
   margin: 10px;
-  padding: 10px;
+  padding: 1px;
   background: #fff 
 }
 .bwizard-steps .active {
     color: #fff;
-    border-left: 16px solid #FFF; 
+    border-left: 13px solid #FFF; 
 
   }
 
@@ -43,7 +43,7 @@
   .bwizard-steps li {
     display: inline-block; 
     position: relative;
-    margin-right: 2px;
+    margin-right: 5px;
     *display: inline;
     *padding-left: 17px;
     background: #efefef;
@@ -91,7 +91,7 @@
   }
   .bwizard-steps li:after {
   position: absolute;
-  right: -19px;
+  right: -20px;
   top: 0px;
   height: 40px;
   width: 0px;
@@ -104,7 +104,7 @@
   cursor: default;
 }
   .bwizard-steps a {
-    color: #6B6BCF; 
+    color: #337AB7; 
     cursor: default;
   }
   .bwizard-steps a:hover:not(.active){
@@ -149,7 +149,7 @@ label {
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: 100;
-    color: #6B6BCF;
+    color: #337AB7;
 }
 
 legend {
