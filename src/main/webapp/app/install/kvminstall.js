@@ -95,4 +95,3 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	);
             })();
 } );
-

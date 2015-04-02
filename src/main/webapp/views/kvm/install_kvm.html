@@ -1,7 +1,7 @@
 <div class="container-fluid" >
   <div class="row">
     <div class="col-md-8" style="width: 770px">
-      <div ng-controller="kvmctr" rc-wizard="sampleWizard" class="modal-body">
+      <div ng-controller="kvmctr" rc-wizard="kvmInstallWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
           <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
@@ -29,7 +29,7 @@
               </div>
               <div class="form-group">
                   <label class="control-label">Active Host IP</label> 
-                  <input name="active_host_ip" class="form-control" type="text" ng-model="installConfig.active_host_ip" title="Active Host IP"/>
+                  <input name="active_host_ip" class="form-control form-control ng-pristine ng-invalid ng-invalid-validation" type="text" validation='ipv4|required' ng-model="installConfig.active_host_ip" title="Active Host IP"/>
               </div>
               <div class="form-group">
                   <label class="control-label">Prefix of VM Instance</label> 
@@ -129,12 +129,12 @@
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1" 
-                   ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
-                   ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
+                <a class="btn btn-default" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.kvmInstallWizard.backward();count=count-1" 
+                   ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex">Back</a>
+                <a class="btn btn-primary" data-target="#myCarousel" data-slide-to="{{count}}" ng-click="rc.kvmInstallWizard.forward();count=count+1" 
+                   ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
-                   ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
+                   ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Complete</a>
               </div>
               <br>
             </div>
