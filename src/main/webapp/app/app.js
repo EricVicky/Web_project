@@ -4,9 +4,20 @@ angular
     'ui.router',
     'ui.bootstrap',
     'angular-loading-bar', 
+    'ghiscoding.validation',
+    'pascalprecht.translate',
     'kvminstall', 'osinstall',  'rcWizard',
 		'rcForm', 'rest' 
   ])
+  .config(['$translateProvider', function ($translateProvider) {
+	  $translateProvider.useStaticFilesLoader({
+	    prefix: 'locales/validation/',
+	    suffix: '.json'
+		});
+
+  	// load English ('en') table on startup
+		$translateProvider.preferredLanguage('en');
+	}])
   .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
     
     $ocLazyLoadProvider.config({

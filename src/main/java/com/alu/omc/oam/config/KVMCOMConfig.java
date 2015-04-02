@@ -26,6 +26,8 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private String deployment_prefix;
 	private String oam_cm_image;
 	private String db_image;
+	private String com_iso;
+	private String vm_img_dir;
 	
 	
 	@Override
@@ -97,7 +99,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     {
         this.vm_config = vm_config;
     }
-
+    
 	@Override
 	public Inventory getInventory() {
 	    Inventory inv = new Inventory();
@@ -157,7 +159,23 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
         this.db_image = db_image;
     }
     
-    private String getVMImageName(String vmname){
+    public String getCom_iso() {
+		return com_iso;
+	}
+
+	public void setCom_iso(String com_iso) {
+		this.com_iso = com_iso;
+	}
+	
+    public String getVm_img_dir() {
+		return vm_img_dir;
+	}
+
+	public void setVm_img_dir(String vm_img_dir) {
+		this.vm_img_dir = vm_img_dir;
+	}
+
+	private String getVMImageName(String vmname){
        if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
            return this.oam_cm_image;
        }else{
