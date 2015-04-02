@@ -1,9 +1,0 @@
-<div class="panel-body" ng-init="tab = 0">
-	<ul class="nav nav-tabs" ng-controller="ComputeTabController">
-		<li ng-click="tab = 1" ng-class="{active:tab===1}"><a ui-sref-active="active" ui-sref="main.network.list" data-toggle="tab">Networks</a></li>
-		<!-- <li ng-click="tab = 2" ng-class="{active:tab===2}"><a ui-sref-active="active" ui-sref="main.network.topology" data-toggle="tab">Network Topology</a></li>
-		<li ng-click="tab = 3" ng-class="{active:tab===3}"><a ui-sref-active="active" ui-sref="main.network.router" data-toggle="tab">Routers</a></li> -->
-	</ul>
-	<div ui-view>
-	</div>
-</div>

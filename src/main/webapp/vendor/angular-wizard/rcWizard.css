@@ -9,12 +9,7 @@
     border-left: 20px solid #FFF; 
 
   }
-  body{
-    padding-right: 180px;
-    position: absolute;
-    padding: 200px 100px 100px 400px;
 
-  }
   .modal-body {
     position: relative;
     padding: 10px;
@@ -142,8 +137,8 @@
   }
 }
 
-.modal-dialog {
-  width: auto;
-
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+	  color: #fff;
+      background-color: #337ab7;
 }
 

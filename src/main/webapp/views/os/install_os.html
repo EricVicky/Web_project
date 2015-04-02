@@ -7,7 +7,7 @@
         </button>
         <h1 class="modal-title">Install 1360COM on Openstack</h1>
       </div>
-      <div ng-controller="osctr" rc-wizard="sampleWizard" class="modal-body">
+      <div ng-controller="osctr" rc-wizard="osInstallWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
           <div id="COMcarousel" class="carousel slide" data-interval="false" data-ride="carousel">
@@ -177,12 +177,12 @@
           <div class="modal-footer">
             <div class="form-group">
               <div class="pull-right">
-                <a class="btn btn-default" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.backward();count=count-1"
-                   ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-                <a class="btn btn-primary" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.sampleWizard.forward();count=count+1" 
-                   ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
+                <a class="btn btn-default" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.osInstallWizard.backward();count=count-1"
+                   ng-show="rc.osInstallWizard.currentIndex > rc.osInstallWizard.firstIndex">Back</a>
+                <a class="btn btn-primary" data-target="#COMcarousel" data-slide-to="{{count}}" ng-click="rc.osInstallWizard.forward();count=count+1" 
+                   ng-show="rc.osInstallWizard.currentIndex < rc.osInstallWizard.navigationLength">Continue</a>
                 <a class="btn btn-primary" ng-click="completeWizard()" 
-                   ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
+                   ng-show="rc.osInstallWizard.currentIndex == rc.osInstallWizard.navigationLength">Complete</a>
               </div>
               <br>
             </div>
