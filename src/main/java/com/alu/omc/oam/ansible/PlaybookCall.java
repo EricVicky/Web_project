@@ -23,7 +23,7 @@ private String cfg;
 private final String VAR_FILE_NAME = "group_vars/all";
 private final String HOSTS_FILE_NAME = "hosts";
 private final String VM_IMG_DIR = "VM_IMG_DIR: /lvvm03/stTest";
-private final String COM_ISO = "COM_ISO: COM_09.D492.iso";
+private final String COM_ISO = "COM_ISO: COM_09.D495.iso";
 private static final Log log = LogFactory.getLog(PlaybookCall.class);
 
 public PlaybookCall(COMConfig config, Action action){
