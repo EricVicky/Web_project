@@ -13,7 +13,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			};
 			$scope.completeWizard = function() {
 				$scope.deploy();
-				alert('Completed!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
 			var count=0;
@@ -24,19 +23,19 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "10.223.0.62",
             		  },
             		  db:{
             		    ip_address: "10.223.0.54",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "10.223.0.62",
             		  },
             		  cm:{
             		    ip_address: "135.251.236.105",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "135.251.236.110",
             		    hostname: "sun-cm-1"
