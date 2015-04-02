@@ -22,6 +22,8 @@ private String vars;
 private String cfg;
 private final String VAR_FILE_NAME = "group_vars/all";
 private final String HOSTS_FILE_NAME = "hosts";
+private final String VM_IMG_DIR = "VM_IMG_DIR: /lvvm03/stTest";
+private final String COM_ISO = "COM_ISO: COM_09.D492.iso";
 private static final Log log = LogFactory.getLog(PlaybookCall.class);
 
 public PlaybookCall(COMConfig config, Action action){
@@ -34,9 +36,9 @@ public String prepare(Ansibleworkspace space){
     try
     {
     	log.info("Write var file to working directory...");
-        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(VAR_FILE_NAME)), this.vars);
+        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(VAR_FILE_NAME)), this.vars.concat("\r\n").concat(VM_IMG_DIR).concat("\r\n").concat(COM_ISO));
         log.info("Write host file to working directory...");
-        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)),this.inventory.toInf()); 
+        FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)), this.inventory.toInf()); 
         log.info("Copy ansible codes to working directory...");
         FileUtils.copyDirectory(new File(space.getWorkDirRoot() + "code"), new File(space.getWorkingdir()));
         FileUtils.writeStringToFile(new File(space.getWorkingdir() + "ansible.cfg"), 
@@ -48,7 +50,7 @@ public String prepare(Ansibleworkspace space){
         e.printStackTrace();
         return null;
     }
-    return "-i " + space.getWorkingdir() + HOSTS_FILE_NAME + " --tags prepare " + this.playbook.getFilePath(space);
+    return "-i " + space.getWorkingdir() + HOSTS_FILE_NAME + " " + this.playbook.getFilePath(space);
 }
 
 
