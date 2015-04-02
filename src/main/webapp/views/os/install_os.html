@@ -1,12 +1,6 @@
-<div class="modal-content col-md-8 col-md-offset-1" style="width: 920px">
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-8" style="width: 900px">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-        </button>
-        <h1 class="modal-title">Install 1360COM on Openstack</h1>
-      </div>
+    <div class="col-md-8" style="width: 870px">
       <div ng-controller="osctr" rc-wizard="osInstallWizard" class="modal-body">
         <section id="wizard">
           <div id="rootwizard">
@@ -64,50 +58,50 @@
               <div class="form-group">
                 <fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
                   <legend>OAM VM</legend>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
                     <input name="oam_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.oam.provider_ip_address" />
                   </div>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="oam_disk" class="form-control" type="text" ng-model="installConfig.vm_config.oam.com_data_vol_size" />
+                  </div>
+                  <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
                     <select name="oam_flavor" ng-model="installConfig.vm_config.oam.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label class="control-label">Disk(GB)</label>
-                    <input name="oam_disk" class="form-control" type="text" ng-model="installConfig.vm_config.oam.com_data_vol_size" />
-                  </div>
                 </fieldset>
                 <fieldset ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM'">
                   <legend>CM VM</legend>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
                     <input name="cm_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.cm.provider_ip_address" />
                   </div>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="cm_disk" class="form-control" type="text" ng-model="installConfig.vm_config.cm.com_data_vol_size" />
+                  </div>
+                  <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
                     <select name="cm_flavor" ng-model="installConfig.vm_config.cm.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label class="control-label">Disk(GB)</label>
-                    <input name="cm_disk" class="form-control" type="text" ng-model="installConfig.vm_config.cm.com_data_vol_size" />
-                  </div>
                 </fieldset>
                 <fieldset ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM' || installConfig.comType=='OAM'">
                   <legend>DB VM</legend>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="control-label">IP Address</label> 
                     <input name="db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.vm_config.db.provider_ip_address" />
                   </div>
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
+                    <label class="control-label">Disk(GB)</label>
+                    <input name="db_disk" class="form-control" type="text" ng-model="installConfig.vm_config.db.com_data_vol_size" />
+                  </div>
+                  <div class="form-group col-md-12">
                     <label class="control-label">Flavor</label>
                     <select name="db_flavor" ng-model="installConfig.vm_config.db.flavor" class="form-control" ng-options="fl.name as fl.name for fl in flavorStore">
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label">Disk(GB)</label>
-                    <input name="db_disk" class="form-control" type="text" ng-model="installConfig.vm_config.db.com_data_vol_size" />
                   </div>
                 </fieldset>
               </div>
@@ -193,5 +187,4 @@
       </div>
     </div>
   </div>
-</div>
 </div>
