@@ -109,7 +109,7 @@ rest.factory('OSService', function($location, $resource, $log) {
 
 rest.factory('KVMService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
-	var restUrl = baseUrl;
+	var restUrl = baseUrl + "rest/"
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
