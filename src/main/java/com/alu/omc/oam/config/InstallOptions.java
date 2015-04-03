@@ -11,7 +11,7 @@ import com.alu.omc.oam.util.Json2Object;
 public class InstallOptions
 {
     private static Map  opMap  = new HashMap();
-    private final static String INSTALL_OPTIONS_JSOM_FILE = "install_option_map.json";
+    private final static String INSTALL_OPTIONS_JSOM_FILE = "/install_option_map.json";
     public static String get(COMType comType, String vm){
     	try
         {
