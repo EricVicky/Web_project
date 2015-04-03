@@ -39,10 +39,11 @@ public String prepare(Ansibleworkspace space){
         FileUtils.writeStringToFile(new File(space.getWorkingdir().concat(HOSTS_FILE_NAME)), this.inventory.toInf()); 
         log.info("Copy ansible codes to working directory...");
         FileUtils.copyDirectory(new File(space.getWorkDirRoot() + "code"), new File(space.getWorkingdir()));
-        FileUtils.writeStringToFile(new File(space.getWorkingdir() + "ansible.cfg"), 
-        		cfg.concat("\r\n").concat("log_path=" + space.getLogFile()));
         log.info("Write empty log file");
         FileUtils.write(space.getLogFile(), "-------Call ansible......");
+        log.info("Write ansible configuration file to working directory...");
+        FileUtils.writeStringToFile(new File(space.getWorkingdir() + "ansible.cfg"), 
+        		cfg.concat("\r\n").concat("log_path=" + space.getLogFile()));
     }
     catch (IOException e)
     {

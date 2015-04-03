@@ -15,7 +15,7 @@ import com.alu.omc.oam.log.Loglistener;
 import com.alu.omc.oam.service.WebsocketSender;
 import com.alu.omc.oam.util.CommandExec;
 
-@Component
+@Component("ansibleInvoker")
 @Scope(value="prototype")
 public class AnsibleInvoker implements IAnsibleInvoker
 {

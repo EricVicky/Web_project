@@ -6,31 +6,39 @@ import java.io.IOException;
 import javax.annotation.Resource;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.input.Tailer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
-import com.alu.omc.oam.log.Loglistener;
-import com.alu.omc.oam.service.WebsocketSender;
 
 @Component
-public class AnsibleDelegator
+public class AnsibleDelegator implements ApplicationContextAware
 {
     
     private static Logger log = LoggerFactory.getLogger(AnsibleDelegator.class);
+    private ApplicationContext applicationContext;
 
-    @Resource
-    IAnsibleInvoker ansibleInvoker; 
+    @Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+
+	//    @Resource
+    IAnsibleInvoker ansibleInvoker;  
     public void execute(Action action, COMConfig config){
         PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
         try
         {
             //for test only
             //mockAnsibleInvoker();
+        	ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
             ansibleInvoker.invoke(playbookCall);
         }
         catch (AnsibleException e)
