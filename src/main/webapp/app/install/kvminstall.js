@@ -14,11 +14,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			$scope.completeWizard = function() {
 				$scope.deploy();
 			}
-			$scope.forward = function(){
-				if(new validationService().checkFormValidity($scope.form1)) {
-				      $scope.rc.kvmInstallWizard.forward();
-				 }
-			}
 			$scope.support_ars = [ 'True', 'False' ];
 			var count=0;
 
