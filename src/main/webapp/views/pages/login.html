@@ -1,30 +1,63 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form">
-                        <fieldset>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                </label>
-                            </div>
-                            <!-- Change this to a button or input when using this as a form -->
-                            <a ui-sref="dashboard.home" class="btn btn-lg btn-success btn-block">Login</a>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
+<link type="text/css" rel="stylesheet" href="css/login.css" />
+
+<div class="login-body">
+	<div class="login-image">
+		<H2 class="company-name">
+		  Alcatel Lucent
+		</H2>
+		<H3 class="product-name">
+		  COM 360
+		</H3>
+	</div>
+	
+	<form ng-submit="login()" name="loginForm" class="form-horizontal ng-scope ng-pristine ng-invalid ng-invalid-required">
+	<div class="login-form">
+		<div class="form-group">
+			<label class="sr-only" for="userName">User Name</label>
+ 			<div class="col-sm-10">
+ 			  <div class="input-group">
+ 			    <div class="input-group-addon">
+ 			      <span class="glyphicon glyphicon-user"></span>
+ 			    </div>
+				<input type="text" name="username" placeholder="Host Linux User Name" ng-model="_user.username" required autofocus class="form-control login-input-user ng-pristine ng-invalid ng-invalid-required">
+ 			  </div>
+			</div>
+			<!-- 
+			<div class="col-sm-2" style="margin-top: 10px" ng-show="displayUser">testuser1</div>
+			 -->
+		</div>
+		
+		<div class="form-group">
+			<label class="sr-only" for="password">Password</label>
+			<div class="col-sm-10">
+ 			  <div class="input-group">
+ 			    <div class="input-group-addon">
+ 			      <span class="glyphicon glyphicon-lock"></span>
+ 			    </div>
+				<input type="password" name="password" placeholder="Password" ng-model="_user.password" required class="form-control login-input-password ng-pristine ng-invalid ng-invalid-required">
+			  </div>
+			</div>
+			<!-- 
+			<div class="col-sm-2" style="margin-top: 10px" ng-show="displayUser">COM_cc_n1</div>
+			 -->
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-10">
+				<button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary login-btn">Login</button>
+			</div>
+		</div>
+		
+		<div class="col-sm-10 login-failure">
+				<span ng-show="_user.reason">{{_user.reason}}</span>
+		</div>
+	</div>
+	</form>
+	
+	<div class="login-banner">
+	WARNING: Anyone accessing or attempting to access the IS without authorisation runs the risk of a one-year prison sentence and a fine of 15,244 Euros (New Criminal Code - Article 323-1)
+	</div>
+	<div class="login-copyright">
+    Copyright &copy 2014 Alcatel-Lucent. All rights Reserved.
     </div>
 </div>
