@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8" style="width: 870px">
-			<div ng-controller="kvmctr" rc-wizard="kvmInstallWizard"
+			<div ng-controller="kvmctr" rc-wizard="sampleWizard"
 				class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
@@ -14,10 +14,10 @@
 											Type</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Select Image</span>
+										class="badge">2</span> <span>Image</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Configuration</span>
+										class="badge">3</span> <span>VNF Components Config</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
 										class="badge">4</span> <span>Deploy</span>
@@ -194,7 +194,7 @@
 										<div class="item">
 											<div class="tab-pane" id="tab5">
 												<div ng-controller="kvmctr" class="form-group">
-													<pre id="logviewer" style="display:none"></pre>
+													<pre id="logviewer"></pre>
 												</div>
 											</div>
 										</div>
@@ -213,7 +213,7 @@
 											ng-click="rc.sampleWizard.forward();carousel_count=carousel_count+1"
 											ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
 										<a class="btn btn-primary" ng-click="completeWizard()"
-											ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Complete</a>
+											ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
 									</div>
 								</div>
 							</div>
