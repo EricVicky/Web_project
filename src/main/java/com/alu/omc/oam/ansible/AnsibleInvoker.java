@@ -5,6 +5,8 @@ import java.io.File;
 import javax.annotation.Resource;
 
 import org.apache.commons.io.input.Tailer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +24,17 @@ public class AnsibleInvoker implements IAnsibleInvoker
     private Ansibleworkspace ansibleworkspace;
     @Resource
     WebsocketSender websocketSender;
+
+    private static Logger log = LoggerFactory.getLogger(AnsibleInvoker.class);
+
     public void invoke(final PlaybookCall pc) throws AnsibleException
     
     {
        final Tailer tailer = Tailer.create(this.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 1000, false);
-        try
+       log.info("create tailer"); 
+       try
         {
         	Thread thread = new Thread(new Runnable() {
-
 				@Override
 				public void run() {
 					String command = ANSIBLE_COMMAND.concat(pc.prepare(ansibleworkspace));
@@ -38,7 +43,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
 		            try {
 						commandExec.execute();
 					} catch (Exception e) {
-						e.printStackTrace();
+						log.error("failed to call ansible" , e);
 						throw new AnsibleException("failed to execute command " +command, e);
                     }
                     finally
@@ -55,6 +60,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
         catch (Exception e)
         {
            tailer.stop();
+           log.error("failed to call ansible" , e);
            throw new AnsibleException("failed to call ansible", e); 
         }
     }
