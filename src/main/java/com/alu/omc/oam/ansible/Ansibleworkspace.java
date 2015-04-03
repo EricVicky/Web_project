@@ -14,7 +14,7 @@ public class Ansibleworkspace
 {
     @Value("${ansible.workspace}")
     String workDirRoot;
-    String workingDir = workDirRoot;
+    String workingDir;
     @Value("${ansible.log}")
     String logFileName;
 
