@@ -260,12 +260,12 @@
 									<div class="form-group">
 										<div class="pull-right">
 											<a class="btn btn-default" data-target="#myCarousel"
-												data-slide-to="{{count}}"
-												ng-click="rc.sampleWizard.backward();count=count-1"
+												data-slide-to="{{carousel_count}}"
+												ng-click="rc.sampleWizard.backward();carousel_count=carousel_count-1"
 												ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
 											<a class="btn btn-primary" data-target="#myCarousel"
-												data-slide-to="{{count}}"
-												ng-click="rc.sampleWizard.forward();count=count+1"
+												data-slide-to="{{carousel_count}}"
+												ng-click="rc.sampleWizard.forward();carousel_count=carousel_count+1"
 												ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
 											<a class="btn btn-primary" ng-click="completeWizard()"
 												ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
