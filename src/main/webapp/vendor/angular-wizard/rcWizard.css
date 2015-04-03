@@ -1,6 +1,6 @@
 .rc-nav-wizard > li {
   float: left;
-  font-size: 18px;
+  font-size: 13px;
 }
 
 .rc-nav-wizard > li + li {
@@ -55,7 +55,8 @@
 .nav>li>a {
   position: relative;
   display: block;
-  padding: 18px 1px 10px 1px;
+  padding: 18px 1px 10px 8px;
+  font-size: medium;
 }
 
 label {
