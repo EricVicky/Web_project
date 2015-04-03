@@ -22,8 +22,7 @@ public class AnsibleDelegator
 {
     
     private static Logger log = LoggerFactory.getLogger(AnsibleDelegator.class);
-    @Resource
-    WebsocketSender websocketSender;
+
     @Resource
     IAnsibleInvoker ansibleInvoker; 
     public void execute(Action action, COMConfig config){
@@ -33,7 +32,6 @@ public class AnsibleDelegator
             //for test only
             //mockAnsibleInvoker();
             ansibleInvoker.invoke(playbookCall);
-            Tailer.create(ansibleInvoker.getWorkSpace().getLogFile(), new Loglistener(websocketSender), 2000, false);
         }
         catch (AnsibleException e)
         {

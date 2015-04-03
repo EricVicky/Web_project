@@ -41,6 +41,8 @@ public String prepare(Ansibleworkspace space){
         FileUtils.copyDirectory(new File(space.getWorkDirRoot() + "code"), new File(space.getWorkingdir()));
         FileUtils.writeStringToFile(new File(space.getWorkingdir() + "ansible.cfg"), 
         		cfg.concat("\r\n").concat("log_path=" + space.getLogFile()));
+        log.info("Write empty log file");
+        FileUtils.write(space.getLogFile(), "-------Call ansible......");
     }
     catch (IOException e)
     {
