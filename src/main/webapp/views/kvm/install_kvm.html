@@ -2,22 +2,20 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8" style="width: 870px">
-			<div ng-controller="kvmctr" rc-wizard="sampleWizard"
+			<div ng-controller="kvmctr" rc-wizard="kvmInstallWizard"
 				class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
-						<div id="myCarousel" class="carousel slide" data-interval="false"
-							data-ride="carousel">
 							<ul class="nav rc-nav-wizard">
 								<li class="active"><a class="active" href="#tab1"
 									data-toggle="tab"> <span class="badge">1</span> <span>COM
 											Type</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Image</span>
+										class="badge">2</span> <span>Select Image</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNF Components Config</span>
+										class="badge">3</span> <span>VNFc Configuration</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
 										class="badge">4</span> <span>Deploy</span>
@@ -26,12 +24,10 @@
 										class="badge">5</span> <span>Post validation</span>
 								</a></li>
 							</ul>
-							<form name="form">
 							<div class="modal-body">
 								<div class="tab-content">
-									<div class="carousel-inner">
-										<div class="active item">
-											<div class="tab-pane" id="tab1" name="tab1">
+											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step="" novalidate="">
+
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
 														name="com_type" ng-model="installConfig.comType"
@@ -60,10 +56,8 @@
 														type="text" ng-model="installConfig.deployment_prefix"
 														title="Prefix of VM Instance" validation="required" />
 												</div>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab2" name="tab2">
+											</form>
+											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 													<label class="control-label">OAM/CM image</label> <input
@@ -78,10 +72,8 @@
 														ng-model="installConfig.db_image" title="DB image"
 														validation="required" />
 												</fieldset>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab3" name="tab3">
+											</form>
+											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 													<legend>OAM VM</legend>
@@ -183,43 +175,33 @@
 														</select>
 													</div>
 												</fieldset>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab4">
+											</form>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 												<div class="form-group">
 													<label class="control-label">To be continued</label>
 												</div>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab5">
+											</form>
+											<form class="tab-pane" id="tab5" name="tab5" rc-submit rc-step>
 												<div ng-controller="kvmctr" class="form-group">
-													<pre id="logviewer"></pre>
+													<pre id="logviewer" style="display:none"></pre>
 												</div>
-											</div>
-										</div>
-									</div>
+											</form>
 								</div>
 							</div>
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="pull-right">
-										<a class="btn btn-default" data-target="#myCarousel"
-											data-slide-to="{{carousel_count}}"
-											ng-click="rc.sampleWizard.backward();carousel_count=carousel_count-1"
-											ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
-										<a  class="btn btn-primary" data-target="#myCarousel"
-											data-slide-to="{{carousel_count}}"
-											ng-click="rc.sampleWizard.forward();carousel_count=carousel_count+1;submitted=true"
-											ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
+										<a class="btn btn-default" 
+											ng-click="rc.kvmInstallWizard.backward()"
+											ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex">Back</a>
+										<a class="btn btn-primary" 
+											ng-click="rc.kvmInstallWizard.forward()"
+											ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
 										<a class="btn btn-primary" ng-click="completeWizard()"
-											ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
+											ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Complete</a>
 									</div>
 								</div>
 							</div>
-							</form>
-						</div>
 					</div>
 				</section>
 			</div>

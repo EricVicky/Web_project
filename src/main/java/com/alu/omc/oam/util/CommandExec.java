@@ -25,6 +25,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alu.omc.oam.ansible.AnsibleDelegator;
 
 public class CommandExec implements ICommandExec {
 
@@ -35,6 +39,7 @@ public class CommandExec implements ICommandExec {
 
     final static int INTERVAL = 5000;
     final static int COUNT = 360;
+    private static Logger log = LoggerFactory.getLogger(CommandExec.class);
 
     public CommandExec(String command) {
         if (command == null) {
@@ -73,11 +78,13 @@ public class CommandExec implements ICommandExec {
 
         Integer status = null;
         Process process;
+        
         if (dir == null) {
             process = runtime.exec(command.toString(), envp);
         } else {
             process = runtime.exec(command.toString(), envp, dir);
         }
+        
 
         if (process == null) {
             throw new IOException();

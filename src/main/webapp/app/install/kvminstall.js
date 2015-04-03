@@ -1,7 +1,7 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', 'rest', 'websocket' ]);
+		'rcForm', 'rest', 'websocket', 'ghiscoding.validation']);
 
-app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
+app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
 			var logviewer = $('#logviewer');
 			$scope.user = {};
 			$scope.saveState = function() {
@@ -13,6 +13,11 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			};
 			$scope.completeWizard = function() {
 				$scope.deploy();
+			}
+			$scope.forward = function(){
+				if(new validationService().checkFormValidity($scope.form1)) {
+				      $scope.rc.kvmInstallWizard.forward();
+				 }
 			}
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
