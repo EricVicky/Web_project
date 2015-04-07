@@ -8,17 +8,21 @@ public class COMStack
 private COMType comType;
 private String name;
 private Date updatedate;
-private COMConfig comConfig;
+private String comConfig;
 
 public COMStack(COMConfig config){
     this.name = config.getStackName();
     this.comType = config.getCOMType();
     this.updatedate = new Date();
-    this.comConfig = config;
+    this.comConfig = config.toJson();
 }
 public COMType getComType()
 {
     return comType;
+}
+
+public COMStack(){
+    
 }
 
 public void setComType(COMType comType)
@@ -48,12 +52,12 @@ public void setUpdatedate(Date updatedate)
     this.updatedate = updatedate;
 }
 
-public COMConfig getComConfig()
+public String getComConfig()
 {
     return comConfig;
 }
 
-public void setComConfig(COMConfig comConfig)
+public void setComConfig(String comConfig)
 {
     this.comConfig = comConfig;
 }
