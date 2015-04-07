@@ -53,6 +53,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             $scope.showlog= function(data){
             	$log.info(data);
             	logviewer.append(data.body + "\n");
+                logviewer.css({ display: "block" });
             }
 			$scope.deploy = function (){
             	KVMService.deploy(

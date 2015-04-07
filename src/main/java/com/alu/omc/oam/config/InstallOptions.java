@@ -13,15 +13,17 @@ import com.alu.omc.oam.util.Json2Object;
 public class InstallOptions
 {
     private static Map  opMap  = new HashMap();
-    private final static String INSTALL_OPTIONS_JSOM_FILE = "/install_option_map.json";
+
+    private final static String INSTALL_OPTIONS_JSOM_FILE = "install_option_map.json";
 
     private static Logger log = LoggerFactory.getLogger(InstallOptions.class);
 
     public static String get(COMType comType, String vm){
     	try
         {
-    		log.debug("Install Options: " + InstallOptions.class.getResource(INSTALL_OPTIONS_JSOM_FILE));
-            URI uri = InstallOptions.class.getResource(INSTALL_OPTIONS_JSOM_FILE).toURI();
+//    		log.debug("Install Options: " + InstallOptions.class.getResource(INSTALL_OPTIONS_JSOM_FILE));
+    		log.debug(InstallOptions.class.getClassLoader().getResource(INSTALL_OPTIONS_JSOM_FILE) + "");
+            URI uri = InstallOptions.class.getClassLoader().getResource(INSTALL_OPTIONS_JSOM_FILE).toURI();
             opMap = Json2Object.toMap(new File(uri));
         }
         catch (Exception e)

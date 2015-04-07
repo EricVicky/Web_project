@@ -1,8 +1,11 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8" style="width: 870px">
+<<<<<<< HEAD
 		<div class="col-md-12" style="width: 870px">
+=======
+		<div class="col-md-12">
+>>>>>>> 94522cd50db767d481181177b6ce241119a204ab
 			<div ng-controller="kvmctr" rc-wizard="kvmInstallWizard"
 				class="modal-body">
 				<section id="wizard">
@@ -27,7 +30,6 @@
 							</ul>
 							<div class="modal-body">
 								<div class="tab-content">
-											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step="" novalidate="">
 											<form   class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step >
 
 												<div class="form-group">
@@ -35,7 +37,6 @@
 														name="com_type" ng-model="installConfig.comType"
 														class="form-control"
 														ng-options="ct.Name as ct.Name for ct in comTypeStore"
-														title="COM Type" validation="required">
 														title="COM Type" validation="required"  >
 													</select>
 												</div>
@@ -75,8 +76,7 @@
 														ng-model="installConfig.db_image" title="DB image"
 														validation="required" />
 												</fieldset>
-
-
+<<<<<<< HEAD
 												<label class="control-label">COM ISO </label> <input
 														name="com_iso" class="form-control" type="text"
 														ng-model="installConfig.com_iso" title="COM ISO"
@@ -86,6 +86,16 @@
 														ng-model="installConfig.vm_img_dir" title="VM image directory"
 														validation="required" />
 												
+=======
+												  <label class="control-label">COM ISO</label> <input
+														name="oam_cm_image" class="form-control" type="text"
+														ng-model="installConfig.com_iso" title="COM ISO"
+														validation="required" />
+												  <label class="control-label">VM image directory</label> <input
+														name="oam_cm_image" class="form-control" type="text"
+														ng-model="installConfig.vm_img_dir" title="VM image directory"
+														validation="required" />
+>>>>>>> 94522cd50db767d481181177b6ce241119a204ab
 											</form>
 											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<fieldset
