@@ -141,6 +141,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 		Yaml yaml = new Yaml();
         return YamlFormatterUtil.format(yaml.dump(this));	
 	}
+	
 
     public String getOam_cm_image()
     {

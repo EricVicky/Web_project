@@ -33,7 +33,8 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onError()
     {
-
+        COMStack stack = new COMStack(config);
+        service.add(stack);
     }
 
     @Override

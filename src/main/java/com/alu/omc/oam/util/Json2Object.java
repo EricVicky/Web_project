@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class Json2Object
 {
@@ -22,6 +27,33 @@ public class Json2Object
         }
          return obj;
     }
-    
+     public static String  object2Json( Object obj)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        try
+        {
+            mapper.setVisibility(PropertyAccessor.SETTER,
+                    Visibility.PUBLIC_ONLY);
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            return mapper.writeValueAsString( obj);
+        }
+        catch (JsonGenerationException e)
+        {
+            e.printStackTrace();
+        }
+        catch (JsonMappingException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Throwable e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
   
 }
