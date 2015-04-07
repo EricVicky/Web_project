@@ -8,17 +8,18 @@
 				<section id="wizard">
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard">
-								<li><a href="#tab1" data-toggle="tab"> <span 
-								        class="badge">1</span> <span>COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<li class="active"><a class="active" href="#tab1"
+									data-toggle="tab"> <span class="badge">1</span> <span>COM
+											Type</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Select Image&nbsp;</span>
+										class="badge">2</span> <span>Select Image</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Config&nbsp;</span>
+										class="badge">3</span> <span>VNFc Configuration</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+										class="badge">4</span> <span>Deploy</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
 										class="badge">5</span> <span>Post validation</span>
@@ -27,6 +28,7 @@
 							<div class="modal-body">
 								<div class="tab-content">
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step="" novalidate="">
+
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
 														name="com_type" ng-model="installConfig.comType"
@@ -205,7 +207,7 @@
 											ng-click="rc.kvmInstallWizard.backward()"
 											ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex">Back</a>
 										<a class="btn btn-primary" 
-											ng-click="forward()"
+											ng-click="rc.kvmInstallWizard.forward()"
 											ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
 										<a class="btn btn-primary" ng-click="completeWizard()"
 											ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Complete</a>
