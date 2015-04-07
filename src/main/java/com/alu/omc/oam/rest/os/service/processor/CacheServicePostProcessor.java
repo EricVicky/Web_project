@@ -12,13 +12,13 @@ import com.alu.omc.oam.rest.os.service.CinderService;
 import com.alu.omc.oam.rest.os.service.ComputeService;
 import com.alu.omc.oam.rest.os.service.access.YaoOsClientService;
 
-@Component
+//@Component
 public class CacheServicePostProcessor implements BeanPostProcessor, UnLogable {
 
-	@Resource
+//	@Resource
 	private YaoOsClientService yaoOsClientService;
 	
-	@Override
+//	@Override
 	public Object postProcessAfterInitialization(Object obj, String arg1)
 			throws BeansException {
 		if(obj instanceof ComputeService) 

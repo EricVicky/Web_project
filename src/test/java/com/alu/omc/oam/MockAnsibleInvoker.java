@@ -6,22 +6,24 @@ import com.alu.omc.oam.ansible.Ansibleworkspace;
 import com.alu.omc.oam.ansible.IAnsibleInvoker;
 import com.alu.omc.oam.ansible.PlaybookCall;
 import com.alu.omc.oam.ansible.exception.AnsibleException;
+import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 
 public class MockAnsibleInvoker implements IAnsibleInvoker
 {
 
     @Resource
     private Ansibleworkspace ansibleworkspace;
-    @Override
-    public void invoke(PlaybookCall pc) throws AnsibleException
-    {
-              
-    }
+
     @Override
     public Ansibleworkspace getWorkSpace()
     {
-        // TODO Auto-generated method stub
         return null;
+    }
+    @Override
+    public void invoke(PlaybookCall pc, IAnsibleHandler handler)
+            throws AnsibleException
+    {
+        
     }
 
 }

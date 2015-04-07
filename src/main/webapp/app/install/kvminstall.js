@@ -15,12 +15,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 				$scope.deploy();
 				alert('Completed!');
 			}
-			$scope.forward = function(){
-				var index = $scope.rc.kvmInstallWizard.currentIndex + 1;
-				if($scope['tab'+ index].$valid==true) {
-				      $scope.rc.kvmInstallWizard.forward();
-				 }
-			}
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
             		deployment_prefix: "sun",
@@ -58,6 +52,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             $scope.showlog= function(data){
             	$log.info(data);
             	logviewer.append(data.body + "\n");
+                logviewer.css({ display: "block" });
             }
 			$scope.deploy = function (){
             	KVMService.deploy(

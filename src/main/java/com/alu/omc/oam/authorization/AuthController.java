@@ -2,7 +2,8 @@ package com.alu.omc.oam.authorization;
 
 import net.sf.jpam.Pam;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,11 +24,12 @@ public class AuthController {
 			result = "wrong password";
 		}
 
-		logger.info("user: " + userName + " password: " + userPwd + " -- successful");
+		log.info("user: " + userName + " password: " + userPwd + " -- successful");
 
 		return result;
 	}
 
-	private static final Logger logger = Logger.getLogger(AuthController.class);
+	    private static Logger log = LoggerFactory.getLogger(AuthController.class);
+
 
 }

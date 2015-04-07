@@ -21,21 +21,34 @@ public class AnsibleDelegator implements ApplicationContextAware
 {
     
     private static Logger log = LoggerFactory.getLogger(AnsibleDelegator.class);
-
     private ApplicationContext applicationContext;
+<<<<<<< HEAD
     IAnsibleInvoker ansibleInvoker; 
+=======
 
+    @Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
-
-
+	//    @Resource
+    IAnsibleInvoker ansibleInvoker;  
+>>>>>>> 94522cd50db767d481181177b6ce241119a204ab
     public void execute(Action action, COMConfig config){
         PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
         try
         {
             //for test only
+<<<<<<< HEAD
             //mockAnsibleInvoker(config);
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
             ansibleInvoker.invoke(playbookCall, getHandler(config));
+=======
+            //mockAnsibleInvoker();
+        	ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
+            ansibleInvoker.invoke(playbookCall);
+>>>>>>> 94522cd50db767d481181177b6ce241119a204ab
         }
         catch (AnsibleException e)
         {
