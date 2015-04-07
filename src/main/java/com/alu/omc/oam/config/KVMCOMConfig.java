@@ -10,6 +10,7 @@ import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.util.YamlFormatterUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
 	  
@@ -101,6 +102,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     }
     
 	@Override
+	@JsonIgnore 
 	public Inventory getInventory() {
 	    Inventory inv = new Inventory();
 	    Group hostg = new Group("host");
@@ -124,6 +126,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	}
 
 	@Override
+	@JsonIgnore 
 	public String getVars() {
         Iterator<String> it = vm_config.keySet().iterator(); 
 	    while(it.hasNext()){
@@ -183,11 +186,15 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
        }
     }
 
-	@Override
-	public String getCfg() {
-		StringBuilder cfg = new StringBuilder("[defaults]");
-		cfg.append("\r\n").append("host_key_checking = False");
-		return cfg.toString();
-	}
+    @Override
+    @JsonIgnore 
+    public String getStackName()
+    {
+       return this.deployment_prefix; 
+    }
+
+
+
+
     
 }
