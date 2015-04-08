@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 import com.alu.omc.oam.log.Loglistener;
-import com.alu.omc.oam.util.CommandExec;
+import com.alu.omc.oam.util.CommandProtype;
 import com.alu.omc.oam.util.CommandResult;
+import com.alu.omc.oam.util.ICommandExec;
 
 @Component("ansibleInvoker")
 @Scope(value="prototype")
@@ -22,6 +23,10 @@ public class AnsibleInvoker implements IAnsibleInvoker
 {
     @Resource
     private Ansibleworkspace ansibleworkspace;
+
+    @Resource
+    private  CommandProtype commandProtype;
+
 
     private static Logger log = LoggerFactory.getLogger(AnsibleInvoker.class);
 
@@ -37,10 +42,9 @@ public class AnsibleInvoker implements IAnsibleInvoker
 				@Override
 				public void run() {
 					String command = pc.prepare(ansibleworkspace);
-                    CommandExec commandExec = new CommandExec(command, null,
-                            null, new File(ansibleworkspace.getWorkingdir()));
+				    ICommandExec	commandExe = commandProtype.create(command, new File(ansibleworkspace.getWorkingdir()));
 		            try {
-						CommandResult rst = commandExec.execute();
+						CommandResult rst = commandExe.execute();
 						if(rst.isFailed()){
 						    handler.onError();
 						}else{
