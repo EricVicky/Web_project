@@ -23,7 +23,7 @@ public class Ansibleworkspace
     String workingDir;
     @Value("${ansible.log}")
     String logFileName;
-    private static final Logger log = LoggerFactory.getLogger(PlaybookCall.class);
+    private static final Logger log = LoggerFactory.getLogger(Ansibleworkspace.class);
     public final static String        VAR_FILE_NAME   = "group_vars/all";
     public final static String        HOSTS_FILE_NAME = "hosts";
     public String getWorkingdir()
