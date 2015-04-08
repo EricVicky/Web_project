@@ -128,7 +128,7 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			);
 		},
 		deploy: function (config, success, error) {
-			var deployRes = $resource(restUrl + "/rest/kvm/deployment");
+			var deployRes = $resource(restUrl + "rest/kvm/deployment");
 			deployRes.save(config,
 				function (data) {
 					$log.info(data);

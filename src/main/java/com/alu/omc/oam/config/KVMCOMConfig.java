@@ -10,6 +10,7 @@ import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.util.YamlFormatterUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class KVMCOMConfig extends COMConfig implements Serializable{
 	  
@@ -26,6 +27,8 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private String deployment_prefix;
 	private String oam_cm_image;
 	private String db_image;
+	private String com_iso;
+	private String vm_img_dir;
 	
 	
 	@Override
@@ -97,8 +100,9 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     {
         this.vm_config = vm_config;
     }
-
+    
 	@Override
+	@JsonIgnore 
 	public Inventory getInventory() {
 	    Inventory inv = new Inventory();
 	    Group hostg = new Group("host");
@@ -122,6 +126,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	}
 
 	@Override
+	@JsonIgnore 
 	public String getVars() {
         Iterator<String> it = vm_config.keySet().iterator(); 
 	    while(it.hasNext()){
@@ -136,6 +141,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 		Yaml yaml = new Yaml();
         return YamlFormatterUtil.format(yaml.dump(this));	
 	}
+	
 
     public String getOam_cm_image()
     {
@@ -157,7 +163,23 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
         this.db_image = db_image;
     }
     
-    private String getVMImageName(String vmname){
+    public String getCom_iso() {
+		return com_iso;
+	}
+
+	public void setCom_iso(String com_iso) {
+		this.com_iso = com_iso;
+	}
+	
+    public String getVm_img_dir() {
+		return vm_img_dir;
+	}
+
+	public void setVm_img_dir(String vm_img_dir) {
+		this.vm_img_dir = vm_img_dir;
+	}
+
+	private String getVMImageName(String vmname){
        if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
            return this.oam_cm_image;
        }else{
@@ -165,11 +187,15 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
        }
     }
 
-	@Override
-	public String getCfg() {
-		StringBuilder cfg = new StringBuilder("[defaults]");
-		cfg.append("\r\n").append("host_key_checking = False");
-		return cfg.toString();
-	}
+    @Override
+    @JsonIgnore 
+    public String getStackName()
+    {
+       return this.deployment_prefix; 
+    }
+
+
+
+
     
 }

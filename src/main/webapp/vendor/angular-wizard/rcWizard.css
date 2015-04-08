@@ -1,144 +1,67 @@
-.bwizard-steps {
-  display: inline-block;
-  margin: 0; 
-  padding: 0;
-  background: #fff 
+.rc-nav-wizard > li {
+  float: left;
+  font-size: 13px;
 }
-.bwizard-steps .active {
-    color: #fff;
-    border-left: 20px solid #FFF; 
 
-  }
+.rc-nav-wizard > li + li {
+  margin-left: 2px;
+}
 
-  .modal-body {
-    position: relative;
-    padding: 10px;
-  }
-  .nav-pills > li > a {
-    border-radius: 4px 0px 0px 4px;
-  }
-  .bwizard-steps .active:after {
-    border-left-color: #007ACC 
-  }
-  .bwizard-steps .active a {
-    color: #fff;
-    cursor: default; 
-  }
-  .bwizard-steps .label {
-    position: relative;
-    top: -1px;
-    margin: 0 5px 0 0; 
-    padding: 1px 5px 2px;
-    color:#000;
-    cursor: default;  
-  }
-  .bwizard-steps .active .label {
-    background-color: #333;
-    color:#fff; 
-  }
-  .form-control{
-    height:unset;
-  }
-  .bwizard-steps li {
-    display: inline-block; 
-    position: relative;
-    margin-right: 5px;
-    *display: inline;
-    *padding-left: 17px;
-    background: #efefef;
-    line-height: 20px;
-    list-style: none;
-    zoom: 1; 
-    cursor: default;
-    width: auto;
-  }
-  .bwizard-steps li:first-child {
-    padding-left: 1px;
-    -moz-border-radius: 4px 0 0 4px;
-    -webkit-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px; 
-    cursor: default;
-    width: auto; 
-  }
-  .bwizard-steps li:first-child:before {
-    border: none;
-    width: auto; 
-  }
-  .bwizard-steps li:last-child {
-    margin-right: 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -webkit-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0; 
-    cursor: default;
-    width: auto; 
-  }
-  .bwizard-steps li:last-child:after {
-    border: none;
-    width: auto; 
-  }
-  .bwizard-steps li:before {
-    position: absolute;
-    left: 0; 
-    top: 0;
-    height: 0; 
-    width: auto;
-    border-bottom: 20px inset transparent;
-    border-left: 20px solid #fff;
-    border-top: 20px inset transparent;
-    content: "";
-    cursor: default;  
-  }
-  .bwizard-steps li:after {
-    position: absolute;
-    right: -19px; 
-    top: 0;
-    height: 0; 
-    width: auto;
-    border-bottom: 21px inset transparent;
-    border-left: 20px solid #efefef;
-    border-top: 20px inset transparent;
-    content: "";
-    z-index: 2; 
-    cursor: default; 
-  }
-  .bwizard-steps a {
-    color: #333; 
-    cursor: default;
-  }
-  .bwizard-steps a:hover:not(.active){
-    text-decoration: none;
-    background: none;
-  }
-.bwizard-steps.clickable li:not(.active) {
+.rc-nav-wizard > li > a {
+  border-radius: 5px;
   cursor: default;
-}
-.bwizard-steps.clickable li:hover:not(.active) {
-  background: #ccc;
-}
-.bwizard-steps.clickable li:hover:not(.active):after {
-  border-left-color: #ccc;
-}
-.bwizard-steps.clickable li:hover:not(.active) a {
-  color: #08c;
-}
-@media (min-width: @screen-md-min) { 
-  /* badges only on small screens */
-  .bwizard-steps li:after,
-  .bwizard-steps li:before {
-    border: none 
-  }
-  .bwizard-steps li,
-  .bwizard-steps li.active,
-  .bwizard-steps li:first-child,
-  .bwizard-steps li:last-child {
-    margin-right: 0;
-    padding: 0;
-    background-color: transparent 
-  }
+  color: #999;
 }
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
-	  color: #fff;
-      background-color: #337ab7;
+.rc-nav-wizard > li > a,
+.rc-nav-wizard > li > a:hover,
+.rc-nav-wizard > li > a:focus {
+  background-color: transparent;
 }
 
+.rc-nav-wizard > li > a > .badge {
+  margin-left: 3px;
+  font-size: 18px;
+  padding: 5px 9px;
+  border-radius: 15px;
+}
+
+/* active = current wizard step */
+.rc-nav-wizard > li.active > a,
+.rc-nav-wizard > li.active > a:hover,
+.rc-nav-wizard > li.active > a:focus {
+  color: #428bca;
+  background-color: transparent;
+}
+
+.rc-nav-wizard > .active > a > .badge {
+  color: #ffffff;
+  background-color: #337ab7;
+}
+
+/* success = completed wizard step */
+.rc-nav-wizard > li.success > a,
+.rc-nav-wizard > li.success > a:hover,
+.rc-nav-wizard > li.success > a:focus {
+  color: #D4AF37;
+  background-color: transparent;
+}
+
+.rc-nav-wizard > .success > a > .badge {
+  color: #ffffff;
+  background-color: #D4AF37;
+}
+
+.nav>li>a {
+  position: relative;
+  display: block;
+  padding: 18px 1px 10px 8px;
+  font-size: medium;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 100;
+}

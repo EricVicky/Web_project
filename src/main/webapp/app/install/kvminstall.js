@@ -1,7 +1,7 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', 'rest', 'websocket' ]);
+		'rcForm', 'rest', 'websocket', 'ghiscoding.validation']);
 
-app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService) {
+app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
 			var logviewer = $('#logviewer');
 			$scope.user = {};
 			$scope.saveState = function() {
@@ -23,19 +23,19 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '8', memory: '8000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "10.223.0.62",
             		  },
             		  db:{
             		    ip_address: "10.223.0.54",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '8', memory: '8000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "10.223.0.62",
             		  },
             		  cm:{
             		    ip_address: "135.251.236.105",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '2', memory: '3000000', disk: '480'},
+            		    flavor: {label: "medium(2*4*480)", vCpu: '8', memory: '8000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "135.251.236.110",
             		    hostname: "sun-cm-1"
@@ -53,6 +53,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             $scope.showlog= function(data){
             	$log.info(data);
             	logviewer.append(data.body + "\n");
+                logviewer.css({ display: "block" });
             }
 			$scope.deploy = function (){
             	KVMService.deploy(

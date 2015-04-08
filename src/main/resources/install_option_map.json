@@ -1,19 +1,19 @@
 {
-FCAPS:{
-	oam: "install_options_FCAPS_oamvm.j2",
-	cm: "install_options_FCAPS_cmvm.j2",
-	db: "install_options_FCAPS_dbvm.j2",
-},
-CM:{
-	oam: "install_options_CM_oamvm.j2",
-	cm: "install_options_CM_cmvm.j2",
-	db: "install_options_CM_dbvm.j2"
-},
-OAM:{
-	oam: "install_options_OAM_oamvm.j2",
-	db: "install_options_OAM_dbvm.j2"
-},
-QoSAC:{
-	oam: "install_options_QoSAC_oamvm.j2"
-},
+	"FCAPS":{
+		"oam": "install_options_FCAPS_oam.j2",
+		"cm": "install_options_FCAPS_cm.j2",
+		"db": "install_options_FCAPS_db.j2"
+	},
+	"CM":{
+		"oam": "install_options_CM_oam.j2",
+		"cm": "install_options_CM_cm.j2",
+		"db": "install_options_CM_db.j2"
+	},
+	"OAM":{
+		"oam": "install_options_OAM_oam.j2",
+		"db": "install_options_OAM_db.j2"
+	},
+	"QoSAC":{
+		"oam": "install_options_QoSAC_oam.j2"
+	}
 }

@@ -5,15 +5,14 @@ import org.apache.commons.io.input.TailerListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alu.omc.oam.service.WebsocketSender;
+import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 
 
 public class Loglistener implements TailerListener
 {
-    WebsocketSender sender;
-    String topic = "/log/tail";
     
     private static Logger log = LoggerFactory.getLogger(Loglistener.class);
+    IAnsibleHandler handler = null;
     @Override
     public void init(Tailer paramTailer)
     {
@@ -36,7 +35,7 @@ public class Loglistener implements TailerListener
     @Override
     public void handle(String paramString)
     {
-       sender.send(topic, paramString); 
+      handler.Parse(paramString); 
     }
 
     @Override
@@ -45,7 +44,7 @@ public class Loglistener implements TailerListener
        log.error(paramException.getMessage()); 
     }
     
-    public Loglistener(WebsocketSender sender){
-        this.sender = sender;
+    public Loglistener(IAnsibleHandler handler){
+        this.handler = handler;
     }
 }

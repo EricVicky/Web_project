@@ -3,6 +3,9 @@ package com.alu.omc.oam.ansible;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMFact;
 import com.alu.omc.oam.config.Environment;
@@ -11,6 +14,8 @@ public class PlaybookFactory
 {
     private  static PlaybookFactory instance = null;
     private static final Map<String, Playbook> playbooks = new HashMap<String, Playbook>(20);
+    private static Logger log = LoggerFactory.getLogger(PlaybookFactory.class);
+
     static{
         playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("install_kvm.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("install_os.yml") );
