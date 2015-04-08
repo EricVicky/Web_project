@@ -24,12 +24,9 @@ public class MockCommandExec implements ICommandExec {
 
     private String action;
     private File workingDir = null;
-    private final String SAMPLE_ANSIBLE_LOG_DIR ="/samplelog/";
+    private final String SAMPLE_ANSIBLE_LOG_DIR ="samplelog";
 
     private static Logger log = LoggerFactory.getLogger(MockCommandExec.class);
-
-
-
 
     public MockCommandExec(String command, String[] args, String[] envp, File dir) {
         Pattern p = Pattern.compile("^.*\\\\([\\S]+)\\.yml");
@@ -47,8 +44,7 @@ public class MockCommandExec implements ICommandExec {
         {
             URI uri = MockCommandExec.class
                     .getClassLoader()
-                    .getResource(
-                            SAMPLE_ANSIBLE_LOG_DIR.concat(action)
+                    .getResource(File.separator.concat( SAMPLE_ANSIBLE_LOG_DIR).concat(File.separator).concat(action)
                                     .concat(".log")).toURI();
            File samplelog = new File(uri);
           LineIterator itertor = FileUtils.lineIterator(samplelog);
