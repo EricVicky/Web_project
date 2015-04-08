@@ -1,0 +1,47 @@
+2015-04-03 15:54:42,627 p=18440 u=root |
+2015-04-03 15:54:42,627 p=18440 u=root |  /usr/bin/ansible-playbook -i /home/ansible/2015-04-03_15-35-41-202/hosts /home/ansible/2015-04-03_15-35-41-202/install_kvm.yml
+2015-04-03 15:54:42,627 p=18440 u=root |
+2015-04-03 15:54:42,980 p=18440 u=root |  PLAY [Auto install com on kvm] ************************************************
+2015-04-03 15:54:42,981 p=18440 u=root |  GATHERING FACTS ***************************************************************
+2015-04-03 15:54:43,149 p=18440 u=root |  ok: [localhost]
+2015-04-03 15:54:43,149 p=18440 u=root |  TASK: [prepare | generate uuid for vm instance] *******************************
+2015-04-03 15:54:43,232 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+2015-04-03 15:54:43,232 p=18440 u=root |  TASK: [prepare | generate mac address] ****************************************
+2015-04-03 15:54:43,307 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+-------Call ansible......2015-04-03 15:54:42,530 p=18440 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+timing vulnerabilities when used with pycrypto. If possible, you should update
+it (i.e. yum update gmp).
+
+2015-04-03 15:54:42,627 p=18440 u=root |
+2015-04-03 15:54:42,627 p=18440 u=root |  /usr/bin/ansible-playbook -i /home/ansible/2015-04-03_15-35-41-202/hosts /home/ansible/2015-04-03_15-35-41-202/install_kvm.yml
+2015-04-03 15:54:42,627 p=18440 u=root |
+2015-04-03 15:54:42,980 p=18440 u=root |  PLAY [Auto install com on kvm] ************************************************
+2015-04-03 15:54:42,981 p=18440 u=root |  GATHERING FACTS ***************************************************************
+2015-04-03 15:54:43,149 p=18440 u=root |  ok: [localhost]
+2015-04-03 15:54:43,149 p=18440 u=root |  TASK: [prepare | generate uuid for vm instance] *******************************
+2015-04-03 15:54:43,232 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+2015-04-03 15:54:43,232 p=18440 u=root |  TASK: [prepare | generate mac address] ****************************************
+2015-04-03 15:54:43,307 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+2015-04-03 15:54:43,307 p=18440 u=root |  TASK: [prepare | generate directories for tmp file] ***************************
+2015-04-03 15:54:43,405 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,406 p=18440 u=root |  TASK: [prepare | generate meta-data] ******************************************
+2015-04-03 15:54:43,503 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,503 p=18440 u=root |  TASK: [prepare | generate user-data] ******************************************
+2015-04-03 15:54:43,613 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,614 p=18440 u=root |  TASK: [prepare | generate data source image] **********************************
+2015-04-03 15:54:43,711 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,712 p=18440 u=root |  TASK: [prepare | generate vm domain definition xml] ***************************
+2015-04-03 15:54:43,814 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,814 p=18440 u=root |  TASK: [prepare | generate file directories] ***********************************
+2015-04-03 15:54:43,907 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:43,907 p=18440 u=root |  TASK: [prepare | generate install options] ************************************
+2015-04-03 15:54:44,030 p=18440 u=root |  ok: [localhost]
+2015-04-03 15:54:44,030 p=18440 u=root |  TASK: [prepare | delete tmp meta-data] ****************************************
+2015-04-03 15:54:44,124 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:44,124 p=18440 u=root |  TASK: [prepare | delete tmp user-data] ****************************************
+2015-04-03 15:54:44,218 p=18440 u=root |  changed: [localhost]
+2015-04-03 15:54:44,218 p=18440 u=root |  TASK: [prepare | generate uuid for vm instance] *******************************
+2015-04-03 15:54:44,291 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+2015-04-03 15:54:44,291 p=18440 u=root |  TASK: [prepare | generate mac address] ****************************************
+2015-04-03 15:54:44,367 p=18440 u=root |  changed: [localhost -> 127.0.0.1]
+2015-04-03 15:54:44,367 p=18440 u=root |  TASK: [prepare | generate directories for tmp file] ***************************
