@@ -6,8 +6,6 @@
 				class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
-						<div id="myCarousel" class="carousel slide" data-interval="false"
-							data-ride="carousel">
 							<ul class="nav rc-nav-wizard">
 								<li class="active"><a class="active" href="#tab1"
 									data-toggle="tab"> <span class="badge">1</span> <span>COM
@@ -23,7 +21,7 @@
 										class="badge">4</span> <span>Heat stack</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
-										class="badge">5</span> <span>Deployl</span>
+										class="badge">5</span> <span>Deploy</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
 										class="badge">6</span> <span>Post validation</span>
@@ -31,9 +29,7 @@
 							</ul>
 							<div class="modal-body">
 								<div class="tab-content">
-									<div class="carousel-inner">
-										<div class="active item">
-											<div class="tab-pane" id="tab1" name="tab1">
+											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step="" novalidate="">
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
 														name="com_type" ng-model="installConfig.comType"
@@ -53,12 +49,10 @@
 												<div class="form-group">
 													<label class="control-label">Openstack RC File</label> <input
 														type="file" name="rc_file" ng-model="installConfig.rcFile"
-														class="form-control" title="Openstack RC File"
-														validation="required">
+														class="form-control" title="Openstack RC File">
 												</div>
-											</div>
-										</div>
-										<div class="item">
+											</form>
+											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 											<div class="tab-pane" id="tab2" name="tab2">
 												<div class="form-group">
 													<label class="control-label">Network</label> <select
@@ -88,9 +82,8 @@
 													</select>
 												</div>
 											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab3" name="tab3">
+											</form>
+											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<div class="form-group">
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -168,10 +161,8 @@
 														</div>
 													</fieldset>
 												</div>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab4">
+											</form>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 												<div class="form-group">
 													<label class="control-label">Heat Version</label> <select
 														name="heat_version"
@@ -180,8 +171,6 @@
 														ng-options="hv for hv in heat_version"
 														title="Heat Version" validation="required">
 													</select>
-												</div>
-												<div class="form-group">
 													<label class="control-label">Config Drive</label> <select
 														name="config_drive" ng-model="installConfig.config_drive"
 														class="form-control"
@@ -238,34 +227,26 @@
 														</select>
 													</fieldset>
 												</div>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab5">
+											</form>
+											<form class="tab-pane" id="tab5" name="tab5" rc-submit rc-step>
 												<div class="form-group">
 													<label class="control-label">To be continued</label>
 												</div>
-											</div>
-										</div>
-										<div class="item">
-											<div class="tab-pane" id="tab6">
+											</form>
+											<form class="tab-pane" id="tab6" name="tab6" rc-submit rc-step>
 												<div class="form-group">
 													<label class="control-label">To be continued</label>
 												</div>
-											</div>
-										</div>
-									</div>
+											</form>
 								</div>
 								<div class="modal-footer">
 									<div class="form-group">
 										<div class="pull-right">
 											<a class="btn btn-default" data-target="#myCarousel"
-												data-slide-to="{{count}}"
-												ng-click="rc.OSInstallWizard.backward();count=count-1"
+												ng-click="rc.OSInstallWizard.backward()"
 												ng-show="rc.OSInstallWizard.currentIndex > rc.OSInstallWizard.firstIndex">Back</a>
 											<a class="btn btn-primary" data-target="#myCarousel"
-												data-slide-to="{{count}}"
-												ng-click="rc.OSInstallWizard.forward();count=count+1"
+												ng-click="rc.OSInstallWizard.forward()"
 												ng-show="rc.OSInstallWizard.currentIndex < rc.OSInstallWizard.navigationLength">Continue</a>
 											<a class="btn btn-primary" ng-click="completeWizard()"
 												ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength">Complete</a>
@@ -273,7 +254,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
 				</section>
 			</div>
 		</div>

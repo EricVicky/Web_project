@@ -1,44 +1,52 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12" style="width: 870px">
+		<div style="width: 570px">
 			<div ng-controller="upgradectr" rc-wizard="kvmupgradeWizard"
-				class="modal-body">
+				class="modal-body col-md-12 col-md-offset-4">
 				<section id="wizard">
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard">
 								<li class="active"><a class="active" href="#tab1"
 									data-toggle="tab"> <span class="badge">1</span> <span>COM
-											Info</span>
+											Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Select Image</span>
+										class="badge">2</span> <span>Select Image&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>Deploy</span>
+										class="badge">3</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 							</ul>
 							<div class="modal-body">
 								<div class="tab-content">
 											<form   class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step >
 												<div class="form-group">
-													<label class="control-label">COM Type</label> 
-													<select name="com_type" ng-model="instance" class="form-control" ng-options=" inst.name for inst in instances" title="COM Instance" validation="required"> </select>
+													<label class="control-label">COM Instance</label> 
+													<select name="com_instance" ng-model="com_instance" class="form-control" ng-options="  inst.name for inst in comInstance" title="COM Instance"> </select>
 												</div>
 											</form>
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
-												<fieldset ng-if="instance.comType=='FCAPS' || instance.comType=='OAM' || instance.comType=='CM' || instance.comType=='QoSAC'">
-													<label class="control-label">OAM/CM image</label>
-													 <input name="oam_cm_image" class="form-control" type="text" ng-model="instance.oam_cm_image" title="OAM/CM image" validation="required" />
+												<fieldset ng-if="com_instance.comType=='FCAPS' || com_instance.comType=='OAM' || com_instance.comType=='CM' || com_instance.comType=='QoSAC'">
+													<div class="form-group">
+														<label class="control-label">OAM/CM image</label>
+														<input name="oam_cm_image" class="form-control" type="text" ng-model="$parent.oam_cm_image" title="OAM/CM image" validation="required" />
+													</div>
 												</fieldset>
-												<fieldset ng-if="instance.comType=='FCAPS' || instance.comType=='OAM' || instance.comType=='CM'">
-													<label class="control-label">DB image</label>
-													<input name="db_image" class="form-control" type="text" ng-model="db_image" title="DB image" validation="required" />
+												<fieldset>
+													<div class="form-group">
+														<label class="control-label">DB image</label>
+														<input name="db_image" class="form-control" type="text" ng-model="$parent.db_image" title="DB image" validation="required" />
+													</div>
 												</fieldset>
-												<label class="control-label">COM ISO </label> 
-												<input name="com_iso" class="form-control" type="text" ng-model="com_iso" title="COM ISO" validation="required" />
-												<label class="control-label">VM image directory</label>
-												<input name="vm_image_dir" class="form-control" type="text" ng-model="vm_img_dir" title="VM image directory" validation="required" />
+												<div class="form-group">
+													<label class="control-label">COM ISO </label>
+												    <input name="com_iso" class="form-control" type="text" ng-model="com_iso" title="COM ISO" validation="required" />
+												</div>
+												<div class="form-group">
+													<label class="control-label">VM image directory</label>
+												    <input name="vm_image_dir" class="form-control" type="text" ng-model="vm_img_dir" title="VM image directory" validation="required" />
+												</div>
 											</form>
 											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<div ng-controller="kvmctr" class="form-group">

@@ -169,3 +169,38 @@ rest.factory('KVMService', function($location, $resource, $log) {
 		}
 	};
 });
+
+rest.factory('KVMUpgradeService', function($location, $resource, $log) {
+	var baseUrl = $location.absUrl().split("#", 1)[0];
+	var restUrl = baseUrl;
+	return {
+		baseUrl: baseUrl,
+		restUrl: restUrl,
+		upgrade: function (config, success, error) {
+			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");
+			upgradeRes.save(config,
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
+		getComInstance: function(success,error) {
+			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
+			comInstanceRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		}
+	};
+});
