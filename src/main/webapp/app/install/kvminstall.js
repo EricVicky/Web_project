@@ -71,6 +71,8 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             			function(data) {
             				$log.info(data);
             				$scope.imagelist = data;
+            				$scope.installConfig.oam_cm_image = $scope.imagelist[0];
+            				$scope.installConfig.db_image = $scope.imagelist[1];
             			}, 
             			function(response){
             				$log.error(response);
@@ -113,6 +115,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             			function(data) {
             				$log.info(data);
             				$scope.hostIPs = data;
+            				$scope.installConfig.active_host_ip = $scope.hostIPs[0];
             			}, 
             			function(response){
             				$log.error(response);
