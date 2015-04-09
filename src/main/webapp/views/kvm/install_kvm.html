@@ -106,10 +106,11 @@
 													<div class="form-group col-md-12">
 														<label class="control-label">Flavor</label> <select
 															name="oam_flavor"
+															ng-init="installConfig.vm_config.oam.flavor=flavorStore[installConfig.comType]['oam'][0]"
 															ng-model="installConfig.vm_config.oam.flavor"
 															class="form-control"
-															ng-options="fl.label for fl in flavorStore[installConfig.comType]['oam']"
-															title="Flavor" validation="required">
+															ng-options="fl as fl.label for fl in flavorStore[installConfig.comType]['oam']"
+															title="Flavor" validation="required" >
 														</select>
 													</div>
 												</fieldset>
@@ -137,6 +138,7 @@
 													<div class="form-group col-md-12">
 														<label class="control-label">Flavor</label> <select
 															name="db_flavor"
+															ng-init="installConfig.vm_config.db.flavor=flavorStore[installConfig.comType]['db'][0]"
 															ng-model="installConfig.vm_config.db.flavor"
 															class="form-control"
 															ng-options="fl.label for fl in flavorStore[installConfig.comType]['db']"
@@ -168,6 +170,7 @@
 													<div class="form-group col-md-12">
 														<label class="control-label">Flavor</label> <select
 															name="cm_flavor"
+															ng-init="installConfig.vm_config.cm.flavor=flavorStore[installConfig.comType]['cm'][0]"
 															ng-model="installConfig.vm_config.cm.flavor"
 															class="form-control"
 															ng-options="fl.label for fl in flavorStore[installConfig.comType]['cm']"
@@ -176,7 +179,8 @@
 													</div>
 													<div class="form-group col-md-12">
 														<label class="control-label">Support ARS</label> <select
-															name="support_ars" class="form-control" type="text"
+															name="support_ars" class="form-control"
+															ng-init="installConfig.vm_config.cm.support_ars=support_ars[0]"
 															ng-model="installConfig.vm_config.cm.support_ars"
 															ng-options="sa for sa in support_ars" title="Support ARS"
 															validation="required">

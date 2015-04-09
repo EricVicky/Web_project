@@ -90,6 +90,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	KVMService.getComTypeStore(
             			function(data) {
             				$scope.comTypeStore = data;
+            				$scope.installConfig.comType = $scope.comTypeStore[0].Name;
             			}, 
             			function(response){
             				$log.error(response);
@@ -100,6 +101,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	KVMService.getTimezoneStore(
             			function(data) {
             				$scope.timezoneStore = data;
+            				$scope.installConfig.timezone = $scope.timezoneStore[0].Time;
             			}, 
             			function(response){
             				$log.error(response);
