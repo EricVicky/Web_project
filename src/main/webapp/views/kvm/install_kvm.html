@@ -45,9 +45,10 @@
 												</div>
 												<div class="form-group">
 													<label class="control-label">Host IP</label> <select
-														name="active_host_ip" class="form-control"
-														ng-model="installConfig.active_host_ip" title="Host IP"
-														ng-options="host.name for host in hostIPs" validation="required" >
+														name="host_ip" ng-model="installConfig.active_host_ip" 
+														class="form-control"
+														ng-options="host as host.name for host in hostIPs" 
+														title="Host IP" validation="required" >
 														</select>
 												</div>
 												<div class="form-group">
