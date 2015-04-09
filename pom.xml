@@ -189,11 +189,16 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.3.6</version>
 		</dependency>
-		<dependency>
-			<groupId>net.sf.jpam</groupId>
-			<artifactId>jpam</artifactId>
-			<version>1.1</version>
-		</dependency>
+	<dependency>
+		<groupId>net.sf.jpam</groupId>
+		<artifactId>jpam</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>com.jcraft</groupId>
+		<artifactId>jsch</artifactId>
+		<version>0.1.52</version>
+	</dependency>
 
 	</dependencies>
 	<!-- <pluginRepositories> <pluginRepository> <id>spring-releases</id> <url>https://repo.spring.io/libs-release</url> 

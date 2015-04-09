@@ -8,7 +8,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 				var deferred = $q.defer();
 				$timeout(function() { 
 					deferred.resolve();
-				}, 1000);
+				}, 1);
 				return deferred.promise;
 			};
 			$scope.completeWizard = function() {
@@ -18,7 +18,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
             		deployment_prefix: "sun",
-            		active_host_ip: "135.251.236.98",
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
@@ -93,6 +92,39 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             			}
             	);
             })();
+            (function (){
+            	KVMService.getOamCmImages(
+            			function(data) {
+            				$log.info(data);
+            				$scope.OamCmImages = data;
+            			}, 
+            			function(response){
+            				$log.error(response);
+            			}
+            	);
+            })();
+            (function (){
+            	KVMService.getAcHostIP(
+            			function(data) {
+            				$log.info(data);
+            				$scope.AcHostIP = data;
+            			}, 
+            			function(response){
+            				$log.error(response);
+            			}
+            	);
+            })();
+            (function (){
+            	KVMService.getDBImages(
+            			function(data) {
+            				$log.info(data);
+            				$scope.DBImages = data;
+            			}, 
+            			function(response){
+            				$log.error(response);
+            			}
+            	);
+            })();
 } );
 
 app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMUpgradeService, websocketService, validationService) {
@@ -102,7 +134,7 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMUpgradeServ
 		var deferred = $q.defer();
 		$timeout(function() { 
 			deferred.resolve();
-		}, 1000);
+		}, 1);
 		return deferred.promise;
 	};
 	$scope.completeWizard = function() {

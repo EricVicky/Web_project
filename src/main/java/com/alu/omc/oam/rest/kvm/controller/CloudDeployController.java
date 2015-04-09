@@ -53,5 +53,26 @@ public class CloudDeployController
     	List<COMStack> instances = cOMStackService.list();
     	return instances;
     }
+    
+    @RequestMapping(value="/kvm/achostips", method=RequestMethod.GET)
+    public List<String>  achostips() throws IOException, InterruptedException
+    {
+    	List<String> achostips = cOMStackService.achostip();
+    	return achostips;
+    }
+    
+    @RequestMapping(value="/kvm/oamcmimages", method=RequestMethod.GET)
+    public List<String>  oamcmimages() throws IOException, InterruptedException
+    {
+    	List<String> oamcmimages = cOMStackService.oamcmimages();
+    	return oamcmimages;
+    }
+    
+    @RequestMapping(value="/kvm/dbimages", method=RequestMethod.GET)
+    public List<String>  dbimages() throws IOException, InterruptedException
+    {
+    	List<String> dbimages = cOMStackService.dbimages();
+    	return dbimages;
+    }
 
 }

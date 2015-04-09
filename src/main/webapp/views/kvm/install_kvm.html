@@ -44,10 +44,11 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Active Host IP</label> <input
-														name="active_host_ip" class="form-control" type="text"
-														ng-model="installConfig.active_host_ip"
-														title="Active Host IP" validation="ipv4|required" />
+													<label class="control-label">Active Host IP</label> <select
+														name="active_host_ip" class="form-control"
+														ng-model="installConfig.active_host_ip" title="Active Host IP"
+														ng-options=" ip for ip in AcHostIP" validation="ipv4|required" >
+														</select>
 												</div>
 												<div class="form-group">
 													<label class="control-label">Prefix of VM Instance</label>
@@ -59,20 +60,20 @@
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-													<label class="control-label">OAM/CM image</label> <input
-														name="oam_cm_image" class="form-control" type="text"
+													<label class="control-label">OAM/CM image</label> <select
+														name="oam_cm_image" class="form-control"
 														ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-														validation="required" />
+														ng-options=" im for im in OamCmImages" validation="required" >
+														</select>
 												</fieldset>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-													<label class="control-label">DB image</label> <input
-														name="db_image" class="form-control" type="text"
-														ng-model="installConfig.db_image" title="DB image"
-														validation="required" />
+													<label class="control-label">DB image</label> <select
+														name="db_image" class="form-control"
+														ng-model="installConfig.db_image" title="OAM/CM image"
+														ng-options=" dm for dm in DBImages" validation="required" >
+														</select>
 												</fieldset>
-
-
 												<label class="control-label">COM ISO </label> <input
 														name="com_iso" class="form-control" type="text"
 														ng-model="installConfig.com_iso" title="COM ISO"

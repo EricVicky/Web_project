@@ -166,6 +166,48 @@ rest.factory('KVMService', function($location, $resource, $log) {
 					error(response);
 				}
 			);
+		},
+		getAcHostIP: function(success,error) {
+			var AcHostIPRes = $resource(restUrl + "rest/kvm/achostips");
+			AcHostIPRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		},
+		getOamCmImages: function(success,error) {
+			var OamCmImagesRes = $resource(restUrl + "rest/kvm/oamcmimages");
+			OamCmImagesRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		},
+		getDBImages: function(success,error) {
+			var DBImagesRes = $resource(restUrl + "rest/kvm/dbimages");
+			DBImagesRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
 		}
 	};
 });
