@@ -127,6 +127,20 @@ rest.factory('KVMService', function($location, $resource, $log) {
 				}
 			);
 		},
+		images: function(success,error) {
+			var imageRes = $resource(restUrl + "rest/kvm/images");
+			imageRes.query(
+				// success
+				function (data) {
+					$log.info(data);
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				}
+			);
+		},
 		deploy: function (config, success, error) {
 			var deployRes = $resource(restUrl + "rest/kvm/deployment");
 			deployRes.save(config,
