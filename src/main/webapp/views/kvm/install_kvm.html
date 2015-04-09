@@ -47,7 +47,7 @@
 													<label class="control-label">Active Host IP</label> <select
 														name="active_host_ip" class="form-control"
 														ng-model="installConfig.active_host_ip" title="Active Host IP"
-														ng-options=" ip for ip in AcHostIP" validation="ipv4|required" >
+														ng-options="ip for ip in AcHostIP" validation="ipv4|required" >
 														</select>
 												</div>
 												<div class="form-group">
@@ -111,8 +111,8 @@
 															name="oam_flavor"
 															ng-model="installConfig.vm_config.oam.flavor"
 															class="form-control"
-															ng-options="fl.label for fl in flavorStore[installConfig.comType]['oam']"
-															title="Flavor" validation="required">
+															ng-options="fl as fl.label for fl in flavorStore[installConfig.comType]['oam']"
+															title="Flavor" validation="required" >
 														</select>
 													</div>
 												</fieldset>
@@ -179,7 +179,7 @@
 													</div>
 													<div class="form-group col-md-12">
 														<label class="control-label">Support ARS</label> <select
-															name="support_ars" class="form-control" type="text"
+															name="support_ars" class="form-control"
 															ng-model="installConfig.vm_config.cm.support_ars"
 															ng-options="sa for sa in support_ars" title="Support ARS"
 															validation="required">

@@ -18,10 +18,11 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
             		deployment_prefix: "sun",
+            		active_host_ip:"123.123.123.123",
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
-            		    flavor: {label: "medium(2*4*480)", vCpu: '8', memory: '8000000', disk: '480'},
+            		    flavor: {label: "medium(888)", vCpu: '8', memory: '8000000', disk: '480'},
             		    netmask: "255.255.255.240",
             		    gateway: "10.223.0.62",
             		  },
@@ -76,6 +77,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	KVMService.getComTypeStore(
             			function(data) {
             				$scope.comTypeStore = data;
+            				$scope.installConfig.comType = $scope.comTypeStore[0].Name;
             			}, 
             			function(response){
             				$log.error(response);
@@ -86,6 +88,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             	KVMService.getTimezoneStore(
             			function(data) {
             				$scope.timezoneStore = data;
+            				$scope.installConfig.timezone = $scope.timezoneStore[0].Time;
             			}, 
             			function(response){
             				$log.error(response);
@@ -108,6 +111,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             			function(data) {
             				$log.info(data);
             				$scope.AcHostIP = data;
+            				$scope.installConfig.active_host_ip = $scope.AcHostIP[0];
             			}, 
             			function(response){
             				$log.error(response);
