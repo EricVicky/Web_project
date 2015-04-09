@@ -8,18 +8,17 @@
 				<section id="wizard">
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard">
-								<li class="active"><a class="active" href="#tab1"
-									data-toggle="tab"> <span class="badge">1</span> <span>COM
-											Type</span>
+								<li><a href="#tab1" data-toggle="tab"> <span 
+								        class="badge">1</span> <span>COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Select Image</span>
+										class="badge">2</span> <span>Select Image&nbsp;</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Configuration</span>
+										class="badge">3</span> <span>VNFc Config&nbsp;</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span>Deploy</span>
+										class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
 										class="badge">5</span> <span>Post validation</span>
@@ -27,8 +26,7 @@
 							</ul>
 							<div class="modal-body">
 								<div class="tab-content">
-											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="saveState()" rc-step="" novalidate="">
-
+											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="submitComtype()" rc-step="" novalidate="">
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
 														name="com_type" ng-model="installConfig.comType"
@@ -38,7 +36,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Timezone</label> <select
+													<label class="control-label">Timezone</label> <select 
 														name="time_zone" ng-model="installConfig.timezone"
 														class="form-control"
 														ng-options="t.Time as t.Time for t in timezoneStore"
@@ -46,10 +44,17 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Active Host IP</label> <input
-														name="active_host_ip" class="form-control" type="text"
-														ng-model="installConfig.active_host_ip"
-														title="Active Host IP" validation="ipv4|required" />
+													<label class="control-label">Host IP</label> <select
+														name="active_host_ip" class="form-control"
+														ng-model="installConfig.active_host_ip" title="Host IP"
+														ng-options="host.name for host in hostIPs" validation="required" >
+														</select>
+												</div>
+												<div class="form-group">
+														<label class="control-label">VM image directory</label> <input
+														name="vm_image_dir" class="form-control" type="text"
+														ng-model="installConfig.vm_img_dir" title="VM image directory"
+														validation="required" />
 												</div>
 												<div class="form-group">
 													<label class="control-label">Prefix of VM Instance</label>
@@ -61,29 +66,20 @@
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-													<label class="control-label">OAM/CM image</label> <input
-														name="oam_cm_image" class="form-control" type="text"
+													<label class="control-label">OAM/CM image</label> <select
+														name="oam_cm_image" class="form-control"
 														ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-														validation="required" />
+														ng-options=" im for im in imagelist" validation="required" >
+														</select>
 												</fieldset>
 												<fieldset
 													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-													<label class="control-label">DB image</label> <input
-														name="db_image" class="form-control" type="text"
-														ng-model="installConfig.db_image" title="DB image"
-														validation="required" />
+													<label class="control-label">DB image</label> <select
+														name="db_image" class="form-control"
+														ng-model="installConfig.db_image" title="OAM/CM image"
+														ng-options=" dm for dm in imagelist" validation="required" >
+														</select>
 												</fieldset>
-
-
-												<label class="control-label">COM ISO </label> <input
-														name="com_iso" class="form-control" type="text"
-														ng-model="installConfig.com_iso" title="COM ISO"
-														validation="required" />
-												<label class="control-label">VM image directory</label> <input
-														name="vm_image_dir" class="form-control" type="text"
-														ng-model="installConfig.vm_img_dir" title="VM image directory"
-														validation="required" />
-												
 											</form>
 											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<fieldset

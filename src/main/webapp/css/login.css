@@ -1,0 +1,97 @@
+div.login-body {
+	margin: auto;
+	width: 600px;
+}
+
+div.login-image {
+	position: absolute;
+	background: url("../images/COM360.png") no-repeat;
+	height: 290px;
+	width: 600px;
+	top: 0;
+}
+
+ .company-name{
+   margin: 125px 0px 0px 30px;
+   color: #FFF;
+ }
+ 
+ .product-name{
+   margin: 25px 0px 0px 30px;
+   color: #566F89;
+   text-shadow: 1px 1px 3px #E4F1FF;
+   font-weight:bold;
+ }
+
+.login-language {
+	margin-top: 25px;
+	border: none;
+}
+
+.login-release {
+	font-family: verdana;
+	font-size:10pt;
+	font-weight:bold;
+	color: rgba(255, 255, 255, 0.85);
+	margin-right: 15px;
+	text-align: right;
+	padding-top: 70px;
+}
+                                                                                                                                                                  
+.login-server {
+	font-family: verdana;
+	font-size:11pt;
+	font-weight:bold;
+	color: rgba(255, 255, 255, 0.85);
+	margin-left: 95px;
+	margin-top: 135px;
+	text-align: left;
+}
+
+div.login-form {
+	margin-left: 100px;
+	padding-top: 310px;
+	white-space: nowrap;
+}
+
+div.login-copyright {
+	font-family: verdana;
+	font-size:8pt;
+	font-weight:bold;
+	color:#6f5197;
+	text-align: center;
+	margen-top: 8px;
+}
+
+div.login-banner {
+	width: 600px;
+	margin-top: 25px;
+	text-align: center;
+	font-family: verdana;
+	font-size:9pt;
+	color:#6f5197;
+}
+
+.login-checkbox-label {
+	padding-left: 0!important;
+}
+
+.login-btn {
+	min-width: 100px;
+	float: left;
+	margin-left: 298px;
+}
+
+.login-checkbox {
+	margin-left: 200px;
+}
+
+.login-failure {
+	color: red;
+	float: none!important;
+	padding-left: 0!important;
+}
+
+.login-loading {
+	opacity: 0.8;
+}
