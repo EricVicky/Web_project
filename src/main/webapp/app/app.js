@@ -107,6 +107,10 @@ angular
         templateUrl:'views/kvm/install_kvm.html',
         url:'/kvminstall'
     })
+      .state('dashboard.kvmupgrade',{
+        templateUrl:'views/kvm/upgrade_kvm.html',
+        url:'/kvmupgrade'
+    })
       .state('dashboard.osinstall',{
         templateUrl:'views/os/install_os.html',
         url:'/osinstall'

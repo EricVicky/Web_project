@@ -1,9 +1,15 @@
 package com.alu.omc.oam.ansible;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.StringUtils;
 
-  public class Host implements Entity
+  public class Host implements Entity , Serializable
     {
+        /**
+      * @Fields serialVersionUID :
+      */
+    private static final long serialVersionUID = -2647064957473634595L;
         String name;
         String ip_address;
         String user = "root";
@@ -23,6 +29,10 @@ import org.apache.commons.lang3.StringUtils;
         public Host( String ip_address){
             this.ip_address = ip_address;
                     
+        }
+        
+        public Host(){
+            
         }
         public void setName(String name)
         {

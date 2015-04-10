@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.config.COMStack;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -24,27 +25,56 @@ public class JsonDataSource
 
     @Value("${ansible.datasource}")
     private  String COM_STACK_JSON; 
+    @Value("${ansible.hosts}")
+    private  String HOSTS_JSON; 
     private static Logger log = LoggerFactory.getLogger(JsonDataSource.class);
 
     public List<COMStack> list()
     {
-        List<COMStack> comstacks = fromJSON(COM_STACK_JSON,
-                new TypeReference<List<COMStack>>()
-                {
-                });
+        List<COMStack> comstacks = null;
+        try
+        {
+            comstacks = fromJSON(COM_STACK_JSON,
+                    new TypeReference<List<COMStack>>()
+                    {
+                    });
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         if(comstacks == null){
             comstacks = new ArrayList<COMStack>();
         }
         return comstacks;
     }
     
+    public List<Host> hosts(){
+        List<Host> hosts = null;
+        try
+        {
+            hosts = fromJSON(HOSTS_JSON, new TypeReference<List<Host>>() {});
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        if(hosts == null){
+           hosts = new ArrayList<Host>(); 
+        }
+        return hosts;
+    }
+    
     public void save(List<COMStack> comstacks){
        object2Json(COM_STACK_JSON, comstacks);
     }
 
-    public static <T> T fromJSON(final String path, final TypeReference<T> type) {
+    public static <T> T fromJSON(final String path, final TypeReference<T> type) throws IOException {
          T data = null;
          File f = new File(path);
+         if(!f.exists()){
+             f.createNewFile();
+         }
          if(f.length()==0){
              return null;
          }

@@ -27,7 +27,6 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private String deployment_prefix;
 	private String oam_cm_image;
 	private String db_image;
-	private String com_iso;
 	private String vm_img_dir;
 	
 	
@@ -163,14 +162,6 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
         this.db_image = db_image;
     }
     
-    public String getCom_iso() {
-		return com_iso;
-	}
-
-	public void setCom_iso(String com_iso) {
-		this.com_iso = com_iso;
-	}
-	
     public String getVm_img_dir() {
 		return vm_img_dir;
 	}
