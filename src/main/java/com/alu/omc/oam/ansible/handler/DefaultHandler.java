@@ -22,6 +22,7 @@ public class DefaultHandler implements IAnsibleHandler
     WebsocketSender sender;
     String topic = "/log/tail";
     COMConfig config;
+    Boolean succeed = true;
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
@@ -47,14 +48,23 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onEnd()
     {
-        // TODO Auto-generated method stub
+        if(this.succeed){
+        	this.onSucceed();
+        }
 
     }
 
     @Override
     public void Parse(String log)
     {
-      sender.send(topic, log);  
+      if(hasError(log)){
+    	  this.succeed  = false;
+      }
+    	sender.send(topic, log);  
+    }
+    
+    private boolean hasError(String log){
+    	return false;
     }
 
     public COMConfig getConfig()

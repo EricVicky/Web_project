@@ -59,7 +59,7 @@ public class MockCommandExec implements ICommandExec {
               fw.write(line);
               fw.write(System.lineSeparator());
               fw.flush();
-              int sleep =  r.nextInt(200)*5+500;
+              int sleep =  r.nextInt(200)*1+200;
               Thread.currentThread().sleep(sleep);
           }
           fw.close();

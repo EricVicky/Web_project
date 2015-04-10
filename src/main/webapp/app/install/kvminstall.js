@@ -18,7 +18,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
 			};
 			$scope.completeWizard = function() {
 				$scope.deploy();
-				alert('Completed!');
+				alert('Completed wc!');
 			}
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
@@ -161,9 +161,9 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 
 	};
     $scope.reloadimglist = function(){
-    	installConfig = JSON3.parse($scope.com_instance.comConfig);
-        $scope.vm_img_dir = installConfig.vm_img_dir;
-    	$scope.loadimglist(installConfig.active_host_ip, $scope.vm_img_dir);
+    	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
 	$scope.upgrade = function (){
 		var installConfig = JSON3.parse($scope.com_instance.comConfig);
