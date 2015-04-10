@@ -1,6 +1,6 @@
 <link type="text/css" rel="stylesheet" href="css/login.css" />
 
-<div class="login-body">
+<div class="login-body" >
 	<div class="login-image">
 		<div>
 			<select class="login-language" ng-model="language" ng-options="lan.label for lan in languages" ng-change="changeLanguage()">
@@ -51,12 +51,12 @@
 		
 		<div class="form-group">
 			<div class="col-sm-10">
-				<div class="checkbox login-checkbox">
+				<button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary login-btn">{{'LOGIN' | translate}}</button>
+				<div class="checkbox login-checkbox" style="width:50px;">
 					<label for="rememberme" class="checkbox login-checkbox-label" ng-click="toggleRememberMe($event)">
 						<input type="checkbox" ng-model="_user.rememberme" class="ng-prstine ng-valid">{{'REMEM_TEXT' | translate}}
 					</label>
 				</div>
-				<button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary login-btn">{{'LOGIN' | translate}}</button>
 			</div>
 		</div>
 		

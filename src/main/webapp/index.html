@@ -21,6 +21,8 @@
 <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="vendor/angular-ui-grid/ui-grid-unstable.min.css" rel="stylesheet">
 <link href="vendor/angular-wizard/rcWizard.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="vendor/angular-dialog/dialogs.min.css">
+
 
 <script src="vendor/jquery/dist/jquery.min.js"></script>
 <!-- Angularjs -->
@@ -36,7 +38,10 @@
 <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="vendor/angular-wizard/directives.js"></script>
 
-
+<script type="text/javascript" src="vendor/angular-cookies/angular-cookies.js"></script>
+<script type="text/javascript" src="vendor/angular-resource/angular-resource.js"></script>
+<script type="text/javascript" src="vendor/angular-dialog/dialogs.min.js"></script>
+<script type="text/javascript" src="vendor/angular-dialog/dialogs-default-translations.min.js"></script>
 
 <!-- wizard -->
 <script src="vendor/bootstrap-wizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
@@ -86,8 +91,7 @@
 </head>
 <body>
 
-    <div ng-app="comoamApp">
-
+    <div ng-app="comoamApp" ng-controller="AppController">
         <div ui-view></div>
 
     </div>
