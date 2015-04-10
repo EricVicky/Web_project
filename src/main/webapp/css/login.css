@@ -11,18 +11,6 @@ div.login-image {
 	top: 0;
 }
 
- .company-name{
-   margin: 125px 0px 0px 30px;
-   color: #FFF;
- }
- 
- .product-name{
-   margin: 25px 0px 0px 30px;
-   color: #566F89;
-   text-shadow: 1px 1px 3px #E4F1FF;
-   font-weight:bold;
- }
-
 .login-language {
 	margin-top: 25px;
 	border: none;
@@ -79,11 +67,11 @@ div.login-banner {
 .login-btn {
 	min-width: 100px;
 	float: left;
-	margin-left: 298px;
+	margin: -28px 0 0 298px;
 }
 
 .login-checkbox {
-	margin-left: 200px;
+	margin-left: 100px;
 }
 
 .login-failure {
