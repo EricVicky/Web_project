@@ -60,14 +60,8 @@ public List<String> imagelist(String host, String login, String dir) throws Exce
         if (file.getAttrs().isDir()) {
             continue;
         }
-        log.info("Reading file : %s%n", file.getFilename());
-        BufferedReader bis = new BufferedReader(new InputStreamReader(sftp.get(file.getFilename())));
-        String line = null;
-        while ((line = bis.readLine()) != null) {
-           log.info("image name=" + line); 
-            images.add(line);
-        }
-        bis.close();
+        log.info(file.getFilename());
+        images.add(file.getFilename());
     }
 
     channel.disconnect();

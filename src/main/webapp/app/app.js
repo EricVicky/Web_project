@@ -18,6 +18,15 @@ angular
   	// load English ('en') table on startup
 		$translateProvider.preferredLanguage('en');
 	}])
+	.config(['$translateProvider', function ($translateProvider) {
+	  $translateProvider.useStaticFilesLoader({
+	    prefix: 'locales/login/',
+	    suffix: '.json'
+		});
+
+  	// load English ('en') table on startup
+		$translateProvider.preferredLanguage('en');
+	}])
   .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
     
     $ocLazyLoadProvider.config({

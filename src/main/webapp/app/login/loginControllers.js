@@ -1,5 +1,4 @@
 angular.module('login').controller('LoginController', function($rootScope, $scope, $cookieStore, $log, $state, $translate, $resource, $modal, dialogs, Auth, RestService, ComAppService) {
-	
 	// Get all the saved properties from cookie for the user
 	$rootScope._user.username = $cookieStore.get('username') || '';
 	$rootScope._user.password = $cookieStore.get('password') || '';
@@ -28,6 +27,7 @@ angular.module('login').controller('LoginController', function($rootScope, $scop
 	
 	var getCurrentLanguage = function(languageId) {
 		for (var i = 0; i < $scope.languages.length; i++) {
+		    alert(i);
 			if ($scope.languages[i].id == languageId) {
 				$log.info("GOT the language, id is " + languageId + ", index is " + i);
 				return $scope.languages[i];
@@ -52,28 +52,11 @@ angular.module('login').controller('LoginController', function($rootScope, $scop
 	// get the server info from local firstly,
 	// if cannot find, assume that we're in COM server already!
 	var set2UnknownServer = function() {
-//		$translate('UNKNOWN').then(function (unknownName) {
-//			$rootScope._server.name = unknownName;
-//			$rootScope._server.release = unknownName;
-//		});
 		$rootScope._server.name = "?";
 		$rootScope._server.release = "?";
 	};
 	
-//	$resource("conf/com.json").get(function(data) {
-//		if (data.serverList && data.serverList.length > 0) {
-//			$rootScope._server.name = data.serverList[0];
-//			$log.info("COM server is set to " + $rootScope._server.name + " with conf/com.json!");
-//		}
-//	});
-	
-//	$scope.notify = function(message) {
-//		$log.info(message);
-//	}
-//	
-//	WebsocketService.connect("/xmc", function(socket) {
-//		socket.stomp.subscribe('/topic/event', $scope.notify);
-//	});
+
 	
 	$scope.demoUser = "";
 	$scope.demoPassword = "";
