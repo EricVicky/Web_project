@@ -141,10 +141,12 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
              });*/
 } );
 
-app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
+app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $state, websocketService, validationService, WizardHandler) {
 	var logviewer = $('#logviewer');
+	var task = $('#task');
+	$scope.editing = true;
+	$scope.detaillog = false;
 	$scope.user = {};
-	$scope.editing = false;
 	$scope.saveState = function() {
 		var deferred = $q.defer();
 		$timeout(function() { 
@@ -154,18 +156,35 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 	};
 	$scope.completeWizard = function() {
 		$scope.upgrade();
-		alert('Completed!');
 	};
+	
+	$scope.nextstep = null;
     $scope.logtail = function(data){
 		$scope.socket = websocketService.connect("/oam", function(socket) {
 			socket.stomp.subscribe('/log/tail', $scope.showlog);
-		})
-    };
+		});
+    }
+    
+    $scope.showDetailLog= function(){
+    	$scope.detaillog= !$scope.detaillog;
+    }	
+    
     $scope.showlog= function(data){
-    	$log.info(data);
-    	logviewer.append(data.body + "\n");
-        logviewer.css({ display: "block" });
-    };
+    //	$log.info(data);
+    	var log =  JSON3.parse(data.body);
+    	if( $scope.nextstep != log.step){
+    		$scope.nextstep = log.step;
+    		$scope.$apply(function(){
+				WizardHandler.wizard().next();
+    		})
+    	}
+    	if(log.task!=null && log.task!=""){
+    		task.text(log.task);
+    	}
+    	logviewer.append(log.logMsg + "\n");
+    	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
+    }
+	
 	$scope.loadimglist = function(host, dir) {
 		KVMService.imagelist({
 			"host" : host,
@@ -173,6 +192,8 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 		}, function(data) {
 			$log.info(data);
 			$scope.imagelist = data;
+			$scope.$parent.oam_cm_image = $scope.imagelist[0];
+			$scope.$parent.db_image = $scope.imagelist[1];
 		}, function(response) {
 			$log.error(response);
 		});
@@ -195,6 +216,8 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
          		$scope.installConfig,
     			function(data){
          			$scope.logtail(data);
+         			$scope.editing = false;
+         			//$state.go("dashboard.upgradepregress");
     			}, 
     			function(response){
     					$log.info(response);
