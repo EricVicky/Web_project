@@ -1,196 +1,198 @@
 
 <div class="container-fluid" ng-controller="kvmctr">
-	<div class="row" ng-show="editing" >
-		<div class="col-md-10" >
-			<div rc-wizard="kvmInstallWizard"
-				class="modal-body">
+	<div class="row" ng-show="editing">
+		<div class="col-md-10">
+			<div rc-wizard="kvmInstallWizard" class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
-							<ul class="nav rc-nav-wizard" style="margin-left:100px">
-								<li><a href="#tab1" data-toggle="tab"> <span 
-								        class="badge">1</span> <span>COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								</a></li>
-								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Select Image&nbsp;</span>
-								</a></li>
-								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Config&nbsp;</span>
-								</a></li>
-								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								</a></li>
-							</ul>
-							<div class="modal-body">
-								<div class="tab-content">
-											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="submitComtype()" rc-step="" novalidate="">
-												<div class="form-group">
-													<label class="control-label">COM Type</label> <select
-														name="com_type" ng-model="installConfig.comType"
-														class="form-control"
-														ng-options="ct.Name as ct.Name for ct in comTypeStore"
-														title="COM Type" validation="required">
-													</select>
-												</div>
-												<div class="form-group">
-													<label class="control-label">Timezone</label> <select 
-														name="time_zone" ng-model="installConfig.timezone"
-														class="form-control"
-														ng-options="t.Time as t.Time for t in timezoneStore"
-														title="Timezone" validation="required">
-													</select>
-												</div>
-												<div class="form-group">
-													<label class="control-label">Host IP</label> <select
-														name="host_ip" ng-model="installConfig.active_host_ip" 
-														class="form-control"
-														ng-options="host as host.name for host in hostIPs" 
-														title="Host IP" validation="required" >
-														</select>
-												</div>
-												<div class="form-group">
-														<label class="control-label">VM image directory</label> <input
-														name="vm_image_dir" class="form-control" type="text"
-														ng-model="installConfig.vm_img_dir" title="VM image directory"
-														validation="required" />
-												</div>
-												<div class="form-group">
-													<label class="control-label">Prefix of VM Instance</label>
-													<input name="deployment_prefix" class="form-control"
-														type="text" ng-model="installConfig.deployment_prefix"
-														title="Prefix of VM Instance" validation="required" />
-												</div>
-											</form>
-											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
-												<fieldset
-													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-													<label class="control-label">OAM/CM image</label> <select
-														name="oam_cm_image" class="form-control"
-														ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-														ng-options=" im for im in imagelist" validation="required" >
-														</select>
-												</fieldset>
-												<fieldset
-													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-													<label class="control-label">DB image</label> <select
-														name="db_image" class="form-control"
-														ng-model="installConfig.db_image" title="OAM/CM image"
-														ng-options=" dm for dm in imagelist" validation="required" >
-														</select>
-												</fieldset>
-											</form>
-											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
-												<fieldset
-													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-													<legend>OAM VM</legend>
-													<div class="form-group col-md-4">
-														<label class="control-label">IP Address</label> <input
-															name="ip_address" class="form-control" type="text"
-															ng-model="installConfig.vm_config.oam.ip_address"
-															title="IP Address" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Netmask</label> <input
-															name="oam_netmask" class="form-control" type="text"
-															ng-model="installConfig.vm_config.oam.netmask"
-															title="netmask" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Gateway</label> <input
-															name="oam_gateway" class="form-control" type="text"
-															ng-model="installConfig.vm_config.oam.gateway"
-															title="gateway" validation="gateway|required" />
-													</div>
-													<div class="form-group col-md-12">
-														<label class="control-label">Flavor</label> <select
-															name="oam_flavor"
-															ng-init="installConfig.vm_config.oam.flavor=flavorStore[installConfig.comType]['oam'][0]"
-															ng-model="installConfig.vm_config.oam.flavor"
-															class="form-control"
-															ng-options="fl as fl.label for fl in flavorStore[installConfig.comType]['oam']"
-															title="Flavor" validation="required" >
-														</select>
-													</div>
-												</fieldset>
-												<fieldset
-													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-													<legend>DB VM</legend>
-													<div class="form-group col-md-4">
-														<label class="control-label">IP Address</label> <input
-															name="ip_address" class="form-control" type="text"
-															ng-model="installConfig.vm_config.db.ip_address"
-															title="IP Address" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Netmask</label> <input
-															name="db_netmask" class="form-control" type="text"
-															ng-model="installConfig.vm_config.db.netmask"
-															title="netmask" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Gateway</label> <input
-															name="db_gateway" class="form-control" type="text"
-															ng-model="installConfig.vm_config.db.gateway"
-															title="gateway" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-12">
-														<label class="control-label">Flavor</label> <select
-															name="db_flavor"
-															ng-init="installConfig.vm_config.db.flavor=flavorStore[installConfig.comType]['db'][0]"
-															ng-model="installConfig.vm_config.db.flavor"
-															class="form-control"
-															ng-options="fl.label for fl in flavorStore[installConfig.comType]['db']"
-															title="Flavor" validation="required">
-														</select>
-													</div>
-												</fieldset>
-												<fieldset
-													ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-													<legend>CM VM</legend>
-													<div class="form-group col-md-4">
-														<label class="control-label">IP Address</label> <input
-															name="ip_address" class="form-control" type="text"
-															ng-model="installConfig.vm_config.cm.ip_address"
-															title="IP Address" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Netmask</label> <input
-															name="cm_netmask" class="form-control" type="text"
-															ng-model="installConfig.vm_config.cm.netmask"
-															title="netmask" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-4">
-														<label class="control-label">Gateway</label> <input
-															name="cm_gateway" class="form-control" type="text"
-															ng-model="installConfig.vm_config.cm.gateway"
-															title="gateway" validation="ipv4|required" />
-													</div>
-													<div class="form-group col-md-12">
-														<label class="control-label">Flavor</label> <select
-															name="cm_flavor"
-															ng-init="installConfig.vm_config.cm.flavor=flavorStore[installConfig.comType]['cm'][0]"
-															ng-model="installConfig.vm_config.cm.flavor"
-															class="form-control"
-															ng-options="fl.label for fl in flavorStore[installConfig.comType]['cm']"
-															title="Flavor" validation="required">
-														</select>
-													</div>
-													<div class="form-group col-md-12">
-														<label class="control-label">Support ARS</label> <select
-															name="support_ars" class="form-control"
-															ng-init="installConfig.vm_config.cm.support_ars=support_ars[0]"
-															ng-model="installConfig.vm_config.cm.support_ars"
-															ng-options="sa for sa in support_ars" title="Support ARS"
-															validation="required">
-														</select>
-													</div>
-												</fieldset>
-											</form>
+						<ul class="nav rc-nav-wizard" style="margin-left: 100px">
+							<li><a href="#tab1" data-toggle="tab"> <span
+									class="badge">1</span> <span>COM
+										Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							</a></li>
+							<li><a href="#tab2" data-toggle="tab"> <span
+									class="badge">2</span> <span>Select Image&nbsp;</span>
+							</a></li>
+							<li><a href="#tab3" data-toggle="tab"> <span
+									class="badge">3</span> <span>VNFc Config&nbsp;</span>
+							</a></li>
+							<li><a href="#tab4" data-toggle="tab"> <span
+									class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							</a></li>
+						</ul>
+						<div class="modal-body">
+							<div class="tab-content">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
+									name="tab1" rc-submit="submitComtype()" rc-step=""
+									novalidate="">
+									<div class="form-group">
+										<label class="control-label">COM Type</label> <select
+											name="com_type" ng-model="installConfig.comType"
+											class="form-control"
+											ng-options="ct.Name as ct.Name for ct in comTypeStore"
+											title="COM Type" validation="required">
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Timezone</label> <select
+											name="time_zone" ng-model="installConfig.timezone"
+											class="form-control"
+											ng-options="t.Time as t.Time for t in timezoneStore"
+											title="Timezone" validation="required">
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Host IP</label> <select
+											name="host_ip" ng-model="installConfig.active_host_ip"
+											class="form-control"
+											ng-options="host as host.name for host in hostIPs"
+											title="Host IP" validation="required">
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">VM image directory</label> <input
+											name="vm_image_dir" class="form-control" type="text"
+											ng-model="installConfig.vm_img_dir"
+											title="VM image directory" validation="required" />
+									</div>
+									<div class="form-group">
+										<label class="control-label">Prefix of VM Instance</label> <input
+											name="deployment_prefix" class="form-control" type="text"
+											ng-model="installConfig.deployment_prefix"
+											title="Prefix of VM Instance" validation="required" />
+									</div>
+								</form>
+								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
+									<fieldset
+										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+										<label class="control-label">OAM/CM image</label> <select
+											name="oam_cm_image" class="form-control"
+											ng-model="installConfig.oam_cm_image" title="OAM/CM image"
+											ng-options=" im for im in imagelist" validation="required">
+										</select>
+									</fieldset>
+									<fieldset
+										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+										<label class="control-label">DB image</label> <select
+											name="db_image" class="form-control"
+											ng-model="installConfig.db_image" title="OAM/CM image"
+											ng-options=" dm for dm in imagelist" validation="required">
+										</select>
+									</fieldset>
+								</form>
+								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+									<fieldset
+										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+										<legend>OAM VM</legend>
+										<div class="form-group col-md-4">
+											<label class="control-label">IP Address</label> <input
+												name="ip_address" class="form-control" type="text"
+												ng-model="installConfig.vm_config.oam.ip_address"
+												title="IP Address" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Netmask</label> <input
+												name="oam_netmask" class="form-control" type="text"
+												ng-model="installConfig.vm_config.oam.netmask"
+												title="netmask" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Gateway</label> <input
+												name="oam_gateway" class="form-control" type="text"
+												ng-model="installConfig.vm_config.oam.gateway"
+												title="gateway" validation="gateway|required" />
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label">Flavor</label> <select
+												name="oam_flavor"
+												ng-init="installConfig.vm_config.oam.flavor=flavorStore[installConfig.comType]['oam'][0]"
+												ng-model="installConfig.vm_config.oam.flavor"
+												class="form-control"
+												ng-options="fl as fl.label for fl in flavorStore[installConfig.comType]['oam']"
+												title="Flavor" validation="required">
+											</select>
+										</div>
+									</fieldset>
+									<fieldset
+										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+										<legend>DB VM</legend>
+										<div class="form-group col-md-4">
+											<label class="control-label">IP Address</label> <input
+												name="ip_address" class="form-control" type="text"
+												ng-model="installConfig.vm_config.db.ip_address"
+												title="IP Address" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Netmask</label> <input
+												name="db_netmask" class="form-control" type="text"
+												ng-model="installConfig.vm_config.db.netmask"
+												title="netmask" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Gateway</label> <input
+												name="db_gateway" class="form-control" type="text"
+												ng-model="installConfig.vm_config.db.gateway"
+												title="gateway" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label">Flavor</label> <select
+												name="db_flavor"
+												ng-init="installConfig.vm_config.db.flavor=flavorStore[installConfig.comType]['db'][0]"
+												ng-model="installConfig.vm_config.db.flavor"
+												class="form-control"
+												ng-options="fl.label for fl in flavorStore[installConfig.comType]['db']"
+												title="Flavor" validation="required">
+											</select>
+										</div>
+									</fieldset>
+									<fieldset
+										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+										<legend>CM VM</legend>
+										<div class="form-group col-md-4">
+											<label class="control-label">IP Address</label> <input
+												name="ip_address" class="form-control" type="text"
+												ng-model="installConfig.vm_config.cm.ip_address"
+												title="IP Address" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Netmask</label> <input
+												name="cm_netmask" class="form-control" type="text"
+												ng-model="installConfig.vm_config.cm.netmask"
+												title="netmask" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label">Gateway</label> <input
+												name="cm_gateway" class="form-control" type="text"
+												ng-model="installConfig.vm_config.cm.gateway"
+												title="gateway" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label">Flavor</label> <select
+												name="cm_flavor"
+												ng-init="installConfig.vm_config.cm.flavor=flavorStore[installConfig.comType]['cm'][0]"
+												ng-model="installConfig.vm_config.cm.flavor"
+												class="form-control"
+												ng-options="fl.label for fl in flavorStore[installConfig.comType]['cm']"
+												title="Flavor" validation="required">
+											</select>
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label">Support ARS</label> <select
+												name="support_ars" class="form-control"
+												ng-init="installConfig.vm_config.cm.support_ars=support_ars[0]"
+												ng-model="installConfig.vm_config.cm.support_ars"
+												ng-options="sa for sa in support_ars" title="Support ARS"
+												validation="required">
+											</select>
+										</div>
+									</fieldset>
+								</form>
 								<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label">Deployment Summary</label>
 										</div>
-										<div class="panel-body" >
+										<div class="panel-body">
 											<div class="dataTable_wrapper">
 												<table
 													class="table table-striped table-bordered table-hover"
@@ -250,58 +252,62 @@
 									</div>
 								</form>
 							</div>
-							</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="pull-right">
-										<a class="btn btn-default" 
-											ng-click="rc.kvmInstallWizard.backward()"
-											ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex">Back</a>
-										<a class="btn btn-primary" 
-											ng-click="rc.kvmInstallWizard.forward()"
-											ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
-										<a class="btn btn-primary" ng-click="completeWizard()"
-											ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Deploy</a>
-									</div>
+						</div>
+						<div class="modal-footer">
+							<div class="form-group">
+								<div class="pull-right">
+									<a class="btn btn-default"
+										ng-click="rc.kvmInstallWizard.backward()"
+										ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex">Back</a>
+									<a class="btn btn-primary"
+										ng-click="rc.kvmInstallWizard.forward()"
+										ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
+									<a class="btn btn-primary" ng-click="completeWizard()"
+										ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Deploy</a>
 								</div>
 							</div>
+						</div>
 					</div>
 				</section>
 			</div>
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="!editing">
+		<div class="panel-heading">Install Infomation</div>
+		<div class="panel-body">
+			<div class="row" ng-show="!editing && detaillog">
+				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
+					<pre id="logviewer"
+						style="height: 350px; background-color: white; overflow: auto"></pre>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing">
+				<div class="col-md-3"
+					style="text-align: right; padding-right: -5px;">
+					<label>Ansible Task:</label>
+				</div>
+				<div class="col-md-9" style="text-align: left;">
+					<label id="task"> </label><br>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing">
+				<div class="col-md-12">
+					<wizard on-finish="finished()"> 
+					<wz-step title="Start"></wz-step> 
+					<wz-step title="Generate Config Driver"></wz-step> 
+					<wz-step title="Start VM instance"></wz-step>
+					<wz-step title="Prepare Install Options"></wz-step> 
+					<wz-step title="Finished"> </wz-step></wizard>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing">
+				<div class="col-md-12" style="text-align: center;">
+					<br> <label>Show detail log</label> <label
+						class="checkbox-inline"> <input type="checkbox"
+						ng-click="showDetailLog()" />
+					</label>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
-	<div class="row" ng-show="!editing && detaillog">
-		<div class="col-md-12" style="height:400px; padding-top:5px;">
-			<pre id="logviewer" style="height:350px;background-color:white; overflow:auto" ></pre>
-		</div>
-	</div>
-	<div class="row" ng-show="!editing">
-		<div class="col-md-3" style="text-align:right;padding-right:-5px;">
-		   <label>Ansible Task:</label>
-		</div>
-		<div class="col-md-9" style="text-align:left;">
-		   <label id="task"> </label><br>
-		</div>
-	</div>
-	<div class="row" ng-show="!editing">
-		<div class="col-md-12">
-			<wizard on-finish="finished()" > 
-				<wz-step title="Start"> </wz-step>
-				<wz-step title="Generate Config Driver"> </wz-step> 
-				<wz-step title="Start VM instance"> </wz-step> 
-			 	<wz-step title="Prepare Install Options"> </wz-step> 
-			 	<wz-step title="Finished"> </wz-step>
-			  </wizard>
-		</div>
-	</div>
-	<div class="row" ng-show="!editing">
-		<div class="col-md-12" style="text-align:center;">
-		<br>
-		   <label>Show detail log</label>
-		   <label class="checkbox-inline">
-				 <input type="checkbox"  ng-click="showDetailLog()"/>
-           </label>
-		</div>
-	</div>
-	</div>
