@@ -1,13 +1,20 @@
 <link type="text/css" rel="stylesheet" href="css/login.css" />
 
-<div class="login-body">
+<div class="login-body" >
 	<div class="login-image">
-		<H2 class="company-name">
-		  Alcatel Lucent
-		</H2>
-		<H3 class="product-name">
-		  COM 360
-		</H3>
+		<div>
+			<select class="login-language" ng-model="language" ng-options="lan.label for lan in languages" ng-change="changeLanguage()">
+				<option value="" ng-if="!language"></option>
+			</select>
+		</div>
+		<div class="login-server">
+		   {{'SERVER' | translate}}: {{_server.name}}
+			COM 360
+		</div>
+		<div class="login-release">
+		    <!--{/{'RELEASE' | translate}}: {{_server.release}/}-->
+			1360 COM Deploy Tool
+		</div>
 	</div>
 	
 	<form ng-submit="login()" name="loginForm" class="form-horizontal ng-scope ng-pristine ng-invalid ng-invalid-required">
@@ -19,7 +26,7 @@
  			    <div class="input-group-addon">
  			      <span class="glyphicon glyphicon-user"></span>
  			    </div>
-				<input type="text" name="username" placeholder="Host Linux User Name" ng-model="_user.username" required autofocus class="form-control login-input-user ng-pristine ng-invalid ng-invalid-required">
+				<input type="text" name="username" placeholder="{{'USERNAME' | translate}}{{demoUser}}" ng-model="_user.username" required autofocus class="form-control login-input-user ng-pristine ng-invalid ng-invalid-required">
  			  </div>
 			</div>
 			<!-- 
@@ -34,7 +41,7 @@
  			    <div class="input-group-addon">
  			      <span class="glyphicon glyphicon-lock"></span>
  			    </div>
-				<input type="password" name="password" placeholder="Password" ng-model="_user.password" required class="form-control login-input-password ng-pristine ng-invalid ng-invalid-required">
+				<input type="password" name="password" placeholder="{{'PASSWORD' | translate}}{{demoPassword}}" ng-model="_user.password" required class="form-control login-input-password ng-pristine ng-invalid ng-invalid-required">
 			  </div>
 			</div>
 			<!-- 
@@ -44,7 +51,12 @@
 		
 		<div class="form-group">
 			<div class="col-sm-10">
-				<button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary login-btn">Login</button>
+				<button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary login-btn">{{'LOGIN' | translate}}</button>
+				<div class="checkbox login-checkbox" style="width:50px;">
+					<label for="rememberme" class="checkbox login-checkbox-label" ng-click="toggleRememberMe($event)">
+						<input type="checkbox" ng-model="_user.rememberme" class="ng-prstine ng-valid">{{'REMEM_TEXT' | translate}}
+					</label>
+				</div>
 			</div>
 		</div>
 		
@@ -54,10 +66,6 @@
 	</div>
 	</form>
 	
-	<div class="login-banner">
-	WARNING: Anyone accessing or attempting to access the IS without authorisation runs the risk of a one-year prison sentence and a fine of 15,244 Euros (New Criminal Code - Article 323-1)
-	</div>
-	<div class="login-copyright">
-    Copyright &copy 2014 Alcatel-Lucent. All rights Reserved.
-    </div>
+	<div class="login-banner">{{'LOGIN_WARN' | translate}}</div>
+	<div class="login-copyright">{{'COPYRIGHT' | translate}}</div>
 </div>

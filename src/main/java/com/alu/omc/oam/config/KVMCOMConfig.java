@@ -24,11 +24,19 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private boolean support_gr;
 	private String timezone;
 	private Host active_host_ip;
+
 	private String deployment_prefix;
 	private String oam_cm_image;
 	private String db_image;
 	private String vm_img_dir;
 	
+	public Host getActive_host_ip() {
+		return active_host_ip;
+	}
+	
+	public void setActive_host_ip(Host active_host_ip) {
+		this.active_host_ip = active_host_ip;
+	}
 	
 	@Override
     public Environment getEnvironment()
@@ -51,8 +59,6 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	public void setDeployment_prefix(String deployment_prefix) {
 		this.deployment_prefix = deployment_prefix;
 	}
-
-
 
 	public String getTimezone() {
 		return timezone;
@@ -179,18 +185,4 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
        return this.deployment_prefix; 
     }
 
-    public Host getActive_host_ip()
-    {
-        return active_host_ip;
-    }
-
-    public void setActive_host_ip(Host active_host_ip)
-    {
-        this.active_host_ip = active_host_ip;
-    }
-
-
-
-
-    
 }

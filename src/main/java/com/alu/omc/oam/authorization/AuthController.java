@@ -1,35 +1,46 @@
 package com.alu.omc.oam.authorization;
 
-import net.sf.jpam.Pam;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alu.omc.oam.util.EncryptUtils;
 
 @Controller("authController")
 public class AuthController {
 
-	@RequestMapping("/auth/v")
+	@RequestMapping("/login")
 	public @ResponseBody
-	String login(String userName, String userPwd) {
+	UserAccount login(@RequestBody final UserAccount user, HttpSession session) {
 
-		Pam pam = new Pam();
-		String verifyMsg = pam.authenticate(userName, userPwd).toString();
-		String result = "";
-		if (verifyMsg.contains("underlying")) {
-			result = "user not found";
-		} else if (verifyMsg.contains("failure")) {
-			result = "wrong password";
-		}
+//		Pam pam = new Pam();
+//		String verifyMsg = pam.authenticate(user.getUsername(), user.getPassword()).toString();
+//		if (verifyMsg.contains("underlying")) {
+//			user.setReason("user not found");
+//			return user;
+//		} else if (verifyMsg.contains("failure")) {
+//			user.setReason("wrong password");
+//			return user;
+//		}
+		
+		user.setReason(null);
+		
 
-		log.info("user: " + userName + " password: " + userPwd + " -- successful");
+		String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
+		user.setToken(token);
+		user.setPassword("");
+		session.setAttribute("token", token);
 
-		return result;
+		log.info("user: " + user.getUsername() + " password: " + user.getUsername() + " -- successful");
+
+		return user;
 	}
 
-	    private static Logger log = LoggerFactory.getLogger(AuthController.class);
-
+	private static Logger log = LoggerFactory.getLogger(AuthController.class);
 
 }

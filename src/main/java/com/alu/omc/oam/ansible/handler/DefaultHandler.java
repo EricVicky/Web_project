@@ -24,6 +24,7 @@ public class DefaultHandler implements IAnsibleHandler
     String topic = "/log/tail";
     COMConfig config;
     ILogParser logParser;
+    Boolean succeed = true;
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
@@ -49,14 +50,23 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onEnd()
     {
-        // TODO Auto-generated method stub
+        if(this.succeed){
+        	this.onSucceed();
+        }
 
     }
 
     @Override
     public void Parse(String log)
     {
+      if(hasError(log)){
+    	  this.succeed  = false;
+      }
       sender.send(topic, logParser.parse(log));  
+    }
+    
+    private boolean hasError(String log){
+    	return false;
     }
 
     public COMConfig getConfig()

@@ -4,16 +4,13 @@ angular.module('login')
 .factory('Auth', function($rootScope, $window, $cookieStore, $log, RestService) {
 	function changeUser(data) {
 		// copy user to currentUser
-//		angular.extend($rootScope._user, user);
 		$rootScope._user.username = data.username;
 		$rootScope._user.password = data.password;
-//		$rootScope._user.token = data.token;
 		if (data && data.token && (!data.reason || data.reason == "1")) {
 			$cookieStore.put("token", data.token);
 		} else {
 			$cookieStore.remove("token");
 		}
-//		$rootScope._user.reason = data.reason;
 		
 		$cookieStore.put('username', data.username);
 		if ($rootScope._user.rememberme) {
