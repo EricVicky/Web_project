@@ -15,7 +15,7 @@ public class ConfigCache {
     public OpenstackConfig getOSParam() {
 
         OpenstackConfig osConfig = new OpenstackConfig(
-                "http://135.111.74.75:5000/v2.0", "com-user1", "newsy", "COM");
+                "http://135.111.74.75:5000/v2.0", "com-user1", "newsys", "COM");
 
         return osConfig;
     }

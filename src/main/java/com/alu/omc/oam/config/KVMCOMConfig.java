@@ -23,7 +23,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private Map vm_config;
 	private boolean support_gr;
 	private String timezone;
-	private String active_host_ip;
+	private Host active_host_ip;
 	private String deployment_prefix;
 	private String oam_cm_image;
 	private String db_image;
@@ -52,13 +52,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 		this.deployment_prefix = deployment_prefix;
 	}
 
-    public String getActive_host_ip() {
-		return active_host_ip;
-	}
 
-	public void setActive_host_ip(String active_host_ip) {
-		this.active_host_ip = active_host_ip;
-	}
 
 	public String getTimezone() {
 		return timezone;
@@ -105,7 +99,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	public Inventory getInventory() {
 	    Inventory inv = new Inventory();
 	    Group hostg = new Group("host");
-	    hostg.add(new Host(this.active_host_ip));
+	    hostg.add(this.active_host_ip);
 	    inv.addGroup(hostg);
 	    @SuppressWarnings("unchecked")
         Iterator<String> it = vm_config.keySet().iterator(); 
@@ -183,6 +177,16 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     public String getStackName()
     {
        return this.deployment_prefix; 
+    }
+
+    public Host getActive_host_ip()
+    {
+        return active_host_ip;
+    }
+
+    public void setActive_host_ip(Host active_host_ip)
+    {
+        this.active_host_ip = active_host_ip;
     }
 
 

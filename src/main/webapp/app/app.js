@@ -6,7 +6,7 @@ angular
     'angular-loading-bar', 
     'ghiscoding.validation',
     'pascalprecht.translate',
-    'kvminstall', 'osinstall',  'rcWizard',
+    'kvminstall', 'osinstall',  'rcWizard', 'mgo-angular-wizard',
 		'rcForm', 'rest' 
   ])
   .config(['$translateProvider', function ($translateProvider) {
@@ -102,7 +102,7 @@ angular
         templateUrl:'views/kvm/upgrade_kvm.html',
         url:'/kvmupgrade'
     })
-      .state('dashboard.osinstall',{
+    .state('dashboard.osinstall',{
         templateUrl:'views/os/install_os.html',
         url:'/osinstall'
     })
