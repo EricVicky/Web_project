@@ -6,8 +6,8 @@ angular
     'angular-loading-bar', 
     'ghiscoding.validation',
     'pascalprecht.translate',
-    'kvminstall', 'osinstall',  'rcWizard',
-		'rcForm', 'rest' , 'login'
+    'kvminstall', 'osinstall',  'rcWizard', 'mgo-angular-wizard',
+                        'rcForm', 'rest' ,'login'
   ])
   .config(['$translateProvider', function ($translateProvider) {
 	  $translateProvider.useStaticFilesLoader({
@@ -111,7 +111,7 @@ angular
         templateUrl:'views/kvm/upgrade_kvm.html',
         url:'/kvmupgrade'
     })
-      .state('dashboard.osinstall',{
+    .state('dashboard.osinstall',{
         templateUrl:'views/os/install_os.html',
         url:'/osinstall'
     })

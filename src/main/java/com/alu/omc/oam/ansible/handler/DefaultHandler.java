@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.log.ILogParser;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -22,6 +23,7 @@ public class DefaultHandler implements IAnsibleHandler
     WebsocketSender sender;
     String topic = "/log/tail";
     COMConfig config;
+    ILogParser logParser;
     Boolean succeed = true;
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
@@ -60,7 +62,7 @@ public class DefaultHandler implements IAnsibleHandler
       if(hasError(log)){
     	  this.succeed  = false;
       }
-    	sender.send(topic, log);  
+      sender.send(topic, logParser.parse(log));  
     }
     
     private boolean hasError(String log){
@@ -75,6 +77,11 @@ public class DefaultHandler implements IAnsibleHandler
     public void setConfig(COMConfig config)
     {
         this.config = config;
+    }
+    
+    @Override
+    public void setLogParser(ILogParser logParser){
+        this.logParser = logParser;
     }
 
 }

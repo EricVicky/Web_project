@@ -60,8 +60,6 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 		this.deployment_prefix = deployment_prefix;
 	}
 
- 
-
 	public String getTimezone() {
 		return timezone;
 	}
@@ -187,8 +185,4 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
        return this.deployment_prefix; 
     }
 
-
-
-
-    
 }

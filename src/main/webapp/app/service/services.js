@@ -179,7 +179,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			flavorRes.get(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -193,7 +192,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			imageRes.query(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -206,7 +204,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			var deployRes = $resource(restUrl + "rest/kvm/deployment");
 			deployRes.save(config,
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -219,7 +216,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			comTypeRes.query(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -233,7 +229,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			timezoneRes.query(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -247,7 +242,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			AcHostIPRes.query(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -262,7 +256,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 				host,
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -275,7 +268,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");
 			upgradeRes.save(config,
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error
@@ -288,7 +280,6 @@ rest.factory('KVMService', function($location, $resource, $log) {
 			comInstanceRes.query(
 				// success
 				function (data) {
-					$log.info(data);
 					success(data);
 				},
 				// error

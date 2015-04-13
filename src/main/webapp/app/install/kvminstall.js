@@ -1,25 +1,21 @@
 var app = angular.module('kvminstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', 'rest', 'websocket', 'ghiscoding.validation']);
+		'rcForm', 'rest', 'websocket', 'ghiscoding.validation', 'mgo-angular-wizard']);
 
-app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
+app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
+		$state, websocketService, validationService, WizardHandler) {
 			var logviewer = $('#logviewer');
+			var task = $('#task');
+			$scope.editing = true;
+			$scope.detaillog = false;
 			$scope.user = {};
 			//$scope.installConfig.vm_config.oam.ip_address = "";
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip.ip_address, $scope.installConfig.vm_img_dir);
 			}
 			$scope.imagelist= [];
-			$scope.saveState = function() {
-				var deferred = $q.defer();
-				$timeout(function() { 
-					deferred.resolve();
-				}, 1);
-				return deferred.promise;
-			};
 			$scope.completeWizard = function() {
 				$scope.deploy();
-				alert('Completed wc!');
-			}
+			};
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
             		deployment_prefix: "sun",
@@ -43,23 +39,39 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             		}
 
             };
-            
+            $scope.nextstep = null;
             $scope.logtail = function(data){
         		$scope.socket = websocketService.connect("/oam", function(socket) {
         			socket.stomp.subscribe('/log/tail', $scope.showlog);
-        		})
+        		});
             }
             
+            $scope.showDetailLog= function(){
+            	$scope.detaillog= !$scope.detaillog;
+            }	
+            
             $scope.showlog= function(data){
-            	$log.info(data);
-            	logviewer.append(data.body + "\n");
-                logviewer.css({ display: "block" });
+            //	$log.info(data);
+            	var log =  JSON3.parse(data.body);
+            	if( $scope.nextstep != log.step){
+            		$scope.nextstep = log.step;
+            		$scope.$apply(function(){
+        				WizardHandler.wizard().next();
+            		})
+            	}
+            	if(log.task!=null && log.task!=""){
+            		task.text(log.task);
+            	}
+            	logviewer.append(log.logMsg + "\n");
+            	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
             }
 			$scope.deploy = function (){
             	KVMService.deploy(
                  		$scope.installConfig,
             			function(data){
-                 			$scope.logtail(data);
+                 			$scope.logtail(data); 
+                 			$scope.editing = false;
+                 			//$state.go("dashboard.installpregress");
             			}, 
             			function(response){
             					$log.info(response);
@@ -122,11 +134,17 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService, websoc
             			}
             	);
             })();
+/*             $scope.$watch('nextstep', function(step) {
+            	 if(step){
+            		 WizardHandler.wizard().goTo(step);
+            	 }
+             });*/
 } );
 
 app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
 	var logviewer = $('#logviewer');
 	$scope.user = {};
+	$scope.editing = false;
 	$scope.saveState = function() {
 		var deferred = $q.defer();
 		$timeout(function() { 

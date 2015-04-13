@@ -1,9 +1,7 @@
 package com.alu.omc.oam.ansible;
 
-import java.io.File;
-import java.io.IOException;
+import javax.annotation.Resource;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -15,6 +13,7 @@ import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.log.LogParserFactory;
 
 @Component
 public class AnsibleDelegator implements ApplicationContextAware
@@ -23,7 +22,12 @@ public class AnsibleDelegator implements ApplicationContextAware
     private static Logger log = LoggerFactory.getLogger(AnsibleDelegator.class);
 
     private ApplicationContext applicationContext;
+    
     IAnsibleInvoker ansibleInvoker; 
+    
+    @Resource
+    private LogParserFactory logParserFactory;
+    
 
 
 
@@ -32,10 +36,8 @@ public class AnsibleDelegator implements ApplicationContextAware
         PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
         try
         {
-            //for test only
-            //mockAnsibleInvoker(config);
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
-            ansibleInvoker.invoke(playbookCall, getHandler(config));
+            ansibleInvoker.invoke(playbookCall, getHandler(action, config));
         }
         catch (AnsibleException e)
         {
@@ -44,63 +46,16 @@ public class AnsibleDelegator implements ApplicationContextAware
        
     } 
     
-    private IAnsibleHandler getHandler(COMConfig config)
+    private IAnsibleHandler getHandler(Action action, COMConfig config)
     {
       IAnsibleHandler handler =   (IAnsibleHandler) applicationContext
                 .getBean("defaulthandler");
       handler.setConfig(config);
+      handler.setLogParser(logParserFactory.getLogParser(action, config));
       return handler;
     }
 
-    private void mockAnsibleInvoker(IAnsibleHandler handler){
-        ansibleInvoker = new IAnsibleInvoker() {
-            @Override
-            public void invoke(PlaybookCall pc, IAnsibleHandler handler) 
-            {
-              final File logFile = this.getWorkSpace().getLogFile();  
-              new Thread(new Runnable(){
 
-                @Override
-                public void run()
-                {
-                    int i = 1;
-                    while(true){
-                        try
-                        {
-                            FileUtils.writeStringToFile(logFile, "line"+i +"\n", true);
-                            i++;
-                            try
-                            {
-                                Thread.sleep(3000L);
-                            }
-                            catch (InterruptedException e)
-                            {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }
-                        catch (IOException e)
-                        {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                  
-              }).start();
-            }
-
-            @Override
-            public Ansibleworkspace getWorkSpace()
-            {
-                log.info("log file path=" + new File("./").getAbsolutePath());
-                Ansibleworkspace workspace = new Ansibleworkspace("./", "log.txt"); 
-                return workspace ;
-            }
-            
-        };
-        
-    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
