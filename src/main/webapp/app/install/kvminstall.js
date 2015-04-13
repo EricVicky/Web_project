@@ -179,7 +179,9 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 
 	};
     $scope.reloadimglist = function(){
-    	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	if($scope.com_instance != null){
+        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
