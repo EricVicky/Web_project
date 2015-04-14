@@ -26,6 +26,12 @@
 									name="tab1" rc-submit="submitComtype()" rc-step=""
 									novalidate="">
 									<div class="form-group">
+										<label class="control-label">COM Name</label> <input
+											name="deployment_prefix" class="form-control" type="text"
+											ng-model="installConfig.deployment_prefix"
+											title="Prefix of VM Instance" validation="required" />
+									</div>
+									<div class="form-group">
 										<label class="control-label">COM Type</label> <select
 											name="com_type" ng-model="installConfig.comType"
 											class="form-control"
@@ -50,16 +56,10 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<label class="control-label">VM image directory</label> <input
+										<label class="control-label">Image Directory</label> <input
 											name="vm_image_dir" class="form-control" type="text"
 											ng-model="installConfig.vm_img_dir"
 											title="VM image directory" validation="required" />
-									</div>
-									<div class="form-group">
-										<label class="control-label">Prefix of VM Instance</label> <input
-											name="deployment_prefix" class="form-control" type="text"
-											ng-model="installConfig.deployment_prefix"
-											title="Prefix of VM Instance" validation="required" />
 									</div>
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
@@ -108,7 +108,7 @@
 												ng-init="installConfig.vm_config.oam.flavor=flavorStore[installConfig.comType]['oam'][0]"
 												ng-model="installConfig.vm_config.oam.flavor"
 												class="form-control"
-												ng-options="fl as fl.label for fl in flavorStore[installConfig.comType]['oam']"
+												ng-options="fl.label for fl in flavorStore[installConfig.comType]['oam']"
 												title="Flavor" validation="required">
 											</select>
 										</div>
@@ -220,7 +220,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 															<td>Flavor</td>
-															<td>{{installConfig.vm_config.oam.flavor.label}}</td>
+															<td>vCPU:{{installConfig.vm_config.oam.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.oam.flavor.memory/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.oam.flavor.disk}}GB</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
@@ -232,7 +232,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<td>Flavor</td>
-															<td>{{installConfig.vm_config.db.flavor.label}}</td>
+															<td>vCPU:{{installConfig.vm_config.db.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.db.flavor.memory/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.db.flavor.disk}}GB</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
@@ -243,7 +243,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 															<td>Flavor</td>
-															<td>{{installConfig.vm_config.cm.flavor.label}}</td>
+															<td>vCPU:{{installConfig.vm_config.cm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.cm.flavor.memory/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.cm.flavor.disk}}GB</td>
 														</tr>
 													</tbody>
 												</table>
@@ -275,12 +275,6 @@
 	<div class="panel panel-default" ng-show="!editing">
 		<div class="panel-heading">Install Infomation</div>
 		<div class="panel-body">
-			<div class="row" ng-show="!editing && detaillog">
-				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
-					<pre id="logviewer"
-						style="height: 350px; background-color: white; overflow: auto"></pre>
-				</div>
-			</div>
 			<div class="row" ng-show="!editing">
 				<div class="col-md-3"
 					style="text-align: right; padding-right: -5px;">
@@ -306,6 +300,12 @@
 						class="checkbox-inline"> <input type="checkbox"
 						ng-click="showDetailLog()" />
 					</label>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing && detaillog">
+				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
+					<pre id="logviewer"
+						style="height: 350px; background-color: white; overflow: auto"></pre>
 				</div>
 			</div>
 		</div>
