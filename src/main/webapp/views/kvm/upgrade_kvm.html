@@ -223,12 +223,6 @@
 	<div class="panel panel-default" ng-show="!editing">
 		<div class="panel-heading">Upgrade Infomation</div>
 		<div class="panel-body">
-			<div class="row" ng-show="!editing && detaillog">
-				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
-					<pre id="logviewer"
-						style="height: 350px; background-color: white; overflow: auto"></pre>
-				</div>
-			</div>
 			<div class="row" ng-show="!editing">
 				<div class="col-md-3"
 					style="text-align: right; padding-right: -5px;">
@@ -254,6 +248,12 @@
 						class="checkbox-inline"> <input type="checkbox"
 						ng-click="showDetailLog()" />
 					</label>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing && detaillog">
+				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
+					<pre id="logviewer"
+						style="height: 350px; background-color: white; overflow: auto"></pre>
 				</div>
 			</div>
 		</div>

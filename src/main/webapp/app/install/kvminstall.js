@@ -18,26 +18,18 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
 			};
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
-            		deployment_prefix: "sun",
             		vm_img_dir:"/var/images",
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
-            		    netmask: "255.255.255.240",
-            		    gateway: "10.223.0.62",
             		  },
             		  db:{
             		    ip_address: "10.223.0.54",
-            		    netmask: "255.255.255.240",
-            		    gateway: "10.223.0.62",
             		  },
             		  cm:{
             		    ip_address: "135.251.236.105",
-            		    netmask: "255.255.255.240",
-            		    gateway: "135.251.236.110",
             		  }
             		}
-
             };
             $scope.nextstep = null;
             $scope.logtail = function(data){
@@ -66,6 +58,20 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
             	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
             }
 			$scope.deploy = function (){
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM' || $scope.installConfig.comType=='QoSAC'){
+					$scope.installConfig.vm_config.oam.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.oam.gateway = $scope.gateway;
+				}
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
+					$scope.installConfig.vm_config.db.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.db.gateway = $scope.gateway;
+				}
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='CM'){
+					$scope.installConfig.vm_config.cm.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.cm.gateway = $scope.gateway;
+				}
+				$scope.netmask = null;
+				$scope.gateway = null;
             	KVMService.deploy(
                  		$scope.installConfig,
             			function(data){

@@ -28,7 +28,7 @@
 									<div class="form-group">
 										<label class="control-label">COM Name</label> <input
 											name="deployment_prefix" class="form-control" type="text"
-											ng-model="installConfig.deployment_prefix"
+											ng-model="installConfig.deployment_prefix" placeholder="Please Input COM Name"
 											title="Prefix of VM Instance" validation="required" />
 									</div>
 									<div class="form-group">
@@ -81,28 +81,31 @@
 									</fieldset>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+									<fieldset>
+										<legend>NETWORK</legend>
+										<div class="form-group col-md-6">
+											<label class="control-label">Netmask</label> <input
+												name="oam_netmask" class="form-control" type="text"
+												ng-model="netmask" placeholder="Please Input Netmask"
+												title="netmask" validation="ipv4|required" />
+										</div>
+										<div class="form-group col-md-6">
+											<label class="control-label">Gateway</label> <input
+												name="oam_gateway" class="form-control" type="text"
+												ng-model="gateway" placeholder="Please Input Gateway"
+												title="gateway" validation="gateway|required" />
+										</div>
+									</fieldset>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 										<legend>OAM VM</legend>
-										<div class="form-group col-md-4">
+										<div class="form-group col-md-6">
 											<label class="control-label">IP Address</label> <input
 												name="ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.oam.ip_address"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Netmask</label> <input
-												name="oam_netmask" class="form-control" type="text"
-												ng-model="installConfig.vm_config.oam.netmask"
-												title="netmask" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Gateway</label> <input
-												name="oam_gateway" class="form-control" type="text"
-												ng-model="installConfig.vm_config.oam.gateway"
-												title="gateway" validation="gateway|required" />
-										</div>
-										<div class="form-group col-md-12">
+										<div class="form-group col-md-6">
 											<label class="control-label">Flavor</label> <select
 												name="oam_flavor"
 												ng-init="installConfig.vm_config.oam.flavor=flavorStore[installConfig.comType]['oam'][0]"
@@ -116,25 +119,13 @@
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 										<legend>DB VM</legend>
-										<div class="form-group col-md-4">
+										<div class="form-group col-md-6">
 											<label class="control-label">IP Address</label> <input
 												name="ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.db.ip_address"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Netmask</label> <input
-												name="db_netmask" class="form-control" type="text"
-												ng-model="installConfig.vm_config.db.netmask"
-												title="netmask" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Gateway</label> <input
-												name="db_gateway" class="form-control" type="text"
-												ng-model="installConfig.vm_config.db.gateway"
-												title="gateway" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-12">
+										<div class="form-group col-md-6">
 											<label class="control-label">Flavor</label> <select
 												name="db_flavor"
 												ng-init="installConfig.vm_config.db.flavor=flavorStore[installConfig.comType]['db'][0]"
@@ -148,25 +139,13 @@
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 										<legend>CM VM</legend>
-										<div class="form-group col-md-4">
+										<div class="form-group col-md-6">
 											<label class="control-label">IP Address</label> <input
 												name="ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.cm.ip_address"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Netmask</label> <input
-												name="cm_netmask" class="form-control" type="text"
-												ng-model="installConfig.vm_config.cm.netmask"
-												title="netmask" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">Gateway</label> <input
-												name="cm_gateway" class="form-control" type="text"
-												ng-model="installConfig.vm_config.cm.gateway"
-												title="gateway" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-12">
+										<div class="form-group col-md-6">
 											<label class="control-label">Flavor</label> <select
 												name="cm_flavor"
 												ng-init="installConfig.vm_config.cm.flavor=flavorStore[installConfig.comType]['cm'][0]"
