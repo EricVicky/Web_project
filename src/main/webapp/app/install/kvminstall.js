@@ -40,7 +40,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
             
             $scope.showDetailLog= function(){
             	$scope.detaillog= !$scope.detaillog;
-            }	
+            }
             
             $scope.showlog= function(data){
             //	$log.info(data);
@@ -149,9 +149,10 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
 
 app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $state, websocketService, validationService, WizardHandler) {
 	var logviewer = $('#logviewer');
-	var task = $('#task');
+	var task = $('#tasks');
 	$scope.editing = true;
 	$scope.detaillog = false;
+	$scope.ansibletask = true;
 	$scope.user = {};
 	$scope.saveState = function() {
 		var deferred = $q.defer();
@@ -174,6 +175,9 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $s
     $scope.showDetailLog= function(){
     	$scope.detaillog= !$scope.detaillog;
     }	
+    $scope.showAnsibleTask= function(){
+    	$scope.ansibletask= !$scope.ansibletask;
+    }
     
     $scope.showlog= function(data){
     //	$log.info(data);
@@ -185,12 +189,11 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $s
     		})
     	}
     	if(log.task!=null && log.task!=""){
-    		task.text(log.task);
+    		task.append("<div class=\"alert alert-success\" style=\"padding:0px;margin:inherit\">" + "<button type=\"button\" class=\"btn btn-info btn-circle\"><i class=\"fa fa-check\"></i></button>" + "&nbsp;&nbsp;" + log.task + "</div>");
     	}
     	logviewer.append(log.logMsg + "\n");
     	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
     }
-	
 	$scope.loadimglist = function(host, dir) {
 		KVMService.imagelist({
 			"host" : host,

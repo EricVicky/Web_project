@@ -224,15 +224,6 @@
 		<div class="panel-heading">Upgrade Infomation</div>
 		<div class="panel-body">
 			<div class="row" ng-show="!editing">
-				<div class="col-md-3"
-					style="text-align: right; padding-right: -5px;">
-					<label>Ansible Task:</label>
-				</div>
-				<div class="col-md-9" style="text-align: left;">
-					<label id="task"> </label><br>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing">
 				<div class="col-md-12">
 					<wizard on-finish="finished()"> 
 					<wz-step title="Start"></wz-step> 
@@ -243,8 +234,8 @@
 				</div>
 			</div>
 			<div class="row" ng-show="!editing">
-				<div class="col-md-12" style="text-align: center;">
-					<br> <label>Show detail log</label> <label
+				<div class="col-md-12" style="text-align: right;">
+					<br> <label>Show Detail Log</label> <label
 						class="checkbox-inline"> <input type="checkbox"
 						ng-click="showDetailLog()" />
 					</label>
@@ -254,6 +245,12 @@
 				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
 					<pre id="logviewer"
 						style="height: 350px; background-color: white; overflow: auto"></pre>
+				</div>
+			</div>
+			<div class="row" ng-show="!editing && ansibletask">
+				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
+					<pre id="tasks"
+						style="height: 400px; background-color: white; overflow: auto"></pre>
 				</div>
 			</div>
 		</div>
