@@ -18,26 +18,18 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
 			};
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
-            		deployment_prefix: "sun",
             		vm_img_dir:"/var/images",
             		vm_config: {
             		  oam:{
             		    ip_address: "10.223.0.50",
-            		    netmask: "255.255.255.240",
-            		    gateway: "10.223.0.62",
             		  },
             		  db:{
             		    ip_address: "10.223.0.54",
-            		    netmask: "255.255.255.240",
-            		    gateway: "10.223.0.62",
             		  },
             		  cm:{
             		    ip_address: "135.251.236.105",
-            		    netmask: "255.255.255.240",
-            		    gateway: "135.251.236.110",
             		  }
             		}
-
             };
             $scope.nextstep = null;
             $scope.logtail = function(data){
@@ -48,7 +40,7 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
             
             $scope.showDetailLog= function(){
             	$scope.detaillog= !$scope.detaillog;
-            }	
+            }
             
             $scope.showlog= function(data){
             //	$log.info(data);
@@ -66,6 +58,20 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
             	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
             }
 			$scope.deploy = function (){
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM' || $scope.installConfig.comType=='QoSAC'){
+					$scope.installConfig.vm_config.oam.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.oam.gateway = $scope.gateway;
+				}
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
+					$scope.installConfig.vm_config.db.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.db.gateway = $scope.gateway;
+				}
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='CM'){
+					$scope.installConfig.vm_config.cm.netmask = $scope.netmask;
+					$scope.installConfig.vm_config.cm.gateway = $scope.gateway;
+				}
+				$scope.netmask = null;
+				$scope.gateway = null;
             	KVMService.deploy(
                  		$scope.installConfig,
             			function(data){
@@ -141,10 +147,13 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
              });*/
 } );
 
-app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
+app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $state, websocketService, validationService, WizardHandler) {
 	var logviewer = $('#logviewer');
+	var task = $('#tasks');
+	$scope.editing = true;
+	$scope.detaillog = false;
+	$scope.ansibletask = true;
 	$scope.user = {};
-	$scope.editing = false;
 	$scope.saveState = function() {
 		var deferred = $q.defer();
 		$timeout(function() { 
@@ -154,18 +163,37 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 	};
 	$scope.completeWizard = function() {
 		$scope.upgrade();
-		alert('Completed!');
 	};
+	
+	$scope.nextstep = null;
     $scope.logtail = function(data){
 		$scope.socket = websocketService.connect("/oam", function(socket) {
 			socket.stomp.subscribe('/log/tail', $scope.showlog);
-		})
-    };
+		});
+    }
+    
+    $scope.showDetailLog= function(){
+    	$scope.detaillog= !$scope.detaillog;
+    }	
+    $scope.showAnsibleTask= function(){
+    	$scope.ansibletask= !$scope.ansibletask;
+    }
+    
     $scope.showlog= function(data){
-    	$log.info(data);
-    	logviewer.append(data.body + "\n");
-        logviewer.css({ display: "block" });
-    };
+    //	$log.info(data);
+    	var log =  JSON3.parse(data.body);
+    	if( $scope.nextstep != log.step){
+    		$scope.nextstep = log.step;
+    		$scope.$apply(function(){
+				WizardHandler.wizard().next();
+    		})
+    	}
+    	if(log.task!=null && log.task!=""){
+    		task.append("<div class=\"alert alert-success\" style=\"padding:0px;margin:inherit\">" + "<button type=\"button\" class=\"btn btn-info btn-circle\"><i class=\"fa fa-check\"></i></button>" + "&nbsp;&nbsp;" + log.task + "</div>");
+    	}
+    	logviewer.append(log.logMsg + "\n");
+    	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
+    }
 	$scope.loadimglist = function(host, dir) {
 		KVMService.imagelist({
 			"host" : host,
@@ -173,13 +201,17 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
 		}, function(data) {
 			$log.info(data);
 			$scope.imagelist = data;
+			$scope.$parent.oam_cm_image = $scope.imagelist[0];
+			$scope.$parent.db_image = $scope.imagelist[1];
 		}, function(response) {
 			$log.error(response);
 		});
 
 	};
     $scope.reloadimglist = function(){
-    	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	if($scope.com_instance != null){
+        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
@@ -193,6 +225,8 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
          		$scope.installConfig,
     			function(data){
          			$scope.logtail(data);
+         			$scope.editing = false;
+         			//$state.go("dashboard.upgradepregress");
     			}, 
     			function(response){
     					$log.info(response);
