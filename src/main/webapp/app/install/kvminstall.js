@@ -149,10 +149,13 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
 
 app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $state, websocketService, validationService, WizardHandler) {
 	var logviewer = $('#logviewer');
-	var task = $('#tasks');
+	var task = $('#task');
+	var tasks = $('#tasks');
+    var taskgroup = new Array();
 	$scope.editing = true;
 	$scope.detaillog = false;
-	$scope.ansibletask = true;
+	$scope.buttonlog = true;
+	$scope.loadingshow = true;
 	$scope.user = {};
 	$scope.saveState = function() {
 		var deferred = $q.defer();
@@ -175,12 +178,18 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $s
     $scope.showDetailLog= function(){
     	$scope.detaillog= !$scope.detaillog;
     }	
-    $scope.showAnsibleTask= function(){
-    	$scope.ansibletask= !$scope.ansibletask;
+    $scope.showButton= function(){
+    	$scope.buttonlog= !$scope.buttonlog;
     }
     
     $scope.showlog= function(data){
-    //	$log.info(data);
+    	$log.info(data);
+    	if(data.body == "end"){
+    		$scope.$apply(function(){
+    			$scope.loadingshow = false;
+    		});
+    		return;
+    	}
     	var log =  JSON3.parse(data.body);
     	if( $scope.nextstep != log.step){
     		$scope.nextstep = log.step;
@@ -189,9 +198,16 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, $s
     		})
     	}
     	if(log.task!=null && log.task!=""){
-    		task.append("<div class=\"alert alert-success\" style=\"padding:0px;margin:inherit\">" + "<button type=\"button\" class=\"btn btn-info btn-circle\"><i class=\"fa fa-check\"></i></button>" + "&nbsp;&nbsp;" + log.task + "</div>");
+    		tasks.append("<i class=\"fa fa-check\" style=\"color:green\"></i>" + "&nbsp;&nbsp;" + log.task + "<br>");
+    		taskgroup.push(log.task);
+    		var taskhtml = "";
+    		var startIndex = taskgroup.length >10?taskgroup.length-10:0;
+    		for(var n=startIndex; n<taskgroup.length; n++){
+            		taskhtml = taskhtml + "<i class=\"fa fa-check\" style=\"color:green\"></i>" + "&nbsp;&nbsp;" + taskgroup[n] + "<br>";
+            }
+    		task.html(taskhtml);
     	}
-    	logviewer.append(log.logMsg + "\n");
+    	logviewer.append(log.logMsg + "<br>");
     	logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
     }
 	$scope.loadimglist = function(host, dir) {

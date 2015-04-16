@@ -220,40 +220,60 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default" ng-show="!editing">
-		<div class="panel-heading">Upgrade Infomation</div>
-		<div class="panel-body">
-			<div class="row" ng-show="!editing">
-				<div class="col-md-12">
-					<wizard on-finish="finished()"> 
-					<wz-step title="Start"></wz-step> 
-					<wz-step title="Generate Config Driver"></wz-step> 
-					<wz-step title="Start VM instance"></wz-step>
-					<wz-step title="Prepare Install Options"></wz-step> 
-					<wz-step title="Finished"> </wz-step></wizard>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing">
-				<div class="col-md-12" style="text-align: right;">
-					<br> <label>Show Detail Log</label> <label
-						class="checkbox-inline"> <input type="checkbox"
-						ng-click="showDetailLog()" />
-					</label>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing && detaillog">
-				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
-					<pre id="logviewer"
-						style="height: 350px; background-color: white; overflow: auto"></pre>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing && ansibletask">
-				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
-					<pre id="tasks"
-						style="height: 400px; background-color: white; overflow: auto"></pre>
-				</div>
+	<div ng-show="!editing">
+		<div class="row" ng-show="!editing">
+			<div class="col-md-12">
+				<wizard on-finish="finished()"> <wz-step title="Start"></wz-step>
+				<wz-step title="Generate Config Driver"></wz-step> <wz-step
+					title="Start VM instance"></wz-step> <wz-step
+					title="Prepare Install Options"></wz-step> <wz-step
+					title="Finished"> </wz-step></wizard>
 			</div>
 		</div>
+		<section class="panel-body">
+			<ul class="nav nav-tabs navbarline" ng-init="activeTab = 'ansibletask'">
+				<li ng-class="{ active: activeTab === 'ansibletask' }"><a
+					ng-click="activeTab = 'ansibletask'" href="" class="logbar">Ansible Task</a></li>
+				<li ng-class="{ active: activeTab === 'detaillogs' }"><a
+					ng-click="activeTab = 'detaillogs'" href="" class="logbar"">Detail Logs</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane" ng-class="{ active: activeTab === 'ansibletask' }">
+					<div class="row" ng-show="!editing && buttonlog">
+						<div class="col-md-12 tasklocation">
+							<div id="task"></div>
+						</div>
+					</div>
+					<div class="row" ng-show="!editing && !buttonlog">
+						<div class="col-md-12 taskslocation">
+							<div id="tasks" class="tasksheight"></div>
+						</div>
+					</div>
+					<div class="row" ng-show="!editing && buttonlog">
+						<div class="detailtask">
+							<label>Detail Task</label> <i class="fa fa-chevron-circle-down"
+								ng-click="showButton()"></i>
+						</div>
+					</div>
+					<div class="row" ng-show="!editing && !buttonlog">
+						<div class="detailtask">
+							<label>Detail Task</label> <i class="fa fa-chevron-circle-up"
+								ng-click="showButton()"></i>
+						</div>
+					</div>
+					<div class="loadingimg" ng-show="loadingshow">
+						<img src="images/spinner.gif"/>
+					</div>
+				</div>
+				<div class="tab-pane" ng-class="{ active: activeTab === 'detaillogs' }">
+					<div class="row" ng-show="!editing">
+						<div class="col-md-12 loglocation">
+							<pre id="logviewer"></pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 </div>
 

@@ -364,4 +364,43 @@ form legend {
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
+
+section>ul .navbarline {
+	height: 30px;
+}
+section >ul> li .logbar {
+	padding: 0px 10px 7px 10px;
+}
+div .tasklocation,
+div .taskslocation {
+	height: 10px;
+	width: 50%;
+	padding-top: 5px;
+	margin-left: 280px; 
+	margin-top: 10px;
+}
+div .taskslocation {
+	width: 65%; 
+}
+div .tasksheight {
+	height: 520px; 
+	background-color: white; 
+	overflow: auto; 
+	width: 108%;
+}
+div .detailtask {
+	margin-left: 790px; 
+	margin-top: 0px;
+	z-index: 50;
+	position: absolute;
+}
+div .loadingimg {
+	 margin-left: 280px;
+	 margin-top: 202px;
+}
+div .loglocation {
+	height: 500px; 
+	background-color: white; 
+	overflow: auto;
+	margin-top:5px;
 }
