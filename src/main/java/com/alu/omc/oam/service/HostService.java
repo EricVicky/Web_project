@@ -1,7 +1,7 @@
 package com.alu.omc.oam.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.persistence.JsonDataSource;
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 @Service
 public class HostService
@@ -31,9 +33,8 @@ public List<String> imagelist(String host, String login, String dir) throws Exce
     List<String> images = new ArrayList<String>();
     //it is for local test only
   	if(SystemUtils.IS_OS_WINDOWS){
-    	images.add("1111.qcow2");
-    	images.add("2222.qcow2");
-    	images.add("3333.qcow2");
+    	images.add("rhel6.6_ora_client.qcow2");
+    	images.add("rhel6.6_ora.qcow2");
 		return images;  
   	}
 
@@ -73,4 +74,30 @@ public List<String> imagelist(String host, String login, String dir) throws Exce
     	return dataSource.hosts();
 
     }
+    
+    public boolean ping(String host){
+        JSch ssh = new JSch();
+        final String PING_COMMAND = "ping -n 1 "; 
+        boolean REACHABLE = false;
+        try
+        {
+            Session session = ssh.getSession("127.0.0.1");
+            ChannelExec channel= (ChannelExec)session.openChannel("shell");
+            InputStream is = new ByteArrayInputStream(PING_COMMAND.concat(host).concat("\n").getBytes());
+            channel.setInputStream(is);
+            channel.setOutputStream(System.out);
+            channel.connect(2*1000);
+            channel.disconnect();
+            session.disconnect();
+            REACHABLE = (channel.getExitStatus() == 0);
+            
+        }
+        catch (JSchException e)
+        {
+           log.error("failed to run ping command", e); 
+        }
+        return REACHABLE;
+    }
 }
+
+

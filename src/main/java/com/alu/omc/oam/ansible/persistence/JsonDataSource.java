@@ -72,7 +72,9 @@ public class JsonDataSource
     public static <T> T fromJSON(final String path, final TypeReference<T> type) throws IOException {
          T data = null;
          File f = new File(path);
+         log.info("json file path=" + f.getAbsolutePath());
          if(!f.exists()){
+             log.info("create json file:" + f.getAbsolutePath());
              f.createNewFile();
          }
          if(f.length()==0){

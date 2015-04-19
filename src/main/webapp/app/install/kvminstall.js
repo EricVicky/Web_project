@@ -134,11 +134,6 @@ app.controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
             			}
             	);
             })();
-/*             $scope.$watch('nextstep', function(step) {
-            	 if(step){
-            		 WizardHandler.wizard().goTo(step);
-            	 }
-             });*/
 } );
 
 app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
@@ -181,7 +176,7 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
     $scope.reloadimglist = function(){
     	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    	$scope.loadimglist($scope.installConfig.active_host_ip.ip_address, $scope.vm_img_dir);
     }
 	$scope.upgrade = function (){
 		var installConfig = JSON3.parse($scope.com_instance.comConfig);
@@ -210,3 +205,5 @@ app.controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, we
     	);
     })();
 } );
+
+

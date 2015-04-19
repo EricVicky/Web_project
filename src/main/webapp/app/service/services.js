@@ -168,12 +168,23 @@ rest.factory('RestService', function($location, $resource, $log) {
 			},
 	};
 });
-rest.factory('KVMService', function($location, $resource, $log) {
+rest.factory('KVMService', function($location, $q, $resource, $log, $http) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
+	var pingcheck = function(host){
+		var pingrul = "rest/check/ping";
+		var deferred = $q.defer();
+		$http.get(pingrul, host).success(function(data){
+			deferred.resolve(data);
+		}).error(function(response){
+			deferred.reject(response)
+		})
+		return deferred.promise;
+	}
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
+		pingcheck: pingcheck,
 		getFlavorStore: function (success, error) {
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
 			flavorRes.get(
