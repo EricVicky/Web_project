@@ -7,7 +7,7 @@ angular.module('comoamApp', [
     'ghiscoding.validation',
     'pascalprecht.translate',
     'kvm', 
-    'openstack', 
+    'os', 
     'rcWizard', 
     'mgo-angular-wizard',
     'rcForm', 
@@ -67,4 +67,3 @@ angular.module('comoamApp', [
     });
 });
 
-  

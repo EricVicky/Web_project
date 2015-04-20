@@ -1,5 +1,5 @@
 'use strict';
-angular.module('openstack', [ 'ngResource' ]).factory('OSService', function($location, $resource, $log) {
+angular.module('os').factory('OSService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl + "rest/";
 	return {
