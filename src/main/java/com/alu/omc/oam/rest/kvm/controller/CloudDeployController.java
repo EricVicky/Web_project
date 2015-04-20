@@ -64,7 +64,7 @@ public class CloudDeployController
     @RequestMapping(value="/kvm/upgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.execute(Action.UPGRADE, config );
     }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)

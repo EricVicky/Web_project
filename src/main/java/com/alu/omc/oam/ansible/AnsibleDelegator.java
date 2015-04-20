@@ -33,7 +33,7 @@ public class AnsibleDelegator implements ApplicationContextAware
 
 
     public void execute(Action action, COMConfig config){
-        PlaybookCall playbookCall = new PlaybookCall(config, Action.INSTALL);
+        PlaybookCall playbookCall = new PlaybookCall(config, action);
         try
         {
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");

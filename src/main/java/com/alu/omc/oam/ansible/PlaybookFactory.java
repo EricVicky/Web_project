@@ -18,12 +18,16 @@ public class PlaybookFactory
 
     static{
         playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("install_kvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("install_os.yml") );
     }
     public Playbook getPlaybook(Action action, COMFact fact) {
     	if (fact.getEnvironment() == Environment.KVM) {
     		if (action == Action.INSTALL) {
     			return playbooks.get(key(Environment.KVM, Action.INSTALL));
+    		}
+    		else if (action == Action.UPGRADE){
+    			return playbooks.get(key(Environment.KVM, Action.UPGRADE));
     		}
     	}
     	else if (fact.getEnvironment() == Environment.OPENSTACK) {
