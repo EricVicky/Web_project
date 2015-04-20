@@ -1,4 +1,5 @@
-angular.module('kvm').controller('upgradectr', function($scope, $q, $timeout, $log, KVMService, websocketService, validationService) {
+angular.module('kvm').controller('upgradectr', function($scope, $q, $timeout, $log, KVMService
+		, websocketService, validationService, WizardHandler) {
 	var logviewer = $('#logviewer');
 	var task = $('#task');
 	var tasks = $('#tasks');
@@ -19,7 +20,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $q, $timeout, $l
 		$scope.upgrade();
 	};
 	
-	$scope.nextstep = null;
+	$scope.nextstep = "Start";
     $scope.logtail = function(data){
 		$scope.socket = websocketService.connect("/oam", function(socket) {
 			socket.stomp.subscribe('/log/tail', $scope.showlog);
@@ -38,12 +39,14 @@ angular.module('kvm').controller('upgradectr', function($scope, $q, $timeout, $l
     	if(data.body == "end"){
     		$scope.$apply(function(){
     			$scope.loadingshow = false;
+    			WizardHandler.wizard().finish();
     		});
     		return;
     	}
     	var log =  JSON3.parse(data.body);
     	if( $scope.nextstep != log.step){
     		$scope.nextstep = log.step;
+    		$log.info("nextstep=" + $scope.nextstep);
     		$scope.$apply(function(){
 				WizardHandler.wizard().next();
     		})
@@ -86,7 +89,6 @@ angular.module('kvm').controller('upgradectr', function($scope, $q, $timeout, $l
 		var installConfig = JSON3.parse($scope.com_instance.comConfig);
 		installConfig.oam_cm_image = $scope.oam_cm_image;
 		installConfig.db_image = $scope.db_image;
-		installConfig.com_iso = $scope.com_iso;
 		installConfig.vm_img_dir = $scope.vm_img_dir;
 		KVMService.upgrade(
          		$scope.installConfig,

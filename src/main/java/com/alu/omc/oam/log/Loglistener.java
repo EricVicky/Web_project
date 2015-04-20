@@ -41,7 +41,7 @@ public class Loglistener implements TailerListener
     @Override
     public void handle(Exception paramException)
     {
-       log.error(paramException.getMessage()); 
+       log.error(paramException.getMessage(), paramException); 
     }
     
     public Loglistener(IAnsibleHandler handler){

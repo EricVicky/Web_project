@@ -223,11 +223,14 @@
 	<div ng-show="!editing">
 		<div class="row" ng-show="!editing">
 			<div class="col-md-12">
-				<wizard on-finish="finished()"> <wz-step title="Start"></wz-step>
-				<wz-step title="Generate Config Driver"></wz-step> <wz-step
-					title="Start VM instance"></wz-step> <wz-step
-					title="Prepare Install Options"></wz-step> <wz-step
-					title="Finished"> </wz-step></wizard>
+				<wizard on-finish="finished()">
+				<wz-step title="Start"></wz-step>
+				<wz-step title="Data Backup"></wz-step>
+				<wz-step title="Post Image Replacement"></wz-step>
+				<wz-step title="Post Configuration"></wz-step> 
+				<wz-step title="Data Restore"></wz-step> 
+				<wz-step title="Finished"> </wz-step>
+				</wizard>
 			</div>
 		</div>
 		<section class="panel-body">
