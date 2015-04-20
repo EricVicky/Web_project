@@ -1,4 +1,10 @@
-angular.module('login')
+angular.module('login', [
+	'ui.bootstrap',
+	'ngCookies',
+	'ngResource',
+	'pascalprecht.translate',
+	'auth'
+])
 .controller('LoginController', function($rootScope, $scope, $cookieStore, $log, $state, $translate, $resource, $modal, Auth) {
 	// Get all the saved properties from cookie for the user
 	
