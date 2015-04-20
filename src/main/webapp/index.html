@@ -72,26 +72,38 @@
 <script src="vendor/angular-validation/dist/angular-validation.min.js"></script>
 <script src="vendor/mgo-angular-wizard/angular-wizard.js"></script>
 
-<!-- Controller -->
-<script src="app/service/services.js"></script>
-<script src="app/directives/loading.js"></script>
-<script src="app/websocket/websocketServices.js"></script>
-<script src="app/app.js"></script>
-<script src="app/install/kvminstall.js"></script>
-<script src="app/install/osinstall.js"></script>
 
-<script src="app/filters.js"></script>
+<!-- main entry-->
+<script src="app/app.js"></script>
+<!-- directive -->
+<script src="app/directives/loading.js"></script>
+<script src="app/directives/validation/hostcheck.js"></script>
+
+<!-- Controller -->
+<script src="app/controllers/kvm/installController.js"></script>
+<script src="app/controllers/kvm/upgradeController.js"></script>
+<script src="app/controllers/openstack/installController.js"></script>
+<script src="app/controllers/login/loginController.js"></script>
+
+<!-- service -->
+<script src="app/service/websocketServices.js"></script>
+<script src="app/service/authService.js"></script>
+<script src="app/service/loginServices.js"></script>
+<script src="app/service/kvmService.js"></script>
+<script src="app/service/osServices.js"></script>
+
+<!-- filter-->
+<script src="app/filter/filters.js"></script>
+
+<!-- config -->
+<script src="app/config/config.js"></script>
+<script src="app/route/route.js"></script>
+
 <script src="app/comoam.js"></script>
 
-
 <!--Login-->
-<script type="text/javascript" src="app/login/login.js"></script>
-<script type="text/javascript" src="app/login/loginControllers.js"></script>
-<script type="text/javascript" src="app/login/loginServices.js"></script>
 <script type="text/javascript" src="app/login/tripledes.js"></script>
 <script type="text/javascript" src="app/login/mode-ecb.js"></script>
-
-
 </head>
 <body>
 

@@ -1,7 +1,6 @@
 'use strict';
-
 angular.module('login')
-.factory('Auth', function($rootScope, $window, $cookieStore, $log, RestService) {
+.factory('Auth', function($rootScope, $window, $cookieStore, $log, authService) {
 	function changeUser(data) {
 		// copy user to currentUser
 		$rootScope._user.username = data.username;
@@ -44,7 +43,7 @@ angular.module('login')
 			return true;
 		},
 		login: function(user, success, error) {
-			RestService.login(user,
+			authService.login(user,
 				function(data) {
 					changeUser(data);
 					success(data);
@@ -55,7 +54,7 @@ angular.module('login')
 				});
 		},
 		logout: function(user, success, error) {
-			RestService.logout(user,
+			authService.logout(user,
 				function(data) {
 					logoutUser(user.username);
 					success(data);

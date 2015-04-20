@@ -1,7 +1,6 @@
-var app = angular.module('osinstall', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
-		'rcForm', 'rest' ]);
-
-app.controller('osctr', function($scope, $q, $timeout, $log, OSService) {
+angular.module('os', [ 'ui.router', 'ui.bootstrap', 'rcWizard',
+		'rcForm',  'websocket', 'ghiscoding.validation', 'mgo-angular-wizard','ngResource']).controller('osController', function($scope, $q, $timeout, $log, OSService,
+		$state, websocketService, validationService, WizardHandler) {
 			$scope.user = {};
 			$scope.saveState = function() {
 				var deferred = $q.defer();
