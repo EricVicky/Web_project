@@ -107,7 +107,7 @@ rest.factory('OSService', function($location, $resource, $log) {
 	};
 });
 
-rest.factory('authInterceptor', function($q, $window, $cookieStore) {
+rest.factory('authInterceptor', function($q, $window, $cookieStore, $log, $injector ) {
 	return {
 		request: function(config) {
 			config.headers = config.headers || {};
@@ -122,8 +122,17 @@ rest.factory('authInterceptor', function($q, $window, $cookieStore) {
 			return config;
 		},
 		response : function(response) {
-			if (response.status === 401) {
-				// handle the case where the user is not authenticated
+			if (response.status == 403) {
+			    var $state = $injector.get('$state');
+				$state.go('login');
+			}
+			return response || $q.when(response);
+		 
+		},
+		responseError : function(response) {
+			if (response.status == 403) {
+				var state = $injector.get('$state');
+				state.go('login');
 			}
 			return response || $q.when(response);
 		}

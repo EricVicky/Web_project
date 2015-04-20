@@ -25,6 +25,7 @@ public class DefaultHandler implements IAnsibleHandler
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
+    final String END = "end";
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
@@ -52,6 +53,7 @@ public class DefaultHandler implements IAnsibleHandler
     {
         if(this.succeed){
         	this.onSucceed();
+        	sender.send(topic, END);
         }
 
     }
