@@ -25,7 +25,7 @@
 <!-- 	  <context:exclude-filter type="regex" 
 			expression="com.alu.omc.oam.rest.os.*.*" />	 -->	
 	</context:component-scan>
-	<context:property-placeholder location="classpath:config/*local.properties" 
+	<context:property-placeholder location="classpath:config/application.properties" 
 		ignore-unresolvable="true" />
 	<mvc:annotation-driven />
 	<aop:aspectj-autoproxy />
