@@ -1,0 +1,42 @@
+
+	<div ng-show="!show">
+		<div class="row">
+			<div class="col-md-12">
+				<wizard on-finish="finished()">
+					<wz-step ng-repeat="step in ansibleSteps" title="{{ step }}">
+				</wizard>
+			</div>
+		</div>
+		<section class="panel-body">
+			<tabset ng-init="showAllTasks = false"> 
+			  <tab heading="Ansible Task">
+			  		<div class="row" ng-show="!showAllTasks">
+						<div class="col-md-12 tasklocation">
+							<div id="task"></div>
+						</div>
+					</div>
+					<div class="row" ng-show="showAllTasks" >
+						<div class="col-md-12 taskslocation">
+							<div id="tasks" class="tasksheight"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="detailtask">
+							<label>Detail Task</label> <i class="fa" ng-class="{ 'fa-chevron-circle-down': !showAllTasks, 'fa-chevron-circle-up': showAllTasks }"
+								ng-click="showAllTasks = !showAllTasks "></i>
+						</div>
+					</div>
+					<div class="loadingimg" ng-show="loadingshow">
+						<img src="images/spinner.gif"/>
+					</div>
+			  </tab> 
+			  <tab heading="Detail Logs">
+					<div class="row">
+						<div class="col-md-12" style="height: 400px; padding-top: 5px;">
+							<pre id="logviewer" style="height: 350px; background-color: white; overflow: auto"></pre>
+						</div>
+					</div>
+			  </tab> 
+			 </tabset>
+		</section>
+	</div>

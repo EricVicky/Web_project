@@ -5,7 +5,7 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 	var pingcheck = function(host){
 		var pingrul = "rest/check/ping";
 		var deferred = $q.defer();
-		$http.get(pingrul, host).success(function(data){
+		$http.post(pingrul, host).success(function(data){
 			deferred.resolve(data);
 		}).error(function(response){
 			deferred.reject(response)
@@ -25,33 +25,13 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
-		pingcheck: pingcheck,
-		uniqueDeploy: uniqueDeploy,
-		getFlavorStore: function (success, error) {
+		getFlavorStore: function () {
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
-			flavorRes.get(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return flavorRes.get().$promise;
 		},
 		images: function(success,error) {
 			var imageRes = $resource(restUrl + "rest/kvm/images");
-			imageRes.query(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return imageRes.query().$promise;
 		},
 		deploy: function (config, success, error) {
 			var deployRes = $resource(restUrl + "rest/kvm/deployment");
@@ -66,56 +46,19 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(restUrl + "data/comType.json");
-			comTypeRes.query(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return comTypeRes.query().$promise;
 		},
 		getTimezoneStore: function(success,error) {
 			var timezoneRes = $resource(baseUrl + "data/timezone.json");
-			timezoneRes.query(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return timezoneRes.query().$promise;
 		},
 		hostips: function(success,error) {
 			var AcHostIPRes = $resource(restUrl + "rest/kvm/hostips");
-			AcHostIPRes.query(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return AcHostIPRes.query().$promise;
 		},
-		imagelist: function(host, success,error) {
+		imagelist: function(host ) {
 			var OamCmImagesRes = $resource(restUrl + "rest/kvm/images");
-			OamCmImagesRes.query(
-				host,
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return OamCmImagesRes.query( host).$promise;
 		},
 		upgrade: function (config, success, error) {
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");
@@ -130,16 +73,7 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 		},
 		getComInstance: function(success,error) {
 			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
-			comInstanceRes.query(
-				// success
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return comInstanceRes.query().$promise;
 		}
 	};
 });

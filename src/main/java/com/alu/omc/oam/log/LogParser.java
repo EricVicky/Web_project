@@ -6,15 +6,23 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class LogParser implements ILogParser
+
+public class LogParser implements ILogParser 
 {
+
+ private static Logger logger = LoggerFactory.getLogger(LogParser.class);
  private Stack<Step> steps = new Stack<Step>();
  private Step currentStep = null;
  private static final  Pattern taskPattern = Pattern.compile("^.*TASK:\\s\\[(.*)\\].*$");
  
  private Step nextStep(){
-     return steps.pop();
+     if(steps.size() >0){
+         return steps.pop();
+     }
+     return null;
  }
 @Override
 public ParseResult parse(String log)
@@ -27,6 +35,8 @@ public ParseResult parse(String log)
      }
      if(currentStep != null){
          if(currentStep.expect(log)){
+             logger.info("currentStep=" + currentStep.keywordPattern);
+             logger.info("log=" + log);
              res.setStep(currentStep.name);
              currentStep = nextStep();
          }else{
@@ -36,6 +46,17 @@ public ParseResult parse(String log)
      
      return res;
  }
+
+public ILogParser clone() throws CloneNotSupportedException{
+   LogParser  parser =  new LogParser();
+   parser.steps = (Stack<Step>)this.steps.clone();
+   parser.currentStep = this.currentStep.clone();
+   return parser;
+}
+
+public LogParser(){
+    
+}
  
  
  
@@ -60,7 +81,8 @@ public ParseResult parse(String log)
  
  
  
-class Step{
+ 
+class Step implements Cloneable {
     private Pattern keywordPattern;
     private String name;
     
@@ -72,6 +94,10 @@ class Step{
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    public Step clone () throws CloneNotSupportedException{
+       return (Step)super.clone();
     }
     
     public boolean expect(String log){
