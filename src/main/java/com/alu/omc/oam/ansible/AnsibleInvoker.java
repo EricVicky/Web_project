@@ -35,7 +35,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
     {
         final Tailer tailer = Tailer.create(this.getWorkSpace().getLogFile(),
                 new Loglistener(handler), 1000, false);
-       log.info("create tailer"); 
+        log.info("create tailer"); 
        try
         {
         	Thread thread = new Thread(new Runnable() {

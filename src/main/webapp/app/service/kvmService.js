@@ -51,6 +51,10 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var OamCmImagesRes = $resource(restUrl + "rest/kvm/images");
 			return OamCmImagesRes.query( host).$promise;
 		},
+		isLockedHost: function(host ) {
+			var lockedHostRes = $resource(restUrl + "rest/check/lockedhost");
+			return lockedHostRes.get( host).$promise;
+		},
 		upgrade: function (config, success, error) {
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");
 			upgradeRes.save(config,

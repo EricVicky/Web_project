@@ -5,6 +5,7 @@ import com.alu.omc.oam.log.ILogParser;
 
 public interface IAnsibleHandler
 {
+public final static String HANDLER_END_FIX = "_HANDLER";
 public void onStart();
 
 public void onError();

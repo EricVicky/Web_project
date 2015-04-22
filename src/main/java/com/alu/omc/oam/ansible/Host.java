@@ -75,5 +75,16 @@ import org.apache.commons.lang3.StringUtils;
                     "ansible_ssh_user=".concat(this.user),
                     "ansible_ssh_pass=".concat(this.password).concat("\n") }, " ");
         }
+        
+        public int hashCode(){
+            return this.ip_address.hashCode();
+        }
+        
+        public boolean equals(Object obj){
+            if(obj != null && obj instanceof Host && ((Host)obj).getIp_address() != null){
+                return this.ip_address.equals(((Host)obj).getIp_address()); 
+            }
+            return false;
+        }
 
     }

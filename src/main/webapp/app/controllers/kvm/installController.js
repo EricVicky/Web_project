@@ -9,6 +9,7 @@ angular.module('kvm', [ 'ui.router',
            $state, websocketService, validationService, WizardHandler) {
 			$scope.ansibleSteps = ["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"];
 			$scope.editing = true;
+			$scope.channel_pre_fix = "/log/tail/";
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip.ip_address, $scope.installConfig.vm_img_dir);
 			}
@@ -63,6 +64,11 @@ angular.module('kvm', [ 'ui.router',
             				$scope.installConfig.db_image = $scope.imagelist[1];
             			}); 
             };
+            $scope.isLockedHost = function(){
+            	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
+            		$log.info(response)
+            	});
+            }
             KVMService.getFlavorStore().then( function(data) {
             				$scope.flavorStore = data.Flavors;
             			});

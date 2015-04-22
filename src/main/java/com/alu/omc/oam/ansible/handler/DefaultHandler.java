@@ -7,13 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.alu.omc.oam.ansible.AnsibleRuningContext;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
-@Component("defaulthandler")
+@Component("INSTALL_KVM_HANDLER")
 @Scope(value = "prototype")
 public class DefaultHandler implements IAnsibleHandler
 {
@@ -21,7 +23,9 @@ public class DefaultHandler implements IAnsibleHandler
     COMStackService service;
     @Resource
     WebsocketSender sender;
-    String topic = "/log/tail";
+    @Resource
+    AnsibleRuningContext runningContext;
+    String topic = "/log/tail/";
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
@@ -31,6 +35,7 @@ public class DefaultHandler implements IAnsibleHandler
     public void onStart()
     {
         // TODO Auto-generated method stub
+        runningContext.lock(((KVMCOMConfig)config).getActive_host_ip());
 
     }
 
@@ -39,6 +44,7 @@ public class DefaultHandler implements IAnsibleHandler
     {
         COMStack stack = new COMStack(config);
         service.add(stack);
+        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
     }
 
     @Override
@@ -53,9 +59,9 @@ public class DefaultHandler implements IAnsibleHandler
     {
         if(this.succeed){
         	this.onSucceed();
-        	sender.send(topic, END);
+        	sender.send(getFulltopic(), END);
         }
-
+        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
     }
 
     @Override
@@ -64,7 +70,7 @@ public class DefaultHandler implements IAnsibleHandler
       if(hasError(log)){
     	  this.succeed  = false;
       }
-      sender.send(topic, logParser.parse(log));  
+      sender.send(getFulltopic(), logParser.parse(log));  
     }
     
     private boolean hasError(String log){
@@ -79,6 +85,11 @@ public class DefaultHandler implements IAnsibleHandler
     public void setConfig(COMConfig config)
     {
         this.config = config;
+    }
+    
+    public String getFulltopic(){
+       KVMCOMConfig cfg = (KVMCOMConfig)config;
+       return this.topic.concat(cfg.getActive_host_ip().getName());
     }
     
     @Override

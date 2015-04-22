@@ -28,5 +28,9 @@ public class ActionKey
         } 
         return false;
     }
+    
+    public String toString(){
+        return action.name().concat("_").concat(env.name());
+    }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionKey;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.log.LogParserFactory;
 
@@ -48,8 +49,10 @@ public class AnsibleDelegator implements ApplicationContextAware
     
     private IAnsibleHandler getHandler(Action action, COMConfig config)
     {
+      String handlerBeanName = new ActionKey(action,
+              config.getEnvironment()).toString().concat(IAnsibleHandler.HANDLER_END_FIX);
       IAnsibleHandler handler =   (IAnsibleHandler) applicationContext
-                .getBean("defaulthandler");
+                .getBean(handlerBeanName);
       handler.setConfig(config);
       handler.setLogParser(logParserFactory.getLogParser(action, config));
       return handler;

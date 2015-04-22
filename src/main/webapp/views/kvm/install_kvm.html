@@ -52,7 +52,7 @@
 											name="host_ip" ng-model="installConfig.active_host_ip"
 											class="form-control"
 											ng-options="host as host.name for host in hostIPs"
-											title="Host IP" validation="required">
+											title="Host IP" validation="required" ng-change="isLockedHost()" >
 										</select>
 									</div>
 									<div class="form-group">
@@ -251,5 +251,5 @@
 			</div>
 		</div>
 	</div>
-	<ansiblelog ansible-steps='ansibleSteps' show="editing" ></ansiblelog>
+	<ansiblelog ansible-steps='ansibleSteps' show="editing" channel="channel_pre_fix + installConfig.active_host_ip" ></ansiblelog>
 </div>

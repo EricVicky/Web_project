@@ -12,7 +12,8 @@ angular.module('comoamApp').directive( 'ansiblelog', function($log, WizardHandle
 						replace : true,
 						scope : {
 							ansibleSteps : '=',
-							show : '='
+							show : '=',
+							channel: '='
 						},
 						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', function($scope, $element, $log, WizardHandler, websocketService) {
 									var taskgroup = new Array();
@@ -20,7 +21,7 @@ angular.module('comoamApp').directive( 'ansiblelog', function($log, WizardHandle
 									$scope.nextstep = "Start";
 									$scope.logtail = function(data) {
 										$scope.socket = websocketService.connect("/oam", function( socket) { socket.stomp.subscribe(
-															'/log/tail',
+															$scope.channel,
 															$scope.showlog);
 												});
 									};
