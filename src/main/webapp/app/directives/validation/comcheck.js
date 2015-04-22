@@ -14,11 +14,11 @@ angular.module('comoamApp').directive('uniqueCom',function($log,KVMService){
 			ele.bind('change',function(n){
 				if(n){
 					scope.$apply(function(){
-						KVMService.uniqueDeploy({"comname":ele.val()}).then(function(isUnique){
-							if(isUnique){
-								ctrl.$setValidity('installConfig.deployment_prefix', true);
+						KVMService.uniqueDeploy({"name":ele.val()}).then(function(isUnique){
+							if(isUnique.succeed){
+								ctrl.$setValidity('notunique', true);
 							}else{
-								ctrl.$setValidity('installConfig.deployment_prefix', false);
+								ctrl.$setValidity('notunique', false);
 							}
 						}).then(function(response){
 							$log.info(response);

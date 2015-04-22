@@ -2,26 +2,6 @@
 angular.module('kvm').factory('KVMService', function($location, $q, $resource, $log, $http) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
-	var pingcheck = function(host){
-		var pingrul = "rest/check/ping";
-		var deferred = $q.defer();
-		$http.post(pingrul, host).success(function(data){
-			deferred.resolve(data);
-		}).error(function(response){
-			deferred.reject(response)
-		})
-		return deferred.promise;
-	}
-	var uniqueDeploy = function(name){
-		var nameurl = "rest/kvm/check/unique";
-		var deferred = $q.defer();
-		$http.get(nameurl, name).success(function(data){
-			deferred.resolve(data);
-		}).error(function(response){
-			deferred.reject(response)
-		})
-		return deferred.promise;
-	}
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
@@ -56,9 +36,17 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var AcHostIPRes = $resource(restUrl + "rest/kvm/hostips");
 			return AcHostIPRes.query().$promise;
 		},
-		imagelist: function(host ) {
+		imagelist: function(host) {
 			var OamCmImagesRes = $resource(restUrl + "rest/kvm/images");
-			return OamCmImagesRes.query( host).$promise;
+			return OamCmImagesRes.query(host).$promise;
+		},
+		uniqueDeploy: function(name) {
+			var uniquecom = $resource(restUrl + "rest/kvm/check/unique");
+			return uniquecom.get(name).$promise;
+		},
+		pingcheck: function(host) {
+			var hostping = $resource(restUrl + "rest/check/ping");
+			return hostping.get(host).$promise;
 		},
 		upgrade: function (config, success, error) {
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");

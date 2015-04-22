@@ -1,5 +1,6 @@
 package com.alu.omc.oam.rest.kvm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alu.omc.oam.ansible.validation.ValidationResult;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -27,21 +29,23 @@ public class CheckController
     {
     	return hostService.ping((String)host);
     }
+
     
     @RequestMapping(value="/kvm/check/unique", method=RequestMethod.GET)
-    public boolean uniqueCOM(@ModelAttribute("comname") String name){
+    public ValidationResult uniqueCOM(@ModelAttribute("name") String name){
        List<COMStack> stacks =  cOMStackService.list();
-       boolean unique = true;
+       ValidationResult res = new ValidationResult();
        if (name!=null && stacks != null && stacks.size() >0)
         {
             for(COMStack stack : stacks){
                if (stack.getName().equals(name)){
-                   unique = false;
+                   //unique = false;
+            	   res.setSucceed(false);
                    break;
                }
             }
         }
-       return unique;
+       return res;
     }
 
 }
