@@ -82,4 +82,8 @@ angular.module('comoamApp')
         url:'/login',
         controller: 'LoginController'
     })
+      .state('dashboard.oscredential',{
+        templateUrl:'views/os/credential.html',
+        url:'/oscredential',
+    })
   }])
