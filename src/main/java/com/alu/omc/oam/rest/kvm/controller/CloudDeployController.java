@@ -19,6 +19,7 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 
@@ -79,6 +80,12 @@ public class CloudDeployController
     {
     	List<Host> achostips = hostService.hostIPs();
     	return achostips;
+    }
+
+    @RequestMapping(value="/os/cred", method=RequestMethod.POST)
+    public OpenstackConfig  cred(@RequestBody OpenstackConfig config)
+    {
+        return config;
     }
 
 

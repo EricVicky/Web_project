@@ -1,6 +1,12 @@
 package com.alu.omc.oam.os.conf;
 
-public class OpenstackConfig {
+import java.io.Serializable;
+
+public class OpenstackConfig implements Serializable {
+    /**
+      * @Fields serialVersionUID : TODO（用一句话描述这个变量表示什么）
+      */
+    private static final long serialVersionUID = -8498782124537722281L;
     private String osUsername;
     private String osPassword;
     private String osTenant;
@@ -21,6 +27,9 @@ public class OpenstackConfig {
         this.osPassword = osPassword;
         this.osUsername = osUsername;
         this.authURL = authURL;
+    }
+    public OpenstackConfig (){
+        
     }
 
     // Getter and Setter methods

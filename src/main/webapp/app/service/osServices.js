@@ -101,6 +101,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 					error(response);
 				}
 			);
+		},
+		updateOSCred: function(credential ) {
+			var OSCredRes = $resource(restUrl + "os/cred");
+			return OSCredRes.save( credential).$promise;
 		}
 	};
 });
