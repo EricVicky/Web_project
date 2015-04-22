@@ -27,7 +27,7 @@
 									novalidate="">
 									<div class="form-group">
 										<label class="control-label">COM Name</label> <input
-											name="deployment_prefix" class="form-control" type="text"
+											name="deployment_prefix" class="form-control" type="text" unique-com
 											ng-model="installConfig.deployment_prefix" placeholder="Please Input COM Name"
 											title="Prefix of VM Instance" validation="required" />
 									</div>
@@ -50,7 +50,7 @@
 									<div class="form-group">
 										<label class="control-label">Host IP</label> <select
 											name="host_ip" ng-model="installConfig.active_host_ip"
-											class="form-control"
+											class="form-control" 
 											ng-options="host as host.name for host in hostIPs"
 											title="Host IP" validation="required">
 										</select>

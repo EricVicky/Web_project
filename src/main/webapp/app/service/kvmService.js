@@ -12,10 +12,21 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 		})
 		return deferred.promise;
 	}
+	var uniqueDeploy = function(name){
+		var nameurl = "rest/kvm/check/unique";
+		var deferred = $q.defer();
+		$http.get(nameurl, name).success(function(data){
+			deferred.resolve(data);
+		}).error(function(response){
+			deferred.reject(response)
+		})
+		return deferred.promise;
+	}
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
 		pingcheck: pingcheck,
+		uniqueDeploy: uniqueDeploy,
 		getFlavorStore: function (success, error) {
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
 			flavorRes.get(

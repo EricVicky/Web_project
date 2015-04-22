@@ -29,7 +29,7 @@ public class CheckController
     }
     
     @RequestMapping(value="/kvm/check/unique", method=RequestMethod.GET)
-    public boolean uniqueCOM(@ModelAttribute("name") String name){
+    public boolean uniqueCOM(@ModelAttribute("comname") String name){
        List<COMStack> stacks =  cOMStackService.list();
        boolean unique = true;
        if (name!=null && stacks != null && stacks.size() >0)
