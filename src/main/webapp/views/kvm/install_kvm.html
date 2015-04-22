@@ -87,7 +87,7 @@
 											<label class="control-label">Netmask</label> <input
 												name="oam_netmask" class="form-control" type="text"
 												ng-model="netmask" placeholder="Please Input Netmask"
-												title="netmask" validation="ipv4|required" />
+												title="netmask" validation="ipv4|required" ping />
 										</div>
 										<div class="form-group col-md-6">
 											<label class="control-label">Gateway</label> <input
@@ -251,42 +251,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default" ng-show="!editing">
-		<div class="panel-heading">Install Infomation</div>
-		<div class="panel-body">
-			<div class="row" ng-show="!editing">
-				<div class="col-md-3"
-					style="text-align: right; padding-right: -5px;">
-					<label>Ansible Task:</label>
-				</div>
-				<div class="col-md-9" style="text-align: left;">
-					<label id="task"> </label><br>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing">
-				<div class="col-md-12">
-					<wizard on-finish="finished()"> 
-					<wz-step title="Start"></wz-step> 
-					<wz-step title="Generate Config Driver"></wz-step> 
-					<wz-step title="Start VM instance"></wz-step>
-					<wz-step title="Prepare Install Options"></wz-step> 
-					<wz-step title="Finished"> </wz-step></wizard>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing">
-				<div class="col-md-12" style="text-align: center;">
-					<br> <label>Show detail log</label> <label
-						class="checkbox-inline"> <input type="checkbox"
-						ng-click="showDetailLog()" />
-					</label>
-				</div>
-			</div>
-			<div class="row" ng-show="!editing && detaillog">
-				<div class="col-md-12" style="height: 400px; padding-top: 5px;">
-					<pre id="logviewer"
-						style="height: 350px; background-color: white; overflow: auto"></pre>
-				</div>
-			</div>
-		</div>
-	</div>
+	<ansiblelog ansible-steps='ansibleSteps' show="editing" ></ansiblelog>
 </div>

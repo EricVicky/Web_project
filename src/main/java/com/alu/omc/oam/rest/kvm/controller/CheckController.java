@@ -22,10 +22,10 @@ public class CheckController
     @Resource
     COMStackService cOMStackService;
     
-    @RequestMapping(value="/check/ping", method=RequestMethod.GET)
+    @RequestMapping(value="/check/ping", method=RequestMethod.POST)
     public boolean  ping(@ModelAttribute("host") String host) 
     {
-    	return hostService.ping(host);
+    	return hostService.ping((String)host);
     }
     
     @RequestMapping(value="/kvm/check/unique", method=RequestMethod.GET)
