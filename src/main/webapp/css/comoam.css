@@ -370,6 +370,7 @@ section>ul .navbarline {
 }
 section >ul> li .logbar {
 	padding: 0px 10px 7px 10px;
+	margin: 20px 10px 0px 10px;
 }
 div .tasklocation,
 div .taskslocation {
