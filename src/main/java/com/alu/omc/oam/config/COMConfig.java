@@ -12,6 +12,8 @@ public abstract class COMConfig implements PlaybookCallFact, COMFact
 	public String getCfg() {
 		StringBuilder cfg = new StringBuilder("[defaults]");
 		cfg.append("\r\n").append("host_key_checking = False");
+		cfg.append("\r\n").append("gathering = explicit");
+		cfg.append("\r\n").append("timeout=30");
 		return cfg.toString();
 	}
 	
