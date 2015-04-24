@@ -12,11 +12,7 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 				$log.info(data);
 			});
 		};
-		(function() {
-			OSService.getUpdateOSCred(
-				function(data){
-					$scope.crendential = data;
-				}
-			);
-		})();
+		OSService.getUpdateOSCred().then(function(data) {
+			$scope.crendential = data;
+		});
 } );

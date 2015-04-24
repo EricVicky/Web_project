@@ -5,19 +5,9 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
-		getFlavorStore: function (success, error) {
+		getFlavorStore: function () {
 			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
-			flavorRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return flavorRes.query().$promise;
 		},
 		deploy: function (config, success, error) {
 			var deployRes = $resource(restUrl + "os/deployment");
@@ -32,88 +22,33 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 				}
 			);
 		},
-		getComTypeStore: function(success,error) {
+		getComTypeStore: function () {
 			var comTypeRes = $resource(baseUrl + "data/comType.json");
-			comTypeRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return comTypeRes.query().$promise;
 		},
-		getTimezoneStore: function(success,error) {
+		getTimezoneStore: function () {
 			var timezoneRes = $resource(baseUrl + "data/timezone.json");
-			timezoneRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return timezoneRes.query().$promise;
 		},
-		getComputeAvailZoneStore: function(success,error) {
+		getComputeAvailZoneStore: function () {
 			var computeavailzoneRes = $resource(restUrl + "nfv/os/compute/availabilityzone/list");
-			computeavailzoneRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return computeavailzoneRes.query().$promise;
 		},
-		getNetworkStore: function(success,error) {
+		getNetworkStore: function () {
 			var networkRes = $resource(restUrl + "nfv/os/neutron/network/list");
-			networkRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return networkRes.query().$promise;
 		},
-		getSubNetworkStore: function(success,error) {
+		getSubNetworkStore: function () {
 			var subNetworkRes = $resource(restUrl + "nfv/os/neutron/subnet/list/names");
-			subNetworkRes.query(
-				// success
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return subNetworkRes.query().$promise;
 		},
-		updateOSCred: function(credential ) {
+		updateOSCred: function(credential) {
 			var OSCredRes = $resource(restUrl + "os/uCred");
-			return OSCredRes.save( credential).$promise;
+			return OSCredRes.save(credential).$promise;
 		},
-		getUpdateOSCred: function(success){
+		getUpdateOSCred: function() {
 			var OSCredRes = $resource(restUrl + "os/rCred");
-			return OSCredRes.get(
-				// success
-			    function (data) {
-					success(data);
-				}
-			);
+			return OSCredRes.get().$promise;
 		}
 	};
 });

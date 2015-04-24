@@ -2,23 +2,23 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12" style="width: 950px">
-			<div ng-controller="osController" rc-wizard="OSInstallWizard"
+			<div ng-controller="osctr" rc-wizard="OSInstallWizard"
 				class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard" style="margin-left:100px;">
 								<li class="active"><a class="active" href="#tab1"
-									data-toggle="tab"> <span class="badge">1</span> <span>COM
-											Type</span>
+									data-toggle="tab">
+									<span class="badge">1</span> <span>COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Network Configuration</span>
+										class="badge">2</span> <span>Network Config</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Configuration</span>
+										class="badge">3</span> <span>VNFc Config&nbsp;</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span>Heat stack</span>
+										class="badge">4</span> <span>Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
 										class="badge">5</span> <span>Deploy</span>
@@ -157,21 +157,21 @@
 											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 													<fieldset >
 														<legend>Heat</legend>
-														<div class="form-group col-md-6">
-															<label class="control-label">Prefix of Stack Resource resource</label>
-															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required">
+														<div class="form-group col-md-3">
+															<label class="control-label">Heat Version</label>
+															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version" title="Heat Version" validation="required"> </select>
 														</div>
-														<div class="form-group col-md-6">
-															<label class="control-label">Stack Name</label>
-															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required">
-														</div>
-														<div class="form-group col-md-6">
+														<div class="form-group col-md-3">
 															<label class="control-label">Config Drive</label>
 															 <select name="config_drive" ng-model="installConfig.config_drive" class="form-control" ng-options="cd for cd in config_drive" title="Config Drive" validation="required"> </select>
 														</div>
-														<div class="form-group col-md-6">
-															<label class="control-label">Heat Version</label>
-															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version" title="Heat Version" validation="required"> </select>
+														<div class="form-group col-md-3">
+															<label class="control-label">Prefix of Stack Resource</label>
+															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required">
+														</div>
+														<div class="form-group col-md-3">
+															<label class="control-label">Stack Name</label>
+															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required">
 														</div>
 													</fieldset>
 													<fieldset >
@@ -181,7 +181,7 @@
 															<select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore" title="Compute Avail Zone" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-6">
-															<label class="control-label">Block Storage Avail Zone Zone</label> 
+															<label class="control-label">Block Storage Avail Zone</label> 
 															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="bsaz.zoneName as bsaz.zoneName for bsaz in computeAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
 														</div>
 													</fieldset>
@@ -281,7 +281,7 @@
 											<a class="btn btn-primary" 
 												ng-click="rc.OSInstallWizard.forward()"
 												ng-show="rc.OSInstallWizard.currentIndex < rc.OSInstallWizard.navigationLength">Continue</a>
-											<a class="btn btn-primary" ng-click="completeWizard()"
+											<a class="btn btn-primary" ng-click="deploy()"
 												ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength">Deploy</a>
 										</div>
 									</div>
