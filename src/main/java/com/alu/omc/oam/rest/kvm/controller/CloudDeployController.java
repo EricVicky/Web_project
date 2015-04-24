@@ -82,11 +82,16 @@ public class CloudDeployController
     	return achostips;
     }
 
-    @RequestMapping(value="/os/cred", method=RequestMethod.POST)
-    public OpenstackConfig  cred(@RequestBody OpenstackConfig config)
+    @RequestMapping(value="/os/rCred", method=RequestMethod.GET)
+    public OpenstackConfig rCred() throws IOException, InterruptedException
     {
-        return config;
+        return cOMStackService.getOpenstackConfig();
     }
 
+    @RequestMapping(value="/os/uCred", method=RequestMethod.POST)
+    public void uCred(@RequestBody OpenstackConfig config) throws IOException, InterruptedException
+    {
+    	cOMStackService.addOpenstackConfig(config);
+    }
 
 }

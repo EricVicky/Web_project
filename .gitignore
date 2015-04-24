@@ -3,3 +3,5 @@
 /.project
 /.settings
 /logs/*
+/.tern-project
+/*.json

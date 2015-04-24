@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class OpenstackConfig implements Serializable {
     /**
-      * @Fields serialVersionUID : TODO（用一句话描述这个变量表示什么）
+      * @Fields serialVersionUID : TODO
       */
     private static final long serialVersionUID = -8498782124537722281L;
     private String osUsername;
