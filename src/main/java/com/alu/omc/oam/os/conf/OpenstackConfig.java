@@ -83,7 +83,7 @@ public class OpenstackConfig implements Serializable {
        if(this.isVersion2()){
            return VERSION_2;
        }else{
-           return VERSION_2;
+           return VERSION_3;
        }
     }
 
