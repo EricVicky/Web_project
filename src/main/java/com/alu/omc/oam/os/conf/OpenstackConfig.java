@@ -14,6 +14,8 @@ public class OpenstackConfig implements Serializable {
     private String authURL;
     private int identityVersion;
     private double clientReAuthTimeRatio = 0.75;
+    private final int VERSION_3 = 3;
+    private final int VERSION_2 = 2;
 
     public OpenstackConfig(String authURL, String osUsername,
             String osPassword, String osTenantOrDomainName) {
@@ -66,7 +68,11 @@ public class OpenstackConfig implements Serializable {
     }
 
     public String getOsDomainName() {
-        return osDomainName;
+       if(!this.isVersion2()){
+           return this.osTenant;
+       }else{
+           return null;
+       }
     }
 
     public void setOsDomainName(String osDomainName) {
@@ -74,7 +80,11 @@ public class OpenstackConfig implements Serializable {
     }
 
     public int getIdentityVersion() {
-        return identityVersion;
+       if(this.isVersion2()){
+           return VERSION_2;
+       }else{
+           return VERSION_2;
+       }
     }
 
     public void setIdentityVersion(int identityVersion) {
@@ -87,5 +97,10 @@ public class OpenstackConfig implements Serializable {
 
     public void setClientReAuthTimeRatio(double clientReAuthTimeRatio) {
         this.clientReAuthTimeRatio = clientReAuthTimeRatio;
+    }
+    
+    
+    public boolean isVersion2(){
+        return authURL.endsWith("v2.0");
     }
 }
