@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.alu.omc.oam.ansible.persistence.JsonDataSource;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.os.conf.OpenstackConfig;
 
 @Service
 public class COMStackService
@@ -45,6 +46,14 @@ public class COMStackService
     
     public List<COMStack> list(){
         return dataSource.list();
+    }
+    
+    public void addOpenstackConfig(OpenstackConfig config){
+    	dataSource.saveConifg(config);
+    }
+    
+    public OpenstackConfig getOpenstackConfig(){
+    	return dataSource.getOpenstackConfig();
     }
 
 }

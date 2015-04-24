@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.kvm.model.Host;
+import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -27,6 +28,9 @@ public class JsonDataSource
     private  String COM_STACK_JSON; 
     @Value("${ansible.hosts}")
     private  String HOSTS_JSON; 
+    @Value("${ansible.openstack_config}")
+    private String OPENSTACK_CONFIG_JSON;
+    
     private static Logger log = LoggerFactory.getLogger(JsonDataSource.class);
 
     public List<COMStack> list()
@@ -65,8 +69,28 @@ public class JsonDataSource
         return hosts;
     }
     
+    public OpenstackConfig getOpenstackConfig(){
+    	OpenstackConfig config = null;
+    	
+    	try{
+    		config = fromJSON(OPENSTACK_CONFIG_JSON, new TypeReference<OpenstackConfig>() {});
+    	}catch (IOException e){
+    		e.printStackTrace();
+    	}
+    	
+    	if(config == null){
+    		config = new OpenstackConfig();
+    	}
+    	
+    	return config;
+    }
+    
     public void save(List<COMStack> comstacks){
        object2Json(COM_STACK_JSON, comstacks);
+    }
+    
+    public void saveConifg(OpenstackConfig openstackConfig){
+    	object2Json(OPENSTACK_CONFIG_JSON, openstackConfig);
     }
 
     public static <T> T fromJSON(final String path, final TypeReference<T> type) throws IOException {

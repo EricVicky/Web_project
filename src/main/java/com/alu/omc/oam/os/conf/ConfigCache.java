@@ -1,8 +1,15 @@
 package com.alu.omc.oam.os.conf;
 
+import javax.annotation.Resource;
+
+import com.alu.omc.oam.service.COMStackService;
+
 
 public class ConfigCache {
 
+    @Resource
+    COMStackService cOMStackService;
+	
     private final static ConfigCache cc = new ConfigCache();
 
     private ConfigCache() {
@@ -13,11 +20,7 @@ public class ConfigCache {
     }
 
     public OpenstackConfig getOSParam() {
-
-        OpenstackConfig osConfig = new OpenstackConfig(
-                "http://135.111.74.75:5000/v2.0", "com-user1", "newsys", "COM");
-
-        return osConfig;
+    	return cOMStackService.getOpenstackConfig();
     }
 
 }
