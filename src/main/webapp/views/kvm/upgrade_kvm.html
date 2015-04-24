@@ -1,6 +1,6 @@
 
 <div class="container-fluid" ng-controller="upgradectr">
-	<div class="row" ng-show="editing">
+	<div class="row">
 		<div style="width: 570px">
 			<div rc-wizard="kvmupgradeWizard"
 				class="modal-body col-md-12 col-md-offset-4">
@@ -210,7 +210,7 @@
 									<a class="btn btn-primary"
 										ng-click="rc.kvmupgradeWizard.forward()"
 										ng-show="rc.kvmupgradeWizard.currentIndex < rc.kvmupgradeWizard.navigationLength">Continue</a>
-									<a class="btn btn-primary" ng-click="completeWizard()"
+									<a class="btn btn-primary" ng-click="upgrade()"
 										ng-show="rc.kvmupgradeWizard.currentIndex == rc.kvmupgradeWizard.navigationLength">Upgrade</a>
 								</div>
 							</div>
@@ -220,6 +220,4 @@
 			</div>
 		</div>
 	</div>
-	<ansiblelog ansible-steps='ansibleSteps' show="editing" ></ansiblelog>
 </div>
-

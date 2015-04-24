@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.alu.omc.oam.kvm.model.Host;
+
 public class Inventory
 {
     String      name;

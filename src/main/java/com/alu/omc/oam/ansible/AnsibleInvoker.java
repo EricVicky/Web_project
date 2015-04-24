@@ -44,7 +44,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
 					String command = pc.prepare(ansibleworkspace);
 				    ICommandExec	commandExe = commandProtype.create(command, new File(ansibleworkspace.getWorkingdir()));
 		            try {
-
+		                handler.onStart();
 						CommandResult rst = commandExe.execute();
 						if(rst.isFailed()){
 						    handler.onError();

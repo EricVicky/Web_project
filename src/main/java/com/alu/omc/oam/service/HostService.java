@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.persistence.JsonDataSource;
+import com.alu.omc.oam.kvm.model.Host;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;

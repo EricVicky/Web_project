@@ -7,8 +7,8 @@ import java.util.Map;
 import org.yaml.snakeyaml.Yaml;
 
 import com.alu.omc.oam.ansible.Group;
-import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

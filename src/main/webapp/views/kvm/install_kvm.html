@@ -1,6 +1,5 @@
-
 <div class="container-fluid" ng-controller="kvmctr">
-	<div class="row" ng-show="editing">
+	<div class="row">
 		<div class="col-md-10">
 			<div rc-wizard="kvmInstallWizard" class="modal-body">
 				<section id="wizard">
@@ -53,7 +52,7 @@
 											name="host_ip" ng-model="installConfig.active_host_ip"
 											class="form-control" 
 											ng-options="host as host.name for host in hostIPs"
-											title="Host IP" validation="required" ng-change="isLockedHost()" >
+											title="Host IP" validation="required" >
 										</select>
 									</div>
 									<div class="form-group">
@@ -88,7 +87,7 @@
 											<label class="control-label">Netmask</label> <input
 												name="oam_netmask" class="form-control" type="text"
 												ng-model="netmask" placeholder="Please Input Netmask"
-												title="netmask" validation="ipv4|required" ping />
+												title="netmask" validation="ipv4|required" />
 										</div>
 										<div class="form-group col-md-6">
 											<label class="control-label">Gateway</label> <input
@@ -242,7 +241,7 @@
 									<a class="btn btn-primary"
 										ng-click="rc.kvmInstallWizard.forward()"
 										ng-show="rc.kvmInstallWizard.currentIndex < rc.kvmInstallWizard.navigationLength">Continue</a>
-									<a class="btn btn-primary" ng-click="completeWizard()"
+									<a class="btn btn-primary" ng-click="deploy()"
 										ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">Deploy</a>
 								</div>
 							</div>
@@ -252,5 +251,4 @@
 			</div>
 		</div>
 	</div>
-	<ansiblelog ansible-steps='ansibleSteps' show="editing" channel="channel_pre_fix + installConfig.active_host_ip" ></ansiblelog>
 </div>

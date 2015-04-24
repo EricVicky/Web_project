@@ -1,8 +1,10 @@
-package com.alu.omc.oam.ansible;
+package com.alu.omc.oam.kvm.model;
 
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.alu.omc.oam.ansible.Entity;
 
   public class Host implements Entity , Serializable
     {

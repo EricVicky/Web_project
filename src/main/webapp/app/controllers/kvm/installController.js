@@ -1,22 +1,16 @@
 angular.module('kvm', [ 'ui.router',
                         'ui.bootstrap', 
+                        'dialogs',
                         'rcWizard',
                         'rcForm', 
-                        'websocket', 
                         'ghiscoding.validation',
-                        'mgo-angular-wizard',
-                        'ngResource']).controller('kvmctr', function($scope, $q, $timeout, $log, KVMService,
-           $state, websocketService, validationService, WizardHandler) {
-			$scope.ansibleSteps = ["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"];
-			$scope.editing = true;
-			$scope.channel_pre_fix = "/log/tail/";
+                        'monitor',
+                        'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
+           $state,  $dialogs, monitorService) {
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip.ip_address, $scope.installConfig.vm_img_dir);
 			}
 			$scope.imagelist= [];
-			$scope.completeWizard = function() {
-				$scope.deploy();
-			};
 			$scope.support_ars = [ 'True', 'False' ];
             $scope.installConfig ={
             		vm_img_dir:"/var/images",
@@ -33,7 +27,7 @@ angular.module('kvm', [ 'ui.router',
             		}
             };
             
-			$scope.deploy = function (){
+			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.gateway;
 				if($scope.installConfig.comType='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
@@ -49,7 +43,8 @@ angular.module('kvm', [ 'ui.router',
             	KVMService.deploy(
                  		$scope.installConfig,
             			function(data){
-                 			$scope.editing = false;
+            				monitorService.monitorKVMInstall($scope.installConfig.active_host_ip.ip_address);
+                 			$state.go("dashboard.monitor");
             			}, 
             			function(response){
             					$log.info(response);
@@ -64,11 +59,27 @@ angular.module('kvm', [ 'ui.router',
             				$scope.installConfig.db_image = $scope.imagelist[1];
             			}); 
             };
-            $scope.isLockedHost = function(){
+            $scope.deploy = function(){
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
-            		$log.info(response)
+            		//if the host is locked, then ask
+            		if(response.succeed == true){
+            			locked = true;
+            			if(window.confirm("The installation proceed on selected Host, go to monitor?")){
+            				KVMService.lockedHostStatus($scope.installConfig.active_host_ip).then(function(status){
+            					if(status.lastAction == 'INSTALL'){
+            						monitorService.monitorKVMInstall($scope.installConfig.active_host_ip.ip_address);
+            					}else if(status.lastAction  =="UPGRADE"){
+            						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip.ip_address);
+            					}
+            					$state.go('dashboard.monitor');
+            				})
+            			}
+            		}else{
+            			$scope.doDeploy();
+            		}
             	});
-            }
+            };
+            
             KVMService.getFlavorStore().then( function(data) {
             				$scope.flavorStore = data.Flavors;
             			});

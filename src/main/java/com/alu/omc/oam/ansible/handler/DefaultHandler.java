@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.alu.omc.oam.ansible.AnsibleRuningContext;
+import com.alu.omc.oam.ansible.RunningHostLock;
+import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
@@ -24,7 +25,7 @@ public class DefaultHandler implements IAnsibleHandler
     @Resource
     WebsocketSender sender;
     @Resource
-    AnsibleRuningContext runningContext;
+    RunningHostLock runningContext;
     String topic = "/log/tail/";
     COMConfig config;
     ILogParser logParser;
@@ -34,8 +35,7 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onStart()
     {
-        // TODO Auto-generated method stub
-        runningContext.lock(((KVMCOMConfig)config).getActive_host_ip());
+        runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.INSTALL);
 
     }
 
@@ -89,7 +89,7 @@ public class DefaultHandler implements IAnsibleHandler
     
     public String getFulltopic(){
        KVMCOMConfig cfg = (KVMCOMConfig)config;
-       return this.topic.concat(cfg.getActive_host_ip().getName());
+       return this.topic.concat(cfg.getActive_host_ip().getIp_address());
     }
     
     @Override

@@ -86,4 +86,8 @@ angular.module('comoamApp')
         templateUrl:'views/os/credential.html',
         url:'/oscredential',
     })
+      .state('dashboard.monitor',{
+        templateUrl:'views/monitor/monitor.html',
+        url:'/monitor',
+    })
   }])

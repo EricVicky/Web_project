@@ -1,26 +1,24 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name izzyposWebApp.directive:adminPosHeader
- * @description # adminPosHeader
- */
-
-angular.module('comoamApp').directive( 'ansiblelog', function($log, WizardHandler) {
+angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler, websocketService ) {
 					return {
 						restrict : 'EA',
 						replace : true,
 						scope : {
 							ansibleSteps : '=',
-							show : '=',
-							channel: '='
+							channel: '=',
+							endponit: '@'
 						},
 						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', function($scope, $element, $log, WizardHandler, websocketService) {
 									var taskgroup = new Array();
 									$scope.loadingshow = true;
 									$scope.nextstep = "Start";
+									$scope.$on('$destroy', function() {
+										alert("destroy");
+										websocketService.disconnect();
+									});
 									$scope.logtail = function(data) {
-										$scope.socket = websocketService.connect("/oam", function( socket) { socket.stomp.subscribe(
+										$scope.socket = websocketService.connect($scope.endponit, function( socket) { socket.stomp.subscribe(
 															$scope.channel,
 															$scope.showlog);
 												});
@@ -64,12 +62,9 @@ angular.module('comoamApp').directive( 'ansiblelog', function($log, WizardHandle
 										logviewer.append(log.logMsg + "<br>");
 										logviewer.scrollTop(logviewer[0].scrollHeight - logviewer.height());
 									};
-									//watching changes to currentStep
-									$scope.$watch('show', function(show) {
-										if (show)
-											return;
+									if ($scope.channel != null && $scope.channel!=''){
 										$scope.logtail();
-									});
+									}
 								} ],
 						templateUrl : "app/directives/ansiblelog/logviewer.html",
 						link : function(scope, ele, attrs, ctrl) {

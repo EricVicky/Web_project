@@ -6,13 +6,13 @@ websocket.factory('websocketService', function($log) {
 	var parentUrl = parent.window.location.href;
 	var baseUrl = parentUrl.split("#", 1)[0];
 	var restUrl = baseUrl + "rest";
+	var socket = {
+			client : null,
+			stomp : null
+	}
 
 	return {
 		connect : function(endPoint, success) {
-			var socket = {
-				client : null,
-				stomp : null
-			}
 
 			var url = restUrl + endPoint;
 
@@ -37,5 +37,8 @@ websocket.factory('websocketService', function($log) {
 			}
 			return socket;
 		},
+		disconnect: function(){
+			socket.client.close();
+		}
 	};
 });

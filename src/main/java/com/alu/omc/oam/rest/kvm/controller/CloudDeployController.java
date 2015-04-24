@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alu.omc.oam.ansible.AnsibleDelegator;
-import com.alu.omc.oam.ansible.Host;
 import com.alu.omc.oam.ansible.Playbook;
 import com.alu.omc.oam.ansible.PlaybookFactory;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
