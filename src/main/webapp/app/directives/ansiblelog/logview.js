@@ -14,7 +14,6 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 									$scope.loadingshow = true;
 									$scope.nextstep = "Start";
 									$scope.$on('$destroy', function() {
-										alert("destroy");
 										websocketService.disconnect();
 									});
 									$scope.logtail = function(data) {
