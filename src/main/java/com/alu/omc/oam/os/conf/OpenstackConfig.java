@@ -2,6 +2,8 @@ package com.alu.omc.oam.os.conf;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class OpenstackConfig implements Serializable {
     /**
       * @Fields serialVersionUID : TODO
@@ -67,6 +69,7 @@ public class OpenstackConfig implements Serializable {
         this.authURL = authURL;
     }
 
+	@JsonIgnore 
     public String getOsDomainName() {
        if(!this.isVersion2()){
            return this.osTenant;
@@ -79,6 +82,7 @@ public class OpenstackConfig implements Serializable {
         this.osDomainName = osDomainName;
     }
 
+	@JsonIgnore 
     public int getIdentityVersion() {
        if(this.isVersion2()){
            return VERSION_2;
@@ -100,6 +104,7 @@ public class OpenstackConfig implements Serializable {
     }
     
     
+	@JsonIgnore 
     public boolean isVersion2(){
         return authURL.endsWith("v2.0");
     }
