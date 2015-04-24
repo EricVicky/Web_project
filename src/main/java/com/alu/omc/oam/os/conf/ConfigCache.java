@@ -2,9 +2,11 @@ package com.alu.omc.oam.os.conf;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Component;
+
 import com.alu.omc.oam.service.COMStackService;
 
-
+@Component
 public class ConfigCache {
 
     @Resource

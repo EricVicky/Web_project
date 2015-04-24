@@ -1,5 +1,7 @@
 package com.alu.omc.oam.rest.os.service.access;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openstack4j.api.OSClient;
@@ -17,6 +19,8 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
     private static final Log log = LogFactory.getLog(YaoOsClientServiceImpl.class);
 
     private static YaoAccess access = null;
+    @Resource
+    private ConfigCache configCache;
     
     // TODO: Optimize for synchronized
     @Override
@@ -41,7 +45,7 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
     
     // Interface for authenticate
     private  OSClient authenticate() {
-        OpenstackConfig osConfig = ConfigCache.getInstance().getOSParam();
+        OpenstackConfig osConfig = configCache.getOSParam();
         if (osConfig.getIdentityVersion() == 2) {
             return authenticateV2(osConfig);
         } else {

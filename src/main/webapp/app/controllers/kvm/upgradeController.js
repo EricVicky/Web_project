@@ -1,5 +1,5 @@
 angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMService
-		,  monitorService, $dialogs) {
+		,  monitorService, $dialogs, $state) {
 	
 	$scope.loadimglist = function(host, dir){
            KVMService.imagelist({ "host":host, "dir":dir}).then(

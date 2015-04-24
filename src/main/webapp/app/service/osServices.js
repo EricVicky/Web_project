@@ -61,7 +61,7 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			);
 		},
 		getComputeAvailZoneStore: function(success,error) {
-			var computeavailzoneRes = $resource(restUrl + "/nfv/os/compute/availabilityzone/list");
+			var computeavailzoneRes = $resource(restUrl + "nfv/os/compute/availabilityzone/list");
 			computeavailzoneRes.query(
 				// success
 				function (data) {
@@ -75,7 +75,7 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			);
 		},
 		getNetworkStore: function(success,error) {
-			var networkRes = $resource(restUrl + "/nfv/os/neutron/network/list");
+			var networkRes = $resource(restUrl + "nfv/os/neutron/network/list");
 			networkRes.query(
 				// success
 				function (data) {
@@ -89,7 +89,7 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			);
 		},
 		getSubNetworkStore: function(success,error) {
-			var subNetworkRes = $resource(restUrl + "/nfv/os/neutron/"+"/subnet/list/names");
+			var subNetworkRes = $resource(restUrl + "nfv/os/neutron/subnet/list/names");
 			subNetworkRes.query(
 				// success
 				function (data) {
