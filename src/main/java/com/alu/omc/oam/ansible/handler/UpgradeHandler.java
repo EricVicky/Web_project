@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 
@@ -14,7 +15,11 @@ public class UpgradeHandler extends DefaultHandler
 {
 
     private static Logger log = LoggerFactory.getLogger(UpgradeHandler.class);
-
+    @Override
+    public void onStart()
+    {
+    		runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.UPGRADE);
+    }
 
     @Override
     public void onSucceed()

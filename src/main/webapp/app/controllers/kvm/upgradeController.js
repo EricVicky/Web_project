@@ -25,8 +25,7 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
 		KVMService.upgrade(
          		$scope.installConfig,
     			function(data){
-            			monitorService.monitorKVMInstall(
-            					$scope.installConfig.active_host_ip.ip_address);
+            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip.ip_address);
                  		$state.go("dashboard.monitor");
     			}, 
     			function(response){

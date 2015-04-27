@@ -35,8 +35,7 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onStart()
     {
-        runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.INSTALL);
-
+    		runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.INSTALL);
     }
 
     @Override
