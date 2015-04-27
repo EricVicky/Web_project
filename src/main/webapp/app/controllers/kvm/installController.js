@@ -26,11 +26,13 @@ angular.module('kvm', [ 'ui.router',
             		  }
             		}
             };
-            
+            $scope.changeComType = function(){
+				$scope.installConfig.vm_config = null;
+			}
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.gateway;
-				if($scope.installConfig.comType='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
+				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
 					$scope.installConfig.vm_config.db.netmask = $scope.netmask;
 					$scope.installConfig.vm_config.db.gateway = $scope.gateway;
 				}
