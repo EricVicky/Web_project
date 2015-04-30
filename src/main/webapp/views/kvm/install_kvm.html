@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-10">
 			<div rc-wizard="kvmInstallWizard" class="modal-body">
-				<section id="wizard">
+				<section id="wizard" import-comconf>
 					<div id="rootwizard">
 						<ul class="nav rc-nav-wizard" style="margin-left: 100px">
 							<li><a href="#tab1" data-toggle="tab"> <span
@@ -51,8 +51,8 @@
 										<label class="control-label">Host IP</label> <select
 											name="host_ip" ng-model="installConfig.active_host_ip"
 											class="form-control" 
-											ng-options="host as host.name for host in hostIPs"
-											title="Host IP" validation="required" >
+											ng-options="host.ip_address as host.name for host in hostIPs"
+											title="Host IP" validation="required" > 
 										</select>
 									</div>
 									<div class="form-group">
@@ -68,7 +68,7 @@
 										<label class="control-label">OAM/CM image</label> <select
 											name="oam_cm_image" class="form-control"
 											ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-											ng-options=" im for im in imagelist" validation="required">
+											validation="required"><option ng-repeat="oamcm in imagelist">{{oamcm}}</option>
 										</select>
 									</fieldset>
 									<fieldset
@@ -76,23 +76,23 @@
 										<label class="control-label">DB image</label> <select
 											name="db_image" class="form-control"
 											ng-model="installConfig.db_image" title="OAM/CM image"
-											ng-options=" dm for dm in imagelist" validation="required">
+											validation="required"><option ng-repeat="db in imagelist">{{db}}</option>
 										</select>
 									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+								<form class="tab-pane" id="tab3" name="tab3" rc-submit="genExport()" rc-step>
 									<fieldset>
 										<legend>NETWORK</legend>
 										<div class="form-group col-md-6">
 											<label class="control-label">Netmask</label> <input
 												name="netmask" class="form-control" type="text"
-												ng-model="netmask" placeholder="Please Input Netmask"
+												ng-model="installConfig.netmask" placeholder="Please Input Netmask"
 												title="netmask" validation="ipv4|required" />
 										</div>
 										<div class="form-group col-md-6">
 											<label class="control-label">Gateway</label> <input
 												name="gateway" class="form-control" type="text"
-												ng-model="gateway" placeholder="Please Input Gateway"
+												ng-model="installConfig.gateway" placeholder="Please Input Gateway"
 												title="gateway" validation="gateway|required" />
 										</div>
 									</fieldset>
@@ -183,7 +183,7 @@
 														</tr>
 														<tr align="center">
 															<td colspan="2">Host IP</td>
-															<td>{{installConfig.active_host_ip.ip_address}}</td>
+															<td>{{installConfig.active_host_ip}}</td>
 														</tr>
 														<tr align="center">
 															<td colspan="2">Prefix of VM Instance</td>
@@ -234,6 +234,9 @@
 						</div>
 						<div class="modal-footer">
 							<div class="form-group">
+								<div id="download" class="pull-left" ng-show="rc.kvmInstallWizard.currentIndex == rc.kvmInstallWizard.navigationLength">
+								    <div export-comconf ng-model="export"></div>
+								</div>
 								<div class="pull-right">
 									<a class="btn btn-default"
 										ng-click="rc.kvmInstallWizard.backward()"

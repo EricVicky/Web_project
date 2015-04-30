@@ -45,6 +45,11 @@ angular.module('comoamApp')
                 {
                   name:'comcheck',
                   files:['app/directives/validation/comcheck.js']
+                }),
+                $ocLazyLoad.load(
+                        {
+                          name:'comcheck',
+                          files:['app/directives/import/import.js']
                 })
             }
         }

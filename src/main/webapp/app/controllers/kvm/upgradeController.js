@@ -9,13 +9,12 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
             			$scope.installConfig.db_image = $scope.imagelist[1];
             	}); 
     };
-    
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip.ip_address, $scope.vm_img_dir);
+    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
 	$scope.doUpgrade = function (){
 		var installConfig = JSON3.parse($scope.com_instance.comConfig);
@@ -25,7 +24,7 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
 		KVMService.upgrade(
          		$scope.installConfig,
     			function(data){
-            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip.ip_address);
+            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
                  		$state.go("dashboard.monitor");
     			}, 
     			function(response){
@@ -45,9 +44,9 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
             			if(window.confirm("The installation proceed on selected Host, go to monitor?")){
             				KVMService.lockedHostStatus($scope.installConfig.active_host_ip).then(function(status){
             					if(status.lastAction == 'INSTALL'){
-            						monitorService.monitorKVMInstall($scope.installConfig.active_host_ip.ip_address);
+            						monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
             					}else if(status.lastAction  =="UPGRADE"){
-            						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip.ip_address);
+            						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
             					}
             					$state.go('dashboard.monitor');
             				})
