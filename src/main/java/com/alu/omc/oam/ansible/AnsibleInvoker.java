@@ -42,7 +42,9 @@ public class AnsibleInvoker implements IAnsibleInvoker
 				@Override
 				public void run() {
 					String command = pc.prepare(ansibleworkspace);
-				    ICommandExec	commandExe = commandProtype.create(command, new File(ansibleworkspace.getWorkingdir()));
+                    ICommandExec commandExe = commandProtype.create(
+                            command, new File(ansibleworkspace.getRunDir(pc.getConfig()
+                                    .getEnvironment())));
 		            try {
 		                handler.onStart();
 						CommandResult rst = commandExe.execute();

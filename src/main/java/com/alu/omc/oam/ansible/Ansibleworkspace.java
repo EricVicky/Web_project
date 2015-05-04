@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.ansible.exception.WorkspaceException;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.Environment;
 
 @Component
 @Scope(value = "prototype")
@@ -36,6 +37,11 @@ public class Ansibleworkspace
 
         }
         return this.workingDir;
+    }
+    
+    public String getRunDir(Environment env){
+        return this.getWorkingdir().concat(File.separator).concat("playbooks")
+                .concat(File.separator).concat(env.name().toLowerCase());
     }
 
     public Ansibleworkspace(String workingDir, String logFile)
@@ -72,8 +78,6 @@ public class Ansibleworkspace
             FileUtils.writeStringToFile(new File(this.getWorkingdir().concat(HOSTS_FILE_NAME)), config.getInventory().toInf()); 
             log.info("Copy ansible codes to working directory...");
             FileUtils.copyDirectory(new File(this.getWorkDirRoot() + "code"), new File(this.getWorkingdir()));
-            FileUtils.writeStringToFile(new File(this.getWorkingdir() + "ansible.cfg"), 
-                    config.getCfg().concat("\r\n").concat("log_path=" + this.getLogFile()));
             log.info("Write empty log file");
             FileUtils.write(this.getLogFile(), "-------Call Ansible......");
         }

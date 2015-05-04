@@ -40,6 +40,10 @@ public PlaybookCall(COMConfig config, Action action){
                 space.getWorkingdir() + Ansibleworkspace.HOSTS_FILE_NAME + " "
                         + this.playbook.getFilePath(space));
     }
+    
+    public COMConfig getConfig(){
+        return config;
+    }
 
 
 
