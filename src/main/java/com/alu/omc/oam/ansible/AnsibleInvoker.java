@@ -43,8 +43,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
 				public void run() {
 					String command = pc.prepare(ansibleworkspace);
                     ICommandExec commandExe = commandProtype.create(
-                            command, new File(ansibleworkspace.getRunDir(pc.getConfig()
-                                    .getEnvironment())));
+                            command, new File(ansibleworkspace.getRunDir()));
 		            try {
 		                handler.onStart();
 						CommandResult rst = commandExe.execute();
