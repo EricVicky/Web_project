@@ -32,6 +32,16 @@
 				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
 				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
  				 ]
+        },
+        "OAM":{
+ 			"oam": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
+ 				 ],
+ 			"db": [ {"label": "small(1*2*360)", "vCpu": "8", "memory": "8286208", "disk": "360"}, 
+				   {"label": "medium(2*4*480)","vCpu": "8", "memory": "8286208", "disk": "480"}, 
+				   {"label": "large(3*6*580)","vCpu": "8", "memory": "8286208", "disk": "580"} 
+ 				 ]
         }
      }
 } 

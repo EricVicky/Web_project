@@ -18,7 +18,7 @@ public class UpgradeHandler extends DefaultHandler
     @Override
     public void onStart()
     {
-    		runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.UPGRADE);
+    		runningContext.lock(((KVMCOMConfig)config).getHost(), Action.UPGRADE);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class UpgradeHandler extends DefaultHandler
        log.info("upgrade succeed");
         COMStack stack = new COMStack(config);
         service.update(stack);
-        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
+        runningContext.unlock(((KVMCOMConfig)config).getHost());
         
     }
 
@@ -38,7 +38,7 @@ public class UpgradeHandler extends DefaultHandler
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
+        runningContext.unlock(((KVMCOMConfig)config).getHost());
 
     }
 

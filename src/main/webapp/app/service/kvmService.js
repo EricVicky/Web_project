@@ -48,13 +48,13 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var hostping = $resource(restUrl + "rest/check/ping");
 			return hostping.get(host).$promise;
 		},
-		isLockedHost: function(host) {
+		isLockedHost: function(ip_address) {
 			var lockedHostRes = $resource(restUrl + "rest/check/lockedhost");
-			return lockedHostRes.get(host).$promise;
+			return lockedHostRes.get({"ip_address":ip_address}).$promise;
 		},
-		lockedHostStatus: function(host) {
+		lockedHostStatus: function(ip_address) {
 			var lockedHostRes = $resource(restUrl + "rest/check/host/status");
-			return lockedHostRes.get(host).$promise;
+			return lockedHostRes.get({"ip_address":ip_address}).$promise;
 		},
 		upgrade: function (config, success, error) {
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");

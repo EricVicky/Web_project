@@ -35,7 +35,7 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onStart()
     {
-    		runningContext.lock(((KVMCOMConfig)config).getActive_host_ip(), Action.INSTALL);
+    		runningContext.lock(((KVMCOMConfig)config).getHost(), Action.INSTALL);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DefaultHandler implements IAnsibleHandler
     {
         COMStack stack = new COMStack(config);
         service.add(stack);
-        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
+        runningContext.unlock(((KVMCOMConfig)config).getHost());
     }
 
     @Override
@@ -60,7 +60,7 @@ public class DefaultHandler implements IAnsibleHandler
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        runningContext.unlock(((KVMCOMConfig)config).getActive_host_ip());
+        runningContext.unlock(((KVMCOMConfig)config).getHost());
     }
 
     @Override
@@ -88,7 +88,7 @@ public class DefaultHandler implements IAnsibleHandler
     
     public String getFulltopic(){
        KVMCOMConfig cfg = (KVMCOMConfig)config;
-       return this.topic.concat(cfg.getActive_host_ip().getIp_address());
+       return this.topic.concat(cfg.getHost().getIp_address());
     }
     
     @Override
