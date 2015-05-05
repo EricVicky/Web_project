@@ -59,7 +59,8 @@ angular.module('comoamApp')
               name:'comoamApp',
               files:[
               'app/controllers/home/main.js',
-              'app/directives/dashboard/stats/stats.js'
+              'app/directives/dashboard/stats/stats.js',
+              'app/directives/networkTopo/networkTopo.js'
               ]
             })
           }
