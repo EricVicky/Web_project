@@ -53,7 +53,7 @@ public class Ansibleworkspace
     }
     
     public String getRunDir( ){
-        return this.getWorkingdir().concat(File.separator).concat("playbooks")
+        return this.getWorkingdir().concat(Playbook.PLAYBOOK_DIR)
                 .concat(File.separator).concat(env.name().toLowerCase());
     }
 
