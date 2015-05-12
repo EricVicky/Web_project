@@ -38,8 +38,6 @@ public class CloudDeployController
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-//        System.out.print(config.toString());
-//        Playbook playbook = PlaybookFactory.getInstance().getPlaybook(Action.INSTALL, config);
     	ansibleDelegator.execute(Action.INSTALL, config );
         
     }

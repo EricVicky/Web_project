@@ -2,6 +2,7 @@ package com.alu.omc.oam.ansible.handler;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.exec.ExecuteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -35,14 +36,12 @@ public class InstallOSHandler implements IAnsibleHandler{
     private static Logger log = LoggerFactory.getLogger(InstallOSHandler.class);
 	@Override
 	public void onStart() {
-	//	runningContext.lock(((OSCOMConfig)config).getStack_name(), Action.INSTALL);
 	}
 
 	@Override
 	public void onError() {
 		COMStack stack = new COMStack(config);
         service.add(stack);
-      //  runningContext.unlock(((OSCOMConfig)config).getStack_name());
 	}
 
 	@Override
@@ -91,5 +90,20 @@ public class InstallOSHandler implements IAnsibleHandler{
 		this.logParser = logParser;
 		
 	}
+	
+    @Override
+    public void onProcessComplete(int paramInt)
+    {
+       this.onEnd(); 
+        
+    }
+
+    @Override
+    public void onProcessFailed(ExecuteException paramExecuteException)
+    {
+        this.succeed = false;
+        this.onEnd();
+        
+    }
 
 }

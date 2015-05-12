@@ -54,6 +54,14 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		getSubnets: function (networkId){
 			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/list/names");
 			return subnetRes.query().$promise;
+		},
+		getImages: function(){
+			var imgRes = $resource(restUrl + "nfv/os/glance/image/list");
+			return imgRes.query().$promise;
+		},
+		getKeys: function(){
+			var keyRes = $resource(restUrl + "nfv/os/compute/keypair/list/names");
+			return keyRes.query().$promise;
 		}
 	};
 });

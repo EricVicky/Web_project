@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,4 +137,12 @@ public class CommandExec implements ICommandExec {
             e.printStackTrace();
         }
     */}
+
+    @Override
+    public void execute(ExecuteResultHandler handler) throws ExecuteException,
+            IOException
+    {
+        // TODO Auto-generated method stub
+        
+    }
 }
