@@ -25,7 +25,7 @@ public PlaybookCall(COMConfig config, Action action){
    this.config = config;
 }
 
-    public String prepare(Ansibleworkspace space)
+public String prepare(Ansibleworkspace space)
     {
         try
         {
@@ -39,7 +39,7 @@ public PlaybookCall(COMConfig config, Action action){
         return ANSIBLE_COMMAND.concat("-i ").concat(
                 space.getWorkingdir() + Ansibleworkspace.HOSTS_FILE_NAME + " "
                         + this.playbook.getFilePath(space));
-    }
+}
 
 
 

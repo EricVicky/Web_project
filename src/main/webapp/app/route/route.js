@@ -50,6 +50,11 @@ angular.module('comoamApp')
                         {
                           name:'comcheck',
                           files:['app/directives/import/import.js']
+                }),
+                $ocLazyLoad.load(
+                        {
+                          name:'oamflavor',
+                          files:['app/directives/flavorinit.js']
                 })
             }
         }
@@ -94,5 +99,13 @@ angular.module('comoamApp')
       .state('dashboard.monitor',{
         templateUrl:'views/monitor/monitor.html',
         url:'/monitor',
+    })
+    .state('dashboard.backup',{
+        templateUrl:'views/backup_restore/backup.html',
+        url:'/backup',
+    })
+    .state('dashboard.restore',{
+        templateUrl:'views/backup_restore/restore.html',
+        url:'/restore',
     })
   }])

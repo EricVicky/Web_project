@@ -9,7 +9,7 @@ angular.module('os', [ 'ui.router',
 		$state, websocketService, validationService, WizardHandler) {
             $scope.heat_version = [ 'juno' , 'icehouse','havana'];
             $scope.config_drive = [ 'True', 'False' ];
-            $scope.oamcm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
+            $scope.oam_cm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
             $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
             $scope.private_network = [ 'True', 'False'];
             $scope.installConfig ={};
