@@ -57,6 +57,12 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
             	});
     }
     
+    $scope.deleteimglist = function(){
+    	if($scope.del_com_instance != null){
+        	$scope.deleteConfig = JSON3.parse($scope.del_com_instance.comConfig);
+    	}
+    }
+    
     $scope.delete = function(){
     	var deleteConfig = JSON3.parse($scope.del_com_instance.comConfig);
 		KVMService.delete(

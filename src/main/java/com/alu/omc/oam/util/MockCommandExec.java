@@ -48,7 +48,7 @@ public class MockCommandExec implements ICommandExec {
                                     .concat(".log")).toURI();
            File samplelog = new File(uri);
           LineIterator itertor = FileUtils.lineIterator(samplelog);
-            File logFile = new File(this.workingDir.getAbsolutePath()
+            File logFile = new File(this.workingDir.getParentFile().getParentFile().getAbsolutePath()
                     .concat(File.separator)
                     .concat("log.txt"));
            FileWriter fw = new FileWriter(logFile);

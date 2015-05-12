@@ -48,7 +48,7 @@ public class DeleteHandler implements IAnsibleHandler{
 	@Override
 	public void onSucceed() {
 		COMStack stack = new COMStack(config);
-        service.add(stack);
+        service.delete(stack);
 	}
 
 	@Override
