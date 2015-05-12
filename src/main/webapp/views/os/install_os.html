@@ -47,11 +47,11 @@
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 											<div class="tab-pane" id="tab2" name="tab2">
 												<div class="form-group">
-													<label class="control-label">Network</label> <select
+													<label class="control-label">Network</label> <select ng-change="getSubnets()"
 														name="network"
 														ng-model="installConfig.com_provider_network.network"
 														class="form-control"
-														ng-options="n.name as n.name for n in networkStore"
+														ng-options="n.id as n.name for n in networkStore"
 														title="Network" validation="required">
 													</select>
 												</div>
@@ -60,7 +60,7 @@
 														name="sub_network"
 														ng-model="installConfig.com_provider_network.subnet"
 														class="form-control"
-														ng-options="sn.name as sn.name for sn in subNetworkStore"
+														ng-options="sn.id as sn.name for sn in subNetworkStore"
 														title="Sub Network" validation="required">
 													</select>
 												</div>

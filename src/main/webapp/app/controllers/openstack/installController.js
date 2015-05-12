@@ -13,13 +13,6 @@ angular.module('os', [ 'ui.router',
             $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
             $scope.private_network = [ 'True', 'False'];
             $scope.installConfig ={};
-//			$scope.saveState = function() {
-//				var deferred = $q.defer();
-//				$timeout(function() { 
-//					deferred.resolve();
-//				}, 1000);
-//				return deferred.promise;
-//			};
             $scope.deploy = function (){
             	OSService.deploy(
             			$scope.installConfig,
@@ -30,6 +23,12 @@ angular.module('os', [ 'ui.router',
             				$log.info(response);
             			});
             };
+            $scope.getSubnets = function(){
+            	OSService.getSubnets($scope.installConfig.com_provider_network.network)
+            	 .then(function(data){
+            		 $scope.subNetworkStore = data;
+            	 });
+            }
             OSService.getFlavorStore().then(function(data) {
             	$scope.flavorStore = data;
 			});
@@ -41,9 +40,6 @@ angular.module('os', [ 'ui.router',
 			});
             OSService.getNetworkStore().then(function(data) {
             	$scope.networkStore = data;
-			});
-            OSService.getSubNetworkStore().then(function(data) {
-            	$scope.subNetworkStore = data;
 			});
             OSService.getComputeAvailZoneStore().then(function(data) {
             	$scope.computeAvailZoneStore = data;

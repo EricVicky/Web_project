@@ -42,6 +42,7 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var subNetworkRes = $resource(restUrl + "nfv/os/neutron/subnet/list/names");
 			return subNetworkRes.query().$promise;
 		},
+		
 		updateOSCred: function(credential) {
 			var OSCredRes = $resource(restUrl + "os/uCred");
 			return OSCredRes.save(credential).$promise;
@@ -49,6 +50,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		getUpdateOSCred: function() {
 			var OSCredRes = $resource(restUrl + "os/rCred");
 			return OSCredRes.get().$promise;
+		},
+		getSubnets: function (networkId){
+			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/list/names");
+			return subnetRes.query().$promise;
 		}
 	};
 });
