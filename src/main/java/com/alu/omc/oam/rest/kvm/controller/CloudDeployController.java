@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +49,7 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.INSTALL, config );
     }
     
-    @RequestMapping(value="/kvm/delete", method=RequestMethod.POST)
+    @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.DELETE)
     public void delete( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.DELETE, config );
@@ -87,6 +88,7 @@ public class CloudDeployController
     	List<COMStack> instances = cOMStackService.list();
     	return instances;
     }
+
     
     @RequestMapping(value="/kvm/hostips", method=RequestMethod.GET)
     public List<Host>  achostips() throws IOException, InterruptedException

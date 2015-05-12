@@ -43,6 +43,23 @@ public class COMStackService
         }
         
     }
+    public void delete(String name){
+    	if(name == null || name.length() == 0){
+    		return;
+    	}
+        List<COMStack> stacks = dataSource.list();
+        if(stacks != null && stacks.size() >0){
+            stacks = new ArrayList<COMStack>();
+            for(COMStack stack : stacks){
+            	if(stack.getName().equals(name)){
+            		stacks.remove(stack);
+            		break;
+            	}
+            }
+        }
+        dataSource.save(stacks);
+        
+    }
     
     public List<COMStack> list(){
         return dataSource.list();
