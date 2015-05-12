@@ -20,6 +20,11 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("install_kvm.yml") );
         playbooks.put(key(Environment.KVM, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("install_os.yml") );
+        //backup
+        playbooks.put(key(Environment.KVM, Action.BACKUP), new Playbook("backupkvm.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.BACKUP), new Playbook("backupos.yml") );
+        //delete
+        playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("deletekvm.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {
@@ -30,10 +35,22 @@ public class PlaybookFactory
     		else if (action == Action.UPGRADE){
     			return playbooks.get(key(Environment.KVM, Action.UPGRADE));
     		}
+    		//backup
+    		else if (action == Action.BACKUP){
+    			return playbooks.get(key(Environment.KVM, Action.BACKUP));
+    		}
+    		//delete
+    		else if (action == Action.DELETE){
+    			return playbooks.get(key(Environment.KVM, Action.DELETE));
+    		}
     	}
     	else if (fact.getEnvironment() == Environment.OPENSTACK) {
     		if (action == Action.INSTALL) {
     			return playbooks.get(key(Environment.OPENSTACK, Action.INSTALL));
+    		}
+    		//backup
+    		else if(action == Action.BACKUP){
+    			return playbooks.get(key(Environment.OPENSTACK, Action.BACKUP));
     		}
     	}
        return null;

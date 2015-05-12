@@ -19,6 +19,10 @@ angular.module('kvm', [ 'ui.router',
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
+            //jQuery Method
+//            $(document).ready(function(){
+//            	
+//            });
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;
@@ -47,7 +51,7 @@ angular.module('kvm', [ 'ui.router',
             			function(data) {
             				$log.info(data);
             				$scope.imagelist = data;
-            			}); 
+            			});   
             };
             $scope.deploy = function(){
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){

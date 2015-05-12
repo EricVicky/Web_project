@@ -70,7 +70,29 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 		getComInstance: function(success,error) {
 			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
 			return comInstanceRes.query().$promise;
-		}
+		},
+		backup: function (config, success, error) {
+			var backupRes = $resource(restUrl + "rest/kvm/backup");
+			backupRes.save(config,
+				function (data) {
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
+		delete: function (config, success, error) {
+			var deleteRes = $resource(restUrl + "rest/kvm/delete");
+			deleteRes.save(config,
+				function (data) {
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
 	};
 });
 

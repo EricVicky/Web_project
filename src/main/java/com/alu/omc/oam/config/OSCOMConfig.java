@@ -1,12 +1,17 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.kvm.model.Host;
+import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OSCOMConfig extends COMConfig implements  Serializable
@@ -17,7 +22,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
      */
     private static final long  serialVersionUID       = -3535916139459672300L;
     private boolean            config_drive           = false;
-    private String             deployment_prifix;
+    private String             deployment_prefix;
     private boolean            enable_private_network = true;
     private BlockAvailZone     block_storage_avail_zone;
     private ComputeAvailZone   compute_avail_zone;
@@ -27,9 +32,34 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     private String timezone;
     private boolean com_private_network;
     private String template_version;
-    private String stack_name;
-    private String deployment_prefix;
+	private String stack_name;
+    private String oam_cm_image;
+	private String db_image;
 
+	public String getOam_cm_image() {
+		return oam_cm_image;
+	}
+
+	public void setOam_cm_image(String oam_cm_image) {
+		this.oam_cm_image = oam_cm_image;
+	}
+
+	public String getDb_image() {
+		return db_image;
+	}
+
+	public void setDb_image(String db_image) {
+		this.db_image = db_image;
+	}
+	
+	private String getVMImageName(String vmname){
+	       if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
+	           return this.oam_cm_image;
+	       }else{
+	           return this.db_image;
+	       }
+	    }
+	
 	public boolean getCom_private_network() {
 		return com_private_network;
 	}
@@ -211,15 +241,6 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         this.config_drive = config_drive;
     }
 
-    public String getDeployment_prifix()
-    {
-        return deployment_prifix;
-    }
-
-    public void setDeployment_prifix(String deployment_prifix)
-    {
-        this.deployment_prifix = deployment_prifix;
-    }
 
     public boolean getEnable_private_network()
     {
@@ -288,30 +309,51 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     }
 
     @Override
+    @JsonIgnore 
     public Inventory getInventory()
     {
-        // TODO Auto-generated method stub
-        return null;
+    	Inventory inv = new Inventory();
+	    Group hostg = new Group("host");
+	    hostg.add(new Host("localhost"));
+	    inv.addGroup(hostg);
+	    @SuppressWarnings("unchecked")
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    Group allVM = new Group("allvm:children");
+	    inv.addGroup(allVM);
+	    while(it.hasNext()){
+	        String name = it.next();
+	        @SuppressWarnings("unchecked")
+            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        String ipAddress = vmcfg.get("ip_address");
+	        Group g = new Group(name);
+	        allVM.add(g);
+	        g.add(new Host(ipAddress));
+	        inv.addGroup(g);
+	    }
+		return inv;
     }
 
     @Override
     public String getVars()
     {
+    	Iterator<String> it = vm_config.keySet().iterator(); 
+	    while(it.hasNext()){
+	        String name = it.next();
+	        @SuppressWarnings("unchecked")
+            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        vmcfg.put("imgname", this.getVMImageName(name));
+	    }
     	Yaml yaml = new Yaml();
-        return yaml.dump(this);
+    	return YamlFormatterUtil.format(yaml.dump(this));
     }
     
-    @Override
-	public String getCfg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
     @Override
     public String getStackName()
     {
         return this.getStack_name();
     }
+
 
 
 

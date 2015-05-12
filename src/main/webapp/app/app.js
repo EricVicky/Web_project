@@ -13,7 +13,8 @@ angular.module('comoamApp', [
     'rcWizard', 
     'mgo-angular-wizard',
     'rcForm', 
-    'login'
+    'login',
+    'backup_restore'
   ]).controller('AppController', function($rootScope, $scope, $translate, $cookieStore, $window, $state, $location, $log, $modal, Auth) {
     $rootScope._user = {
         username: $cookieStore.get("username") || "",

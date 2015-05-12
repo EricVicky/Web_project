@@ -15,6 +15,7 @@ import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.ansible.Playbook;
 import com.alu.omc.oam.ansible.PlaybookFactory;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
@@ -34,17 +35,23 @@ public class CloudDeployController
     COMStackService cOMStackService;
     
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
-    public void deploy( @RequestBody OSCOMConfig config)
+    public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-        System.out.print(config.toString());
-        Playbook playbook = PlaybookFactory.getInstance().getPlaybook(Action.INSTALL, config);
-        
+//        System.out.print(config.toString());
+//        Playbook playbook = PlaybookFactory.getInstance().getPlaybook(Action.INSTALL, config);
+    	ansibleDelegator.execute(Action.INSTALL, config );
         
     }
     @RequestMapping(value="/kvm/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/kvm/delete", method=RequestMethod.POST)
+    public void delete( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.DELETE, config );
     }
     
     @RequestMapping(value="/kvm/images", method=RequestMethod.GET)
@@ -66,6 +73,12 @@ public class CloudDeployController
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.UPGRADE, config );
+    }
+    
+    @RequestMapping(value="/kvm/backup", method=RequestMethod.POST)
+    public void backup( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.BACKUP, config );
     }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)

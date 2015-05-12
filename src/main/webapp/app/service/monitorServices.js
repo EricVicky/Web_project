@@ -4,11 +4,13 @@ angular.module('monitor').factory('monitorService', function($log) {
 	var stepsDict= {
 			"KVM" : {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
-				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"]
+				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
+				 "backup":["Start","Data Backup","Finished"]
 			},
 			"Openstack" :{
 				"install" : [],
-				 "upgrade": []
+				 "upgrade": [],
+				 "backup":[]
 			}
 			
 	};
@@ -25,6 +27,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMUpgrade: function(h) {
 			environment = "KVM";
 			action = "upgrade";
+			host = h;
+		},
+		monitorKVMBackup: function(h) {
+			environment = "KVM";
+			action = "backup";
 			host = h;
 		},
 		getChannel : function (){

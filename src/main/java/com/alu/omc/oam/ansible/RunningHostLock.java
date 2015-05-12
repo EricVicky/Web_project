@@ -30,4 +30,5 @@ public boolean isLocked(Host host){
 public HostStatus getAction(Host host){
    return lockedHosts.get(host); 
 }
+
 }
