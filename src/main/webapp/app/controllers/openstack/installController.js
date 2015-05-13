@@ -6,7 +6,7 @@ angular.module('os', [ 'ui.router',
                        'ghiscoding.validation', 
                        'mgo-angular-wizard',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
-		$state, websocketService, validationService, WizardHandler) {
+		$state, websocketService, validationService, WizardHandler,monitorService) {
             OSService.getUpdateOSCred().then(function(data) {
                 $scope.crendential = data;
                 if($scope.crendential.osUsername == "" && $scope.crendential.osPassword == ""){
@@ -31,6 +31,7 @@ angular.module('os', [ 'ui.router',
             	OSService.deploy(
             			$scope.installConfig,
             			function(data){
+            				monitorService.monitorOSInstall($scope.installConfig.stack_name);
             				$state.go("dashboard.monitor");
             			}, 
             			function(response){

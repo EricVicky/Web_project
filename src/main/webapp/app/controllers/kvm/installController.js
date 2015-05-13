@@ -19,10 +19,6 @@ angular.module('kvm', [ 'ui.router',
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
-            //jQuery Method
-//            $(document).ready(function(){
-//            	
-//            });
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;

@@ -29,9 +29,8 @@
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
-														name="com_type" ng-model="installConfig.com_type"
-														class="form-control" ng-change="changeComType()"
-														ng-options="ct.Name as ct.Name for ct in comTypeStore"
+														name="com_type" ng-model="installConfig.com_type" ng-change="changeComType()"
+														class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
 												</div>
