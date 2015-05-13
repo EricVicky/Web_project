@@ -20,7 +20,10 @@ import com.alu.omc.oam.service.WebsocketSender;
 @Scope(value = "prototype")
 
 public class DeleteHandler implements IAnsibleHandler{
-
+	/**
+     * @Fields serialVersionUID :
+     */
+    private static final long  serialVersionUID       = -3535916139459672300L; 
     @Resource
     COMStackService service;
     @Resource
@@ -47,8 +50,7 @@ public class DeleteHandler implements IAnsibleHandler{
 
 	@Override
 	public void onSucceed() {
-		COMStack stack = new COMStack(config);
-        service.delete(stack);
+        service.delete(config.getStackName());
 	}
 
 	@Override
@@ -77,12 +79,6 @@ public class DeleteHandler implements IAnsibleHandler{
     	return false;
     }
 
-	@Override
-	public void setConfig(COMConfig config) {
-		this.config = config;
-		
-	}
-
 	public String getFulltopic(){
 	       KVMCOMConfig cfg = (KVMCOMConfig)config;
 	       return this.topic.concat(cfg.getHost().getIp_address());
@@ -93,5 +89,10 @@ public class DeleteHandler implements IAnsibleHandler{
 		this.logParser = logParser;
 		
 	}
+
+    public void setConfig(COMConfig config)
+    {
+        this.config = config;
+    }
 
 }

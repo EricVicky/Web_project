@@ -8,7 +8,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "backup":["Start","Data Backup","Finished"]
 			},
 			"Openstack" :{
-				"install" : [],
+				"install" : ["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
 				 "upgrade": [],
 				 "backup":[]
 			}

@@ -4,7 +4,7 @@
 		<div class="col-md-12" style="width: 950px">
 			<div ng-controller="osctr" rc-wizard="OSInstallWizard"
 				class="modal-body">
-				<section id="wizard">
+				<section id="wizard" import-comconf>
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard" style="margin-left:100px;">
 								<li class="active"><a class="active" href="#tab1"
@@ -30,7 +30,7 @@
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
 														name="com_type" ng-model="installConfig.comType"
-														class="form-control"
+														class="form-control" ng-change="changeComType()"
 														ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
@@ -47,7 +47,7 @@
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 											<div class="tab-pane" id="tab2" name="tab2">
 												<div class="form-group">
-													<label class="control-label">Network</label> <select ng-change="getSubnets()"
+													<label class="control-label">Network</label> <select
 														name="network"
 														ng-model="installConfig.com_provider_network.network"
 														class="form-control"
@@ -57,7 +57,7 @@
 												</div>
 												<div class="form-group">
 													<label class="control-label">Sub Network</label> <select
-														name="sub_network"
+														name="sub_network" 
 														ng-model="installConfig.com_provider_network.subnet"
 														class="form-control"
 														ng-options="sn.id as sn.name for sn in subNetworkStore"
@@ -154,7 +154,7 @@
 													</fieldset>
 												</div>
 											</form>
-											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit="genExport()" rc-step>
 													<fieldset >
 														<legend>Heat</legend>
 														<div class="form-group col-md-3">
@@ -274,6 +274,9 @@
 								</div>
 								<div class="modal-footer">
 									<div class="form-group">
+										<div id="download" class="pull-left" ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength">
+								    	<div export-comconf ng-model="export"></div>
+								    </div>
 										<div class="pull-right">
 											<a class="btn btn-default" 
 												ng-click="rc.OSInstallWizard.backward()"

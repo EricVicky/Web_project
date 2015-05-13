@@ -49,7 +49,6 @@ public class COMStackService
     	}
         List<COMStack> stacks = dataSource.list();
         if(stacks != null && stacks.size() >0){
-            stacks = new ArrayList<COMStack>();
             for(COMStack stack : stacks){
             	if(stack.getName().equals(name)){
             		stacks.remove(stack);

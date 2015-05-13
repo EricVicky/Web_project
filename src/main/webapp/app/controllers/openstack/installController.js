@@ -13,22 +13,32 @@ angular.module('os', [ 'ui.router',
             $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
             $scope.private_network = [ 'True', 'False'];
             $scope.installConfig ={};
+            
+            $scope.changeComType = function(){
+				$scope.installConfig.vm_config = null;
+			}
+            $scope.genExport = function(){
+            	$scope.export=!$scope.export;
+            }
+            
             $scope.deploy = function (){
             	OSService.deploy(
             			$scope.installConfig,
             			function(data){
-            				$log.info(data);
+            				$state.go("dashboard.monitor");
             			}, 
             			function(response){
             				$log.info(response);
             			});
             };
-            $scope.getSubnets = function(){
-            	OSService.getSubnets($scope.installConfig.com_provider_network.network)
-            	 .then(function(data){
-            		 $scope.subNetworkStore = data;
-            	 });
-            }
+            $scope.$watch('installConfig.com_provider_network.network',function(){
+            	if($scope.installConfig.com_provider_network!=null){
+            		OSService.getSubnets($scope.installConfig.com_provider_network.network)
+               	 	.then(function(data){
+               	 		$scope.subNetworkStore = data;
+               	 	});
+            	}
+            });
             OSService.getFlavorStore().then(function(data) {
             	$scope.flavorStore = data;
 			});

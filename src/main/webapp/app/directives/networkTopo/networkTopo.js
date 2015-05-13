@@ -15,7 +15,9 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 					$scope.comInstance = data;
 					return data;
 		       }).then(function(allInstances){
-		    	   $scope.installConfig = JSON3.parse(allInstances[0].comConfig);
+		    	   if(allInstances!=null){
+		    		   $scope.installConfig = JSON3.parse(allInstances[0].comConfig);
+		    	   }
 		       })
 		  },
 		link:function($scope,ele,attrs,ctrl, $log){
