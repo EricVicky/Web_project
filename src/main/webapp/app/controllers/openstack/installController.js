@@ -7,6 +7,13 @@ angular.module('os', [ 'ui.router',
                        'mgo-angular-wizard',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
 		$state, websocketService, validationService, WizardHandler) {
+            OSService.getUpdateOSCred().then(function(data) {
+                $scope.crendential = data;
+                if($scope.crendential.osUsername == "" && $scope.crendential.osPassword == ""){
+                	alert("config first");
+                	$state.go("dashboard.oscredential");
+                }
+            });
             $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" },{"name": "icehouse", "version": "2013-05-23"}];
             $scope.config_drive = [ 'True', 'False' ];
             $scope.private_network = [ 'True', 'False'];
