@@ -33,9 +33,6 @@ public class AnsibleDelegator implements ApplicationContextAware
     
     @Resource
     private LogParserFactory logParserFactory;
-    
-
-
 
 
     public void execute(Action action, COMConfig config){

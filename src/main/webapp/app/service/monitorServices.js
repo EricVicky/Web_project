@@ -8,7 +8,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "backup":["Start","Data Backup","Finished"]
 			},
 			"Openstack" :{
-				"install" : ["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
+				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": [],
 				 "backup":[]
 			}
@@ -16,26 +16,31 @@ angular.module('monitor').factory('monitorService', function($log) {
 	};
 	var environment;
 	var action;
-	var host;
+	var channel;
 	var topicPrefix= "/log/tail/" 
 	return {
-		monitorKVMInstall: function(h) {
+		monitorKVMInstall: function(ch) {
 			environment = "KVM";
 			action = "install";
-			host = h;
+			channel = ch;
 		},
-		monitorKVMUpgrade: function(h) {
+		monitorKVMUpgrade: function(ch) {
 			environment = "KVM";
 			action = "upgrade";
-			host = h;
+			channel = ch;
 		},
-		monitorKVMBackup: function(h) {
+		monitorKVMBackup: function(ch) {
 			environment = "KVM";
 			action = "backup";
-			host = h;
+			channel = ch;
+		},
+		monitorOSInstall: function(ch) {
+			environment = "Openstack";
+			action = "install";
+			channel = ch;
 		},
 		getChannel : function (){
-			return (topicPrefix  + host);
+			return (topicPrefix  + channel);
 		},
 		getSteps: function(){
 			return stepsDict[environment][action];

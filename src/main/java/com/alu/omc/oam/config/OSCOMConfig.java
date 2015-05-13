@@ -428,6 +428,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     }
 
     @Override
+    @JsonIgnore
     public String getVars()
     {
     	Iterator<String> it = vm_config.keySet().iterator(); 

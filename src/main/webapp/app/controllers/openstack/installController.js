@@ -6,7 +6,7 @@ angular.module('os', [ 'ui.router',
                        'ghiscoding.validation', 
                        'mgo-angular-wizard',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
-		$state, websocketService, validationService, WizardHandler) {
+		$state, websocketService, validationService, WizardHandler,monitorService) {
             $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" },{"name": "icehouse", "version": "2013-05-23"}];
             $scope.config_drive = [ 'True', 'False' ];
             $scope.private_network = [ 'True', 'False'];
@@ -24,6 +24,7 @@ angular.module('os', [ 'ui.router',
             	OSService.deploy(
             			$scope.installConfig,
             			function(data){
+            				monitorService.monitorOSInstall($scope.installConfig.stack_name);
             				$state.go("dashboard.monitor");
             			}, 
             			function(response){
