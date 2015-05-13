@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class JsonDataSource
 {
 
-    @Value("${ansible.datasource}")
+    @Value("${ansible.comstacks}")
     private  String COM_STACK_JSON; 
     @Value("${ansible.hosts}")
     private  String HOSTS_JSON; 

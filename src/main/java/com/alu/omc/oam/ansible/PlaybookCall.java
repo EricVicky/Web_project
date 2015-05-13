@@ -38,6 +38,9 @@ public String prepare(Ansibleworkspace space){
         return ANSIBLE_COMMAND.concat("-i ").concat(
                 space.getWorkingdir() + Ansibleworkspace.HOSTS_FILE_NAME + " "
                         + this.playbook.getFilePath(space));
-}
-
+    }
+    
+    public COMConfig getConfig(){
+        return config;
+    }
 }

@@ -1,6 +1,8 @@
 package com.alu.omc.oam.os.conf;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -108,4 +110,24 @@ public class OpenstackConfig implements Serializable {
     public boolean isVersion2(){
         return authURL.endsWith("v2.0");
     }
+	
+	public String asExportEnvironment(){
+	   StringBuffer vars = new StringBuffer();
+	   vars.append("export OS_AUTH_URL=").append(this.getAuthURL()).append("\n");
+	   vars.append("export OS_TENANT_NAME=\"").append(this.getOsTenant()).append("\"\n");
+	   vars.append("export OS_USERNAME=\"").append(this.osUsername).append("\"\n");
+	   vars.append("export OS_PASSWORD=\"").append(this.getOsPassword()).append("\"\n");
+	   return vars.toString();
+	   
+	}
+	
+	public Map<String, String> asEnvironmentMap(){
+	   Map<String, String> envs = new HashMap<String, String>();
+	   envs.put("OS_AUTH_URL", this.getAuthURL());
+	   envs.put("OS_TENANT_NAME", this.getOsTenant());
+	   envs.put("OS_USERNAME", this.osUsername);
+	   envs.put("OS_PASSWORD",this.getOsPassword());
+	   return envs;
+	   
+	}
 }

@@ -7,11 +7,10 @@ angular.module('os', [ 'ui.router',
                        'mgo-angular-wizard',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
 		$state, websocketService, validationService, WizardHandler) {
-            $scope.heat_version = [ 'juno' , 'icehouse','havana'];
+            $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" },{"name": "icehouse", "version": "2013-05-23"}];
             $scope.config_drive = [ 'True', 'False' ];
-            $scope.oam_cm_images = [ 'Redhat+orac_client' ,'Redhat+orac_server' ];
-            $scope.db_images = [ 'Redhat+orac_client', 'Redhat+orac_server'];
             $scope.private_network = [ 'True', 'False'];
+            $scope.blockAvailZoneStore = ['Nova', 'nova'];
             $scope.installConfig ={};
             
             $scope.changeComType = function(){
@@ -54,4 +53,12 @@ angular.module('os', [ 'ui.router',
             OSService.getComputeAvailZoneStore().then(function(data) {
             	$scope.computeAvailZoneStore = data;
 			});
+            OSService.getImages().then(function(data){
+            	$scope.oam_cm_images = data;
+            	$scope.db_images = data;
+            });
+            OSService.getKeys().then(function(data){
+            	$scope.keys= data;
+            });
+            
 } );

@@ -3,6 +3,7 @@ package com.alu.omc.oam.config;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Stack;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -10,9 +11,7 @@ import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OSCOMConfig extends COMConfig implements  Serializable
 {
@@ -28,15 +27,37 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     private ComputeAvailZone   compute_avail_zone;
     private COMProvidernetwork com_provider_network;
     private Map vm_config;
-    private COMType            comType;
+    private COMType            com_type;
     private String timezone;
-    private boolean com_private_network;
+    private COMPrivatenetwork com_private_network = new COMPrivatenetwork("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
     private String template_version;
 	private String stack_name;
     private String oam_cm_image;
 	private String db_image;
+	private String key_name;
+	private boolean juno_base = false;
 
-	public String getOam_cm_image() {
+    public boolean getJuno_base()
+    {
+        return juno_base;
+    }
+
+    public void setJuno_base(boolean juno_base)
+    {
+        this.juno_base = juno_base;
+    }
+
+    public String getKey_name()
+    {
+        return key_name;
+    }
+
+    public void setKey_name(String key_name)
+    {
+        this.key_name = key_name;
+    }
+
+    public String getOam_cm_image() {
 		return oam_cm_image;
 	}
 
@@ -60,11 +81,11 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	       }
 	    }
 	
-	public boolean getCom_private_network() {
+	public COMPrivatenetwork getCom_private_network() {
 		return com_private_network;
 	}
 
-	public void setCom_private_network(boolean com_private_network) {
+	public void setCom_private_network(COMPrivatenetwork com_private_network) {
 		this.com_private_network = com_private_network;
 	}
 
@@ -115,7 +136,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     public COMType getCOMType()
     {
         // TODO Auto-generated method stub
-        return comType;
+        return com_type;
     }
     
     public class ComputeAvailZone implements Serializable
@@ -136,17 +157,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
             this.zoneA = zoneA;
         }
 
-        public String getZoneB()
-        {
-            return zoneB;
-        }
 
-        public void setZoneB(String zoneB)
-        {
-            this.zoneB = zoneB;
-        }
-
-        private String zoneB;
 
         public ComputeAvailZone()
         {
@@ -170,23 +181,14 @@ public class OSCOMConfig extends COMConfig implements  Serializable
             this.zoneA = zoneA;
         }
 
-        public String getZoneB()
-        {
-            return zoneB;
-        }
 
         public BlockAvailZone()
         {
             // TODO Auto-generated constructor stub
         }
 
-        public void setZoneB(String zoneB)
-        {
-            this.zoneB = zoneB;
-        }
 
         private String zoneA;
-        private String zoneB;
     }
 
     public class COMProvidernetwork implements Serializable
@@ -198,6 +200,28 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         String                    network;
         String                    subnet;
         String                    netmask;
+        String                    gateway;
+        String                    dns1;
+
+        public String getDns1()
+        {
+            return dns1;
+        }
+
+        public void setDns1(String dns1)
+        {
+            this.dns1 = dns1;
+        }
+
+        public String getGateway()
+        {
+            return gateway;
+        }
+
+        public void setGateway(String gateway)
+        {
+            this.gateway = gateway;
+        }
 
         public String getNetwork()
         {
@@ -227,6 +251,76 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         public void setNetmask(String netmask)
         {
             this.netmask = netmask;
+        }
+    }
+    
+    
+    public class COMPrivatenetwork implements Serializable
+    {
+
+        private static final long serialVersionUID = -8224828541397406250L;
+        String                    netmask;
+        String                    gateway;
+        String                    cidr;
+        String                    prefix;
+        Stack<String> ippool = new Stack<String>();
+        
+        public String getCidr()
+        {
+            return cidr;
+        }
+
+        public void setCidr(String cidr)
+        {
+            this.cidr = cidr;
+        }
+
+        public String getPrefix()
+        {
+            return prefix;
+        }
+
+        public void setPrefix(String prefix)
+        {
+            this.prefix = prefix;
+        }
+
+        public String getGateway()
+        {
+            return gateway;
+        }
+
+        public void setGateway(String gateway)
+        {
+            this.gateway = gateway;
+        }
+
+        public String getNetmask()
+        {
+            return netmask;
+        }
+
+        public void setNetmask(String netmask)
+        {
+            this.netmask = netmask;
+        }
+        
+        public COMPrivatenetwork(){
+            
+        }
+        
+        public COMPrivatenetwork( String cidr, String gateway, String netmask, String prefix){
+            this.cidr = cidr;
+            this.netmask = netmask;
+            this.gateway = gateway;
+            this.prefix = prefix;
+            ippool.push("192.168.10.115");
+            ippool.push("192.168.10.116");
+            ippool.push("192.168.10.117");
+        }
+        
+        public String popIp(){
+            return ippool.pop();
         }
     }
 
@@ -283,19 +377,19 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         this.com_provider_network = com_provider_network;
     }
 
-    public COMType getComType()
+    public COMType getCom_type()
     {
-        return comType;
+        return com_type;
     }
 
-    public void setComType(COMType comType)
+    public void setComType(COMType com_type)
     {
-        this.comType = comType;
+        this.com_type = com_type;
     }
 
     public String toString()
     {
-        return this.comType + "," + this.getEnvironment();
+        return this.com_type + "," + this.getEnvironment();
     }
 
     public Map getVm_config()
@@ -341,7 +435,8 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        vmcfg.put("imgname", this.getVMImageName(name));
+	        vmcfg.put("image", this.getVMImageName(name));
+	        vmcfg.put("private_ip_address", this.getCom_private_network().popIp());
 	    }
     	Yaml yaml = new Yaml();
     	return YamlFormatterUtil.format(yaml.dump(this));
