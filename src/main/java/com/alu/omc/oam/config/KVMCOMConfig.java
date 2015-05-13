@@ -21,6 +21,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     private static final long  serialVersionUID       = -3535916139459672300L; 
     private COMType            comType;
 	private Map vm_config;
+	private Map<String,String> app_install_options;
 	private boolean support_gr;
 	private String timezone;
 	private String active_host_ip;
@@ -30,6 +31,14 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	private String db_image;
 	private String vm_img_dir;
 	
+	public Map<String, String> getApp_install_options() {
+		return app_install_options;
+	}
+
+	public void setApp_install_options(Map<String, String> app_install_options) {
+		this.app_install_options = app_install_options;
+	}
+
 	public String getActive_host_ip() {
 		return active_host_ip;
 	}
