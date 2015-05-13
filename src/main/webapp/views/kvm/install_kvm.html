@@ -16,7 +16,10 @@
 									class="badge">3</span> <span>VNFc Config&nbsp;</span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> <span
-									class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									class="badge">4</span> <span>Install Options&nbsp;</span>
+							</a></li>
+							<li><a href="#tab5" data-toggle="tab"> <span
+									class="badge">5</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 						</ul>
 						<div class="modal-body">
@@ -65,9 +68,6 @@
 											title="VM image directory" validation="required" />
 									</div>
 								</form>
-								
-								
-								
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -175,6 +175,9 @@
 									</fieldset>
 								</form>
 								<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
+									wc
+								</form>
+								<form class="tab-pane" id="tab5" name="tab5" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label">Deployment Summary</label>
