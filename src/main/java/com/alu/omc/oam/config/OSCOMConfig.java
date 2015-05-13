@@ -382,7 +382,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         return com_type;
     }
 
-    public void setComType(COMType com_type)
+    public void setCom_type(COMType com_type)
     {
         this.com_type = com_type;
     }
@@ -418,7 +418,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        String ipAddress = vmcfg.get("ip_address");
+	        String ipAddress = vmcfg.get("provider_ip_address");
 	        Group g = new Group(name);
 	        allVM.add(g);
 	        g.add(new Host(ipAddress));
