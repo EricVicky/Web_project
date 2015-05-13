@@ -26,7 +26,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             		console.log(installConfig);
             		
             		paper.install(window);
-        	        paper = new PaperScope();
+        	        //paper = new PaperScope();
         	        paper.setup(ele[0]);
             		NetworkTopology.prototype = {
             				constructor : NetworkTopology,
@@ -76,8 +76,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					COMStackPath.strokeColor='black';
             					COMStackPath.fillColor = '#E0FFFF';
             					//COM name
-            					var COMStackNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX,
-            													  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + 30);
+            					var COMStackNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + 20,
+            													  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + COMStackHeight - 20);
 								var COMStackNameText = new PointText(COMStackNamePoint);
 								COMStackNameText.content = this.COMStacks[0].COMStackType;
 								COMStackNameText.fillColor = 'red';
@@ -97,7 +97,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var hostPath = new Path.Rectangle(hostRectangle, hostCornerSize);
             					
             					var hostNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + hostCOMStackX + hostCornerWidth,
-            												  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + hostCOMStackY + hostCornerHeight);
+            												  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + hostCOMStackY + hostCornerHeight + 5);
             					var hostNameText = new PointText(hostNamePoint);
             					hostNameText.content = this.COMStacks[0].hostName + ':' +this.COMStacks[0].hostIP;
             					hostNameText.fillColor = 'red';
@@ -107,7 +107,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					//hostNameText.leading = '100';
             					
             					hostPath.strokeColor= 'black';
-            					hostPath.fillColor='#5CACEE';
+            					hostPath.fillColor='#C6E2FF';
             					
             					//draw VNFCs
             					var VNFCCOMStackX = 50;						//distance between first VNFC and COMStack on direction X 
@@ -132,20 +132,27 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             							var VNFCRectangle = new Rectangle(VNFCPoint, VNFCSize);
             							var VNFCCornerSize = new Size(VNFCCornerWidth, VNFCCornerHeight);
             							var VNFCPath = new Path.Rectangle(VNFCRectangle, VNFCCornerSize);
-            							VNFCPath.strokeColor= 'black';
+            							VNFCPath.strokeColor= 'blue';
             							VNFCPath.fillColor='#D1EEEE';
             							
-            							var VNFCNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + (VNFCWidth + VNFCInterval) * numberofVNFC + VNFCCornerWidth + 50,
+            							var VNFCNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + (VNFCWidth + VNFCInterval) * numberofVNFC + VNFCCornerWidth + 80,
             														  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY + 30);
             							var VNFCNameText = new PointText(VNFCNamePoint);
             							VNFCNameText.content = this.COMStacks[numberofCOMStack].VNFCs[numberofVNFC].VNFCType;
-            							VNFCNameText.fillColor = 'black';
+            							VNFCNameText.fillColor = 'blue';
             							VNFCNameText.fontSize = '30px';
+            							
+            							var VNFCMemoryPoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + (VNFCWidth + VNFCInterval) * numberofVNFC + VNFCCornerWidth + 80,
+												  					  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY + 50);
+										var VNFCMemoryText = new PointText(VNFCMemoryPoint);
+										VNFCMemoryText.content = "memory:" + this.COMStacks[numberofCOMStack].VNFCs[numberofVNFC].memory + "\n" + "vCpu:" + this.COMStacks[numberofCOMStack].VNFCs[numberofVNFC].vCpu;
+										VNFCMemoryText.fillColor = 'blue';
+										VNFCMemoryText.fontSize = '10px';
             							
             							//VNFC Raster
             							raster[numberofVNFC] = new Raster('VNFC');
-            							raster[numberofVNFC].position = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + (VNFCWidth + VNFCInterval) * numberofVNFC + VNFCCornerWidth + 20,
-												  								  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY + 25);
+            							raster[numberofVNFC].position = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + (VNFCWidth + VNFCInterval) * numberofVNFC + VNFCCornerWidth + 40,
+												  								  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY + 39);
             							raster[numberofVNFC].scale(0.1);
             							
             							for(var numberofPort=0;numberofPort<this.COMStacks[numberofCOMStack].VNFCs[numberofVNFC].ports.length;numberofPort++){
@@ -170,13 +177,15 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             								portPath.strokeColor=lineColor;
             								portPath.fillColor=lineColor;
             								//draw port ip_address
-            								var PortNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + VNFCCornerWidth + (portWidth + portInterval) * numberofPort + (VNFCWidth + VNFCInterval) * numberofVNFC,
+            								var PortNamePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + VNFCCornerWidth + (portWidth + portInterval) * numberofPort + (VNFCWidth + VNFCInterval) * numberofVNFC + portWidth/2 - 2,
             															  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY -portHeight);
-											var PortNameText = new PointText(PortNamePoint);
+            								var rotatePoint = new Point(this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + VNFCCornerWidth + (portWidth + portInterval) * numberofPort + (VNFCWidth + VNFCInterval) * numberofVNFC + portWidth/2 - 2,
+													  					  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY -portHeight);
+            								var PortNameText = new PointText(PortNamePoint);
 											PortNameText.content = this.COMStacks[numberofCOMStack].VNFCs[numberofVNFC].ports[numberofPort].IP;
-											PortNameText.fillColor = 'black';
+											PortNameText.fillColor = lineColor;
 											PortNameText.fontSize = '10px';
-											PortNameText.rotate(270);
+											PortNameText.rotate(270,rotatePoint);
             								//draw line
             								var line = new Path.Line([this.networkTopologyStartX + COMStackTopologyX + VNFCCOMStackX + VNFCCornerWidth + (portWidth + portInterval) * numberofPort + (VNFCWidth + VNFCInterval) * numberofVNFC + portWidth/2,
             														  this.networkTopologyStartY + COMStackNetworkInterval + networkTopologyY + (networkHeight + networkInterval) * numberofNetwork + VNFCCOMStackY -portHeight],
@@ -209,7 +218,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             			}
             			
             			//create VNFC object 
-            			vnfcInCOMLogic[i] = new VNFC(vnfc);
+            			vnfcInCOMLogic[i] = new VNFC(vnfc,vnfcsLogic.flavor.memory,vnfcsLogic.flavor.vCpu);
             			comStack1.addVNFC(vnfcInCOMLogic[i]);
             			
             			//create port object	/////////////////////////how to represent more than one port in a VNFC
@@ -248,8 +257,10 @@ function Port(IP,gateway){
 }
 
 //class VNFC
-function VNFC(VNFCType){
+function VNFC(VNFCType,memory,vCpu){
 	this.VNFCType = VNFCType;
+	this.memory = memory;
+	this.vCpu = vCpu;
 	this.ports = [];		//ports of this VNFC
 	this.addPort = function(port){
 		this.ports.push(port);
