@@ -15,6 +15,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.slf4j.Logger;
@@ -48,7 +50,7 @@ public class MockCommandExec implements ICommandExec {
                                     .concat(".log")).toURI();
            File samplelog = new File(uri);
           LineIterator itertor = FileUtils.lineIterator(samplelog);
-            File logFile = new File(this.workingDir.getAbsolutePath()
+            File logFile = new File(this.workingDir.getParentFile().getParentFile().getAbsolutePath()
                     .concat(File.separator)
                     .concat("log.txt"));
            FileWriter fw = new FileWriter(logFile);
@@ -84,5 +86,20 @@ public class MockCommandExec implements ICommandExec {
        if(m.find()){
           System.out.println( m.group(1));
        } 
+    }
+
+    @Override
+    public void execute(ExecuteResultHandler handler) throws ExecuteException,
+            IOException
+    {
+       try
+    {
+        this.execute();
+    }
+    catch (InterruptedException e)
+    {
+        e.printStackTrace();
+    } 
+        
     }
 }

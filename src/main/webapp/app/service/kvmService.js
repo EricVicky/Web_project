@@ -82,8 +82,9 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 					error(response);
 				});
 		},
-		delete: function (config, success, error) {
-			var deleteRes = $resource(restUrl + "rest/kvm/delete");
+		deletecom: function (config, success, error) {
+			var name = config.deployment_prefix;
+			var deleteRes = $resource(restUrl + "rest/kvm/instances/"+name);
 			deleteRes.save(config,
 				function (data) {
 					success(data);

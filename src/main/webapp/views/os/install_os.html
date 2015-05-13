@@ -4,7 +4,7 @@
 		<div class="col-md-12" style="width: 950px">
 			<div ng-controller="osctr" rc-wizard="OSInstallWizard"
 				class="modal-body">
-				<section id="wizard">
+				<section id="wizard" import-comconf>
 					<div id="rootwizard">
 							<ul class="nav rc-nav-wizard" style="margin-left:100px;">
 								<li class="active"><a class="active" href="#tab1"
@@ -29,8 +29,13 @@
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
 													<label class="control-label">COM Type</label> <select
+<<<<<<< HEAD
 														name="com_type" ng-model="installConfig.comType"
+														class="form-control" ng-change="changeComType()"
+=======
+														name="com_type" ng-model="installConfig.com_type"
 														class="form-control"
+>>>>>>> 89d920086e57b7f3dec75733eb21a6f24f5a890f
 														ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
@@ -47,7 +52,7 @@
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 											<div class="tab-pane" id="tab2" name="tab2">
 												<div class="form-group">
-													<label class="control-label">Network</label> <select ng-change="getSubnets()"
+													<label class="control-label">Network</label> <select
 														name="network"
 														ng-model="installConfig.com_provider_network.network"
 														class="form-control"
@@ -57,7 +62,7 @@
 												</div>
 												<div class="form-group">
 													<label class="control-label">Sub Network</label> <select
-														name="sub_network"
+														name="sub_network" 
 														ng-model="installConfig.com_provider_network.subnet"
 														class="form-control"
 														ng-options="sn.id as sn.name for sn in subNetworkStore"
@@ -67,7 +72,7 @@
 												<div class="form-group">
 													<label class="control-label">Private Network</label> <select
 														name="private_network"
-														ng-model="installConfig.com_private_network"
+														ng-model="installConfig.enable_private_network"
 														class="form-control"
 														ng-options="pn for pn in private_network"
 														title="Private Network" validation="required">
@@ -78,7 +83,7 @@
 											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<div class="form-group">
 													<fieldset
-														ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+														ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM' || installConfig.com_type=='QoSAC'">
 														<legend>OAM VM</legend>
 														<div class="form-group col-md-4">
 															<label class="control-label">IP Address</label> <input
@@ -103,7 +108,7 @@
 														</div>
 													</fieldset>
 													<fieldset
-														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM'">
+														ng-if="installConfig.com_type=='FCAPS' ||  installConfig.com_type=='CM'">
 														<legend>CM VM</legend>
 														<div class="form-group col-md-4">
 															<label class="control-label">IP Address</label> <input
@@ -128,7 +133,7 @@
 														</div>
 													</fieldset>
 													<fieldset
-														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM' || installConfig.comType=='OAM'">
+														ng-if="installConfig.com_type=='FCAPS' ||  installConfig.com_type=='CM' || installConfig.com_type=='OAM'">
 														<legend>DB VM</legend>
 														<div class="form-group col-md-4">
 															<label class="control-label">IP Address</label> <input
@@ -154,12 +159,12 @@
 													</fieldset>
 												</div>
 											</form>
-											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit="genExport()" rc-step>
 													<fieldset >
 														<legend>Heat</legend>
 														<div class="form-group col-md-3">
 															<label class="control-label">Heat Version</label>
-															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv for hv in heat_version" title="Heat Version" validation="required"> </select>
+															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv.version as hv.name for hv in heat_version" title="Heat Version" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-3">
 															<label class="control-label">Config Drive</label>
@@ -182,18 +187,25 @@
 														</div>
 														<div class="form-group col-md-6">
 															<label class="control-label">Block Storage Avail Zone</label> 
-															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="bsaz.zoneName as bsaz.zoneName for bsaz in computeAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
+															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="zone for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
+														</div>
+													</fieldset>
+													<fieldset >
+														<legend>Security</legend>
+														<div class="form-group col-md-6">
+															<label class="control-label">Key Pair</label> 
+															<select name="key_name" ng-model="installConfig.key_name" class="form-control" ng-options="key  for key in keys" title="Key Pair" validation="required"> </select>
 														</div>
 													</fieldset>
 													<fieldset>
 														<legend>Image</legend>
-														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+														<div class="form-group col-md-6" ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM' || installConfig.com_type=='QoSAC'">
 															<label class="control-label">OAM/CM image</label> 
-															<select name="oamcm_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
+															<select name="oamcm_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
 														</div>
-														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+														<div class="form-group col-md-6" ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM'">
 															<label class="control-label">DB image</label> 
-															<select name="db_image" ng-model="installConfig.db_image" class="form-control" ng-options="d for d in db_images" title="DB image" validation="required"> </select>
+															<select name="db_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
 														</div>
 													</fieldset>
 											</form>
@@ -210,7 +222,7 @@
 													<tbody>
 														<tr align="center">
 															<td colspan="2">COM Type</td>
-															<td>{{installConfig.comType}}</td>
+															<td>{{installConfig.com_type}}</td>
 														</tr>
 														<tr align="center">
 															<td colspan="2">Stack Name</td>
@@ -230,37 +242,37 @@
 															<td>{{installConfig.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM' || installConfig.com_type=='QoSAC'">
 															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle">OAM VM</td>
 															<td width="35%">IP Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM' || installConfig.com_type=='QoSAC'">
 															<td>Flavor</td>
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM'">
 															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle">DB VM</td>
 															<td width="35%">IP Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='OAM' || installConfig.com_type=='CM'">
 															<td>Flavor</td>
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='CM'">
 															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle">CM VM</td>
 															<td width="35%">IP Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
 														<tr align="center"
-															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															ng-if="installConfig.com_type=='FCAPS' || installConfig.com_type=='CM'">
 															<td>Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
 														</tr>
@@ -274,6 +286,9 @@
 								</div>
 								<div class="modal-footer">
 									<div class="form-group">
+										<div id="download" class="pull-left" ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength">
+								    	<div export-comconf ng-model="export"></div>
+								    </div>
 										<div class="pull-right">
 											<a class="btn btn-default" 
 												ng-click="rc.OSInstallWizard.backward()"

@@ -1,6 +1,7 @@
 package com.alu.omc.oam.util;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,14 @@ public ICommandExec create(String command, File workingdir){
     }else{
         return new CommandExec(command, null,
                             null, workingdir);
+    }
+}
+public ICommandExec create(String command, File workingdir, Map<String, String> envs){
+    if(SystemUtils.IS_OS_WINDOWS){
+        return new MockCommandExec(command, null,
+                            null, workingdir);
+    }else{
+       return new DefaultCommandExecutor(command, workingdir, envs); 
     }
 }
 }

@@ -21,7 +21,17 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM), kvmUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM), kvmBackupParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK), osInstallParser());
+        //delete
+        parserCache.put(new ActionKey(Action.DELETE, Environment.KVM), kvmDeleteParser());
     }
+    
+    private ILogParser kvmDeleteParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
     private ILogParser kvmBackupParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();

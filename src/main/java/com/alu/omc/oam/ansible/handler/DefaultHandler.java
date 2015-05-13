@@ -2,6 +2,8 @@ package com.alu.omc.oam.ansible.handler;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.ExecuteResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -18,7 +20,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 
 @Component("INSTALL_KVM_HANDLER")
 @Scope(value = "prototype")
-public class DefaultHandler implements IAnsibleHandler
+public class DefaultHandler implements IAnsibleHandler 
 {
     @Resource
     COMStackService service;
@@ -94,6 +96,21 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void setLogParser(ILogParser logParser){
         this.logParser = logParser;
+    }
+
+    @Override
+    public void onProcessComplete(int paramInt)
+    {
+       this.onEnd(); 
+        
+    }
+
+    @Override
+    public void onProcessFailed(ExecuteException paramExecuteException)
+    {
+        this.succeed = false;
+        this.onEnd();
+        
     }
 
 }

@@ -38,8 +38,6 @@ public class CloudDeployController
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-//        System.out.print(config.toString());
-//        Playbook playbook = PlaybookFactory.getInstance().getPlaybook(Action.INSTALL, config);
     	ansibleDelegator.execute(Action.INSTALL, config );
         
     }
@@ -49,7 +47,7 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.INSTALL, config );
     }
     
-    @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.POST)
     public void delete( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.DELETE, config );

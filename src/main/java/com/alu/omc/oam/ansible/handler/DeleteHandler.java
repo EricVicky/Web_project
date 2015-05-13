@@ -2,6 +2,7 @@ package com.alu.omc.oam.ansible.handler;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.exec.ExecuteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -20,7 +21,10 @@ import com.alu.omc.oam.service.WebsocketSender;
 @Scope(value = "prototype")
 
 public class DeleteHandler implements IAnsibleHandler{
-
+	/**
+     * @Fields serialVersionUID :
+     */
+    private static final long  serialVersionUID       = -3535916139459672300L; 
     @Resource
     COMStackService service;
     @Resource
@@ -47,8 +51,7 @@ public class DeleteHandler implements IAnsibleHandler{
 
 	@Override
 	public void onSucceed() {
-		COMStack stack = new COMStack(config);
-        service.add(stack);
+        service.delete(config.getStackName());
 	}
 
 	@Override
@@ -77,12 +80,6 @@ public class DeleteHandler implements IAnsibleHandler{
     	return false;
     }
 
-	@Override
-	public void setConfig(COMConfig config) {
-		this.config = config;
-		
-	}
-
 	public String getFulltopic(){
 	       KVMCOMConfig cfg = (KVMCOMConfig)config;
 	       return this.topic.concat(cfg.getHost().getIp_address());
@@ -93,5 +90,24 @@ public class DeleteHandler implements IAnsibleHandler{
 		this.logParser = logParser;
 		
 	}
+    @Override
+    public void onProcessComplete(int paramInt)
+    {
+       this.onEnd(); 
+        
+    }
+
+    @Override
+    public void onProcessFailed(ExecuteException paramExecuteException)
+    {
+        this.succeed = false;
+        this.onEnd();
+        
+    }
+
+    public void setConfig(COMConfig config)
+    {
+        this.config = config;
+    }
 
 }

@@ -1,9 +1,11 @@
 package com.alu.omc.oam.ansible.handler;
 
+import org.apache.commons.exec.ExecuteResultHandler;
+
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.log.ILogParser;
 
-public interface IAnsibleHandler
+public interface IAnsibleHandler extends ExecuteResultHandler 
 {
 public final static String HANDLER_END_FIX = "_HANDLER";
 public void onStart();

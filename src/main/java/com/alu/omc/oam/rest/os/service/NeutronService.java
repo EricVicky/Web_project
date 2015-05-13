@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.network.IP;
 import org.openstack4j.model.network.Network;
@@ -18,10 +20,13 @@ import org.springframework.stereotype.Service;
 import com.alu.omc.oam.rest.os.domain.neutron.YaoNetwork;
 import com.alu.omc.oam.rest.os.domain.neutron.YaoPort;
 import com.alu.omc.oam.rest.os.domain.neutron.YaoSubnet;
+import com.alu.omc.oam.rest.os.service.access.YaoOsClientService;
 
 @Service
 public class NeutronService 
 {
+	@Resource
+	private YaoOsClientService yaoOsClientService;
 	public class IdNamePair
 	{
 		private String id;
@@ -90,6 +95,20 @@ public class NeutronService
 			subnetNames.add(new IdNamePair(subnet.getId(), subnet.getName()));	
 		}
 		return subnetNames;
+	}
+	@SuppressWarnings("unchecked")
+	public NeutronSubnet getSubetById( String subnetId)
+	{
+		OSClient os = yaoOsClientService.getOsClient();
+		List<NeutronSubnet> subnetList = (List<NeutronSubnet>)os.networking().subnet().list();
+		for(NeutronSubnet subnet : subnetList)
+		{		
+			if(subnet.getId().equalsIgnoreCase(subnetId))
+			{
+				return subnet;
+			}
+		}
+		return null;
 	}
 	
 	public List<IdNamePair> getNetworkNames(OSClient client)
