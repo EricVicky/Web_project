@@ -84,6 +84,11 @@ public class InstallOSHandler implements IAnsibleHandler{
 		this.config = config;
 		
 	}
+	
+    public COMConfig getConfig()
+    {
+        return config;
+    }
 
 	@Override
 	public void setLogParser(ILogParser logParser) {

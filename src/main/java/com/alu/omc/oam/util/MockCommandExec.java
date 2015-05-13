@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,10 +94,12 @@ public class MockCommandExec implements ICommandExec {
        try
     {
         this.execute();
+        handler.onProcessComplete(0);
     }
     catch (InterruptedException e)
     {
         e.printStackTrace();
+        handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
     } 
         
     }
