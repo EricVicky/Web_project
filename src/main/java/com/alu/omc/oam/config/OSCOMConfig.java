@@ -27,6 +27,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
     private ComputeAvailZone   compute_avail_zone;
     private COMProvidernetwork com_provider_network;
     private Map vm_config;
+    private Map<String, String> app_install_options;
     private COMType            com_type;
     private String timezone;
     private COMPrivatenetwork com_private_network = new COMPrivatenetwork("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
@@ -37,7 +38,15 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	private String key_name;
 	private boolean juno_base = false;
 
-    public boolean getJuno_base()
+    public Map<String, String> getApp_install_options() {
+		return app_install_options;
+	}
+
+	public void setApp_install_options(Map<String, String> app_install_options) {
+		this.app_install_options = app_install_options;
+	}
+
+	public boolean getJuno_base()
     {
         return juno_base;
     }
