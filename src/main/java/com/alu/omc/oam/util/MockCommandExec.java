@@ -36,7 +36,6 @@ public class MockCommandExec implements ICommandExec {
 
     public CommandResult execute() throws IOException, InterruptedException
     {
-
         try
         {
             URI uri = MockCommandExec.class
@@ -66,9 +65,6 @@ public class MockCommandExec implements ICommandExec {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-
         return new CommandResult(0, "executed");
     }
 
@@ -83,19 +79,26 @@ public class MockCommandExec implements ICommandExec {
     }
 
     @Override
-    public void execute(ExecuteResultHandler handler) throws ExecuteException,
+    public void execute(final ExecuteResultHandler handler) throws ExecuteException,
             IOException
     {
-       try
-    {
-        this.execute();
-        handler.onProcessComplete(0);
-    }
-    catch (InterruptedException e)
-    {
-        e.printStackTrace();
-        handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
-    } 
+        new Thread( new Runnable(){
+
+            @Override
+            public void run()
+            {
+                try
+                {
+                    MockCommandExec.this.execute();
+                }
+                catch (IOException | InterruptedException e)
+                {
+                    log.error("failed excute the mock command", e);
+                    handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
+                }
+                handler.onProcessComplete(0);
+            }
+        }).start();
         
     }
 }

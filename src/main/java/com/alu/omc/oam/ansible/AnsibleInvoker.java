@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
 import com.alu.omc.oam.ansible.persistence.JsonDataSource;
-import com.alu.omc.oam.config.Environment;
 import com.alu.omc.oam.log.Loglistener;
 import com.alu.omc.oam.util.CommandProtype;
 import com.alu.omc.oam.util.ICommandExec;
@@ -41,7 +40,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
     {
         pc.prepare(ansibleworkspace);
         final Tailer tailer = Tailer.create(this.getWorkSpace().getLogFile(),
-                new Loglistener(handler), 300, true);
+                new Loglistener(handler), 1000, false);
         try
         {
             log.info("tail -f ".concat(this.getWorkSpace().getLogFile()
@@ -92,9 +91,4 @@ public class AnsibleInvoker implements IAnsibleInvoker
     {
         return ansibleworkspace;
     }
-
-
-
-    
-    
 }
