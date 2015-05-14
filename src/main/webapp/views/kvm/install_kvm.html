@@ -68,9 +68,6 @@
 											title="VM image directory" validation="required" />
 									</div>
 								</form>
-								
-								
-								
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -91,7 +88,7 @@
 										</select>
 									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab3" name="tab3" rc-submit="genExport()" rc-step>
+								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 									<fieldset>
 										<legend>NETWORK</legend>
 										<div class="form-group col-md-6">
@@ -177,7 +174,7 @@
 										</div>
 									</fieldset>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab4" name="tab4" rc-submit rc-step>
+								<form class="tab-pane" id="tab4" name="tab4" rc-submit="genExport()" rc-step>
 									<div ng-include="'views/common/common.html'"></div>
 								</form>
 								<form class="tab-pane" id="tab5" name="tab5" rc-submit rc-step>
