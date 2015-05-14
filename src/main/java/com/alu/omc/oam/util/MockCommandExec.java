@@ -23,18 +23,14 @@ import org.slf4j.LoggerFactory;
 
 public class MockCommandExec implements ICommandExec {
 
-    private String action;
+    private String fileName;
     private File workingDir = null;
     private final String SAMPLE_ANSIBLE_LOG_DIR ="samplelog";
 
     private static Logger log = LoggerFactory.getLogger(MockCommandExec.class);
 
     public MockCommandExec(String command, String[] args, String[] envp, File dir) {
-        Pattern p = Pattern.compile("^.*\\\\([\\S]+)\\.yml");
-        Matcher m = p.matcher(command);
-        if(m.find()){
-            action = m.group(1);
-        }
+        this.fileName = args[0].toLowerCase().concat("_").concat(args[1]).toLowerCase().concat(".log");
         this.workingDir = dir;
     }
 
@@ -45,8 +41,7 @@ public class MockCommandExec implements ICommandExec {
         {
             URI uri = MockCommandExec.class
                     .getClassLoader()
-                    .getResource(File.separator.concat( SAMPLE_ANSIBLE_LOG_DIR).concat(File.separator).concat(action)
-                                    .concat(".log")).toURI();
+                    .getResource(File.separator.concat( SAMPLE_ANSIBLE_LOG_DIR).concat(File.separator).concat(fileName)).toURI();
            File samplelog = new File(uri);
           LineIterator itertor = FileUtils.lineIterator(samplelog);
             File logFile = new File(this.workingDir.getParentFile().getParentFile().getAbsolutePath()

@@ -142,7 +142,17 @@ public class CommandExec implements ICommandExec {
     public void execute(ExecuteResultHandler handler) throws ExecuteException,
             IOException
     {
-        // TODO Auto-generated method stub
+       try
+    {
+        this.execute();
+        handler.onProcessComplete(0);
+    }
+    catch (InterruptedException e)
+    {
+        handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } 
         
     }
 }

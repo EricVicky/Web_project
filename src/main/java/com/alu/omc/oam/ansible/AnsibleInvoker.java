@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.io.input.Tailer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,50 +36,54 @@ public class AnsibleInvoker implements IAnsibleInvoker
 
     private static Logger log = LoggerFactory.getLogger(AnsibleInvoker.class);
 
-    public void invoke(final PlaybookCall pc, final IAnsibleHandler handler) throws AnsibleException
-    
+    public void invoke(final PlaybookCall pc, final IAnsibleHandler handler)
+            throws AnsibleException
     {
+        pc.prepare(ansibleworkspace);
         final Tailer tailer = Tailer.create(this.getWorkSpace().getLogFile(),
-                new Loglistener(handler), 1000, false);
-        log.info("create tailer"); 
-       try
+                new Loglistener(handler), 300, true);
+        try
         {
-        	Thread thread = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					String command = pc.prepare(ansibleworkspace);
-					log.info(command);
-                    ICommandExec commandExe = null;
-                    File workingDir = new File(ansibleworkspace.getRunDir());
-					if( pc.getConfig().getEnvironment() == Environment.OPENSTACK){
-                        commandExe = commandProtype.create(command, workingDir, dataSource.getOpenstackConfig().asEnvironmentMap());
-                    }else{
-                        commandExe = commandProtype.create( command, workingDir, null);
-                    }
-		            try {
-		                handler.onStart();
-						commandExe.execute(handler);
-					} catch (Exception e) {
-						log.error("failed to call ansible" , e);
-						throw new AnsibleException("failed to execute command " +command, e);
-                    }
-                    finally
+            log.info("tail -f ".concat(this.getWorkSpace().getLogFile()
+                    .getAbsolutePath()));
+            File runDir = new File(ansibleworkspace.getRunDir());
+            ICommandExec commandExe = commandProtype.create(pc, runDir);
+            try
+            {
+                handler.onStart();
+                commandExe.execute(new ExecuteResultHandler()
+                {
+                    @Override
+                    public void onProcessComplete(int paramInt)
                     {
+                        handler.onProcessComplete(paramInt);
+                        tailer.stop();
+
+                    }
+
+                    @Override
+                    public void onProcessFailed(
+                            ExecuteException paramExecuteException)
+                    {
+                        handler.onProcessFailed(paramExecuteException);
                         tailer.stop();
                     }
-				}
-        		
-        	});
 
-        	thread.start();
-            
+                });
+            }
+            catch (Exception e)
+            {
+                log.error("failed to call ansible", e);
+                throw new AnsibleException("failed to execute command "
+                        + pc.asCommand(), e);
+            }
         }
         catch (Exception e)
         {
-     	   handler.onError();
-           tailer.stop();
-           log.error("failed to call ansible" , e);
-           throw new AnsibleException("failed to call ansible", e); 
+            log.error("failed to call ansible", e);
+            handler.onError();
+            tailer.stop();
+            throw new AnsibleException("failed to call ansible", e);
         }
     }
     

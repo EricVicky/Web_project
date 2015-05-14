@@ -9,23 +9,30 @@ import com.alu.omc.oam.config.COMConfig;
 
 public class PlaybookCall implements AnsibleCall
 {
-/**
-  * @Fields playbook : the file name of playbook 
-  */
-private Playbook playbook;
-private static Logger       log             = LoggerFactory .getLogger(PlaybookCall.class);
-private COMConfig           config;
-private static final String ANSIBLE_COMMAND = "ansible-playbook ";
+    /**
+     * @Fields playbook : the file name of playbook
+     */
+    private Playbook            playbook;
+    private static Logger       log             = LoggerFactory
+                                                        .getLogger(PlaybookCall.class);
+    private COMConfig           config;
+    private Action              action;
+    private static final String ANSIBLE_COMMAND = "ansible-playbook ";
+
     /**
      * @Fields playbook : the file name of playbook
      */
 
-public PlaybookCall(COMConfig config, Action action){
-   this.playbook = PlaybookFactory.getInstance().getPlaybook(action, config);
-   this.config = config;
-}
+    public PlaybookCall(COMConfig config, Action action)
+    {
+        this.playbook = PlaybookFactory.getInstance().getPlaybook(action,
+                config);
+        this.config = config;
+        this.action = action;
+    }
 
-public String prepare(Ansibleworkspace space){
+    public void prepare(Ansibleworkspace space)
+    {
         try
         {
             space.init(config);
@@ -33,14 +40,21 @@ public String prepare(Ansibleworkspace space){
         catch (WorkspaceException e)
         {
             e.printStackTrace();
-            return null;
         }
-        return ANSIBLE_COMMAND.concat("-i ").concat(
-                space.getWorkingdir() + Ansibleworkspace.HOSTS_FILE_NAME + " "
-                        + this.playbook.getFilePath(space));
     }
     
-    public COMConfig getConfig(){
+    public String asCommand(){
+        return ANSIBLE_COMMAND.concat("-i ").concat( Ansibleworkspace.HOSTS_FILE_NAME + " "
+                        + this.playbook.getFileName());
+    }
+
+    public COMConfig getConfig()
+    {
         return config;
+    }
+
+    public Action getAction()
+    {
+        return this.action;
     }
 }

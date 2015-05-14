@@ -20,10 +20,18 @@ public class MakeCall implements AnsibleCall
         this.action = action;
     }
     @Override
-    public String prepare(Ansibleworkspace space)
+    public void  prepare(Ansibleworkspace space)
     {
         space.init(config);
+    }
+    
+    @Override
+    public String asCommand()
+    {
         return COMMAND.concat(action.toString().toLowerCase());
     }
+    
+    
+    
 
 }
