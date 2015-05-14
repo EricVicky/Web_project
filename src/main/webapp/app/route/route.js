@@ -84,6 +84,10 @@ angular.module('comoamApp')
         templateUrl:'views/kvm/upgrade_kvm.html',
         url:'/kvmupgrade'
     })
+      .state('dashboard.osupgrade',{
+        templateUrl:'views/os/upgrade_os.html',
+        url:'/osupgrade'
+    })
     .state('dashboard.osinstall',{
         templateUrl:'views/os/install_os.html',
         url:'/osinstall'

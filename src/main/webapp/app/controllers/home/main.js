@@ -7,12 +7,41 @@
  * Controller of the comoamApp
  */
 angular.module('comoamApp')
-  .controller('MainCtrl', function($log, $scope,$position, KVMService) {
-/*	  KVMService.getComInstance().then( function(data) {
+  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService) {
+	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
-			$scope.comInstance = data;
-			return data;
-       }).then(function(allInstances){
-    	   $scope.installConfig = JSON3.parse(allInstances[0].comConfig);
-       })*/
+			$scope.delcomInstance = data;
+	  });
+	  $scope.deletecomlist = function(){
+		  if($scope.del_com_instance != null){
+			  $scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
+		  }
+	  }
+	    
+	  $scope.deletecom = function(){
+		  //var Config = JSON3.parse($scope.del_com_instance.comConfig);
+		  if($scope.Config.environment == "KVM"){
+			  KVMService.deletecom(
+				$scope.Config,
+				function(data){
+					
+				},
+				function(response){
+					$log.info(response);
+				}
+			  );
+		  }else{
+			  OSService.deletecom(
+				$scope.Config,
+				function(data){
+					
+				},
+				function(response){
+					$log.info(response);
+				}
+			  );
+		  }
+		  
+	  }
+	  
   });
