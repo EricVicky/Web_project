@@ -42,7 +42,7 @@ public class LogParserFactory
     
     private ILogParser osInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("start\\sall\\sserver", "Start COM");
+        dict.put("Reboot\\sserver", "Start COM");
         dict.put("cloud\\_init\\s\\|\\scloud\\sinit\\send", "Cloud Init");
         dict.put("deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack", "check Presence of Heat stack");
         dict.put("stack\\_templates\\s\\|\\supdate\\sALU\\-1360\\-COM\\.hot\\.yaml\\sdocument", "Generate Heat Templates");

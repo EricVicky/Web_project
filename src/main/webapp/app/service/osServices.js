@@ -62,6 +62,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		getKeys: function(){
 			var keyRes = $resource(restUrl + "nfv/os/compute/keypair/list/names");
 			return keyRes.query().$promise;
+		},
+		uniqueDeploy: function(name) {
+			var uniquecom = $resource(restUrl + "os/check/unique");
+			return uniquecom.get(name).$promise;
 		}
 	};
 });
