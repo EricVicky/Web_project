@@ -15,4 +15,8 @@ public class Playbook
        this.playbookFileName = fileName; 
     }
     
+    public String getFileName(){
+        return this.playbookFileName;
+    }
+    
 }

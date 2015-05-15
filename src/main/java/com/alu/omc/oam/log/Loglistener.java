@@ -16,7 +16,7 @@ public class Loglistener implements TailerListener
     @Override
     public void init(Tailer paramTailer)
     {
-       log.info("init....");; 
+       log.info("init...."); 
     }
 
     @Override
@@ -35,6 +35,7 @@ public class Loglistener implements TailerListener
     @Override
     public void handle(String paramString)
     {
+      log.info("tail line=" + paramString);
       handler.Parse(paramString); 
     }
 

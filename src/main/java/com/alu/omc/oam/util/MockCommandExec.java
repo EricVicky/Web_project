@@ -23,30 +23,24 @@ import org.slf4j.LoggerFactory;
 
 public class MockCommandExec implements ICommandExec {
 
-    private String action;
+    private String fileName;
     private File workingDir = null;
     private final String SAMPLE_ANSIBLE_LOG_DIR ="samplelog";
 
     private static Logger log = LoggerFactory.getLogger(MockCommandExec.class);
 
     public MockCommandExec(String command, String[] args, String[] envp, File dir) {
-        Pattern p = Pattern.compile("^.*\\\\([\\S]+)\\.yml");
-        Matcher m = p.matcher(command);
-        if(m.find()){
-            action = m.group(1);
-        }
+        this.fileName = args[0].toLowerCase().concat("_").concat(args[1]).toLowerCase().concat(".log");
         this.workingDir = dir;
     }
 
     public CommandResult execute() throws IOException, InterruptedException
     {
-
         try
         {
             URI uri = MockCommandExec.class
                     .getClassLoader()
-                    .getResource(File.separator.concat( SAMPLE_ANSIBLE_LOG_DIR).concat(File.separator).concat(action)
-                                    .concat(".log")).toURI();
+                    .getResource(File.separator.concat( SAMPLE_ANSIBLE_LOG_DIR).concat(File.separator).concat(fileName)).toURI();
            File samplelog = new File(uri);
           LineIterator itertor = FileUtils.lineIterator(samplelog);
             File logFile = new File(this.workingDir.getParentFile().getParentFile().getAbsolutePath()
@@ -71,9 +65,6 @@ public class MockCommandExec implements ICommandExec {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-
         return new CommandResult(0, "executed");
     }
 
@@ -88,19 +79,26 @@ public class MockCommandExec implements ICommandExec {
     }
 
     @Override
-    public void execute(ExecuteResultHandler handler) throws ExecuteException,
+    public void execute(final ExecuteResultHandler handler) throws ExecuteException,
             IOException
     {
-       try
-    {
-        this.execute();
-        handler.onProcessComplete(0);
-    }
-    catch (InterruptedException e)
-    {
-        e.printStackTrace();
-        handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
-    } 
+        new Thread( new Runnable(){
+
+            @Override
+            public void run()
+            {
+                try
+                {
+                    MockCommandExec.this.execute();
+                }
+                catch (IOException | InterruptedException e)
+                {
+                    log.error("failed excute the mock command", e);
+                    handler.onProcessFailed(new ExecuteException("failed to call ansible" ,1));
+                }
+                handler.onProcessComplete(0);
+            }
+        }).start();
         
     }
 }

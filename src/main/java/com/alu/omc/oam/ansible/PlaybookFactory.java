@@ -19,7 +19,7 @@ public class PlaybookFactory
     static{
         playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("install_kvm.yml") );
         playbooks.put(key(Environment.KVM, Action.UPGRADE), new Playbook("upgrade.yml") );
-        playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("install_os.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("deploy.yml") );
         playbooks.put(key(Environment.KVM, Action.BACKUP), new Playbook("backupkvm.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.BACKUP), new Playbook("backupos.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("deletekvm.yml") );
