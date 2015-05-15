@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.ansible.handler.DeleteOsHandler;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +40,7 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	private String db_image;
 	private String key_name;
 	private boolean juno_base = false;
+	private static Logger log = LoggerFactory.getLogger(OSCOMConfig.class);	
 
     public Map<String, String> getApp_install_options() {
 		return app_install_options;
@@ -446,7 +450,11 @@ public class OSCOMConfig extends COMConfig implements  Serializable
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
 	        vmcfg.put("image", this.getVMImageName(name));
-	        vmcfg.put("private_ip_address", this.getCom_private_network().popIp());
+	        if(this.getCom_private_network().ippool.size() >0){
+	        	vmcfg.put("private_ip_address", this.getCom_private_network().popIp());
+	        }else{
+	        	log.error("the private network pool is empty");
+	        }
 	    }
     	Yaml yaml = new Yaml();
     	return YamlFormatterUtil.format(yaml.dump(this));

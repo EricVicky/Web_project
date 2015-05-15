@@ -33,9 +33,10 @@ public class InstallOSHandler implements IAnsibleHandler{
     ILogParser logParser;
     Boolean succeed = true;
     final String END = "end";
-    private static Logger log = LoggerFactory.getLogger(InstallOSHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(InstallOSHandler.class);
 	@Override
 	public void onStart() {
+	    logger.info("start deployment on openstack");
 	}
 
 	@Override
@@ -66,7 +67,10 @@ public class InstallOSHandler implements IAnsibleHandler{
 		if(hasError(log)){
 	    	  this.succeed  = false;
 	      }
-	      sender.send(getFulltopic(), logParser.parse(log));
+		Object msg = logParser.parse(log);
+		logger.info("log=" + msg);
+		logger.info("channel=" + this.getFulltopic());
+	     sender.send(getFulltopic(), msg );
 		
 	}
 	
@@ -99,6 +103,7 @@ public class InstallOSHandler implements IAnsibleHandler{
     @Override
     public void onProcessComplete(int paramInt)
     {
+       logger.info("the installaton on openstack complete");
        this.onEnd(); 
         
     }
@@ -106,6 +111,7 @@ public class InstallOSHandler implements IAnsibleHandler{
     @Override
     public void onProcessFailed(ExecuteException paramExecuteException)
     {
+        logger.error("failed to run installation on openstack", paramExecuteException);
         this.succeed = false;
         this.onEnd();
         

@@ -11,21 +11,18 @@ angular.module('comoamApp').directive('uniqueCom',function($log,KVMService){
 		restrict:'A',
 		require:'ngModel',
 		link:function(scope,ele,attrs,ctrl){
-			ele.bind('change',function(n){
-				if(n){
-					scope.$apply(function(){
-						KVMService.uniqueDeploy({"name":ele.val()}).then(function(isUnique){
-							if(isUnique.succeed){
-								ctrl.$setValidity('notunique', true);
-							}else{
-								ctrl.$setValidity('notunique', false);
-							}
-						}).then(function(response){
-							$log.info(response);
-						});
-					});
-				}
-			})
+				scope.$watch('installConfig.deployment_prefix',function(n){
+							KVMService.uniqueDeploy({"name":ele.val()}).then(function(isUnique){
+								if(isUnique.succeed){
+									ctrl.$setValidity('notunique', true);
+								}else{
+									ctrl.$setValidity('notunique', false);
+								}
+							}).then(function(response){
+								$log.info(response);
+							});
+				})
+			
 		}
 	}
 });

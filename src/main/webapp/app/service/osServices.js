@@ -22,6 +22,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 				}
 			);
 		},
+		getComInstance: function(success,error) {
+			var comInstanceRes = $resource(restUrl + "os/instances");
+			return comInstanceRes.query().$promise;
+		},
 		getComTypeStore: function () {
 			var comTypeRes = $resource(baseUrl + "data/comType.json");
 			return comTypeRes.query().$promise;
@@ -62,6 +66,26 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		getKeys: function(){
 			var keyRes = $resource(restUrl + "nfv/os/compute/keypair/list/names");
 			return keyRes.query().$promise;
+		},
+		uniqueDeploy: function(name) {
+			var uniquecom = $resource(restUrl + "os/check/unique");
+			return uniquecom.get(name).$promise;
+		},
+		imagelist: function(host) {
+			var OamCmImagesRes = $resource(restUrl + "os/images");
+			return OamCmImagesRes.query(host).$promise;
+		},
+		deletecom: function (config, success, error) {
+			var name = config.deployment_prefix;
+			var deleteRes = $resource(restUrl + "os/instances/"+name);
+			deleteRes.save(config,
+				function (data) {
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
 		}
 	};
 });

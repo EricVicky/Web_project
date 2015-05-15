@@ -6,15 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alu.omc.oam.ansible.AnsibleDelegator;
-import com.alu.omc.oam.ansible.Playbook;
-import com.alu.omc.oam.ansible.PlaybookFactory;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
@@ -48,7 +45,13 @@ public class CloudDeployController
     }
     
     @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.POST)
-    public void delete( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
+    public void deleteKVM( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/instances/{name}", method=RequestMethod.POST)
+    public void deleteOS( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.DELETE, config );
     }
@@ -81,7 +84,14 @@ public class CloudDeployController
     }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)
-    public List<COMStack>  instances() throws IOException, InterruptedException
+    public List<COMStack>  kvminstances() throws IOException, InterruptedException
+    {
+    	List<COMStack> instances = cOMStackService.list();
+    	return instances;
+    }
+    
+    @RequestMapping(value="/os/instances", method=RequestMethod.GET)
+    public List<COMStack>  osinstances() throws IOException, InterruptedException
     {
     	List<COMStack> instances = cOMStackService.list();
     	return instances;

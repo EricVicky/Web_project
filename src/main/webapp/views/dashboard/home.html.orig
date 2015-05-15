@@ -17,7 +17,12 @@
     <canvas id="canvas" network-topo width="2000" height="150"></canvas>
     <img width="100" height="100" id="VNFC" src="images/VM.png">
         <!-- /.col-lg-4 -->
+<<<<<<< HEAD
 		<div class="container-fluid" ng-controller="MainCtrl">
+=======
+        <!-- delete COM -->
+		<div class="container-fluid" ng-controller="upgradectr">
+>>>>>>> 6cbff0d28acee87c76482c767053db446c4af622
 			<div class="col-md-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -36,7 +41,7 @@
 								<tbody>
 									<tr align="center">
 										<td colspan="2">COM Type</td>
-										<td>{{Config.comtype}}</td>
+										<td>{{Config.comType}}</td>
 									</tr>
 									<tr align="center">
 										<td colspan="2">Host IP</td>
@@ -47,37 +52,37 @@
 										<td>{{Config.deployment_prefix}}</td>
 									</tr>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='OAM' || Config.comtype=='CM' || Config.comtype=='QoSAC'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='OAM' || Config.comType=='CM' || Config.comType=='QoSAC'">
 										<td rowspan="2" width="25%" align="center"
 											style="vertical-align: middle">OAM VM</td>
 										<td width="35%">IP Address</td>
-										<td>{{Config.vm_config.oam.private_ip_address}}</td>
+										<td>{{Config.vm_config.oam.ip_address}}</td>
 									</tr>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='OAM' || Config.comtype=='CM' || Config.comtype=='QoSAC'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='OAM' || Config.comType=='CM' || Config.comType=='QoSAC'">
 										<td>Flavor</td>
 										<td>{{Config.vm_config.oam.flavor.label}}</td>
 									</tr>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='OAM' || Config.comtype=='CM'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='OAM' || Config.comType=='CM'">
 										<td rowspan="2" width="25%" align="center"
 											style="vertical-align: middle">DB VM</td>
 										<td width="35%">IP Address</td>
-										<td>{{Config.vm_config.db.private_ip_address}}</td>
+										<td>{{Config.vm_config.db.ip_address}}</td>
 									</tr>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='OAM' || Config.comtype=='CM'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='OAM' || Config.comType=='CM'">
 										<td>Flavor</td>
 										<td>{{Config.vm_config.db.flavor.label}}</td>
 									</tr>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='CM'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='CM'">
 										<td rowspan="2" width="25%" align="center"
 											style="vertical-align: middle">CM VM</td>
 										<td width="35%">IP Address</td>
 										<td>{{Config.vm_config.cm.ip_address}}</td>
 									<tr align="center"
-										ng-if="Config.comtype=='FCAPS' || Config.comtype=='CM'">
+										ng-if="Config.comType=='FCAPS' || Config.comType=='CM'">
 										<td>Flavor</td>
 										<td>{{Config.vm_config.cm.flavor.label}}</td>
 									</tr>

@@ -2,5 +2,7 @@ package com.alu.omc.oam.ansible;
 
 public interface AnsibleCall
 {
-public String prepare(Ansibleworkspace space);
+public void prepare(Ansibleworkspace space);
+
+public String asCommand();
 }

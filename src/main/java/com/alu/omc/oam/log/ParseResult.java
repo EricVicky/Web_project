@@ -1,13 +1,18 @@
 package com.alu.omc.oam.log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import com.alu.omc.oam.log.LogParser.Step;
 
 public class ParseResult implements Serializable
 {
     private static final long serialVersionUID = 1L;
     private String            logMsg;
-    private String            task;
     private String            step;
+    private List<String> task = new ArrayList<String>();
 
     public String getLogMsg()
     {
@@ -19,22 +24,20 @@ public class ParseResult implements Serializable
         this.logMsg = logMsg;
     }
 
-    public String getTask()
-    {
-        return task;
-    }
-
-    public void setTask(String task)
-    {
-        this.task = task;
-    }
-
     public String getStep()
     {
         return step;
     }
 
-    public void setStep(String step)
+    public List<String> getTask() {
+		return task;
+	}
+
+	public void setTask(String log) {
+		task.add(log);
+	}
+
+	public void setStep(String step)
     {
         this.step = step;
     }

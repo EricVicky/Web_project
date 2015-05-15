@@ -42,6 +42,8 @@ angular.module('kvm', [ 'ui.router',
             					$log.info(response);
             			});
             };
+            
+            
             $scope.loadimglist = function(host, dir){
             	KVMService.imagelist( { "host":host, "dir":dir}).then(
             			function(data) {

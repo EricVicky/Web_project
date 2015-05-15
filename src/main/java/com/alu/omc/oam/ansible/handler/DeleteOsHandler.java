@@ -13,11 +13,12 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
-@Component("DELETE_OS_HANDLER")
+@Component("DELETE_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
 
 public class DeleteOsHandler implements IAnsibleHandler{
@@ -81,8 +82,8 @@ public class DeleteOsHandler implements IAnsibleHandler{
     }
 
 	public String getFulltopic(){
-	       KVMCOMConfig cfg = (KVMCOMConfig)config;
-	       return this.topic.concat(cfg.getHost().getIp_address());
+	       OSCOMConfig cfg = (OSCOMConfig)config;
+	       return this.topic.concat(cfg.getStack_name());
 	}
 	
 	@Override

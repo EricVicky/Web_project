@@ -19,12 +19,22 @@ public class LogParserFactory
     public LogParserFactory(){
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM), kvmInstallParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM), kvmUpgradeParser());
+        parserCache.put(new ActionKey(Action.UPGRADE, Environment.OPENSTACK), osUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM), kvmBackupParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK), osInstallParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM), kvmDeleteParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK), osDeleteParser());
     }
     
     private ILogParser kvmDeleteParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("localhost", "Finished");
         dict.put("TASK:\\s\\[data_backup", "Data Backup");
@@ -42,7 +52,7 @@ public class LogParserFactory
     
     private ILogParser osInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("start\\sall\\sserver", "Start COM");
+        dict.put("Reboot\\sserver", "Start COM");
         dict.put("cloud\\_init\\s\\|\\scloud\\sinit\\send", "Cloud Init");
         dict.put("deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack", "check Presence of Heat stack");
         dict.put("stack\\_templates\\s\\|\\supdate\\sALU\\-1360\\-COM\\.hot\\.yaml\\sdocument", "Generate Heat Templates");
@@ -86,5 +96,17 @@ public class LogParserFactory
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
     }   
+    
+    private ILogParser osUpgradeParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("TASK:\\s\\[data_restore", "Data Restore");
+        dict.put("post_install_populated", "Post Configuration");
+        dict.put("post_image_replacement",
+                "Post Image Replacement");
+        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+    }
     
 }

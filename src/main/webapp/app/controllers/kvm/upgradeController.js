@@ -1,17 +1,33 @@
-angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMService
-		,  monitorService, $dialogs, $state) {
+angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, KVMService
+		,  OSService, monitorService, $dialogs, $state) {
 	
 	$scope.loadimglist = function(host, dir){
-           KVMService.imagelist({ "host":host, "dir":dir}).then(
-            	function(data) {
-            			$scope.imagelist = data;
-            			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
-            			$scope.installConfig.db_image = $scope.imagelist[1];
-            	}); 
+        if($scope.installconfig.environment == "KVM"){
+        	KVMService.imagelist({ "host":host, "dir":dir}).then(
+                	function(data) {
+                			$scope.imagelist = data;
+                			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
+                			$scope.installConfig.db_image = $scope.imagelist[1];
+                	});
+        } else {
+        	OSService.imagelist({ "host":host, "dir":dir}).then(
+                	function(data) {
+                			$scope.imagelist = data;
+                			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
+                			$scope.installConfig.db_image = $scope.imagelist[1];
+                	});
+        }
     };
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	}
+        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    }
+    $scope.reloadimglist2 = function(){
+    	if($scope.com_instance != null){
+        	$scope.installConfig = JSON3.parse($scope.os_com_instance.comConfig);
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
@@ -32,10 +48,27 @@ angular.module('kvm').controller('upgradectr', function($scope,  $log, KVMServic
     			});
     };
     KVMService.getComInstance().then( function(data) {
-    				$log.info(data);
-    				$scope.comInstance = data;
+		$log.info(data);
+		$scope.comInstance = data;
+		$scope.kvmcomInstance = [];
+		for(var ci in $scope.comInstance){
+			if($scope.comInstance[ci].comConfig.indexOf('"environment" : "KVM"')>-1){
+				$scope.kvmcomInstance.push($scope.comInstance[ci]);
+			}
+		}
+		//$scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
+		
     });
-    
+    OSService.getComInstance().then( function(data) {
+		$log.info(data);
+		$scope.comInstance = data;
+		$scope.oscomInstance = [];
+		for(var ci in $scope.comInstance){
+			if($scope.comInstance[ci].comConfig.indexOf('"environment" : "OPENSTACK"')>-1){
+				$scope.oscomInstance.push($scope.comInstance[ci]);
+			}
+		}
+    });
     $scope.upgrade = function(){
     	            KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
             		//if the host is locked, then ask

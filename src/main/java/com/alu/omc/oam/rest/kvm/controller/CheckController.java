@@ -51,6 +51,23 @@ public class CheckController
         }
        return res;
     }
+    
+    @RequestMapping(value="/os/check/unique", method=RequestMethod.GET)
+    public ValidationResult uniqueSTACK(@ModelAttribute("name") String name){
+       List<COMStack> stacks =  cOMStackService.list();
+       ValidationResult res = new ValidationResult();
+       if (name!=null && stacks != null && stacks.size() >0)
+        {
+            for(COMStack stack : stacks){
+               if (stack.getName().equals(name)){
+                   //unique = false;
+            	   res.setSucceed(false);
+                   break;
+               }
+            }
+        }
+       return res;
+    }
 
     @RequestMapping(value="/check/lockedhost", method=RequestMethod.GET)
     public ValidationResult  checkHostLocked(@ModelAttribute("ip_address") String  ipaddress) 

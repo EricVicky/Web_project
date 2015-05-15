@@ -30,9 +30,12 @@ public ParseResult parse(String log)
      ParseResult res = new ParseResult();
      res.setLogMsg(log);
      Matcher m = taskPattern.matcher(log);
-     if(m.find()){
-         res.setTask(m.group(1));
+     while(m.find()){
+    	 res.setTask(m.group(1));
      }
+//     if(m.find()){
+//         res.setTask(m.group(1));
+//     }
      if(currentStep != null){
          if(currentStep.expect(log)){
              logger.info("currentStep=" + currentStep.keywordPattern);
@@ -67,7 +70,6 @@ public LogParser(){
          String stepName = stepDict.get(keyword);
          steps.push(new Step(keyword, stepName));
      }
-
      currentStep = steps.pop();
  }
  

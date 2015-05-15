@@ -42,6 +42,11 @@ angular.module('comoamApp')
                   files:['app/directives/validation/hostcheck.js']
                 }),
                 $ocLazyLoad.load(
+                        {
+                          name:'stackcheck',
+                          files:['app/directives/validation/stackcheck.js']
+                        }),
+                $ocLazyLoad.load(
                 {
                   name:'comcheck',
                   files:['app/directives/validation/comcheck.js']
