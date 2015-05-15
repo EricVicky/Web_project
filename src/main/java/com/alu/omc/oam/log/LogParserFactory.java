@@ -78,11 +78,10 @@ public class LogParserFactory
     private ILogParser kvmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("Reboot\\sserver", "Finished");
-        dict.put("post_image_replacement", "Post Configuration");
-        dict.put("createkvm\\s\\|\\scopy\\sqcow2\\sfiles\\sto\\sdirectories",
-                "Start VM Instance");
-        dict.put("prepare\\s|\\sgenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sgenerate\\smeta-data", "Start");
+        dict.put("Run\\s\\/install\\/scripts\\/post\\_image\\_replacement\\.sh", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
         return new LogParser(dict);
     }
     private ILogParser kvmUpgradeParser(){

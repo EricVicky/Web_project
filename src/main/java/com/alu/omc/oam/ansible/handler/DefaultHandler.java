@@ -37,12 +37,14 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onStart()
     {
-    		runningContext.lock(((KVMCOMConfig)config).getHost(), Action.INSTALL);
+    	log.info("deployment on KVM start");
+        runningContext.lock(((KVMCOMConfig)config).getHost(), Action.INSTALL);
     }
 
     @Override
     public void onError()
     {
+        log.error("deployent on KVM failed");
         COMStack stack = new COMStack(config);
         service.add(stack);
         runningContext.unlock(((KVMCOMConfig)config).getHost());
@@ -51,8 +53,10 @@ public class DefaultHandler implements IAnsibleHandler
     @Override
     public void onSucceed()
     {
+        log.info("deployment on KVM succeed");
         COMStack stack = new COMStack(config);
         service.add(stack);
+        runningContext.unlock(((KVMCOMConfig)config).getHost());
     }
 
     @Override
@@ -60,9 +64,11 @@ public class DefaultHandler implements IAnsibleHandler
     {
         if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        }else{
+            this.onError();
         }
-        runningContext.unlock(((KVMCOMConfig)config).getHost());
+        log.info("deployment on KVM completed");
+        sender.send(getFulltopic(), END);
     }
 
     @Override

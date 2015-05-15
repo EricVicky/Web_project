@@ -12,7 +12,7 @@ angular.module('kvm', [ 'ui.router',
 			}
 
 			$scope.support_ars = [ 'True', 'False' ];
-
+			$scope.installConfig ={};
             $scope.changeComType = function(){
 				$scope.installConfig.vm_config = null;
 			}
