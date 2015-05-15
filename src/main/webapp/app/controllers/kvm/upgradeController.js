@@ -1,22 +1,13 @@
 angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, KVMService
-		,  OSService, monitorService, $dialogs, $state) {
+		,  monitorService, $dialogs, $state) {
 	
 	$scope.loadimglist = function(host, dir){
-        if($scope.installconfig.environment == "KVM"){
         	KVMService.imagelist({ "host":host, "dir":dir}).then(
                 	function(data) {
                 			$scope.imagelist = data;
                 			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
                 			$scope.installConfig.db_image = $scope.imagelist[1];
                 	});
-        } else {
-        	OSService.imagelist({ "host":host, "dir":dir}).then(
-                	function(data) {
-                			$scope.imagelist = data;
-                			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
-                			$scope.installConfig.db_image = $scope.imagelist[1];
-                	});
-        }
     };
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
@@ -25,22 +16,16 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
-    $scope.reloadimglist2 = function(){
-    	if($scope.com_instance != null){
-        	$scope.installConfig = JSON3.parse($scope.os_com_instance.comConfig);
-    	}
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
-    }
-	$scope.doUpgrade = function (){
-		var installConfig = JSON3.parse($scope.com_instance.comConfig);
-		installConfig.oam_cm_image = $scope.oam_cm_image;
-		installConfig.db_image = $scope.db_image;
-		installConfig.vm_img_dir = $scope.vm_img_dir;
-		KVMService.upgrade(
-         		$scope.installConfig,
+
+	$scope.doupgrade = function (){
+		var installconfig = json3.parse($scope.com_instance.comconfig);
+		installconfig.oam_cm_image = $scope.oam_cm_image;
+		installconfig.db_image = $scope.db_image;
+		installconfig.vm_img_dir = $scope.vm_img_dir;
+		kvmservice.upgrade(
+         		$scope.installconfig,
     			function(data){
-            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
+            			monitorservice.monitorkvmupgrade($scope.installconfig.active_host_ip);
                  		$state.go("dashboard.monitor");
     			}, 
     			function(response){
@@ -59,16 +44,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 		//$scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
 		
     });
-    OSService.getComInstance().then( function(data) {
-		$log.info(data);
-		$scope.comInstance = data;
-		$scope.oscomInstance = [];
-		for(var ci in $scope.comInstance){
-			if($scope.comInstance[ci].comConfig.indexOf('"environment" : "OPENSTACK"')>-1){
-				$scope.oscomInstance.push($scope.comInstance[ci]);
-			}
-		}
-    });
+
     $scope.upgrade = function(){
     	            KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
             		//if the host is locked, then ask
