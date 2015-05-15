@@ -38,7 +38,7 @@ public class Ansibleworkspace
     String logFileName;
     private static final Logger log = LoggerFactory.getLogger(Ansibleworkspace.class);
     public final static String        VAR_FILE_NAME   = "group_vars/all";
-    public final static String        HOSTS_FILE_NAME = "../../inventory/hosts";
+    public final static String        HOSTS_FILE_NAME = "inventory/hosts";
     private Environment env;
     public String getWorkingdir()
     {
@@ -54,7 +54,9 @@ public class Ansibleworkspace
     
     public String getRunDir( ){
         return this.getWorkingdir().concat(Playbook.PLAYBOOK_DIR)
-                .concat(File.separator).concat(env.name().toLowerCase());
+                .concat(File.separator)
+                .concat(env.name().toLowerCase())
+                .concat(File.separator);
     }
 
     public Ansibleworkspace(String workingDir, String logFile)
@@ -117,12 +119,16 @@ public class Ansibleworkspace
             log.info("Write empty log file");
             FileUtils.writeStringToFile(new File(this.getWorkingdir().concat(VAR_FILE_NAME)), config.getVars());
             log.info("Write host file to working directory...");
-            FileUtils.writeStringToFile(new File(this.getWorkingdir().concat(HOSTS_FILE_NAME)), config.getInventory().toInf()); 
+            FileUtils.writeStringToFile(getHostFile(), config.getInventory().toInf()); 
             FileUtils.write(this.getLogFile(), "-------Call Ansible......\n");
         }
         catch (Exception e)
         {
            throw new  WorkspaceException("failed to prepare workspace", e);
         }
+    }
+    
+    private File getHostFile(){
+        return new File(this.getWorkingdir().concat(HOSTS_FILE_NAME));
     }
 }

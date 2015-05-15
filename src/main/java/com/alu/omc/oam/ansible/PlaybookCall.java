@@ -44,8 +44,8 @@ public class PlaybookCall implements AnsibleCall
     }
     
     public String asCommand(){
-        return ANSIBLE_COMMAND.concat("-i ").concat( Ansibleworkspace.HOSTS_FILE_NAME + " "
-                        + this.playbook.getFileName());
+        return ANSIBLE_COMMAND.concat("-i ").concat( "../../")
+                .concat(Ansibleworkspace.HOSTS_FILE_NAME).concat(" ").concat(this.playbook.getFileName());
     }
 
     public COMConfig getConfig()

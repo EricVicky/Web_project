@@ -1,6 +1,7 @@
 package com.alu.omc.oam.util;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -38,14 +39,15 @@ public ICommandExec create(String command, File workingdir, Environment env, Act
     }
 }
 public ICommandExec create(PlaybookCall playbookCall, File runDir){
-    Map<String, String> envs = null;
+    Map<String, String> envs = new HashMap<String, String>();
+    envs.put("PWD", runDir.getAbsolutePath());
     if(SystemUtils.IS_OS_WINDOWS){
         return new MockCommandExec(playbookCall.asCommand(),
                 new String[]{playbookCall.getAction().name(), playbookCall.getConfig().getEnvironment().name()},
                             null, runDir);
     }else{
        if(playbookCall.getConfig().getEnvironment() == Environment.OPENSTACK){
-           envs = dataSource.getOpenstackConfig().asEnvironmentMap();
+           envs.putAll(dataSource.getOpenstackConfig().asEnvironmentMap());
        }
        return new DefaultCommandExecutor(playbookCall.asCommand(), runDir, envs); 
     }

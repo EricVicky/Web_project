@@ -9,7 +9,7 @@ public class Playbook
     public final static String PLAYBOOK_DIR = "playbooks";
 
     public String getFilePath(Ansibleworkspace workspance){
-        return workspance.getRunDir().concat(File.separator).concat(playbookFileName);
+        return workspance.getRunDir().concat(playbookFileName);
     }
     public Playbook(String fileName){
        this.playbookFileName = fileName; 
