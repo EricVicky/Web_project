@@ -5,8 +5,6 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         	KVMService.imagelist({ "host":host, "dir":dir}).then(
                 	function(data) {
                 			$scope.imagelist = data;
-                			$scope.installConfig.oam_cm_image = $scope.imagelist[0];
-                			$scope.installConfig.db_image = $scope.imagelist[1];
                 	});
     };
     $scope.reloadimglist = function(){
@@ -17,15 +15,15 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
 
-	$scope.doupgrade = function (){
-		var installconfig = json3.parse($scope.com_instance.comconfig);
-		installconfig.oam_cm_image = $scope.oam_cm_image;
-		installconfig.db_image = $scope.db_image;
-		installconfig.vm_img_dir = $scope.vm_img_dir;
-		kvmservice.upgrade(
-         		$scope.installconfig,
+	$scope.doUpgrade = function (){
+		//var installConfig = JSON3.parse($scope.com_instance.comConfig);
+		$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
+		$scope.installConfig.db_image = $scope.db_image;
+		$scope.installConfig.vm_img_dir = $scope.vm_img_dir;
+		KVMService.upgrade(
+         		$scope.installConfig,
     			function(data){
-            			monitorservice.monitorkvmupgrade($scope.installconfig.active_host_ip);
+            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
                  		$state.go("dashboard.monitor");
     			}, 
     			function(response){
@@ -36,8 +34,8 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 		$log.info(data);
 		$scope.comInstance = data;
 		$scope.kvmcomInstance = [];
-		for(var ci in $scope.comInstance){
-			if($scope.comInstance[ci].comConfig.indexOf('"environment" : "KVM"')>-1){
+		for(var ci=0;ci<$scope.comInstance.length;ci++){
+			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  "KVM"){
 				$scope.kvmcomInstance.push($scope.comInstance[ci]);
 			}
 		}

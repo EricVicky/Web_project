@@ -8,8 +8,8 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 		$log.info(data);
 		$scope.comInstance = data;
 		$scope.oscomInstance = [];
-		for(var ci in $scope.comInstance){
-			if(JSON3.parse($scope.com_instance.comConfig).environment ==  "OPENSTACK"){
+		for(var ci=0;ci<$scope.comInstance.length;ci++){
+			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  "OPENSTACK"){
 				$scope.oscomInstance.push($scope.comInstance[ci]);
 			}
 		}
@@ -18,12 +18,12 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
            $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     }
     $scope.doUpgrade = function (){
-		 $scope.installConfig.oam_cm_image = $scope.oam_cm_image;
-		 $scope.installConfig.db_image = $scope.db_image;
+		 //$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
+		 //$scope.installConfig.db_image = $scope.db_image;
 		OSService.upgrade(
          		$scope.installConfig,
     			function(data){
-            			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
+            			monitorService.monitorKVMUpgrade($scope.installConfig.stack_name);
                  		$state.go("dashboard.monitor");
     			}, 
     			function(response){
@@ -33,21 +33,6 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 
     $scope.upgrade = function(){
          $scope.doUpgrade();
-    };
-    
-	$scope.doupgrade = function (){
-		var installconfig = json3.parse($scope.com_instance.comconfig);
-		installconfig.oam_cm_image = $scope.oam_cm_image;
-		installconfig.db_image = $scope.db_image;
-		kvmservice.upgrade(
-         		$scope.installconfig,
-    			function(data){
-            			monitorservice.monitorkvmupgrade($scope.installconfig.active_host_ip);
-                 		$state.go("dashboard.monitor");
-    			}, 
-    			function(response){
-    					$log.info(response);
-    			});
     };
 
 } );

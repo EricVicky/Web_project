@@ -28,17 +28,15 @@ public class LogParserFactory
     
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
-        dict.put("ansible-playbook", "Start");
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("PLAY\\s\\[destroy", "Start");
         return new LogParser(dict);
 	}
     
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
-        dict.put("ansible-playbook", "Start");
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("PLAY\\s\\[destroy", "Start");
         return new LogParser(dict);
 	}
     

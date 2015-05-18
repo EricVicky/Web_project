@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.OSCOMConfig;
 
@@ -41,6 +42,19 @@ public class UpgradeOSHandler extends DefaultHandler
         //runningContext.unlock(((OSCOMConfig)config).getStackName());
 
     }
-
+	public String getFulltopic(){
+	       OSCOMConfig cfg = (OSCOMConfig)config;
+	       return this.topic.concat(cfg.getStack_name());
+	    }
+	@Override
+	public void setConfig(COMConfig config) {
+		this.config = config;
+		
+	}
+	
+    public COMConfig getConfig()
+    {
+        return config;
+    }
 
 }
