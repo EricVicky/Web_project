@@ -9,7 +9,7 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 		$scope.comInstance = data;
 		$scope.oscomInstance = [];
 		for(var ci in $scope.comInstance){
-			if(JSON3.parse($scope.com_instance.comConfig).environment ==  "OPENSTACK"){
+			if(JSON3.parse($scope.comInstance.comConfig).environment ==  "OPENSTACK"){
 				$scope.oscomInstance.push($scope.comInstance[ci]);
 			}
 		}

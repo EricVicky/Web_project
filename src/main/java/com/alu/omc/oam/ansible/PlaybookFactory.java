@@ -22,7 +22,7 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("deploy.yml") );
         playbooks.put(key(Environment.KVM, Action.BACKUP), new Playbook("backupkvm.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.BACKUP), new Playbook("backupos.yml") );
-        playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("deletekvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE), new Playbook("deleteos.yml") );
     }
