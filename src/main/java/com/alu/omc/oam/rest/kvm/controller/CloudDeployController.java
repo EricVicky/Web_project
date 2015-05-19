@@ -77,6 +77,12 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.UPGRADE, config );
     }
     
+    @RequestMapping(value="/os/upgrade", method=RequestMethod.POST)
+    public void osupgrade( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.UPGRADE, config );
+    }
+    
     @RequestMapping(value="/kvm/backup", method=RequestMethod.POST)
     public void backup( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {

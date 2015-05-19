@@ -75,6 +75,17 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var OamCmImagesRes = $resource(restUrl + "os/images");
 			return OamCmImagesRes.query(host).$promise;
 		},
+		upgrade: function (config, success, error) {
+			var upgradeRes = $resource(restUrl + "os/upgrade");
+			upgradeRes.save(config,
+				function (data) {
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
 		deletecom: function (config, success, error) {
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "os/instances/"+name);

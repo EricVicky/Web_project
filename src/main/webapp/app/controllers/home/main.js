@@ -7,7 +7,7 @@
  * Controller of the comoamApp
  */
 angular.module('comoamApp')
-  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService) {
+  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, $state) {
 	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
 			$scope.delcomInstance = data;
@@ -24,7 +24,8 @@ angular.module('comoamApp')
 			  KVMService.deletecom(
 				$scope.Config,
 				function(data){
-					
+					monitorService.monitorKVMDelete($scope.Config.active_host_ip);
+             		$state.go("dashboard.monitor");
 				},
 				function(response){
 					$log.info(response);
@@ -34,7 +35,8 @@ angular.module('comoamApp')
 			  OSService.deletecom(
 				$scope.Config,
 				function(data){
-					
+					monitorService.monitorOSDelete($scope.Config.stack_name);
+             		$state.go("dashboard.monitor");
 				},
 				function(response){
 					$log.info(response);
