@@ -9,13 +9,16 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alu.omc.oam.ansible.handler.DefaultHandler;
+
 
 public class LogParser implements ILogParser 
 {
-
+	
  private static Logger logger = LoggerFactory.getLogger(LogParser.class);
  private Stack<Step> steps = new Stack<Step>();
  private Step currentStep = null;
+ private Pattern stackPattern = null;
  private static final  Pattern taskPattern = Pattern.compile("^.*TASK:\\s\\[(.*)\\].*$");
  
  private Step nextStep(){
@@ -24,6 +27,7 @@ public class LogParser implements ILogParser
      }
      return null;
  }
+ 
 @Override
 public ParseResult parse(String log)
 {
@@ -33,9 +37,6 @@ public ParseResult parse(String log)
      while(m.find()){
     	 res.setTask(m.group(1));
      }
-//     if(m.find()){
-//         res.setTask(m.group(1));
-//     }
      if(currentStep != null){
          if(currentStep.expect(log)){
              logger.info("currentStep=" + currentStep.keywordPattern);

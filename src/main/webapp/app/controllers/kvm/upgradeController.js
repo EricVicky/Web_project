@@ -17,9 +17,9 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 
 	$scope.doUpgrade = function (){
 		//var installConfig = JSON3.parse($scope.com_instance.comConfig);
-		$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
-		$scope.installConfig.db_image = $scope.db_image;
-		$scope.installConfig.vm_img_dir = $scope.vm_img_dir;
+//		$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
+//		$scope.installConfig.db_image = $scope.db_image;
+//		$scope.installConfig.vm_img_dir = $scope.vm_img_dir;
 		KVMService.upgrade(
          		$scope.installConfig,
     			function(data){

@@ -93,7 +93,7 @@
 									<div class="form-group col-md-12">
 										<label class="control-label">VM image directory</label> <input
 											name="vm_image_dir" class="form-control" type="text"
-											ng-model="vm_img_dir" title="VM image directory" placeholder="Please Insert VM Image Dir"
+											ng-model="installConfig.vm_img_dir" title="VM image directory" placeholder="Please Insert VM Image Dir"
 											validation="required" />
 									</div>
 								</form>
@@ -103,7 +103,7 @@
 										<div class="form-group">
 											<label class="control-label">OAM/CM image</label> <select
 												name="oam_cm_image" class="form-control"
-												ng-model="$parent.oam_cm_image" title="OAM/CM image"
+												ng-model="installConfig.oam_cm_image" title="OAM/CM image"
 												ng-options=" im for im in imagelist" validation="required">
 												<option value="">--Please Select--</option>
 											</select>
@@ -114,7 +114,7 @@
 										<div class="form-group">
 											<label class="control-label">DB image</label> <select
 												name="db_image" class="form-control"
-												ng-model="$parent.db_image" title="DB image"
+												ng-model="installConfig.db_image" title="DB image"
 												ng-options=" im for im in imagelist" validation="required">
 												<option value="">--Please Select--</option>
 											</select>

@@ -1,5 +1,8 @@
 package com.alu.omc.oam.ansible.handler;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.exec.ExecuteException;
@@ -33,6 +36,7 @@ public class DefaultHandler implements IAnsibleHandler
     ILogParser logParser;
     Boolean succeed = true;
     final String END = "end";
+    private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[wait\\_for\\_server\\_start\\s\\|\\swait\\sfor\\sguest\\sos\\sto\\sstart\\].*$");
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
@@ -45,8 +49,6 @@ public class DefaultHandler implements IAnsibleHandler
     public void onError()
     {
         log.error("deployent on KVM failed");
-        COMStack stack = new COMStack(config);
-        service.add(stack);
         runningContext.unlock(((KVMCOMConfig)config).getHost());
     }
 
@@ -54,8 +56,6 @@ public class DefaultHandler implements IAnsibleHandler
     public void onSucceed()
     {
         log.info("deployment on KVM succeed");
-        COMStack stack = new COMStack(config);
-        service.add(stack);
         runningContext.unlock(((KVMCOMConfig)config).getHost());
     }
 
@@ -70,14 +70,18 @@ public class DefaultHandler implements IAnsibleHandler
         log.info("deployment on KVM completed");
         sender.send(getFulltopic(), END);
     }
-
+    
     @Override
     public void Parse(String log)
     {
       if(hasError(log)){
     	  this.succeed  = false;
       }
-      sender.send(getFulltopic(), logParser.parse(log));  
+      if((stackPattern.matcher(log)).find()){
+    	  COMStack stack = new COMStack(config);
+          service.add(stack);
+      }
+      sender.send(getFulltopic(), logParser.parse(log));
     }
     
     private boolean hasError(String log){

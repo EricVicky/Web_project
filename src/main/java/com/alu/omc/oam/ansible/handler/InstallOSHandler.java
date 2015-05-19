@@ -1,5 +1,8 @@
 package com.alu.omc.oam.ansible.handler;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.exec.ExecuteException;
@@ -33,6 +36,7 @@ public class InstallOSHandler implements IAnsibleHandler{
     ILogParser logParser;
     Boolean succeed = true;
     final String END = "end";
+    private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\].*$");
     private static Logger logger = LoggerFactory.getLogger(InstallOSHandler.class);
 	@Override
 	public void onStart() {
@@ -41,24 +45,24 @@ public class InstallOSHandler implements IAnsibleHandler{
 
 	@Override
 	public void onError() {
-		COMStack stack = new COMStack(config);
-        service.add(stack);
+		logger.error("deployent on OS failed");
 	}
 
 	@Override
 	public void onSucceed() {
-		COMStack stack = new COMStack(config);
-        service.add(stack);
+		logger.info("deployment on OS succeed");
 		
 	}
-
+	
 	@Override
 	public void onEnd() {
 		if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        }else{
+            this.onError();
         }
-       // runningContext.unlock(((OSCOMConfig)config).getStack_name());
+		logger.info("deployment on OS completed");
+		sender.send(getFulltopic(), END);
 		
 	}
 
@@ -70,7 +74,11 @@ public class InstallOSHandler implements IAnsibleHandler{
 		Object msg = logParser.parse(log);
 		logger.info("log=" + msg);
 		logger.info("channel=" + this.getFulltopic());
-	     sender.send(getFulltopic(), msg );
+		if((stackPattern.matcher(log)).find()){
+	    	  COMStack stack = new COMStack(config);
+	          service.add(stack);
+	      }
+	    sender.send(getFulltopic(), msg );
 		
 	}
 	
