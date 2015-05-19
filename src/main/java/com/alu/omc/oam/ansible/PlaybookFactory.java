@@ -17,7 +17,7 @@ public class PlaybookFactory
     private static Logger log = LoggerFactory.getLogger(PlaybookFactory.class);
 
     static{
-        playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("install_kvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("deploy.yml") );
         playbooks.put(key(Environment.KVM, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL), new Playbook("deploy.yml") );
         playbooks.put(key(Environment.KVM, Action.BACKUP), new Playbook("backupkvm.yml") );
