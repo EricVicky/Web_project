@@ -1,12 +1,10 @@
-
 <div class="container-fluid" ng-controller="backup_resctr">
 	<div class="row">
-		<div style="width: 570px">
-			<div rc-wizard="backupWizard"
-				class="modal-body col-md-12 col-md-offset-4">
+		<div class="col-md-10">
+			<div rc-wizard="backupWizard" class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
-						<ul class="nav rc-nav-wizard" style="margin-left: 100px">
+						<ul class="nav rc-nav-wizard" style="margin-left: 250px">
 							<li class="active"><a class="active" href="#tab1"
 								data-toggle="tab"> <span class="badge">1</span> <span>COM
 										Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -156,27 +154,34 @@
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset>
+									    <div class="form-group" col-md-4>
+										    <label class="control-label">Remote Server</label>
+											<input name="remote_server" type="checkbox" ng-model="remote_server" 
+											title="cleanup" />
+										</div>
+										<div class="form-group" ng-if="remote_server==true">
+											<label class="control-label">Backup Server IP</label> <input
+												name="backup_server_ip" class="form-control" type="text"
+												ng-model="$parent.backupConfig.backupLocation.backup_server_ip" 
+												title="serverip" validation="required|ipv4"/>
+										</div>
+										<div class="form-group" ng-if="remote_server==true">
+											<label class="control-label">Backup Server Directory</label> <input
+												name="backup_server_directory" class="form-control" type="text"
+												ng-model="$parent.backupConfig.backupLocation.backup_server_directory" 
+												title="serverip" validation="required"/>
+										</div>
 										<div class="form-group">
-											<label class="control-label">Directory</label> <input
-												name="directory" class="form-control" type="text"
-												ng-model="backupConfig.directory" placeholder="Please Insert Directory"
-												title="directory" validation="required" />
+											<label class="control-label">Local Directory</label> <input
+												name="local_directory" class="form-control" type="text"
+												ng-model="backupConfig.backupLocation.local_directory" 
+												title="directory" validation="required" placeholder="/localbackup/"/>
 										</div>
 										<div class="form-group">
 											<label class="control-label">File Name</label> <input
 												name="filename" class="form-control" type="text"
-												ng-model="backupConfig.filename" placeholder="Please Insert File Name"
+												ng-model="backupConfig.backupLocation.filename" placeholder="test"
 												title="file name" validation="required" />
-										</div>
-										<div class="form-group" col-md-6 ng-if="tab2.filename.$error.validation!=true&&tab2.directory.$error.validation!=true">
-										    <label class="control-label">Cleanup</label>
-											<input name="cleanup" type="checkbox" ng-model="backupConfig.cleanup" 
-											title="cleanup" />
-										</div>
-										<div class="form-group" col-md-6 ng-if="tab2.filename.$error.validation!=true&&tab2.directory.$error.validation!=true&&backupConfig.cleanup==true">
-										    <label class="control-label">Keep</label>
-											<input name="keep" class="form-control" type="text"
-												ng-model="backupConfig.keep" title="keep" />
 										</div>
 									</fieldset>
 								</form>
@@ -199,6 +204,5 @@
 					</div>
 				</section>
 			</div>
-		</div>
 	</div>
 </div>

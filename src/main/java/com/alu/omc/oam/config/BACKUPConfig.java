@@ -18,40 +18,67 @@ public class BACKUPConfig<T extends COMConfig> extends COMConfig implements Seri
      */
     private static final long  serialVersionUID       = -3535916139459672300L; 
 	private T config;
-	private String filename;
-	private String dir;
+	private BackupLocation backupLocation;
+	
+	public BackupLocation getBackupLocation() {
+		return backupLocation;
+	}
+	public void setBackupLocation(BackupLocation backupLocation) {
+		this.backupLocation = backupLocation;
+	}
 
+	public class BackupLocation implements Serializable{
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public BackupLocation() {
+			
+		}
+		private String backup_data_file;
+		private String backup_server_ip;
+		private String backup_server_directory;
+		
+		public String getBackup_server_ip() {
+			return backup_server_ip;
+		}
+		public void setBackup_server_ip(String backup_server_ip) {
+			this.backup_server_ip = backup_server_ip;
+		}
+		public String getBackup_server_directory() {
+			return backup_server_directory;
+		}
+		public void setBackup_server_directory(String backup_server_directory) {
+			this.backup_server_directory = backup_server_directory;
+		}
+		public String getBackup_data_file() {
+			return backup_data_file;
+		}
+		public void setBackup_data_file(String backup_data_file) {
+			this.backup_data_file = backup_data_file;
+		}
+	}
+	
 	public T getConfig() {
 		return config;
 	}
 	public void setConfig(T config) {
 		this.config = config;
 	}
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	public String getDir() {
-		return dir;
-	}
-
-	public void setDir(String dir) {
-		this.dir = dir;
-	}
 
 	@Override
+	@JsonIgnore 
 	public Inventory getInventory() {
 		return config.getInventory();
 	}
 
 	@Override
+	@JsonIgnore 
 	public String getVars() {
-		return config.getVars()+"filename:"+getFilename()+
-				'\n'+"directory:"+getDir();
+		Yaml yaml = new Yaml();
+		return config.getVars()+YamlFormatterUtil.formatbackup(yaml.dump(this.backupLocation));
 	}
 
 	@Override

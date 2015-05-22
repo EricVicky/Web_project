@@ -7,7 +7,6 @@ angular.module('backup_restore', ['ui.router',
                                   'monitor',
                                   'ngResource']).controller('backup_resctr', function($scope,  $log, KVMService
 		, Backup_ResService, monitorService, $dialogs, $state) {
-	var backupConfig = {};
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
@@ -19,18 +18,29 @@ angular.module('backup_restore', ['ui.router',
     });
     
     $scope.backup = function(){
-    	backupConfig.config = $scope.installConfig;
-    	backupConfig.dir = $scope.backupConfig.directory;
-    	backupConfig.filename = $scope.backupConfig.filename;
-    	Backup_ResService.backup(
-         		backupConfig,
-    			function(data){
-         			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
-         			$state.go("dashboard.monitor");
-    			}, 
-    			function(response){
-    				$log.info(response);
-    			});
+    	$scope.backupConfig.config = $scope.installConfig;
+    	$scope.backupConfig.backupLocation.backup_data_file = $scope.backupConfig.backupLocation.local_directory+$scope.backupConfig.backupLocation.filename;
+    	if($scope.backupConfig.config.environment=='KVM'){
+    		Backup_ResService.kvmbackup(
+             		$scope.backupConfig,
+        			function(data){
+             			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
+             			$state.go("dashboard.monitor");
+        			}, 
+        			function(response){
+        				$log.info(response);
+        			});
+    	}else{
+    		Backup_ResService.osbackup(
+             		$scope.backupConfig,
+        			function(data){
+             			monitorService.monitorOSBackup($scope.installConfig.stack_name);
+             			$state.go("dashboard.monitor");
+        			}, 
+        			function(response){
+        				$log.info(response);
+        			});
+    	}
     }
     
     $scope.restore = function(){

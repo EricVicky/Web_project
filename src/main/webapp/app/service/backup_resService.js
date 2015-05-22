@@ -9,8 +9,19 @@ angular.module('backup_restore').factory('Backup_ResService', function($location
 			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
 			return comInstanceRes.query().$promise;
 		},
-		backup: function (config, success, error) {
+		kvmbackup: function (config, success, error) {
 			var backupRes = $resource(restUrl + "rest/kvm/backup");
+			backupRes.save(config,
+				function (data) {
+					success(data);
+				},
+				// error
+				function (response) {
+					error(response);
+				});
+		},
+		osbackup: function (config, success, error) {
+			var backupRes = $resource(restUrl + "rest/os/backup");
 			backupRes.save(config,
 				function (data) {
 					success(data);

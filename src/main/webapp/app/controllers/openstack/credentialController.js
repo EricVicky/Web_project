@@ -11,6 +11,7 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 			OSService.updateOSCred($scope.crendential).then(function (data){
 				$log.info(data);
 			});
+			alert("Success!Openstack_config has been deployed!");
 		};
 		OSService.getUpdateOSCred().then(function(data) {
 			$scope.crendential = data;

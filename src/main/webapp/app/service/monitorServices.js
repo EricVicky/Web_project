@@ -11,7 +11,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 			"Openstack" :{
 				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
-				 "backup":[],
+				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Finished"]
 			}
 			
@@ -33,7 +33,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 		},
 		monitorKVMBackup: function(ch) {
 			environment = "KVM";
-			action = "delete";
+			action = "backup";
 			channel = ch;
 		},
 		monitorKVMDelete: function(ch) {
@@ -49,6 +49,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorOSUpgrade: function(ch) {
 			environment = "Openstack";
 			action = "upgrade";
+			channel = ch;
+		},
+		monitorOSBackup: function(ch) {
+			environment = "Openstack";
+			action = "backup";
 			channel = ch;
 		},
 		monitorOSDelete: function(ch) {

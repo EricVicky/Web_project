@@ -84,7 +84,7 @@ public class CloudDeployController
     }
     
     @RequestMapping(value="/kvm/backup", method=RequestMethod.POST)
-    public void backup( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    public void kvmbackup( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.BACKUP, config );
     }
@@ -109,6 +109,12 @@ public class CloudDeployController
     {
     	List<Host> achostips = hostService.hostIPs();
     	return achostips;
+    }
+    
+    @RequestMapping(value="/os/backup", method=RequestMethod.POST)
+    public void osbackup( @RequestBody BACKUPConfig<OSCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.BACKUP, config );
     }
 
     @RequestMapping(value="/os/rCred", method=RequestMethod.GET)
