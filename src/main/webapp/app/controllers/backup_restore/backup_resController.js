@@ -19,7 +19,6 @@ angular.module('backup_restore', ['ui.router',
     
     $scope.backup = function(){
     	$scope.backupConfig.config = $scope.installConfig;
-    	$scope.backupConfig.backupLocation.backup_data_file = $scope.backupConfig.backupLocation.local_directory+$scope.backupConfig.backupLocation.filename;
     	if($scope.backupConfig.config.environment=='KVM'){
     		Backup_ResService.kvmbackup(
              		$scope.backupConfig,

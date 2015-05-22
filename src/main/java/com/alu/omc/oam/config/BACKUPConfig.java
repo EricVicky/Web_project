@@ -37,28 +37,37 @@ public class BACKUPConfig<T extends COMConfig> extends COMConfig implements Seri
 		public BackupLocation() {
 			
 		}
-		private String backup_data_file;
-		private String backup_server_ip;
-		private String backup_server_directory;
+		private String local_backup_dir;
+		private String local_backup_file;
+		private String remote_server_dir;  //
+		private String remote_server_ip;
+
+		public String getLocal_backup_dir() {
+			return local_backup_dir;
+		}
+		public void setLocal_backup_dir(String local_backup_dir) {
+			this.local_backup_dir = local_backup_dir;
+		}
+		public String getLocal_backup_file() {
+			return local_backup_file;
+		}
+		public void setLocal_backup_file(String local_backup_file) {
+			this.local_backup_file = local_backup_file;
+		}
+		public String getRemote_server_dir() {
+			return remote_server_dir;
+		}
+		public void setRemote_server_dir(String remote_server_dir) {
+			this.remote_server_dir = remote_server_dir;
+		}
+		public String getRemote_server_ip() {
+			return remote_server_ip;
+		}
+		public void setRemote_server_ip(String remote_server_ip) {
+			this.remote_server_ip = remote_server_ip;
+		}
 		
-		public String getBackup_server_ip() {
-			return backup_server_ip;
-		}
-		public void setBackup_server_ip(String backup_server_ip) {
-			this.backup_server_ip = backup_server_ip;
-		}
-		public String getBackup_server_directory() {
-			return backup_server_directory;
-		}
-		public void setBackup_server_directory(String backup_server_directory) {
-			this.backup_server_directory = backup_server_directory;
-		}
-		public String getBackup_data_file() {
-			return backup_data_file;
-		}
-		public void setBackup_data_file(String backup_data_file) {
-			this.backup_data_file = backup_data_file;
-		}
+		
 	}
 	
 	public T getConfig() {

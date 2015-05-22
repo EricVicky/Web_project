@@ -162,25 +162,25 @@
 										<div class="form-group" ng-if="remote_server==true">
 											<label class="control-label">Backup Server IP</label> <input
 												name="backup_server_ip" class="form-control" type="text"
-												ng-model="$parent.backupConfig.backupLocation.backup_server_ip" 
+												ng-model="$parent.backupConfig.backupLocation.remote_server_ip" 
 												title="serverip" validation="required|ipv4"/>
 										</div>
 										<div class="form-group" ng-if="remote_server==true">
 											<label class="control-label">Backup Server Directory</label> <input
 												name="backup_server_directory" class="form-control" type="text"
-												ng-model="$parent.backupConfig.backupLocation.backup_server_directory" 
+												ng-model="$parent.backupConfig.backupLocation.remote_server_dir" 
 												title="serverip" validation="required"/>
 										</div>
 										<div class="form-group">
 											<label class="control-label">Local Directory</label> <input
 												name="local_directory" class="form-control" type="text"
-												ng-model="backupConfig.backupLocation.local_directory" 
+												ng-model="backupConfig.backupLocation.local_backup_dir" 
 												title="directory" validation="required" placeholder="/localbackup/"/>
 										</div>
 										<div class="form-group">
 											<label class="control-label">File Name</label> <input
 												name="filename" class="form-control" type="text"
-												ng-model="backupConfig.backupLocation.filename" placeholder="test"
+												ng-model="backupConfig.backupLocation.local_backup_file" placeholder="test"
 												title="file name" validation="required" />
 										</div>
 									</fieldset>
