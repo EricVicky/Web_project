@@ -24,6 +24,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK), osInstallParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM), kvmDeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK), osDeleteParser());
+        parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osDeleteParser());
     }
     
     private ILogParser kvmDeleteParser() {
