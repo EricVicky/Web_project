@@ -33,6 +33,8 @@ public class Ansibleworkspace
 {
     @Value("${ansible.workspace}")
     String workDirRoot;
+    @Value("${ansible.playbook}")
+    String playbookDir;
     String workingDir;
     @Value("${ansible.log}")
     String logFileName;
@@ -89,8 +91,8 @@ public class Ansibleworkspace
         log.info("Write var file to working directory...");
         try
         {
-            log.info("Copy ansible codes to working directory...");
-            final Path src= Paths.get(this.getWorkDirRoot() + "code");
+            log.info("Copy ansible playbook to working directory...");
+            final Path src= Paths.get(playbookDir);
             final Path dest = Paths.get(this.getWorkingdir());
             Files.walkFileTree(src, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE,
                     new SimpleFileVisitor<Path>() {

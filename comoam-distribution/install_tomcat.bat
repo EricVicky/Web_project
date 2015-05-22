@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=org.apache -DartifactId=tomcat-bin -Dversion=8.0.14 -Dpackaging=zip -Dfile=d:\dev_tools\apache-tomcat-8.0.14.zip
