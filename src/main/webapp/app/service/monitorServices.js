@@ -6,13 +6,13 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "delete":["Start","Finished"]
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"]
 			},
 			"Openstack" :{
 				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":[],
-				 "delete":["Start","Finished"]
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"]
 			}
 			
 	};

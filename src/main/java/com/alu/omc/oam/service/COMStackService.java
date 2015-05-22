@@ -20,17 +20,30 @@ public class COMStackService
 
     public void add(COMStack comStack)
     {
+    	boolean flag=false;
         List<COMStack> stacks = dataSource.list();
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
         }
-        stacks.add(comStack);
+        if(!existstack(comStack)){
+        	stacks.add(comStack);
+        }
         dataSource.save(stacks);
     }
-    
+    public boolean existstack(COMStack comStack){
+    	List<COMStack> stacks = dataSource.list();
+    	if(stacks != null && stacks.size() >0){
+            for(COMStack stack : stacks){
+            	if(stack.getName().equals(comStack.getName())){
+            		return true;
+            	}
+            }
+        }
+    	return false;
+    }
     public void update(COMStack comStack){
         List<COMStack> stacks = dataSource.list();
-        if(stacks == null){
+        if(stacks != null){
             stacks = new ArrayList<COMStack>();
             for(COMStack stack : stacks){
                 if(stack.getName().equals(comStack.getName())){
