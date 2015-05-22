@@ -1,7 +1,8 @@
 /target
-/.classpath
-/.project
-/.settings
-/logs/*
+**/target
+**/.classpath
+**/.project
+**/.settings
+**/logs/*
 /.tern-project
 /*.json
