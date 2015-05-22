@@ -57,10 +57,10 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].fillColor = '#E0FFFF';
                 					
                 					//onMouseEnter event
-                					var tool = new Tool();
-                					tool.onMouseUp = function(event){
-                						comStackPath[].fillColor = "black";
-                					}
+//                					var tool = new Tool();
+//                					tool.onMouseUp = function(event){
+//                						comStackPath[].fillColor = "black";
+//                					}
                 					
                 					if(this.COMStacks[comStacksNum].environment == "KVM"){
                 						//draw host
