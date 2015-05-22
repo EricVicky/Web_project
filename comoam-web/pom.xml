@@ -4,9 +4,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-	<groupId>com.alu.ems</groupId>
-	<artifactId>comoam</artifactId>
-	<version>0.1-SNAPSHOT</version>
+		<groupId>com.alu.ems</groupId>
+		<artifactId>comoam</artifactId>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<name>COM LCM Web tool</name>
 	<groupId>com.alu.ems</groupId>
@@ -213,6 +213,10 @@
 							<include>**/*.*</include>
 						</includes>
 					</resource>
+					<resource>
+						<!-- this is relative to the pom.xml directory -->
+						<directory>src/main/resources/</directory>
+					</resource>
 				</resources>
 				<plugins>
 					<plugin>
@@ -234,6 +238,12 @@
 								<resource>
 									<!-- this is relative to the pom.xml directory -->
 									<directory>profiles/${build.env}/</directory>
+									<targetPath>WEB-INF/classes/</targetPath>
+									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>src/main/resources/</directory>
 									<targetPath>WEB-INF/classes/</targetPath>
 									<filtering>true</filtering>
 								</resource>
