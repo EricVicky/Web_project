@@ -1,17 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alu.ems</groupId>
 	<artifactId>comoam</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>COM LCM tool</name>
 	<packaging>pom</packaging>
   <modules>
     <module>comoam-web</module>
     <module>comoam-distribution</module>
 </modules>
+<scm>
+      <connection>scm:git:ssh://git@gitlabwf.inse.lucent.com:Rapport-OA_MF/comoam.git</connection>
+      <url>scm:git:ssh://git@gitlabwf.inse.lucent.com:Rapport-OA_MF/comoam.git</url>
+      <developerConnection>scm:git:ssh://git@gitlabwf.inse.lucent.com:Rapport-OA_MF/comoam.git</developerConnection>
+</scm>
   <build>
       <pluginManagement>
         <plugins>
