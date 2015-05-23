@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.alu.ems</groupId>
 		<artifactId>comoam</artifactId>
-		<version>0.2-SNAPSHOT</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<name>COM LCM Web tool</name>
 	<groupId>com.alu.ems</groupId>
