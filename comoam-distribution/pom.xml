@@ -74,7 +74,7 @@
 										<artifactItem>
 											<groupId>com.alu.ems</groupId>
 											<artifactId>comoam-playbook</artifactId>
-											<version>0.1-SNAPSHOT</version>
+											<version>${project.version}</version>
 											<type>tar</type>
 											<overWrite>true</overWrite>
 											<outputDirectory>${project.build.directory}/</outputDirectory>
@@ -94,7 +94,7 @@
 										<artifactItem>
 											<groupId>com.alu.ems</groupId>
 											<artifactId>comoam-web</artifactId>
-											<version>0.1-SNAPSHOT</version>
+											<version>${project.version}</version>
 											<type>war</type>
 											<overWrite>true</overWrite>
 											<outputDirectory>${project.build.directory}/apache-tomcat-${tomcat.version}/webapps/</outputDirectory>
