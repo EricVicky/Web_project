@@ -146,7 +146,7 @@
 											    <exclude>webapps/examples/**</exclude>
 											    <exclude>webapps/host-manager/**</exclude>
 											    <exclude>webapps/manager/**</exclude>
-											    <exclude>webapps/ROOt</exclude>
+											    <exclude>webapps/ROOt/**</exclude>
 											</excludes>
 										</source>
 									</sources>

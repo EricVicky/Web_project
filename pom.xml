@@ -9,7 +9,7 @@
   <modules>
     <module>comoam-web</module>
     <module>comoam-distribution</module>
-</modules>
+ </modules>
 <scm>
       <connection>scm:git:ssh://git@gitlabwf.inse.lucent.com:Rapport-OA_MF/comoam.git</connection>
       <url>scm:git:ssh://git@gitlabwf.inse.lucent.com:Rapport-OA_MF/comoam.git</url>
