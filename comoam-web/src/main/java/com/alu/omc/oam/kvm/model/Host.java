@@ -82,7 +82,7 @@ import com.alu.omc.oam.ansible.Entity;
             }
         }
         
-        public boolean isLocalHost(String ip_address){
+        public static boolean isLocalHost(String ip_address){
             return ip_address!=null && (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
         }
         
