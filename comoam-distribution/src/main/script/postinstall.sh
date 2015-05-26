@@ -14,3 +14,4 @@ bootrc=$(grep comoam /etc/rc.local)
 if [ -z "$bootrc" ]; then
     echo "/opt/PlexView/comoam/server/bin/startup.sh" >>/etc/rc.local
 fi
+ssh-keygen -f id_rsa -t rsa -N ''
