@@ -1,6 +1,7 @@
 package com.alu.omc.oam.service;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,9 @@ public List<String> imagelist(String host, String login, String dir) throws Exce
     	images.add("rhel6.6_ora.qcow2");
 		return images;  
   	}
+  	if(Host.isLocalHost(host)){
+  	    return getLocalImages(dir);
+  	}
 
     String directory = dir;
     String privateKey = "/root/.ssh/id_rsa";
@@ -69,6 +73,19 @@ public List<String> imagelist(String host, String login, String dir) throws Exce
     session.disconnect();
     return images;
 }
+
+public List<String> getLocalImages(String dir){
+    File dirFile = new File(dir);
+    String[] files = dirFile.list();
+    List<String> images = new ArrayList();
+    for(String file : files){
+        if(file.contains("qcow2")){
+          images.add(file);  
+        }
+    }
+    return images;
+}
+
 
     public List<Host> hostIPs(){
     	return dataSource.hosts();
