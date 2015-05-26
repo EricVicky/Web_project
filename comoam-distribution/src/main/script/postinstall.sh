@@ -8,10 +8,15 @@ if [ -f /opt/PlexView/comoam/datasource.tar.gz ]; then
 fi
 echo "start COM LCM"
 mkdir /opt/PlexView/comoam/server/logs
+mkdir /opt/PlexView/comoam/workspace
 chmod +x /opt/PlexView/comoam/server/bin/*sh
 /opt/PlexView/comoam/server/bin/startup.sh
 bootrc=$(grep comoam /etc/rc.local)
 if [ -z "$bootrc" ]; then
     echo "/opt/PlexView/comoam/server/bin/startup.sh" >>/etc/rc.local
 fi
-ssh-keygen -f id_rsa -t rsa -N ''
+if [ ! -f ~/.ssh/id_rsa ]; then
+    echo "generate ssh key"
+    ssh-keygen -f ~/.ssh/id_rsa -t rsa -N '' -q
+fi
+

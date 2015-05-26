@@ -1,4 +1,9 @@
-#/bin/sh
+#!/bin/sh
+if [ $# -lt 2 ]; then
+   echo "enter both eth device and bridge name, examples:"
+   echo "./config_bridge.sh eth0 br0"
+   exit 1
+fi
 eth=$1
 br=$2
 HWADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=HWADDR=).*$')
