@@ -7,8 +7,12 @@ if [ -f /opt/PlexView/comoam/datasource.tar.gz ]; then
     tar -xzvf /opt/PlexView/comoam/datasource.tar.gz  -C / 
 fi
 echo "start COM LCM"
-mkdir /opt/PlexView/comoam/server/logs
-mkdir /opt/PlexView/comoam/workspace
+if [ ! -d /opt/PlexView/comoam/log ]; then
+    mkdir /opt/PlexView/comoam/server/logs
+fi
+if [ ! -d /opt/PlexView/comoam/workspace ]; then
+    mkdir /opt/PlexView/comoam/workspace
+fi
 chmod +x /opt/PlexView/comoam/server/bin/*sh
 /opt/PlexView/comoam/server/bin/startup.sh
 bootrc=$(grep comoam /etc/rc.local)
