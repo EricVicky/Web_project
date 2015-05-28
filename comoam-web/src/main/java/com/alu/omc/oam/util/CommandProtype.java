@@ -1,11 +1,13 @@
 package com.alu.omc.oam.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +43,15 @@ public ICommandExec create(String command, File workingdir, Environment env, Act
 public ICommandExec create(PlaybookCall playbookCall, File runDir){
     Map<String, String> envs = new HashMap<String, String>();
     envs.put("PWD", runDir.getAbsolutePath());
+    try
+    {
+        envs.putAll( EnvironmentUtils.getProcEnvironment());
+    }
+    catch (IOException e)
+    {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
     if(SystemUtils.IS_OS_WINDOWS){
         return new MockCommandExec(playbookCall.asCommand(),
                 new String[]{playbookCall.getAction().name(), playbookCall.getConfig().getEnvironment().name()},
