@@ -38,7 +38,7 @@ public class AuthController {
 //			user.setPassword("");
 //			return user;
 //		}
-		
+//		
 
 		String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
 		user.setToken(token);
