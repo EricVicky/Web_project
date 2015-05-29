@@ -333,5 +333,12 @@
 			</build>
 		</profile>
 	</profiles>
+   <distributionManagement>
+            <repository>
+                        <id>thirdparty</id>
+                        <name>thirdparty</name>
+                        <url>http://135.252.30.216:8081/nexus/content/repositories/thirdparty/</url>
+            </repository>
+   </distributionManagement>
 </project>
 

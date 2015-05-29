@@ -9,14 +9,8 @@ read host
 /bin/echo "Please input IP address"
 read IP
 
-if [ -f ./authorhost.yml ]
-then
-  /bin/rm -f ./authorhost.yml
-fi
-
-/bin/sed -e "s/IP_address/$IP/g" ./authorhost.yml.template > ./authorhost.yml
-
-ansible-playbook --ask-pass authorhost.yml
+export host_IP=$IP
+ansible-playbook -i host  --ask-pass ../comoam-playbook/playbooks/kvm/authhost.yml
 
 if [ $? = 0 ]
 then
