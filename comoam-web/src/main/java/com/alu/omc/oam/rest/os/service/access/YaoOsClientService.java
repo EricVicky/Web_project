@@ -5,4 +5,5 @@ import org.openstack4j.api.OSClient;
 
 public interface YaoOsClientService {
     OSClient getOsClient();
+    void reset();
 }

@@ -39,8 +39,9 @@ public class AnsibleInvoker implements IAnsibleInvoker
             throws AnsibleException
     {
         pc.prepare(ansibleworkspace);
+        final long minterval = 1000L;
         final Tailer tailer = Tailer.create(this.getWorkSpace().getLogFile(),
-                new Loglistener(handler), 1000, false);
+                new Loglistener(handler), minterval, false);
         try
         {
             log.info("tail -f ".concat(this.getWorkSpace().getLogFile()
@@ -52,19 +53,37 @@ public class AnsibleInvoker implements IAnsibleInvoker
                 handler.onStart();
                 commandExe.execute(new ExecuteResultHandler()
                 {
+                    @SuppressWarnings("static-access")
                     @Override
                     public void onProcessComplete(int paramInt)
                     {
                         handler.onProcessComplete(paramInt);
+                        try
+                        {
+                            Thread.currentThread().sleep(2*minterval);
+                        }
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         tailer.stop();
 
                     }
 
+                    @SuppressWarnings("static-access")
                     @Override
                     public void onProcessFailed(
                             ExecuteException paramExecuteException)
                     {
                         handler.onProcessFailed(paramExecuteException);
+                        try
+                        {
+                            Thread.currentThread().sleep(2*minterval);
+                        }
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         tailer.stop();
                     }
 
