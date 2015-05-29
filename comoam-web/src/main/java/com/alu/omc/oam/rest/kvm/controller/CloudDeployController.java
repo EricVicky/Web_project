@@ -117,16 +117,6 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.BACKUP, config );
     }
 
-    @RequestMapping(value="/os/rCred", method=RequestMethod.GET)
-    public OpenstackConfig rCred() throws IOException, InterruptedException
-    {
-        return cOMStackService.getOpenstackConfig();
-    }
 
-    @RequestMapping(value="/os/uCred", method=RequestMethod.POST)
-    public void uCred(@RequestBody OpenstackConfig config) throws IOException, InterruptedException
-    {
-    	cOMStackService.addOpenstackConfig(config);
-    }
 
 }
