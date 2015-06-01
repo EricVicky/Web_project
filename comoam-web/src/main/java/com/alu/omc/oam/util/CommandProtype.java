@@ -42,7 +42,6 @@ public ICommandExec create(String command, File workingdir, Environment env, Act
 }
 public ICommandExec create(PlaybookCall playbookCall, File runDir){
     Map<String, String> envs = new HashMap<String, String>();
-    envs.put("PWD", runDir.getAbsolutePath());
     try
     {
         envs.putAll( EnvironmentUtils.getProcEnvironment());
@@ -59,6 +58,7 @@ public ICommandExec create(PlaybookCall playbookCall, File runDir){
     }else{
        if(playbookCall.getConfig().getEnvironment() == Environment.OPENSTACK){
            envs.putAll(dataSource.getOpenstackConfig().asEnvironmentMap());
+           envs.put("PWD", runDir.getAbsolutePath());
        }
        return new DefaultCommandExecutor(playbookCall.asCommand(), runDir, envs); 
     }
