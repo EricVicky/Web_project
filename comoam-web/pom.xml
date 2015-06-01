@@ -32,6 +32,8 @@
 		<junit.version>4.12</junit.version>
 
 		<tomcat.version>8.0.14</tomcat.version>
+		<install.root>/opt/PlexView/comoam/</install.root>
+		<install.datasource>${install.root}datasource/</install.datasource>
 	</properties>
 
 	<dependencies>
@@ -280,14 +282,14 @@
 				<resources>
 					<resource>
 						<directory>src/main/resources</directory>
-						<filtering>false</filtering>
+						<filtering>true</filtering>
 						<excludes>
 							<exclude>**/samplelog/*.log</exclude>
 						</excludes>
 					</resource>
 					<resource>
 						<directory>profiles/${build.env}/</directory>
-						<filtering>false</filtering>
+						<filtering>true</filtering>
 						<includes>
 							<include>**/*.*</include>
 						</includes>
@@ -331,5 +333,12 @@
 			</build>
 		</profile>
 	</profiles>
+   <distributionManagement>
+            <repository>
+                        <id>thirdparty</id>
+                        <name>thirdparty</name>
+                        <url>http://135.252.30.216:8081/nexus/content/repositories/thirdparty/</url>
+            </repository>
+   </distributionManagement>
 </project>
 
