@@ -20,7 +20,7 @@ else
   exit 1
 fi
 
-/usr/bin/python ./addHostJson.py $host $IP
+/usr/bin/python ./addHostJson.py $IP $host 
 
 if [ $? = 0 ]
 then

@@ -7,11 +7,15 @@ if [ -f /opt/PlexView/comoam/datasource.tar.gz ]; then
     tar -xzvf /opt/PlexView/comoam/datasource.tar.gz  -C / 
 fi
 echo "start COM LCM"
-if [ ! -d /opt/PlexView/comoam/log ]; then
+if [ ! -d /opt/PlexView/comoam/server/logs ]; then
     mkdir /opt/PlexView/comoam/server/logs
 fi
 if [ ! -d /opt/PlexView/comoam/workspace ]; then
     mkdir /opt/PlexView/comoam/workspace
+fi
+
+if [ ! -d /opt/PlexView/comoam/comoam-playbook/hot_files ]; then
+    mkdir /opt/PlexView/comoam/comoam-playbook/hot_files 
 fi
 chmod +x /opt/PlexView/comoam/server/bin/*sh
 /opt/PlexView/comoam/server/bin/startup.sh
