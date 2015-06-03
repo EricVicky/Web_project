@@ -16,34 +16,33 @@ angular.module('backup_restore', ['ui.router',
     				$log.info(data);
     				$scope.comInstance = data;
     });
-    
     $scope.backup = function(){
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
-    		Backup_ResService.kvmbackup(
-             		$scope.backupConfig,
-        			function(data){
-             			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
-             			$state.go("dashboard.monitor");
-        			}, 
-        			function(response){
-        				$log.info(response);
-        			});
+    		Backup_ResService.kvmbackup($scope.backupConfig).then( function(){
+    			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
+             	$state.go("dashboard.monitor");
+    		});
     	}else{
-    		Backup_ResService.osbackup(
-             		$scope.backupConfig,
-        			function(data){
-             			monitorService.monitorOSBackup($scope.installConfig.stack_name);
-             			$state.go("dashboard.monitor");
-        			}, 
-        			function(response){
-        				$log.info(response);
-        			});
+    		Backup_ResService.osbackup($scope.backupConfig).then( function(){
+    			monitorService.monitorOSBackup($scope.installConfig.stack_name);
+     			$state.go("dashboard.monitor");
+    		});
     	}
     }
-    
     $scope.restore = function(){
-    	
+    	$scope.backupConfig.config = $scope.installConfig;
+    	if($scope.backupConfig.config.environment=='KVM'){
+    		Backup_ResService.kvmrestore($scope.backupConfig).then( function(){
+    			monitorService.monitorKVMRestore($scope.installConfig.active_host_ip);
+             	$state.go("dashboard.monitor");
+    		});
+    	}else{
+    		Backup_ResService.osrestore($scope.backupConfig).then( function(){
+    			monitorService.monitorOSRestore($scope.installConfig.stack_name);
+     			$state.go("dashboard.monitor");
+    		});
+    	}
     }
 
 

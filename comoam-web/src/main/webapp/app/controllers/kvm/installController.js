@@ -32,15 +32,10 @@ angular.module('kvm', [ 'ui.router',
 				}
 				$scope.installConfig.netmask = null;
 				$scope.installConfig.gateway = null;
-            	KVMService.deploy(
-                 		$scope.installConfig,
-            			function(data){
-            				monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
-                 			$state.go("dashboard.monitor");
-            			}, 
-            			function(response){
-            					$log.info(response);
-            			});
+            	KVMService.deploy($scope.installConfig).then( function(){
+            		monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
+         			$state.go("dashboard.monitor");
+        		});
             };
             
             
@@ -53,7 +48,6 @@ angular.module('kvm', [ 'ui.router',
             };
             $scope.deploy = function(){
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
-            		//if the host is locked, then ask
             		if(response.succeed == true){
             			locked = true;
             			if(window.confirm("The installation proceed on selected Host, go to monitor?")){

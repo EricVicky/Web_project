@@ -18,17 +18,10 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
            $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     }
     $scope.doUpgrade = function (){
-		 //$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
-		 //$scope.installConfig.db_image = $scope.db_image;
-		OSService.upgrade(
-         		$scope.installConfig,
-    			function(data){
-            			monitorService.monitorKVMUpgrade($scope.installConfig.stack_name);
-                 		$state.go("dashboard.monitor");
-    			}, 
-    			function(response){
-    					$log.info(response);
-    			});
+    	OSService.upgrade($scope.installConfig).then( function(){
+    		monitorService.monitorKVMUpgrade($scope.installConfig.stack_name);
+     		$state.go("dashboard.monitor");
+		});
     };
 
     $scope.upgrade = function(){

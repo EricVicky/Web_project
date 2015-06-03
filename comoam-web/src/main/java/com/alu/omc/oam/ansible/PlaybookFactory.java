@@ -25,6 +25,8 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.KVM, Action.RESTORE), new Playbook("restore.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.RESTORE), new Playbook("restore.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

@@ -16,34 +16,18 @@ angular.module('comoamApp')
 		  if($scope.del_com_instance != null){
 			  $scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
 		  }
-	  }
-	    
+	  } 
 	  $scope.deletecom = function(){
-		  //var Config = JSON3.parse($scope.del_com_instance.comConfig);
 		  if($scope.Config.environment == "KVM"){
-			  KVMService.deletecom(
-				$scope.Config,
-				function(data){
-					monitorService.monitorKVMDelete($scope.Config.active_host_ip);
-             		$state.go("dashboard.monitor");
-				},
-				function(response){
-					$log.info(response);
-				}
-			  );
+			  KVMService.deletecom($scope.Config).then( function(){
+				  monitorService.monitorKVMDelete($scope.Config.active_host_ip);
+           		  $state.go("dashboard.monitor");
+			  });
 		  }else{
-			  OSService.deletecom(
-				$scope.Config,
-				function(data){
-					monitorService.monitorOSDelete($scope.Config.stack_name);
-             		$state.go("dashboard.monitor");
-				},
-				function(response){
-					$log.info(response);
-				}
-			  );
-		  }
-		  
+			  OSService.deletecom($scope.Config).then( function(){
+				  monitorService.monitorOSDelete($scope.Config.stack_name);
+           		  $state.go("dashboard.monitor");
+			  });
+		  }  
 	  }
-	  
   });

@@ -88,6 +88,11 @@ public class CloudDeployController
     {
         ansibleDelegator.execute(Action.BACKUP, config );
     }
+    @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
+    public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.RESTORE, config );
+    }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)
     public List<COMStack>  kvminstances() throws IOException, InterruptedException
@@ -117,6 +122,10 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.BACKUP, config );
     }
 
-
+    @RequestMapping(value="/os/restore", method=RequestMethod.POST)
+    public void osrestore( @RequestBody BACKUPConfig<OSCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.RESTORE, config );
+    }
 
 }

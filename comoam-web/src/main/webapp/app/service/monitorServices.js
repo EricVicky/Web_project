@@ -6,15 +6,16 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
+				 "restore":["Start","Data Restore","Finished"],
 				 "delete":["Start","Finished"]
 			},
 			"Openstack" :{
 				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
+				 "restore":["Start","Data Restore","Finished"],
 				 "delete":["Start","Finished"]
 			}
-			
 	};
 	var environment;
 	var action;
@@ -36,6 +37,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "backup";
 			channel = ch;
 		},
+		monitorKVMRestore:function(ch) {
+			environment = "KVM";
+			action = "restore";
+			channel = ch;
+		},
 		monitorKVMDelete: function(ch) {
 			environment = "KVM";
 			action = "delete";
@@ -54,6 +60,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorOSBackup: function(ch) {
 			environment = "Openstack";
 			action = "backup";
+			channel = ch;
+		},
+		monitorOSRestore: function(ch) {
+			environment = "Openstack";
+			action = "restore";
 			channel = ch;
 		},
 		monitorOSDelete: function(ch) {

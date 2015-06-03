@@ -28,15 +28,10 @@ angular.module('os', [ 'ui.router',
             }
             
             $scope.deploy = function (){
-            	OSService.deploy(
-            			$scope.installConfig,
-            			function(data){
-            				monitorService.monitorOSInstall($scope.installConfig.stack_name);
-            				$state.go("dashboard.monitor");
-            			}, 
-            			function(response){
-            				$log.info(response);
-            			});
+            	OSService.deploy($scope.installConfig).then( function(){
+            		monitorService.monitorOSInstall($scope.installConfig.stack_name);
+    				$state.go("dashboard.monitor");
+        		});
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
             	if($scope.installConfig.com_provider_network!=null){

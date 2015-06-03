@@ -157,7 +157,7 @@
 									    <div class="form-group" col-md-4>
 										    <label class="control-label">Remote Server</label>
 											<input name="remote_server" type="checkbox" ng-model="remote_server" 
-											title="cleanup" />
+											title="Remote Server" />
 										</div>
 										<div class="form-group" ng-if="remote_server==true">
 											<label class="control-label">Backup Server IP</label> <input
@@ -175,7 +175,7 @@
 											<label class="control-label">Local Directory</label> <input
 												name="local_directory" class="form-control" type="text"
 												ng-model="backupConfig.backupLocation.local_backup_dir" 
-												title="directory" validation="required" placeholder="/localbackup/"/>
+												title="directory" validation="required" placeholder="localbackup"/>
 										</div>
 										<div class="form-group">
 											<label class="control-label">File Name</label> <input

@@ -9,18 +9,9 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
 			return flavorRes.query().$promise;
 		},
-		deploy: function (config, success, error) {
+		deploy:function(config){
 			var deployRes = $resource(restUrl + "os/deployment");
-			deployRes.save(config,
-				function (data) {
-					$log.info(data);
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				}
-			);
+			return deployRes.save(config).$promise;
 		},
 		getComInstance: function(success,error) {
 			var comInstanceRes = $resource(restUrl + "os/instances");
@@ -75,28 +66,14 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var OamCmImagesRes = $resource(restUrl + "os/images");
 			return OamCmImagesRes.query(host).$promise;
 		},
-		upgrade: function (config, success, error) {
+		upgrade:function(config){
 			var upgradeRes = $resource(restUrl + "os/upgrade");
-			upgradeRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return upgradeRes.save(config).$promise;
 		},
-		deletecom: function (config, success, error) {
+		deletecom:function(config){
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "os/instances/"+name);
-			deleteRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return deleteRes.save(config).$promise;
 		}
 	};
 });
