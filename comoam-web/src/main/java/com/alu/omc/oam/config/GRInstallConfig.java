@@ -55,10 +55,10 @@ public Inventory getInventory()
     Inventory inv;
     if(this.getGr_install_active()){
         inv = this.getPri().getInventory();
-        inv.addNooamGroup();
     }else{
-        return this.getSec().getInventory();
+        inv =  this.getSec().getInventory();
     }
+   inv.addNooamGroup();
     return inv;
 }
 @Override
