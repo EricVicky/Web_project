@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
+
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
+import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
@@ -109,9 +112,15 @@ public class CloudDeployController
     @RequestMapping(value="/gr/kvm/install", method=RequestMethod.POST)
     public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
     {
-        String vars = config.getVars();
         ansibleDelegator.execute(Action.GRINST_PRI, config);
     }   
+    
+    @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
+    public void uninstall_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.GRUNINST, config);
+    } 
+    
     @RequestMapping(value="/os/instances", method=RequestMethod.GET)
     public List<COMStack>  osinstances() throws IOException, InterruptedException
     {

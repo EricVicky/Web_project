@@ -9,13 +9,13 @@ angular.module('gr').factory('GRService', function($location, $q, $resource, $lo
 			var comInstanceRes = $resource(restUrl + "rest/instances");
 			return comInstanceRes.query().$promise;
 		},
-		kvminstall:function(config){
+		install:function(config){
 			var grInstRes = $resource(restUrl + "rest/gr/kvm/install");
 			return grInstRes.save(config).$promise;
 		},
-		uninstall: function (config, success, error) {
+		uninstall: function (config) {
 			var grInstRes = $resource(restUrl + "rest/gr/kvm/uninstall");
-			return grInstRes.save().$promise;
+			return grInstRes.save(config).$promise;
 		}
 	};
 });

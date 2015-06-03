@@ -9,9 +9,7 @@ import java.util.Map;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
-import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
 
 public class GRInstallConfig<T extends COMConfig> extends COMConfig implements Serializable
 {
@@ -55,10 +53,10 @@ public Inventory getInventory()
     Inventory inv;
     if(this.getGr_install_active()){
         inv = this.getPri().getInventory();
+        inv.addNooamGroup();
     }else{
         inv =  this.getSec().getInventory();
     }
-   inv.addNooamGroup();
     return inv;
 }
 @JsonIgnore
@@ -130,9 +128,9 @@ public String getStackName()
 public class GRIP implements Serializable{
 
     private static final long serialVersionUID = -2898347056870265351L;
-    private String pri_ip;
-    private String sec_ip;
-    private String red_ip;
+    private String pri_ip = "";
+    private String sec_ip = "";
+    private String red_ip = "";
     
     
     public GRIP(){

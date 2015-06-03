@@ -28,12 +28,22 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osBackupParser());
         parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK), osRestoreParser());
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
+        parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstPriParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[install\\sPRI\\sDB\\sand\\sCM\\sGR\\]", "Install PRI DB and CM");
-        dict.put("TASK\\:\\s\\[install\\_gr\\s\\|\\sgenerate\\sgr\\_install\\_ip\\]", "Install GR");
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sSEC\\sDB\\sGR\\]", "Sec GR Install");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser kvmGrUnInstPriParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[Uninstall\\sOAM\\sGR\\]", "GR Uninstall");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}

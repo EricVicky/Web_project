@@ -23,6 +23,9 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.BACKUP), new Playbook("backup.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.BACKUP), new Playbook("backup.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.KVM, Action.GRINST_PRI), new Playbook("gr_pri_install.yml") );
+        playbooks.put(key(Environment.KVM, Action.GRINST_SEC), new Playbook("gr_sec_install.yml") );
+        playbooks.put(key(Environment.KVM, Action.GRUNINST), new Playbook("gr_uninstall.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE), new Playbook("upgrade.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.RESTORE), new Playbook("restore.yml") );

@@ -6,7 +6,7 @@ angular.module('gr', [ 'ui.router',
                         'ghiscoding.validation',
                         'ngResource'])
      .controller('grInstallController', function($scope, $q, $timeout, $log, 
-            $state, GRService) {
+            $state, GRService,monitorService) {
     	 $scope.gr_traffic_types = [ {"label":"Simple", "value": "SIMPlE"}, 
     	                             {"label":"Traffic Separation", "value":"SEPARATION" },
     	                             { "label":"Traffic Redundency", "value": "REDUDENCY"}];
@@ -21,10 +21,16 @@ angular.module('gr', [ 'ui.router',
     		 }
     	 }); 
     	 $scope.installGR = function() {
-    		GRService.kvminstall($scope.gr_config).then( function(){
-//    			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
-//             	$state.go("dashboard.monitor");
+    		GRService.install($scope.gr_config).then( function(){
+    			monitorService.monitorKVMGR_Pri_Install($scope.gr_config.pri.active_host_ip);
+             	$state.go("dashboard.monitor");
     		});
+    	 }
+    	 $scope.UnInstallGR = function(){
+    		 GRService.uninstall($scope.gr_config).then( function(){
+     			monitorService.monitorKVMGR_Pri_UnInstall($scope.gr_config.comConfig.active_host_ip);
+              	$state.go("dashboard.monitor");
+     		});
     	 }
 } );
 
