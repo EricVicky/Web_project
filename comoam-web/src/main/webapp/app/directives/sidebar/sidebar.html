@@ -24,12 +24,19 @@
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.restore"><i class="fa fa-edit fa-fw"></i> Restore</a>
             </li>
-            <li ui-sref-active="active">
-                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i> Set up GR</a>
+            <li ng-class="{active:collapseVar==2}">
+                <a href="" ng-click="check(2)"><i class="fa fa-files-o fa-fw"></i>GR<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=2">
+                    <li ng-class="{active: selectedMenu=='kvminstall'}">
+                        <a ui-sref="dashboard.grinstall" ng-click="selectedMenu='kvminstall'">Install</a>
+                    </li>
+                    <li>
+                        <a ui-sref="dashboard.grunstall">Uninstall</a>
+                    </li>
+                </ul>
             </li>
-            <li ui-sref-active="active">
-                <a ui-sref="dashboard.oscredential"><i class="fa fa-edit fa-fw"></i>Openstack Credential</a>
-            </li>
+
             <li ng-class="{active:collapseVar==2}">
                 <a href="" ng-click="check(2)"><i class="fa fa-files-o fa-fw"></i>Upgrade<span
                         class="fa arrow"></span></a>
@@ -42,10 +49,11 @@
                     </li>
                 </ul>
             </li>
-            
-            
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i>Growth & Degrowth </a>
+                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i>Scaling </a>
+            </li>  
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.oscredential"><i class="fa fa-edit fa-fw"></i>Openstack Credential</a>
             </li>
         </ul>
     </div>

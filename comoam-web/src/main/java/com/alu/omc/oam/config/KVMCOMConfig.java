@@ -1,7 +1,10 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
@@ -12,7 +15,7 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class KVMCOMConfig extends COMConfig implements Serializable{
+public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializable{
 	  
 	
 	/**
@@ -20,7 +23,7 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
      */
     private static final long  serialVersionUID       = -3535916139459672300L; 
     private COMType            comType;
-	private Map vm_config;
+	private Map<String, Object> vm_config;
 	private Map<String, String> app_install_options;
 	private boolean support_gr;
 
@@ -54,14 +57,12 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
 	@Override
     public Environment getEnvironment()
     {
-        // TODO Auto-generated method stub
         return Environment.KVM;
     }
 
     @Override
     public COMType getCOMType()
     {
-        // TODO Auto-generated method stub
         return comType;
     }
     
@@ -103,12 +104,12 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
         this.comType = comType;
     }
     
-    public Map getVm_config()
+    public Map<String, Object> getVm_config()
     {
         return vm_config;
     }
 
-    public void setVm_config(Map vm_config)
+    public void setVm_config(Map<String, Object> vm_config)
     {
         this.vm_config = vm_config;
     }
@@ -196,6 +197,25 @@ public class KVMCOMConfig extends COMConfig implements Serializable{
     public String getStackName()
     {
        return this.deployment_prefix; 
+    }
+
+    @Override
+    public Map<String, List<NIC>> allInterface()
+    {
+        Map<String, List<NIC>> vmnics = new HashMap<String, List<NIC>>();
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    while(it.hasNext()){
+	        String vm = it.next();
+	        NIC nic = new NIC();
+	        Map<String, Object> config = (Map<String, Object>)vm_config.get(vm);
+	        IFCfg cfg = new IFCfg();
+	        cfg.setIpaddress((String)config.get("ip_address"));
+	        nic.setIpv4(cfg);
+	        List<NIC> nics = new ArrayList<NIC>();
+	        nics.add(nic);
+	        vmnics.put(vm, nics);
+	    }
+        return vmnics;
     }
     
     

@@ -1,7 +1,10 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -11,12 +14,11 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
-import com.alu.omc.oam.ansible.handler.DeleteOsHandler;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class OSCOMConfig extends COMConfig implements  Serializable
+public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializable
 {
 
     /**
@@ -405,12 +407,12 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         return this.com_type + "," + this.getEnvironment();
     }
 
-    public Map getVm_config()
+    public Map<String, Object> getVm_config()
     {
         return vm_config;
     }
 
-    public void setVm_config(Map vm_config)
+    public void setVm_config(Map<String, Object> vm_config)
     {
         this.vm_config = vm_config;
     }
@@ -467,6 +469,29 @@ public class OSCOMConfig extends COMConfig implements  Serializable
         return this.getStack_name();
     }
 
+    @Override
+    public Map<String, List<NIC>> allInterface()
+    {
+        Map<String, List<NIC>> vmnics = new HashMap<String, List<NIC>>();
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    while(it.hasNext()){
+	        String vm = it.next();
+	        Map<String, Object> config = (Map<String, Object>)vm_config.get(vm);
+	        List<NIC> nics = new ArrayList<NIC>();
+	        NIC eth0 = new NIC();
+	        IFCfg eth0cfg = new IFCfg();
+	        eth0cfg.setIpaddress((String)config.get("provider_ip_address"));
+	        eth0.setIpv4(eth0cfg);
+	        nics.add(eth0);
+	        NIC eth1 = new NIC();
+	        IFCfg eth1cfg = new IFCfg();
+	        eth1cfg.setIpaddress((String)config.get("private_ip_address"));
+	        eth1.setIpv4(eth1cfg);
+	        nics.add(eth1);
+	        vmnics.put(vm, nics);
+	    }
+        return vmnics;
+    }
 
 
 
