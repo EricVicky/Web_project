@@ -11,7 +11,9 @@ public class Inventory
 {
     String      name;
     List<Group> groups = new ArrayList<Group>();
-
+    public static final String ALL_VMS = "allvm:children";
+    public static final String NO_OAM = "no_oam:children";
+    public static final String OAM = "oam";
     public String toInf()
     {
         StringBuffer inf = new StringBuffer("");
@@ -34,13 +36,9 @@ public class Inventory
         groups.add(group);
     }
     
-    
-
-
-    
-
-  
-
+    public List<Group> getAllGroups(){
+        return groups;
+    }
     public static void main(String[] args){
         Inventory inv = new Inventory();
         Group group = new Group("groupA");
@@ -49,6 +47,16 @@ public class Inventory
         group.add(new Host("user3", "password1", "1.111.111.1"));
         inv.addGroup(group);
         System.out.println(inv.toInf());
+    }
+    
+    public void addNooamGroup(){
+        Group nooamgroup = new Group(NO_OAM);
+        for(Group group : groups){
+           if(!group.getName().equals(ALL_VMS) && !group.getName().equals(OAM)){
+              nooamgroup.add(group); 
+           } 
+        }
+        this.addGroup(nooamgroup );
     }
     
 }

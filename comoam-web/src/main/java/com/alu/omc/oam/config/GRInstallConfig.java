@@ -52,11 +52,14 @@ public void setGr_ip_type(IPtype gr_ip_type)
 @Override
 public Inventory getInventory()
 {
+    Inventory inv;
     if(this.getGr_install_active()){
-        return this.getPri().getInventory();
+        inv = this.getPri().getInventory();
     }else{
-        return this.getSec().getInventory();
+        inv =  this.getSec().getInventory();
     }
+   inv.addNooamGroup();
+    return inv;
 }
 @JsonIgnore
 @Override
