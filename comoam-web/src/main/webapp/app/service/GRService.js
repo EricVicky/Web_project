@@ -10,7 +10,7 @@ angular.module('gr').factory('GRService', function($location, $q, $resource, $lo
 			return comInstanceRes.query().$promise;
 		},
 		install: function (config, success, error) {
-			var grInstRes = $resource(restUrl + "rest/gr/install");
+			var grInstRes = $resource(restUrl + "rest/gr/kvm/install");
 			grInstRes.save(config,
 				function (data) {
 					success(data);
@@ -20,7 +20,7 @@ angular.module('gr').factory('GRService', function($location, $q, $resource, $lo
 				});
 		},
 		uninstall: function (config, success, error) {
-			var grInstRes = $resource(restUrl + "rest/gr/uninstall");
+			var grInstRes = $resource(restUrl + "rest/gr/kvm/uninstall");
 			return grInstRes.save().$promise;
 		}
 	};
