@@ -123,7 +123,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	    inv.addGroup(hostg);
 	    @SuppressWarnings("unchecked")
         Iterator<String> it = vm_config.keySet().iterator(); 
-	    Group allVM = new Group("allvm:children");
+	    Group allVM = new Group(Inventory.ALL_VMS);
 	    inv.addGroup(allVM);
 	    while(it.hasNext()){
 	        String name = it.next();
