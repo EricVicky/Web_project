@@ -39,8 +39,8 @@ public class BACKUPConfig<T extends COMConfig> extends COMConfig implements Seri
 		}
 		private String local_backup_dir;
 		private String local_backup_file;
-		private String remote_server_dir="";  //
-		private String remote_server_ip="";
+		private String remote_server_dir  = "";  
+		private String remote_server_ip = "";
 
 		public String getLocal_backup_dir() {
 			return local_backup_dir;

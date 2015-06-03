@@ -15,10 +15,10 @@ import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
-import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 
@@ -100,7 +100,18 @@ public class CloudDeployController
     	List<COMStack> instances = cOMStackService.list();
     	return instances;
     }
-    
+    @RequestMapping(value="/instances", method=RequestMethod.GET)
+    public List<COMStack>  allinstances() throws IOException, InterruptedException
+    {
+    	List<COMStack> instances = cOMStackService.list();
+    	return instances;
+    }
+    @RequestMapping(value="/gr/kvm/install", method=RequestMethod.POST)
+    public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
+    {
+        String vars = config.getVars();
+        ansibleDelegator.execute(Action.GRINST_PRI, config);
+    }   
     @RequestMapping(value="/os/instances", method=RequestMethod.GET)
     public List<COMStack>  osinstances() throws IOException, InterruptedException
     {

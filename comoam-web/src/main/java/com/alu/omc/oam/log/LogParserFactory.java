@@ -27,7 +27,16 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK), osDeleteParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osBackupParser());
         parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK), osRestoreParser());
+        parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
     }
+    
+    private ILogParser kvmGrInstPriParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sDB\\sand\\sCM\\sGR\\]", "Install PRI DB and CM");
+        dict.put("TASK\\:\\s\\[install\\_gr\\s\\|\\sgenerate\\sgr\\_install\\_ip\\]", "Install GR");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
