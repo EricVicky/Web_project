@@ -14,7 +14,34 @@
         <stats number="24" comments="Support tickets!" colour="red" type="support"></stats>
 
     </div>
-    <canvas id="canvas" network-topo width="2000" height="1500"></canvas>
+    <div id="menu" style="display: none" class="btn-group">
+	    <a id="list" class="dropdown-toggle" data-toggle="dropdown">
+	    	<span class="glyphicon glyphicon-list"> </span>
+		</a>
+		<ul id="operations" class="dropdown-menu">
+			<li ng-click="goupgraqde()" class="listoperations">
+				<a href="http://localhost:8080/comoam/#/dashboard/kvmupgrade">
+				  <span class="glyphicon glyphicon-arrow-up"></span> upgrade
+				</a>
+			</li>
+			<li class="listoperations">
+				<a>
+				  <span class="glyphicon glyphicon-remove"></span> delete
+				</a>
+			</li>
+			<li class="listoperations">
+				<a>
+				  <span class="glyphicon glyphicon-floppy-save"></span> backup
+				</a>
+			</li>
+			<li class="listoperations">
+				<a>
+				  <span class="glyphicon glyphicon-floppy-open"></span> restore
+				</a>
+			</li>
+		</ul>
+	</div>
+   	<canvas id="canvas" network-topo width="2000" height="1500" style="background-color:#F2F2F2"></canvas>
     <img width="100" height="100" id="VNFC" src="images/VM.png">
         <!-- /.col-lg-4 -->
 		<div class="container-fluid" ng-controller="MainCtrl">

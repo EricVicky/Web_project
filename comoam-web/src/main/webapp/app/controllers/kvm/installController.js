@@ -5,6 +5,7 @@ angular.module('kvm', [ 'ui.router',
                         'rcForm', 
                         'ghiscoding.validation',
                         'monitor',
+                        'dashboard',
                         'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService) {
 			$scope.submitComtype = function(){

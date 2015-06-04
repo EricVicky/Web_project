@@ -1,5 +1,5 @@
 angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, KVMService
-		,  monitorService, $dialogs, $state) {
+		,  monitorService, DashboardService, $dialogs, $state) {
 	
 	$scope.loadimglist = function(host, dir){
         	KVMService.imagelist({ "host":host, "dir":dir}).then(
@@ -14,7 +14,27 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
-
+    
+    $scope.setDefaultInstace = function(){
+    	var selectedKVMInstance = DashboardService.getUpgradeInstance();
+    	if(selectedKVMInstance == null){
+    		return;
+    	}
+        $scope.installConfig = $scope.com_instance;
+        for(var inst in $scope.kvmcomInstance){
+        		var com_config = JSON3.parse($scope.kvmcomInstance[inst].comConfig);
+        		if(angular.equals(com_config,selectedKVMInstance)){
+        		   $scope.com_instance = $scope.kvmcomInstance[inst];
+        		   $scope.installConfig = com_config;
+        		   return;
+        		}
+        }
+  
+        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    }
+   
+    
 	$scope.doUpgrade = function (){
 		//var installConfig = JSON3.parse($scope.com_instance.comConfig);
 //		$scope.installConfig.oam_cm_image = $scope.oam_cm_image;
@@ -39,7 +59,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 				$scope.kvmcomInstance.push($scope.comInstance[ci]);
 			}
 		}
-		//$scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
+		$scope.setDefaultInstace();
 		
     });
 

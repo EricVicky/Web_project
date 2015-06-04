@@ -7,7 +7,13 @@
  * Controller of the comoamApp
  */
 angular.module('comoamApp')
-  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, $state) {
+  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, DashboardService, $state) {
+	  
+	  $scope.goupgraqde = function(){
+		  DashboardService.setUpgradeInstance($scope.selectedIns);
+		  //$state.go("dashboard.kvmupgrade");
+	  }
+	  
 	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
 			$scope.delcomInstance = data;

@@ -10,6 +10,7 @@ angular.module('comoamApp', [
     'kvm', 
     'os', 
     'monitor',
+    'dashboard',
     'rcWizard', 
     'mgo-angular-wizard',
     'rcForm', 
@@ -49,8 +50,7 @@ angular.module('comoamApp', [
     	$cookieStore.put("lastClickedTime", new Date().getTime());
     	//$log.info("Clicked: " + $cookieStore.get("lastClickedTime"));
     });
-
-
+    
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         $log.info("State change from " + angular.toJson(fromState) + ", to " + angular.toJson(toState));
         $log.info("location=" + $location.path());
