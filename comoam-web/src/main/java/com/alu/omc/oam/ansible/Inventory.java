@@ -14,6 +14,7 @@ public class Inventory
     public static final String ALL_VMS = "allvm:children";
     public static final String NO_OAM = "no_oam:children";
     public static final String OAM = "oam";
+    public static final String HOST = "host";
     public String toInf()
     {
         StringBuffer inf = new StringBuffer("");
@@ -52,7 +53,8 @@ public class Inventory
     public void addNooamGroup(){
         Group nooamgroup = new Group(NO_OAM);
         for(Group group : groups){
-           if(!group.getName().equals(ALL_VMS) && !group.getName().equals(OAM)){
+           if(!group.getName().equals(ALL_VMS) && !group.getName().equals(OAM) 
+        		   && !group.getName().equals(HOST)){
               nooamgroup.add(group); 
            } 
         }
