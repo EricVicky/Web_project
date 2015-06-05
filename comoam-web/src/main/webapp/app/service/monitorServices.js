@@ -8,7 +8,8 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "backup":["Start","Data Backup","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "delete":["Start","Finished"],
-				 "gr_pri_install":["Start","Pri GR Install","Sec GR Install","Finished"],
+				 "gr_pri_install":["Start","Pri GR Install","Finished"],
+				 "gr_sec_install":["Start","Sec GR Install","Finished"],
 				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"Openstack" :{
@@ -54,7 +55,12 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "gr_pri_install";
 			channel = ch;
 		},
-		monitorKVMGR_Pri_UnInstall: function(ch) {
+		monitorKVMGR_Sec_Install: function(ch) {
+			environment = "KVM";
+			action = "gr_sec_install";
+			channel = ch;
+		},
+		monitorKVMGR_UnInstall: function(ch) {
 			environment = "KVM";
 			action = "gr_uninstall";
 			channel = ch;

@@ -13,6 +13,10 @@ angular.module('gr').factory('GRService', function($location, $q, $resource, $lo
 			var grInstRes = $resource(restUrl + "rest/gr/kvm/install");
 			return grInstRes.save(config).$promise;
 		},
+		checkInstalled:function(name){
+			var grinstalled = $resource(restUrl + "rest/gr/kvm/checkinstalled");
+			return grinstalled.get(name).$promise;
+		},
 		uninstall: function (config) {
 			var grInstRes = $resource(restUrl + "rest/gr/kvm/uninstall");
 			return grInstRes.save(config).$promise;
