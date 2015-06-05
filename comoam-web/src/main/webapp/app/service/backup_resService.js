@@ -9,27 +9,21 @@ angular.module('backup_restore').factory('Backup_ResService', function($location
 			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
 			return comInstanceRes.query().$promise;
 		},
-		kvmbackup: function (config, success, error) {
+		kvmbackup:function(config){
 			var backupRes = $resource(restUrl + "rest/kvm/backup");
-			backupRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return backupRes.save(config).$promise;
 		},
-		osbackup: function (config, success, error) {
+		osbackup:function(config){
 			var backupRes = $resource(restUrl + "rest/os/backup");
-			backupRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return backupRes.save(config).$promise;
+		},
+		kvmrestore:function(config){
+			var restoreRes = $resource(restUrl + "rest/kvm/restore");
+			return restoreRes.save(config).$promise;
+		},
+		osrestore:function(config){
+			var restoreRes = $resource(restUrl + "rest/os/restore");
+			return restoreRes.save(config).$promise;
 		},
 	};
 });

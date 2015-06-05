@@ -154,16 +154,33 @@
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset>
+									    <div class="form-group" col-md-4>
+										    <label class="control-label">Remote Server</label>
+											<input name="remote_server" type="checkbox" ng-model="remote_server" 
+											title="Remote Server" />
+										</div>
+										<div class="form-group" ng-if="remote_server==true">
+											<label class="control-label">Restore Server IP</label> <input
+												name="backup_server_ip" class="form-control" type="text"
+												ng-model="$parent.backupConfig.backupLocation.remote_server_ip" 
+												title="serverip" validation="required|ipv4"/>
+										</div>
+										<div class="form-group" ng-if="remote_server==true">
+											<label class="control-label">Restore Server Directory</label> <input
+												name="backup_server_directory" class="form-control" type="text"
+												ng-model="$parent.backupConfig.backupLocation.remote_server_dir" 
+												title="serverip" validation="required"/>
+										</div>
 										<div class="form-group">
-											<label class="control-label">Directory</label> <input
-												name="directory" class="form-control" type="text"
-												ng-model="restoreConfig.directory" 
-												title="directory" validation="required" placeholder="/localbackup/"/>
+											<label class="control-label">Local Directory</label> <input
+												name="local_directory" class="form-control" type="text"
+												ng-model="backupConfig.backupLocation.local_backup_dir" 
+												title="directory" validation="required" placeholder="localbackup"/>
 										</div>
 										<div class="form-group">
 											<label class="control-label">File Name</label> <input
 												name="filename" class="form-control" type="text"
-												ng-model="restoreConfig.filename" placeholder="test.tgz"
+												ng-model="backupConfig.backupLocation.local_backup_file" placeholder="test"
 												title="file name" validation="required" />
 										</div>
 									</fieldset>

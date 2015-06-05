@@ -110,3 +110,8 @@ background-color: #eee;
 	background-attachment: false;
 	background-repeat:no-repeat;
 }
+
+.modal-backdrop{
+	bottom: 0;
+	position: fixed;
+}

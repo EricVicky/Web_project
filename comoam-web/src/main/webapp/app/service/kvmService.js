@@ -13,16 +13,9 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var imageRes = $resource(restUrl + "rest/kvm/images");
 			return imageRes.query().$promise;
 		},
-		deploy: function (config, success, error) {
+		deploy:function(config){
 			var deployRes = $resource(restUrl + "rest/kvm/deployment");
-			deployRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return deployRes.save(config).$promise;
 		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(restUrl + "data/comType.json");
@@ -56,43 +49,18 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var lockedHostRes = $resource(restUrl + "rest/check/host/status");
 			return lockedHostRes.get({"ip_address":ip_address}).$promise;
 		},
-		upgrade: function (config, success, error) {
+		upgrade:function(config){
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");
-			upgradeRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return upgradeRes.save(config).$promise;
 		},
 		getComInstance: function(success,error) {
 			var comInstanceRes = $resource(restUrl + "rest/kvm/instances");
 			return comInstanceRes.query().$promise;
 		},
-		backup: function (config, success, error) {
-			var backupRes = $resource(restUrl + "rest/kvm/backup");
-			backupRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
-		},
-		deletecom: function (config, success, error) {
+		deletecom:function(config){
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "rest/kvm/instances/"+name);
-			deleteRes.save(config,
-				function (data) {
-					success(data);
-				},
-				// error
-				function (response) {
-					error(response);
-				});
+			return deleteRes.save(config).$promise;
 		},
 	};
 });

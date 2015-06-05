@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
+
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.GRInstallConfig;
+import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
-import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 
@@ -88,6 +91,11 @@ public class CloudDeployController
     {
         ansibleDelegator.execute(Action.BACKUP, config );
     }
+    @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
+    public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.RESTORE, config );
+    }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)
     public List<COMStack>  kvminstances() throws IOException, InterruptedException
@@ -95,6 +103,23 @@ public class CloudDeployController
     	List<COMStack> instances = cOMStackService.list();
     	return instances;
     }
+    @RequestMapping(value="/instances", method=RequestMethod.GET)
+    public List<COMStack>  allinstances() throws IOException, InterruptedException
+    {
+    	List<COMStack> instances = cOMStackService.list();
+    	return instances;
+    }
+    @RequestMapping(value="/gr/kvm/install", method=RequestMethod.POST)
+    public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
+    {
+        ansibleDelegator.execute(Action.GRINST_PRI, config);
+    }   
+    
+    @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
+    public void uninstall_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.GRUNINST, config);
+    } 
     
     @RequestMapping(value="/os/instances", method=RequestMethod.GET)
     public List<COMStack>  osinstances() throws IOException, InterruptedException
@@ -117,16 +142,10 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.BACKUP, config );
     }
 
-    @RequestMapping(value="/os/rCred", method=RequestMethod.GET)
-    public OpenstackConfig rCred() throws IOException, InterruptedException
+    @RequestMapping(value="/os/restore", method=RequestMethod.POST)
+    public void osrestore( @RequestBody BACKUPConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
-        return cOMStackService.getOpenstackConfig();
-    }
-
-    @RequestMapping(value="/os/uCred", method=RequestMethod.POST)
-    public void uCred(@RequestBody OpenstackConfig config) throws IOException, InterruptedException
-    {
-    	cOMStackService.addOpenstackConfig(config);
+        ansibleDelegator.execute(Action.RESTORE, config );
     }
 
 }

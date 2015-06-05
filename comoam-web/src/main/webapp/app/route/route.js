@@ -118,4 +118,12 @@ angular.module('comoamApp')
         templateUrl:'views/backup_restore/restore.html',
         url:'/restore',
     })
+    .state('dashboard.grinstall',{
+        templateUrl:'views/gr/install.html',
+        url:'/gr/install',
+    })
+    .state('dashboard.gruninstall',{
+        templateUrl:'views/gr/uninstall.html',
+        url:'/gr/uninstall',
+    })
   }])

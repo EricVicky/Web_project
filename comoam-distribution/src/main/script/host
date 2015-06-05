@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" == "--list" ] ; then
+  echo "{ \"host\" : [ \"$host_IP\" ] }"
+else
+  echo '{ "some_variable": "some value" }'
+fi

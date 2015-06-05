@@ -7,7 +7,7 @@
  * Controller of the comoamApp
  */
 angular.module('comoamApp')
-  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, DashboardService, $state) {
+  .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, DashboardService, $state, $modal) {
 	  
 	  $scope.goupgraqde = function(){
 		  DashboardService.setUpgradeInstance($scope.selectedIns);
@@ -22,34 +22,51 @@ angular.module('comoamApp')
 		  if($scope.del_com_instance != null){
 			  $scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
 		  }
+	  } 
+	  $scope.animationsEnabled = true;
+
+	  $scope.open = function (size) {
+
+		  var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/common/deleteComInsModal.html',
+		      controller: 'deleteComController',
+		      size: size,
+		      backdrop: true,
+		      resolve: {
+		    	  selectedIns: function () {
+		    		  return $scope.selectedIns;
+		    	  }
+		      }
+		  });
+	
+	      modalInstance.result.then(function (selectedItem) {
+	        $scope.selectedIns = selectedItem;
+	      }, function () {
+	        $log.info('Modal dismissed at: ' + new Date());
+	      });
 	  }
-	    
+  })
+  .controller('deleteComController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){
 	  $scope.deletecom = function(){
-		  //var Config = JSON3.parse($scope.del_com_instance.comConfig);
-		  if($scope.Config.environment == "KVM"){
-			  KVMService.deletecom(
-				$scope.Config,
-				function(data){
-					monitorService.monitorKVMDelete($scope.Config.active_host_ip);
-             		$state.go("dashboard.monitor");
-				},
-				function(response){
-					$log.info(response);
-				}
-			  );
+		  if($scope.selectedIns.environment == "KVM"){
+			  KVMService.deletecom($scope.selectedIns).then( function(){
+				  monitorService.monitorKVMDelete($scope.selectedIns.active_host_ip);
+	       		  $state.go("dashboard.monitor");
+			  });
 		  }else{
-			  OSService.deletecom(
-				$scope.Config,
-				function(data){
-					monitorService.monitorOSDelete($scope.Config.stack_name);
-             		$state.go("dashboard.monitor");
-				},
-				function(response){
-					$log.info(response);
-				}
-			  );
-		  }
-		  
+			  OSService.deletecom($scope.selectedIns).then( function(){
+				  monitorService.monitorOSDelete($scope.selectedIns.stack_name);
+	       		  $state.go("dashboard.monitor");
+			  });
+		  }  
 	  }
-	  
-  });
+	 $scope.selectedIns = selectedIns;
+	 $scope.ok = function(){
+		 $scope.deletecom();
+		 $modalInstance.close($scope.selectedIns);
+	 };
+	 $scope.cancel = function () {
+		 $modalInstance.dismiss('cancel');
+     };
+});

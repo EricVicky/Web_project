@@ -6,15 +6,18 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"]
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
+				 "restore":["Start","Data Restore","Finished"],
+				 "gr_pri_install":["Start","Pri GR Install","Sec GR Install","Finished"],
+				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"Openstack" :{
 				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"]
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
+				 "restore":["Start","Data Restore","Finished"]
 			}
-			
 	};
 	var environment;
 	var action;
@@ -36,9 +39,24 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "backup";
 			channel = ch;
 		},
+		monitorKVMRestore:function(ch) {
+			environment = "KVM";
+			action = "restore";
+			channel = ch;
+		},
 		monitorKVMDelete: function(ch) {
 			environment = "KVM";
 			action = "delete";
+			channel = ch;
+		},
+		monitorKVMGR_Pri_Install: function(ch) {
+			environment = "KVM";
+			action = "gr_pri_install";
+			channel = ch;
+		},
+		monitorKVMGR_Pri_UnInstall: function(ch) {
+			environment = "KVM";
+			action = "gr_uninstall";
 			channel = ch;
 		},
 		monitorOSInstall: function(ch) {
@@ -54,6 +72,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorOSBackup: function(ch) {
 			environment = "Openstack";
 			action = "backup";
+			channel = ch;
+		},
+		monitorOSRestore: function(ch) {
+			environment = "Openstack";
+			action = "restore";
 			channel = ch;
 		},
 		monitorOSDelete: function(ch) {

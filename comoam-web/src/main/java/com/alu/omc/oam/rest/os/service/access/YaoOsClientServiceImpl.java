@@ -72,4 +72,10 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
                 .domainName(osConfig.getOsDomainName())
                 .perspective(Facing.PUBLIC).authenticate();
     }
+
+    @Override
+    public void reset()
+    {
+       this.access = null; 
+    }
 }

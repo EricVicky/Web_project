@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -76,7 +74,7 @@
 										<artifactItem>
 											<groupId>com.alu.ems</groupId>
 											<artifactId>comoam-playbook</artifactId>
-											<version>0.1-SNAPSHOT</version>
+											<version>${project.version}</version>
 											<type>tar</type>
 											<overWrite>true</overWrite>
 											<outputDirectory>${project.build.directory}/</outputDirectory>
@@ -96,7 +94,7 @@
 										<artifactItem>
 											<groupId>com.alu.ems</groupId>
 											<artifactId>comoam-web</artifactId>
-											<version>0.1-SNAPSHOT</version>
+											<version>${project.version}</version>
 											<type>war</type>
 											<overWrite>true</overWrite>
 											<outputDirectory>${project.build.directory}/apache-tomcat-${tomcat.version}/webapps/</outputDirectory>
@@ -124,6 +122,7 @@
 							<license>GPL (c) 2015, ALU</license>
 							<distribution>ALU 2005</distribution>
 							<group>Alcatel-lucent</group>
+							<version>0.1</version>
 							<mappings>
 								<mapping>
 									<directory>/opt/PlexView/comoam/</directory>
@@ -148,8 +147,9 @@
 											    <exclude>webapps/examples/**</exclude>
 											    <exclude>webapps/host-manager/**</exclude>
 											    <exclude>webapps/manager/**</exclude>
-											    <exclude>webapps/ROOt</exclude>
+											    <exclude>webapps/ROOT/**</exclude>
 											</excludes>
+											<noDefaultExcludes>true</noDefaultExcludes>
 										</source>
 									</sources>
 								</mapping>
@@ -183,6 +183,14 @@
 										</source>
 									</sources>
 								</mapping>
+								<mapping>
+								     <directory>/usr/bin</directory>
+								     <sources>
+								         <softlinkSource>
+								              <location>/opt/PlexView/comoam/script/config_bridge.sh</location>
+								         </softlinkSource>
+								     </sources>
+								</mapping>
 							</mappings>
 							<preinstallScriptlet>
 								<script>echo "installing now"</script>
@@ -191,6 +199,10 @@
 							        <scriptFile>src/main/script/postinstall.sh</scriptFile>
 							        <fileEncoding>utf-8</fileEncoding>
 							 </postinstallScriptlet>
+							 <preremoveScriptlet>
+							         <scriptFile>src/main/script/preremove.sh</scriptFile>
+							         <fileEncoding>utf-8</fileEncoding>
+							 </preremoveScriptlet>
 							 <postremoveScriptlet>
 							         <scriptFile>src/main/script/postremove.sh</scriptFile>
 							         <fileEncoding>utf-8</fileEncoding>

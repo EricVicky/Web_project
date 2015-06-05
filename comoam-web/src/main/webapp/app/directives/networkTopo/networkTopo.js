@@ -51,6 +51,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					
             					var comStackMenuX = 20;					//distance between comStack and it's menu on direction X
             					var comStackMenuY = 10;					//distance between comStack and it's menu on direction Y
+            					var canvasTop = $("#canvas").position().top;
+        						var canvasLeft = $("#canvas").position().left;
             					var comColor = '#337ab7';
             					var hostColor = 'rgb(55,91,205)';
             					var vnfcColor = 'rgb(42,176,224)';
@@ -66,8 +68,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].fillColor = comColor;
                 					
                 					comStackPath[comStacksNum].attach('mousemove' , function(){
-                						var canvasTop = $("#canvas").position().top;
-                						var canvasLeft = $("#canvas").position().left;
+                						
                 						var indexOfcomStack = comStackPath.indexOf(this);
                 						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
                 						$("#menu").show();
@@ -78,6 +79,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].attach('mouseleave' , function(){
                 						comStackPath[comStackPath.indexOf(this)].opacity = 1;
 									});
+                					//alert(indexOfcomStack);
                 					
                 					//draw comStack Name
                 					var comStackNamePoint = new Point(this.networkTopologyStartX + comStackTopoX,
@@ -85,7 +87,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 									var comStackNameText = new PointText(comStackNamePoint);
 									comStackNameText.content = this.COMStacks[comStacksNum].deployment_prefix;
 									comStackNameText.fillColor = 'blue';
-									comStackNameText.fontSize = '10px';
+									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
                 					
                 					if(this.COMStacks[comStacksNum].environment == "KVM"){

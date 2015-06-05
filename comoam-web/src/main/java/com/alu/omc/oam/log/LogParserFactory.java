@@ -21,11 +21,32 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM), kvmUpgradeParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.OPENSTACK), osUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM), kvmBackupParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM), kvmRestoreParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK), osInstallParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM), kvmDeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK), osDeleteParser());
-        parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osDeleteParser());
+        parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osBackupParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK), osRestoreParser());
+        parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
+        parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstPriParser());
     }
+    
+    private ILogParser kvmGrInstPriParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sSEC\\sDB\\sGR\\]", "Sec GR Install");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser kvmGrUnInstPriParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[Uninstall\\sOAM\\sGR\\]", "GR Uninstall");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
@@ -39,14 +60,35 @@ public class LogParserFactory
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("PLAY\\s\\[destroy", "Start");
+        dict.put("PLAY\\s\\[destroy", "Begin");
         return new LogParser(dict);
 	}
     
     private ILogParser kvmBackupParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser kvmRestoreParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\screate\\slocal\\srestore\\sdirectory\\]", "Data Restore");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser osBackupParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser osRestoreParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}
