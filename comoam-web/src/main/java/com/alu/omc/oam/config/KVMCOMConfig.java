@@ -25,7 +25,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
     private COMType            comType;
 	private Map<String, Object> vm_config;
 	private Map<String, String> app_install_options;
-	private boolean support_gr;
 
 	private String timezone;
 	private String active_host_ip;
@@ -80,14 +79,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
-	}
-
-	public boolean getSupport_gr() {
-		return support_gr;
-	}
-
-	public void setSupport_gr(boolean support_gr) {
-		this.support_gr = support_gr;
 	}
 
 	public static long getSerialversionuid() {
