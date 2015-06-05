@@ -4,6 +4,7 @@ angular.module('kvm', [ 'ui.router',
                         'rcForm', 
                         'ghiscoding.validation',
                         'monitor',
+                        'dashboard',
                         'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService, $modal) {
 			$scope.submitComtype = function(){
@@ -81,26 +82,26 @@ angular.module('kvm', [ 'ui.router',
 
 	  $scope.open = function (size) {
 
-	  var modalInstance = $modal.open({
-	      animation: $scope.animationsEnabled,
-	      templateUrl: 'views/common/NFVChooseModal.html',
-	      controller: 'NFVChooseController',
-	      size: size,
-	      backdrop: false,
-	      resolve: {
-	         NFVTypes: function () {
-	          return $scope.NFVTypes;
-	        }
-	      }
-	    });
-
-	    modalInstance.result.then(function (selectedItem) {
-	      $scope.NFV = selectedItem;
-	    }, function () {
-	      $log.info('Modal dismissed at: ' + new Date());
-	    });
+		  var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/common/NFVChooseModal.html',
+		      controller: 'NFVChooseController',
+		      size: size,
+		      backdrop: true,
+		      resolve: {
+		         NFVTypes: function () {
+		          return $scope.NFVTypes;
+		        }
+		      }
+		    });
+	
+		    modalInstance.result.then(function (selectedItem) {
+		      $scope.NFV = selectedItem;
+		    }, function () {
+		      $log.info('Modal dismissed at: ' + new Date());
+		    });
 	  };
-	 //$scope.open();
+	 //$scope.open('sm');
 
 })
 .controller('NFVChooseController', function($scope, $modalInstance, NFVTypes ){
