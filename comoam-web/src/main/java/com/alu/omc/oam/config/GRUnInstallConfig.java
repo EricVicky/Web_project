@@ -62,8 +62,9 @@ public COMType getCOMType()
 @JsonIgnore
 public String getStackName()
 {
-    return null;
+    return comConfig.getStackName();
 }
+
 
 
 }

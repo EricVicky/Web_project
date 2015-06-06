@@ -9,31 +9,30 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
-import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.Status;
 
-@Component("GRUNINST_KVM_HANDLER")
+@Component("GRINST_SEC_KVM_HANDLER")
 @Scope(value = "prototype")
-public class GrUnInstKVMHandler extends DefaultHandler{
+public class GrInstSecKVMHandler extends DefaultHandler{
 	
-	private static Logger log = LoggerFactory.getLogger(GrUnInstKVMHandler.class);
+	private static Logger log = LoggerFactory.getLogger(GrInstSecKVMHandler.class);
     @Override
     public void onStart()
     {
-    	runningContext.lock(getKVMConfig().getHost(), Action.GRINST_PRI);
+    	runningContext.lock(getKVMConfig().getHost(), Action.GRINST_SEC);
     }
     
     @SuppressWarnings("unchecked")
 	private KVMCOMConfig getKVMConfig(){
-    	return ((GRUnInstallConfig<KVMCOMConfig>)config).getComConfig();
+    	return ((GRInstallConfig<KVMCOMConfig>)config).getSec();
     }
 
-    @Override
+	@Override
     public void onSucceed()
     {
     	COMStack stack = new COMStack(config);
-    	stack.setStatus(Status.STANDALONE);
+    	stack.setStatus(Status.GRINSTALLED);
         service.grupdate(stack);
         runningContext.unlock(getKVMConfig().getHost());
         

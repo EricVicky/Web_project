@@ -21,6 +21,7 @@ import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.config.Status;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -112,7 +113,11 @@ public class CloudDeployController
     @RequestMapping(value="/gr/kvm/install", method=RequestMethod.POST)
     public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
     {
-        ansibleDelegator.execute(Action.GRINST_PRI, config);
+    	if(config.getGr_install_active()==true){
+    		ansibleDelegator.execute(Action.GRINST_PRI, config);
+    	}else{
+    		ansibleDelegator.execute(Action.GRINST_SEC, config);
+    	}
     }   
     
     @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
