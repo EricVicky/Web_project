@@ -4,9 +4,11 @@ tar -xf  /opt/PlexView/comoam/playbook.tar -C /opt/PlexView/comoam/
 
 if [ -f /opt/PlexView/comoam/datasource.tar.gz ]; then
     echo "restore data"
-    tar -xzvf /opt/PlexView/comoam/datasource.tar.gz  -C / 
+    tar -xzf /opt/PlexView/comoam/datasource.tar.gz  -C / 
 fi
-echo "start COM LCM"
+echo "install jpam"
+tar -xzf /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/libjpam.so.tar.gz -C /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/
+echo "start COM ELCM"
 if [ ! -d /opt/PlexView/comoam/server/logs ]; then
     mkdir /opt/PlexView/comoam/server/logs
 fi
@@ -27,4 +29,5 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     echo "generate ssh key"
     ssh-keygen -f ~/.ssh/id_rsa -t rsa -N '' -q
 fi
-
+echo 'Installation of ELCM tool completed!'
+echo 'Access COM ELCM from the link http://HOST_IP_ADDRESS/ as axadmin user'

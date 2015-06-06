@@ -119,11 +119,12 @@
 							</execution>
 						</executions>
 						<configuration>
-							<name>comoam</name>
+							<name>ELCM</name>
 							<license>GPL (c) 2015, ALU</license>
 							<distribution>ALU 2005</distribution>
 							<group>Alcatel-lucent</group>
 							<version>0.1</version>
+							<targetArchitecture>x86_64</targetArchitecture>
 							<mappings>
 								<mapping>
 									<directory>/opt/PlexView/comoam/</directory>
@@ -146,12 +147,12 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/usr/lib/jvm/${host.jdk.version}/jre/lib/amd64/</directory>
+									<directory>/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
 										<source>
-											<location>src/main/lib/libjpam.so</location>
+											<location>src/main/lib/libjpam.so.tar.gz</location>
 										</source>
 									</sources>
 								</mapping>
