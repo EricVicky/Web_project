@@ -11,7 +11,7 @@ angular.module('comoamApp')
 	  
 	  $scope.goupgraqde = function(){
 		  DashboardService.setUpgradeInstance($scope.selectedIns);
-		  //$state.go("dashboard.kvmupgrade");
+		  $state.go("dashboard.kvmupgrade");
 	  }
 	  
 	  KVMService.getComInstance().then( function(data) {
