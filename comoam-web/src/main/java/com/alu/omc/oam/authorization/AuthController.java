@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.jpam.Pam;
 import net.sf.jpam.PamReturnValue;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,8 @@ public class AuthController {
         Pam pam = new Pam();
         PamReturnValue ret = pam.authenticate(user.getUsername(), user.getPassword());
         log.info("verifyMsg" + ret.toString());
-        if ((SystemUtils.IS_OS_WINDOWS || ret == PamReturnValue.PAM_SUCCESS) {
-                user.setReason("user not found");
+        if (SystemUtils.IS_OS_WINDOWS || ret == PamReturnValue.PAM_SUCCESS) {
+                user.setReason("");
                 user.setPassword("");
                 String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
                 user.setToken(token);
@@ -40,7 +41,7 @@ public class AuthController {
                 log.info("user: " + user.getUsername() + "  -- login successful");
                 return user;
         } else {
-                user.setReason("wrong password");
+                user.setReason("invalid user or password");
                 user.setPassword("");
                 return user;
         }
