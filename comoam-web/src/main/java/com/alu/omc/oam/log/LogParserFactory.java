@@ -128,10 +128,10 @@ public class LogParserFactory
     private ILogParser kvmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("Reboot\\sserver", "Finished");
-        dict.put("Run\\s\\/install\\/scripts\\/post\\_image\\_replacement\\.sh", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        dict.put("image\\sreplacement\\spost\\sscript", "Post Configuration");
+        dict.put("vnf_create_vms\\s\\|\\screate\\svirtual\\smachine","Start VM Instance");
+        dict.put("vnf_create_disk\\s\\|\\screate\\sdata\\sdisk\\simage", "Generate Config Driver");
+        dict.put("vnf_prepare_vms\\s\\|\\sgenerate\\smeta data", "Start");
         return new LogParser(dict);
     }
     private ILogParser kvmUpgradeParser(){
