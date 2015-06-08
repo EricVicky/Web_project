@@ -90,7 +90,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 									if(this.COMStacks[comStacksNum].environment == "KVM"){
 										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
 									}else {
-										comStackNameText.content = this.COMStacks[comStacksNum].com_type + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
 									}
 									
 									comStackNameText.fillColor = 'blue';

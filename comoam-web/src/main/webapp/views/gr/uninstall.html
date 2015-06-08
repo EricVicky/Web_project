@@ -100,7 +100,7 @@
 														<tbody>
 															<tr align="center">
 																<td colspan="2">COM Type</td>
-																<td>{{gr_config.comConfig.com_type}}</td>
+																<td>{{gr_config.comConfig.comType}}</td>
 															</tr>
 															<tr align="center">
 																<td colspan="2">Stack Name</td>
@@ -120,37 +120,37 @@
 																<td>{{gr_config.comConfig.deployment_prefix}}</td>
 															</tr>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='OAM' || gr_config.comConfig.com_type=='CM' || gr_config.comConfig.com_type=='QoSAC'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
 																<td rowspan="2" width="25%" align="center"
 																	style="vertical-align: middle">OAM VM</td>
 																<td width="35%">IP Address</td>
 																<td>{{gr_config.comConfig.vm_config.oam.provider_ip_address}}</td>
 															</tr>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='OAM' || gr_config.comConfig.com_type=='CM' || gr_config.comConfig.com_type=='QoSAC'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
 																<td>Flavor</td>
 																<td>{{gr_config.comConfig.vm_config.oam.flavor}}</td>
 															</tr>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='OAM' || gr_config.comConfig.com_type=='CM'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
 																<td rowspan="2" width="25%" align="center"
 																	style="vertical-align: middle">DB VM</td>
 																<td width="35%">IP Address</td>
 																<td>{{gr_config.comConfig.vm_config.db.provider_ip_address}}</td>
 															</tr>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='OAM' || gr_config.comConfig.com_type=='CM'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
 																<td>Flavor</td>
 																<td>{{gr_config.comConfig.vm_config.db.flavor}}</td>
 															</tr>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='CM'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
 																<td rowspan="2" width="25%" align="center"
 																	style="vertical-align: middle">CM VM</td>
 																<td width="35%">IP Address</td>
 																<td>{{gr_config.comConfig.vm_config.cm.provider_ip_address}}</td>
 															<tr align="center"
-																ng-if="gr_config.comConfig.com_type=='FCAPS' || gr_config.comConfig.com_type=='CM'">
+																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
 																<td>Flavor</td>
 																<td>{{gr_config.comConfig.vm_config.cm.flavor}}</td>
 															</tr>

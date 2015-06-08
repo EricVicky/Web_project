@@ -33,7 +33,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private COMProvidernetwork com_provider_network;
     private Map vm_config;
     private Map<String, String> app_install_options;
-    private COMType            com_type;
+    private COMType            comType;
     private String timezone;
     private COMPrivatenetwork com_private_network = new COMPrivatenetwork("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
     private String template_version;
@@ -151,7 +151,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     public COMType getCOMType()
     {
         // TODO Auto-generated method stub
-        return com_type;
+        return comType;
     }
     
     public class ComputeAvailZone implements Serializable
@@ -392,19 +392,19 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         this.com_provider_network = com_provider_network;
     }
 
-    public COMType getCom_type()
+    public COMType getComtype()
     {
-        return com_type;
+        return comType;
     }
 
-    public void setCom_type(COMType com_type)
+    public void setComType(COMType comType)
     {
-        this.com_type = com_type;
+        this.comType = comType;
     }
 
     public String toString()
     {
-        return this.com_type + "," + this.getEnvironment();
+        return this.comType + "," + this.getEnvironment();
     }
 
     public Map<String, Object> getVm_config()
