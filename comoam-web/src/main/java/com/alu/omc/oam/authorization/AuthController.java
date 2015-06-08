@@ -21,16 +21,29 @@ public class AuthController {
 	@RequestMapping("/login")
 	public @ResponseBody
     UserAccount login(@RequestBody final UserAccount user, HttpSession session) {
+        if (SystemUtils.IS_OS_WINDOWS ) {
+                user.setReason("");
+                user.setPassword("");
+                String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
+                user.setToken(token);
+                user.setPassword("");
+                user.setReason(null);
+                session.setAttribute("token", token);
+                log.info("user: " + user.getUsername() + "  -- login successful");
+                return user;
+        }
+
         if ("root".equalsIgnoreCase(user.getUsername())) {
                 user.setPassword("");
                 user.setReason("Wrong user name.");
                 log.info("Deny root user login");
                 return user;
         }
+        
         Pam pam = new Pam();
         PamReturnValue ret = pam.authenticate(user.getUsername(), user.getPassword());
         log.info("verifyMsg" + ret.toString());
-        if (SystemUtils.IS_OS_WINDOWS || ret == PamReturnValue.PAM_SUCCESS) {
+        if ( ret == PamReturnValue.PAM_SUCCESS) {
                 user.setReason("");
                 user.setPassword("");
                 String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
@@ -46,6 +59,11 @@ public class AuthController {
                 return user;
         }
 }
+	@RequestMapping("/logout")
+	public @ResponseBody
+    void logout( HttpSession session) {
+	    session.invalidate();
+	}
 
 
 	private static Logger log = LoggerFactory.getLogger(AuthController.class);
