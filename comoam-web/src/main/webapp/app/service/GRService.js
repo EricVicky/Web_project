@@ -1,5 +1,5 @@
 'use strict';
-angular.module('gr').factory('GRService', function($location, $q, $resource, $log, $http) {
+angular.module('gr').factory('GRService', function($location,  $q, $resource, $log, $http) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
 	return {

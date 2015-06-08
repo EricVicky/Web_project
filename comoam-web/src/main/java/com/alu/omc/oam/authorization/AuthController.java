@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alu.omc.oam.util.EncryptUtils;
@@ -18,7 +19,7 @@ import com.alu.omc.oam.util.EncryptUtils;
 @Controller("authController")
 public class AuthController {
 
-	@RequestMapping("/login")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody
     UserAccount login(@RequestBody final UserAccount user, HttpSession session) {
         if (SystemUtils.IS_OS_WINDOWS ) {
@@ -59,7 +60,7 @@ public class AuthController {
                 return user;
         }
 }
-	@RequestMapping("/logout")
+	@RequestMapping(value="/logout",  method=RequestMethod.DELETE)
 	public @ResponseBody
     void logout( HttpSession session) {
 	    session.invalidate();

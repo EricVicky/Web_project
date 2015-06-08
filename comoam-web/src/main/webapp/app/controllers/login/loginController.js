@@ -64,12 +64,8 @@ angular.module('login', [
 		$rootScope._server.release = "?";
 	};
 	
-
-	
 	$scope.demoUser = "";
 	$scope.demoPassword = "";
-	
-		
 	$scope.login = function() {
 		Auth.login({
 			username: $rootScope._user.username,
@@ -97,5 +93,21 @@ angular.module('login', [
 		if (event.target.tagName == "LABEL") {
 			$rootScope._user.rememberme = !$rootScope._user.rememberme;
 		}
+	};
+}).controller('LogoutController', function($rootScope, $scope, $cookieStore, $log, $state, $translate, $resource, Auth) {
+	$scope.logout = function() {
+	Auth.logout(
+		function(data) {
+			$cookieStore.remove("token");
+            $cookieStore.remove('currentApp');
+            $rootScope._user.reason = '';
+            $rootScope.auth = null;
+            $rootScope._entityList = null;
+			$state.go('login');
+		},
+		function(response) {
+			// Failed to login
+			$log.info("failed to log out!");
+		});
 	};
 });
