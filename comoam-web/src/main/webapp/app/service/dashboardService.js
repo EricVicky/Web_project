@@ -3,10 +3,10 @@
 angular.module('dashboard', []).factory('DashboardService', function($log) {
 	var slectedInstance;
 	return {
-		setUpgradeInstance:function(upgradeIns){
+		setSelectedInstance:function(upgradeIns){
 			slectedInstance = upgradeIns;
 		},
-		getUpgradeInstance:function(){
+		getSelectedInstance:function(){
 			return slectedInstance;
 		}
 	};
