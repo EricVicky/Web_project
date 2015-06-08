@@ -35,7 +35,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             		NetworkTopology.prototype = {
             				constructor : NetworkTopology,
             				drawNetworktopology : function(){
-            					var commoncolor = ["rgb(255,151,35)","rgb(52,191,52)","rgb(225,46,47)","rgb(37,142,215)","rgb(148,103,189)","rgb(227,119,194)","rgb(224,225,40)"];					//the color of network and the line between network and port
+            					$scope.comstackNum = this.COMStacks.length;
+            					var commoncolor = ["rgb(255,151,35)","rgb(52,191,52)","rgb(225,46,47)","rgb(227,119,194)","rgb(37,142,215)","rgb(148,103,189)","rgb(224,225,40)"];					//the color of network and the line between network and port
             					
             					//draw comStacks
             					var comStackTopoX = 200;				//distance between comStack and this topology on direction X
@@ -53,6 +54,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var comStackMenuY = 10;					//distance between comStack and it's menu on direction Y
             					var canvasTop = $("#canvas").position().top;
         						var canvasLeft = $("#canvas").position().left;
+        						var indexOfcomStack = '';
             					var comColor = '#337ab7';
             					var hostColor = 'rgb(55,91,205)';
             					var vnfcColor = 'rgb(42,176,224)';
@@ -68,24 +70,29 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].fillColor = comColor;
                 					
                 					comStackPath[comStacksNum].attach('mousemove' , function(){
-                						
-                						var indexOfcomStack = comStackPath.indexOf(this);
+                						indexOfcomStack = comStackPath.indexOf(this);
                 						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
                 						$("#menu").show();
                 						$scope.selectedIns = instances[comStackPath.indexOf(this)];
+                						$scope.selectedInsNum = comStackPath.indexOf(this);
                 						
                 						comStackPath[comStackPath.indexOf(this)].opacity = 0.6;
 									});
                 					comStackPath[comStacksNum].attach('mouseleave' , function(){
                 						comStackPath[comStackPath.indexOf(this)].opacity = 1;
 									});
-                					//alert(indexOfcomStack);
+                					$scope.selectedInsNum;
                 					
                 					//draw comStack Name
                 					var comStackNamePoint = new Point(this.networkTopologyStartX + comStackTopoX,
                 							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum - comStackNameY);
 									var comStackNameText = new PointText(comStackNamePoint);
-									comStackNameText.content = this.COMStacks[comStacksNum].deployment_prefix;
+									if(this.COMStacks[comStacksNum].environment == "KVM"){
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									}else {
+										comStackNameText.content = this.COMStacks[comStacksNum].com_type + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									}
+									
 									comStackNameText.fillColor = 'blue';
 									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
@@ -203,6 +210,127 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											
 											j++;
     	            					}
+                					}else {
+    	            					//draw vnfcs
+    	            					var vnfcCounts = 0;
+    	            					var j = 0;
+    	            					for(var name in this.COMStacks[comStacksNum].vm_config){
+    	            						vnfcCounts++;
+    	            					}
+    	            					var vnfcCOMStackX = 40;						//distance between VNFC and COMStack on direction X 
+    	            					var vnfcCOMStackY = 20;						//distance between first VNFC and COMStack on direction Y
+    	            					var vnfcInterval = 10;						//interval between VNFCs
+    	            					var vnfcHeight = 40;
+    	            					var vnfcWidth = vnfcHeight / 2;		
+    	            					var vnfcCornerWidth = 5;
+    	            					var vnfcCornerHeight = 5;
+    	            					var vnfcNamevnfcX = 3;						//distance between vnfc and it's name on direction X
+    	            					for(var vnfcNum in this.COMStacks[comStacksNum].vm_config){
+    	            						this.COMStacks[comStacksNum].vm_config[vnfcNum];
+    	            						var vnfcPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX,
+    	            								this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j);
+    	            						var vnfcSize = new Size(vnfcWidth, vnfcHeight);
+                							var vnfcRectangle = new Rectangle(vnfcPoint, vnfcSize);
+                							var vnfcCornerSize = new Size(vnfcCornerWidth, vnfcCornerHeight);
+                							var vnfcPath = new Path.Rectangle(vnfcRectangle, vnfcCornerSize);
+                							vnfcPath.strokeColor= 'white';
+                							vnfcPath.fillColor=vnfcColor;
+                							
+                							//draw vnfc name
+                							var vnfcNamePoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX,
+                									this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcHeight / 2 + 5);
+        									var vnfcNameText = new PointText(vnfcNamePoint);
+        									vnfcNameText.content = vnfcNum.toUpperCase();
+        									vnfcNameText.fillColor = 'black';
+        									vnfcNameText.fontSize = '15px'; 
+        									vnfcNameText.fontFamily = 'Calibri';
+        									vnfcNameText.justification = 'center';
+        									vnfcNameText.rotate(90);
+        									vnfcNameText.position.x += 10;
+        									
+        									//get line end X coordinate
+											var privateLineEndX = '';
+											var providerLineEndX = '';
+											var linePortColor = '';
+											var priLinePortColor = '';
+											var proLinePortColor = '';
+											var networkWidth = 18;
+											var networkInterval = 40;					//interval between networks
+											var networkTopoX = 550;					//distance between topology and network on direction X
+											for(var numberofPriNetwork=0;numberofPriNetwork<this.Networks.length;numberofPriNetwork++){
+            									if(this.COMStacks[comStacksNum].com_private_network.cidr == this.Networks[numberofPriNetwork]){
+            										privateLineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofPriNetwork;
+            										priLinePortColor = commoncolor[numberofPriNetwork];
+            									}
+            								}
+											for(var numberofProNetwork=0;numberofProNetwork<this.Networks.length;numberofProNetwork++){
+            									if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.netmask) == this.Networks[numberofProNetwork] ){
+            										providerLineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofProNetwork;
+            										proLinePortColor = commoncolor[numberofProNetwork];
+            									}
+            								}
+        									
+        									//draw vnfc port
+                							//port's position is connected to vnfc
+        									var portWidth = 5;
+                        					var portHeight = 10;
+                        					var portCornerWidth = 2;
+                        					var portCornerHeight = 2;
+                        					var portInterval = 16;							//interval between ports
+                        					var vnfcPortY = 3;							//distance between the first port's position and the vnfc
+                        					//private port
+                        					var vnfcPriPortPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth,
+                        							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
+											var vnfcPriPortSize = new Size(portWidth, portHeight);
+											var vnfcPriPortRectangle = new Rectangle(vnfcPriPortPoint, vnfcPriPortSize);
+											var vnfcPriPortCornerSize = new Size(portCornerWidth, portCornerHeight);
+											var vnfcPriPortPath = new Path.Rectangle(vnfcPriPortRectangle, vnfcPriPortCornerSize);
+											vnfcPriPortPath.fillColor = priLinePortColor;
+											
+											//draw vnfc private port ip address
+											var vnfcPriPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
+        									var vnfcPriPortIpText = new PointText(vnfcPriPortIpPoint);
+        									vnfcPriPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].private_ip_address;
+        									vnfcPriPortIpText.fillColor = priLinePortColor;
+        									vnfcPriPortIpText.fontSize = '15px'; 
+        									
+											//draw line between vnfc private port and networks
+			            					var privateline = new Path.Line([this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+			            					                          this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY + portHeight / 2],
+																	 [privateLineEndX,
+																	  this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY + portHeight / 2]);
+			            					privateline.strokeColor = priLinePortColor;
+			            					privateline.strokeWidth = "3";
+											
+											
+											//provider port
+											var vnfcProPortPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth,
+                        							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval);
+											var vnfcProPortSize = new Size(portWidth, portHeight);
+											var vnfcProPortRectangle = new Rectangle(vnfcProPortPoint, vnfcProPortSize);
+											var vnfcProPortCornerSize = new Size(portCornerWidth, portCornerHeight);
+											var vnfcProPortPath = new Path.Rectangle(vnfcProPortRectangle, vnfcProPortCornerSize);
+											vnfcProPortPath.fillColor = proLinePortColor;
+											
+											//draw vnfc provider port ip address
+											var vnfcProPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval);
+        									var vnfcProPortIpText = new PointText(vnfcProPortIpPoint);
+        									vnfcProPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address;
+        									vnfcProPortIpText.fillColor = proLinePortColor;
+        									vnfcProPortIpText.fontSize = '15px'; 
+        									
+											//draw line between vnfc provider port and networks
+			            					var providerline = new Path.Line([this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+			            					                          this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval + portHeight / 2],
+																	 [providerLineEndX,
+																	  this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval + portHeight / 2]);
+			            					providerline.strokeColor = proLinePortColor;
+			            					providerline.strokeWidth = "3";
+        									
+        									j++;									//it's an important parameter~~~~~~~
+    	            					}
                 					}
             					}
             					//draw networks
@@ -273,15 +401,23 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             		var networks = {};
             		(function(){
             			for(var comstack in instances){
-//            				if(!networks[instances[comstack].active_host_ip]){
-//            					networks[instances[comstack].active_host_ip] = instances[comstack].active_host_ip;
-//            				}
             				for(var vnfc in instances[comstack].vm_config){
-            					var networkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].ip_address,instances[comstack].vm_config[vnfc].netmask);
-            					if(!networks[networkAddress]){
-            						//var network = new Network(instances[comstack].vm_config[vnfc].gateway);
-            						networks[networkAddress] = networkAddress;
-            					}
+            					var networkAddress = '';
+            					var providerNetworkAddress = '';
+            					if(instances[comstack].environment == "KVM"){
+            						networkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].ip_address,instances[comstack].vm_config[vnfc].netmask);
+            						if(!networks[networkAddress]){
+                						networks[networkAddress] = networkAddress;
+                					}
+            					}else {
+            						networkAddress = instances[comstack].com_private_network.cidr;
+            						providerNetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].provider_ip_address, instances[comstack].com_provider_network.netmask);
+            						if(!networks[networkAddress] || !networks[providerNetworkAddress]){
+                						networks[networkAddress] = networkAddress;
+                						networks[providerNetworkAddress] = providerNetworkAddress;
+                					}
+            					} 
+            					
             				}
             			}
             		})();
@@ -293,6 +429,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 			networkTopology.addNetwork(networks[i]);
                 		}
             		})();
+            		var canvasHeight = networkTopology.COMStacks.length * 240;
+            		//$("#canvas").css({"width":"1000" , "height":canvasHeight});
             		console.log(networkTopology);
         			networkTopology.drawNetworktopology();
             	};

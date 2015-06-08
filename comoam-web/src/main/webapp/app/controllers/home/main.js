@@ -10,8 +10,12 @@ angular.module('comoamApp')
   .controller('MainCtrl', function($log, $scope,$position, KVMService, OSService, monitorService, DashboardService, $state, $modal) {
 	  
 	  $scope.goupgraqde = function(){
-		  DashboardService.setUpgradeInstance($scope.selectedIns);
-		  $state.go("dashboard.kvmupgrade");
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  if($scope.selectedIns.environment == "KVM"){
+			  $state.go("dashboard.kvmupgrade");			  
+		  }else{
+			  $state.go("dashboard.osupgrade");
+		  }
 	  }
 	  
 	  KVMService.getComInstance().then( function(data) {
@@ -27,18 +31,34 @@ angular.module('comoamApp')
 
 	  $scope.open = function (size) {
 
-		  var modalInstance = $modal.open({
-		      animation: $scope.animationsEnabled,
-		      templateUrl: 'views/common/deleteComInsModal.html',
-		      controller: 'deleteComController',
-		      size: size,
-		      backdrop: true,
-		      resolve: {
-		    	  selectedIns: function () {
-		    		  return $scope.selectedIns;
-		    	  }
-		      }
-		  });
+		  if($scope.selectedIns.environment == "KVM"){
+			  var modalInstance = $modal.open({
+			      animation: $scope.animationsEnabled,
+			      templateUrl: 'views/common/deleteKVMInsModal.html',
+			      controller: 'deleteComController',
+			      size: size,
+			      backdrop: true,
+			      resolve: {
+			    	  selectedIns: function () {
+			    		  return $scope.selectedIns;
+			    	  }
+			      }
+			  });  
+		  }else {
+			  var modalInstance = $modal.open({
+			      animation: $scope.animationsEnabled,
+			      templateUrl: 'views/common/deleteOSInsModal.html',
+			      controller: 'deleteComController',
+			      size: size,
+			      backdrop: true,
+			      resolve: {
+			    	  selectedIns: function () {
+			    		  return $scope.selectedIns;
+			    	  }
+			      }
+			  });
+		  }
+		  
 	
 	      modalInstance.result.then(function (selectedItem) {
 	        $scope.selectedIns = selectedItem;

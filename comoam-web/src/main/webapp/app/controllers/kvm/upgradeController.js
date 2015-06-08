@@ -16,7 +16,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     }
     
     $scope.setDefaultInstace = function(){
-    	var selectedKVMInstance = DashboardService.getUpgradeInstance();
+    	var selectedKVMInstance = DashboardService.getSelectedInstance();
     	if(selectedKVMInstance == null){
     		return;
     	}
