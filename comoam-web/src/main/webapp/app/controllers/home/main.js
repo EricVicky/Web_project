@@ -32,7 +32,7 @@ angular.module('comoamApp')
 		      templateUrl: 'views/common/deleteComInsModal.html',
 		      controller: 'deleteComController',
 		      size: size,
-		      backdrop: true,
+		      backdrop: false,
 		      resolve: {
 		    	  selectedIns: function () {
 		    		  return $scope.selectedIns;
