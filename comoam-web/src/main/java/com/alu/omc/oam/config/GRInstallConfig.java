@@ -6,9 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.yaml.snakeyaml.Yaml;
+
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
+import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class GRInstallConfig<T extends COMConfig> extends COMConfig implements Serializable
@@ -122,7 +125,11 @@ public void setSec(T sec)
 @JsonIgnore
 public String getStackName()
 {
-    return null;
+	if(this.getGr_install_active()){
+		return pri.getStackName();
+    }else{
+    	return sec.getStackName();
+    }
 }
 
 public class GRIP implements Serializable{
@@ -215,5 +222,7 @@ public class GRIP implements Serializable{
     
     
 }
+
+
 
 }

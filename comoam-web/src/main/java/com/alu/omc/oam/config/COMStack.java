@@ -9,6 +9,7 @@ private COMType comType;
 private String name;
 private Date updatedate;
 private String comConfig;
+private Status status = Status.STANDALONE;
 
 public COMStack(COMConfig config){
     this.name = config.getStackName();
@@ -61,6 +62,13 @@ public void setComConfig(String comConfig)
 {
     this.comConfig = comConfig;
 }
+public Status getStatus() {
+	return status;
+}
+public void setStatus(Status status) {
+	this.status = status;
+}
+
 
 
 

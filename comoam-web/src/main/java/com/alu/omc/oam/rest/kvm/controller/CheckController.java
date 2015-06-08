@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alu.omc.oam.ansible.RunningHostLock;
 import com.alu.omc.oam.ansible.validation.ValidationResult;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.Status;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.kvm.model.HostStatus;
 import com.alu.omc.oam.service.COMStackService;
@@ -46,6 +47,27 @@ public class CheckController
                    //unique = false;
             	   res.setSucceed(false);
                    break;
+               }
+            }
+        }
+       return res;
+    }
+    
+    @RequestMapping(value="/gr/kvm/checkinstalled", method=RequestMethod.GET)
+    public ValidationResult GRCheck(@ModelAttribute("name") String name){
+       List<COMStack> stacks =  cOMStackService.list();
+       ValidationResult res = new ValidationResult();
+       if (name!=null && stacks != null && stacks.size() >0)
+        {
+            for(COMStack stack : stacks){
+               if (stack.getName().equals(name)){
+                   if(stack.getStatus()==Status.GRINSTALLED){
+                	   res.setSucceed(true);
+                       break;
+                   }else{
+                	   res.setSucceed(false);
+                       break;
+                   }
                }
             }
         }

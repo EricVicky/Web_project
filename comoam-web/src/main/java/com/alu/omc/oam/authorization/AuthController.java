@@ -3,7 +3,9 @@ package com.alu.omc.oam.authorization;
 import javax.servlet.http.HttpSession;
 
 import net.sf.jpam.Pam;
+import net.sf.jpam.PamReturnValue;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,39 +20,51 @@ public class AuthController {
 
 	@RequestMapping("/login")
 	public @ResponseBody
-	UserAccount login(@RequestBody final UserAccount user, HttpSession session) {
+    UserAccount login(@RequestBody final UserAccount user, HttpSession session) {
+        if (SystemUtils.IS_OS_WINDOWS ) {
+                user.setReason("");
+                user.setPassword("");
+                String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
+                user.setToken(token);
+                user.setPassword("");
+                user.setReason(null);
+                session.setAttribute("token", token);
+                log.info("user: " + user.getUsername() + "  -- login successful");
+                return user;
+        }
 
-		if ("root".equalsIgnoreCase(user.getUsername())) {
-			user.setPassword("");
-			user.setReason("Wrong user name.");
-			log.info("Deny root user login");
-			return user;
-		}
-		
-//		Pam pam = new Pam();
-//		String verifyMsg = pam.authenticate(user.getUsername(), user.getPassword()).toString();
-//		if (verifyMsg.contains("underlying")) {
-//			user.setReason("user not found");
-//			user.setPassword("");
-//			return user;
-//		} else if (verifyMsg.contains("failure")) {
-//			user.setReason("wrong password");
-//			user.setPassword("");
-//			return user;
-//		}
-//		
-
-		String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
-		user.setToken(token);
-		user.setPassword("");
-		user.setReason(null);
-	
-		session.setAttribute("token", token);
-
-		log.info("user: " + user.getUsername() + "  -- login successful");
-
-		return user;
+        if ("root".equalsIgnoreCase(user.getUsername())) {
+                user.setPassword("");
+                user.setReason("Wrong user name.");
+                log.info("Deny root user login");
+                return user;
+        }
+        
+        Pam pam = new Pam();
+        PamReturnValue ret = pam.authenticate(user.getUsername(), user.getPassword());
+        log.info("verifyMsg" + ret.toString());
+        if ( ret == PamReturnValue.PAM_SUCCESS) {
+                user.setReason("");
+                user.setPassword("");
+                String token = EncryptUtils.encryptMD5(user.getUsername() + "" + user.getPassword());
+                user.setToken(token);
+                user.setPassword("");
+                user.setReason(null);
+                session.setAttribute("token", token);
+                log.info("user: " + user.getUsername() + "  -- login successful");
+                return user;
+        } else {
+                user.setReason("invalid user or password");
+                user.setPassword("");
+                return user;
+        }
+}
+	@RequestMapping("/logout")
+	public @ResponseBody
+    void logout( HttpSession session) {
+	    session.invalidate();
 	}
+
 
 	private static Logger log = LoggerFactory.getLogger(AuthController.class);
 

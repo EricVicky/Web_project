@@ -10,6 +10,7 @@ import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.Status;
 
 @Component("GRINST_PRI_KVM_HANDLER")
 @Scope(value = "prototype")
@@ -27,9 +28,12 @@ public class GrInstPriKVMHandler extends DefaultHandler{
     	return ((GRInstallConfig<KVMCOMConfig>)config).getPri();
     }
 
-    @Override
+	@Override
     public void onSucceed()
     {
+    	COMStack stack = new COMStack(config);
+    	stack.setStatus(Status.GRINSTALLED);
+        service.grupdate(stack);
         runningContext.unlock(getKVMConfig().getHost());
         
     }
