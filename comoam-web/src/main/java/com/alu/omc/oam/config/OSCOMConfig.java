@@ -392,7 +392,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         this.com_provider_network = com_provider_network;
     }
 
-    public COMType getComtype()
+    public COMType getComType()
     {
         return comType;
     }
