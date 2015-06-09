@@ -495,7 +495,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     }
     
    private boolean  isJuno(){
-       return this.getTemplate_version().indexOf("2014-10-16") == 1;
+       return this.getTemplate_version().indexOf("2014-10-16") != -1;
    }
 
 
