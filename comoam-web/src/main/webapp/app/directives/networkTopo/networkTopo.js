@@ -91,7 +91,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum - comStackNameY);
 									var comStackNameText = new PointText(comStackNamePoint);
 									comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
-									comStackNameText.fillColor = 'blue';
+									comStackNameText.fillColor = 'black';
 									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
                 					
@@ -207,7 +207,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcportPath.fillColor = linePortColor;
 											
 											//draw vnfc port ip address
-											var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 50,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
         									var vnfcportIpText = new PointText(vnfcportIpPoint);
         									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].ip_address;
@@ -302,7 +302,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcPriPortPath.fillColor = priLinePortColor;
 											
 											//draw vnfc private port ip address
-											var vnfcPriPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcPriPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 70,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
         									var vnfcPriPortIpText = new PointText(vnfcPriPortIpPoint);
         									vnfcPriPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].private_ip_address;
@@ -328,7 +328,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcProPortPath.fillColor = proLinePortColor;
 											
 											//draw vnfc provider port ip address
-											var vnfcProPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcProPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 70,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval);
         									var vnfcProPortIpText = new PointText(vnfcProPortIpPoint);
         									vnfcProPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address;

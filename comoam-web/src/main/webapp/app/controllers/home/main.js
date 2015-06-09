@@ -18,6 +18,16 @@ angular.module('comoamApp')
 		  }
 	  }
 	  
+	  $scope.gobackup = function(){
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  $state.go("dashboard.backup");			  
+	  }
+	  
+	  $scope.gorestore = function(){
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  $state.go("dashboard.restore");			  
+	  }
+	  
 	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
 			$scope.delcomInstance = data;
