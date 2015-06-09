@@ -36,7 +36,7 @@ public class DefaultHandler implements IAnsibleHandler
     ILogParser logParser;
     Boolean succeed = true;
     final String END = "end";
-    private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[wait\\_for\\_server\\_start\\s\\|\\swait\\sfor\\sguest\\sos\\sto\\sstart\\].*$");
+    private Pattern stackPattern = Pattern.compile("^.*TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\screate\\svirtual\\smachine\\sinstance\\].*$");
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
