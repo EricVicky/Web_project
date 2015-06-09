@@ -43,6 +43,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	private String key_name;
 	private boolean juno_base = false;
 	private static Logger log = LoggerFactory.getLogger(OSCOMConfig.class);	
+	
 
     public Map<String, String> getApp_install_options() {
 		return app_install_options;
@@ -54,7 +55,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 
 	public boolean getJuno_base()
     {
-        return juno_base;
+        return this.isJuno();
     }
 
     public void setJuno_base(boolean juno_base)
@@ -492,6 +493,10 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	    }
         return vmnics;
     }
+    
+   private boolean  isJuno(){
+       return this.getTemplate_version().indexOf("2014-10-16") == 1;
+   }
 
 
 
