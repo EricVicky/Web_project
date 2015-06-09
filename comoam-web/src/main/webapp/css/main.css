@@ -83,7 +83,8 @@ background-color: #eee;
 }
 
 #list{
-	padding:1px 5px;
+	padding:1px 4px;
+	background-color: rgb(139,183,185);
 }
 
 #operations {
