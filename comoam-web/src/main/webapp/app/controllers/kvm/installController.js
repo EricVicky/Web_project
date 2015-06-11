@@ -21,13 +21,20 @@ angular.module('kvm', [ 'ui.router',
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;
+				$scope.installConfig.vm_config.oam.v6_gateway = $scope.installConfig.v6_gateway;
+				$scope.installConfig.vm_config.oam.v6_prefix= $scope.installConfig.v6_prefix;
 				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
 					$scope.installConfig.vm_config.db.netmask = $scope.installConfig.netmask;
 					$scope.installConfig.vm_config.db.gateway = $scope.installConfig.gateway;
+					$scope.installConfig.vm_config.db.v6_gateway = $scope.installConfig.v6_gateway;
+					$scope.installConfig.vm_config.db.v6_prefix= $scope.installConfig.v6_prefix;
+				
 				}
 				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='CM'){
 					$scope.installConfig.vm_config.cm.netmask = $scope.installConfig.netmask;
 					$scope.installConfig.vm_config.cm.gateway = $scope.installConfig.gateway;
+					$scope.installConfig.vm_config.cm.v6_gateway = $scope.installConfig.v6_gateway;
+					$scope.installConfig.vm_config.cm.v6_prefix= $scope.installConfig.v6_prefix;
 				}
 				$scope.installConfig.netmask = null;
 				$scope.installConfig.gateway = null;

@@ -15,7 +15,7 @@ import com.alu.omc.oam.ansible.Entity;
         String name;
         String ip_address;
         String user = "root";
-        String password = "EMS_qd_n2";
+        String password = "newsys";
 
         public String getName()
         {
