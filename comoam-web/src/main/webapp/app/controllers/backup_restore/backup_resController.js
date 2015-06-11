@@ -6,15 +6,33 @@ angular.module('backup_restore', ['ui.router',
                                   'ghiscoding.validation',
                                   'monitor',
                                   'ngResource']).controller('backup_resctr', function($scope,  $log, KVMService
-		, Backup_ResService, monitorService, $dialogs, $state) {
+		, Backup_ResService, monitorService,DashboardService, $dialogs, $state) {
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     	}
     }
+    
+    $scope.setDefaultInstace = function(){
+    	var selectedInstance = DashboardService.getSelectedInstance();
+    	if(selectedInstance == null){
+    		return;
+    	}
+        $scope.installConfig = $scope.com_instance;
+        for(var inst in $scope.comInstance){
+    		var com_config = JSON3.parse($scope.comInstance[inst].comConfig);
+    		if(angular.equals(com_config,selectedInstance)){
+    		   $scope.com_instance = $scope.comInstance[inst];
+    		   $scope.installConfig = com_config;
+    		   return;
+    		}
+        }
+    }
+    
     Backup_ResService.getComInstance().then( function(data) {
-    				$log.info(data);
-    				$scope.comInstance = data;
+		$log.info(data);
+		$scope.comInstance = data;
+		$scope.setDefaultInstace();
     });
     $scope.backup = function(){
     	$scope.backupConfig.config = $scope.installConfig;

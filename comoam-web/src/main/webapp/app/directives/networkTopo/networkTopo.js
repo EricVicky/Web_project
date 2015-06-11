@@ -46,7 +46,10 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var comStackCornerWidth = 5;
             					var comStackCornerHeight = 5;
             					var comStackInterval = 30;				//this parameter is needed when draw networks
+            					var selectedPathNum = '';				//save the selected path's number temporary when the mouse entered
             					var comStackPath = [];
+            					var hostPath = [];
+            					var hostNameText = [];
             					
             					var comStackNameY = 2;					//distance between comStack and it's name on direction Y
             					
@@ -69,15 +72,15 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].strokeColor='#8B8B83';
                 					comStackPath[comStacksNum].fillColor = comColor;
                 					
-                					comStackPath[comStacksNum].attach('mousemove' , function(){
-                						indexOfcomStack = comStackPath.indexOf(this);
-                						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
-                						$("#menu").show();
-                						$scope.selectedIns = instances[comStackPath.indexOf(this)];
-                						$scope.selectedInsNum = comStackPath.indexOf(this);
-                						
-                						comStackPath[comStackPath.indexOf(this)].opacity = 0.6;
-									});
+//                					comStackPath[comStacksNum].attach('mousemove' , function(){
+//                						indexOfcomStack = comStackPath.indexOf(this);
+//                						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
+//                						$("#menu").show();
+//                						$scope.selectedIns = instances[comStackPath.indexOf(this)];
+//                						$scope.selectedInsNum = comStackPath.indexOf(this);
+//                						
+//                						comStackPath[comStackPath.indexOf(this)].opacity = 0.6;
+//									});
                 					comStackPath[comStacksNum].attach('mouseleave' , function(){
                 						comStackPath[comStackPath.indexOf(this)].opacity = 1;
 									});
@@ -88,7 +91,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum - comStackNameY);
 									var comStackNameText = new PointText(comStackNamePoint);
 									comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
-									comStackNameText.fillColor = 'blue';
+									comStackNameText.fillColor = 'black';
 									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
                 					
@@ -106,21 +109,37 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     						            var hostSize = new Size(hostWidth, hostHeight);
     									var hostRectangle = new Rectangle(hostPoint, hostSize);
     									var hostCornerSize = new Size(hostCornerWidth, hostCornerHeight);
-    									var hostPath = new Path.Rectangle(hostRectangle, hostCornerSize);
-    									hostPath.strokeColor= 'white';
-    	            					hostPath.fillColor=hostColor;
+    									hostPath[comStacksNum] = new Path.Rectangle(hostRectangle, hostCornerSize);
+    									hostPath[comStacksNum].strokeColor= 'white';
+    	            					hostPath[comStacksNum].fillColor=hostColor;
+    	            					
+//    	            					hostPath[comStacksNum].attach('mousemove' , function(){
+//                    						indexOfcomStack = comStackPath.indexOf(this);
+//                    						comStackPath[hostPath.indexOf(this)].opacity = 0.6;
+//    									});
+//    	            					hostPath[comStacksNum].attach('mouseleave' , function(){
+//                    						comStackPath[hostPath.indexOf(this)].opacity = 1;
+//    									});
     									
     	            					//draw host name
     	            					var hostNamePoint = new Point(this.networkTopologyStartX + comStackTopoX + hostCOMStackX,
     	            							this.networkTopologyStartY + comStackTopoY + hostCOMStackY + (comStackHeight + comStackInterval) * comStacksNum + hostHeight / 2 + 4);
-    									var hostNameText = new PointText(hostNamePoint);
-    									hostNameText.content = this.COMStacks[comStacksNum].host.ip_address;
-    									hostNameText.fillColor = 'black';
-    									hostNameText.fontSize = '15px'; 
-    									hostNameText.justification = 'center';
-    									hostNameText.rotate(90);
-    									hostNameText.position.x += 17;
+    									hostNameText[comStacksNum] = new PointText(hostNamePoint);
+    									hostNameText[comStacksNum].content = this.COMStacks[comStacksNum].host.ip_address;
+    									hostNameText[comStacksNum].fillColor = 'black';
+    									hostNameText[comStacksNum].fontSize = '15px'; 
+    									hostNameText[comStacksNum].justification = 'center';
+    									hostNameText[comStacksNum].rotate(90);
+    									hostNameText[comStacksNum].position.x += 17;
     	            					
+//    									hostNameText[comStacksNum].attach('mousemove' , function(){
+//                    						indexOfcomStack = comStackPath.indexOf(this);
+//                    						comStackPath[hostNameText.indexOf(this)].opacity = 0.6;
+//    									});
+//    									hostNameText[comStacksNum].attach('mouseleave' , function(){
+//                    						comStackPath[hostNameText.indexOf(this)].opacity = 1;
+//    									});
+    									
     	            					//draw vnfcs
     	            					var vnfcCounts = 0;
     	            					var j = 0;
@@ -188,7 +207,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcportPath.fillColor = linePortColor;
 											
 											//draw vnfc port ip address
-											var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 50,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
         									var vnfcportIpText = new PointText(vnfcportIpPoint);
         									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].ip_address;
@@ -283,7 +302,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcPriPortPath.fillColor = priLinePortColor;
 											
 											//draw vnfc private port ip address
-											var vnfcPriPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcPriPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 70,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + vnfcPortY);
         									var vnfcPriPortIpText = new PointText(vnfcPriPortIpPoint);
         									vnfcPriPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].private_ip_address;
@@ -309,7 +328,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											vnfcProPortPath.fillColor = proLinePortColor;
 											
 											//draw vnfc provider port ip address
-											var vnfcProPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth,
+											var vnfcProPortIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + portWidth + 70,
 													this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + portHeight + portInterval);
         									var vnfcProPortIpText = new PointText(vnfcProPortIpPoint);
         									vnfcProPortIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address;
@@ -327,6 +346,18 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
         									j++;									//it's an important parameter~~~~~~~
     	            					}
                 					}
+                					comStackPath[comStacksNum].attach('mousemove' , function(){
+                						indexOfcomStack = comStackPath.indexOf(this);
+                						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
+                						$("#menu").show();
+                						$scope.selectedIns = instances[comStackPath.indexOf(this)];
+                						$scope.selectedInsNum = comStackPath.indexOf(this);
+                						
+                						comStackPath[comStackPath.indexOf(this)].opacity = 0.6;
+									});
+                					comStackPath[comStacksNum].attach('mouseleave' , function(){
+                						comStackPath[comStackPath.indexOf(this)].opacity = 1;
+									});
             					}
             					//draw networks
             					//networks is not conneted to comStack, it's connected to the whole topology directly

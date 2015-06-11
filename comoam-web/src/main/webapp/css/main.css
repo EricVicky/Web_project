@@ -83,7 +83,8 @@ background-color: #eee;
 }
 
 #list{
-	padding:1px 5px;
+	padding:1px 4px;
+	background-color: rgb(202,244,252);
 }
 
 #operations {
@@ -109,6 +110,11 @@ background-color: #eee;
 #canvas {
 	background-attachment: false;
 	background-repeat:no-repeat;
+}
+
+#menu{
+	border: 1px solid rgb(175,238,251);
+	border-radius: 2px;	
 }
 
 .modal-backdrop{
