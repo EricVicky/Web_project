@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
-
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.config.OVMCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -43,6 +44,12 @@ public class CloudDeployController
     }
     @RequestMapping(value="/kvm/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+
+    @RequestMapping(value="/ovm/deployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody OVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.INSTALL, config );
     }

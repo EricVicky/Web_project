@@ -29,6 +29,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK), osRestoreParser());
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstPriParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM_OVM), kvmovmInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -147,5 +148,16 @@ public class LogParserFactory
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
     }
+    
+    private ILogParser kvmovmInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post_install_atc", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        return new LogParser(dict);
+    }
+    
     
 }

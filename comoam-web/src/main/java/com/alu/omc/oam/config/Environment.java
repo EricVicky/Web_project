@@ -4,5 +4,7 @@ import java.io.Serializable;
 
 public enum Environment implements Serializable
 {
-    KVM, OPENSTACK
+    KVM,
+    OPENSTACK,
+    KVM_OVM
 }

@@ -126,4 +126,9 @@ angular.module('comoamApp')
         templateUrl:'views/gr/uninstall.html',
         url:'/gr/uninstall',
     })
+    .state('dashboard.kvmovminstall', {
+    	templateUrl:'views/optionalVNF/install.html',
+    	url:'/kvmovminstall',
+    })
+    
   }])

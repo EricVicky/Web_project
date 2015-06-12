@@ -17,6 +17,9 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "backup":["Start","Data Backup","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "delete":["Start","Finished"]
+			},
+			"KVM_OVM" :{
+				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
 			}
 	};
 	var environment;
@@ -82,6 +85,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorOSDelete: function(ch) {
 			environment = "Openstack";
 			action = "delete";
+			channel = ch;
+		},
+		monitorKVMOVMInstall: function(ch) {
+			environment = "KVM_OVM";
+			action = "install";
 			channel = ch;
 		},
 		getChannel : function (){
