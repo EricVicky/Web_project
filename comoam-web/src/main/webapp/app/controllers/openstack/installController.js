@@ -34,10 +34,15 @@ angular.module('os', [ 'ui.router',
         		});
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
+            	$scope.installConfig.com_provider_network.v6_subnet = null;
             	if($scope.installConfig.com_provider_network!=null){
-            		OSService.getSubnets($scope.installConfig.com_provider_network.network)
+            		OSService.getV4Subnets($scope.installConfig.com_provider_network.network)
                	 	.then(function(data){
-               	 		$scope.subNetworkStore = data;
+               	 		$scope.v4subnets = data;
+               	 	});
+            		OSService.getV6Subnets($scope.installConfig.com_provider_network.network)
+               	 	.then(function(data){
+               	 		$scope.v6subnets = data;
                	 	});
             	}
             });

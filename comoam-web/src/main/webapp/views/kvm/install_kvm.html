@@ -113,7 +113,7 @@
 											<label class="control-label">Gateway(IPv6)</label> <input
 												name="v6_gateway" class="form-control" type="text"
 												ng-model="installConfig.v6_gateway" placeholder="Please Insert Gateway"
-												title="gateway" validation="ipv6" />
+												title="gateway"  />
 										</div>
 									</fieldset>
 									<fieldset
@@ -126,10 +126,10 @@
 												title="IP Address" validation="ipv4|required" />
 										</div>
 										<div class="form-group col-md-4">
-											<label class="control-label">IPv6 Address(optional)</label> <input
+											<label class="control-label">IPv6 Address</label> <input
 												name="oam_v6_ip_addr" class="form-control" type="text"
 												ng-model="installConfig.vm_config.oam.v6_ip_addr" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv6" />
+												title="IP Address"  />
 										</div>
 										<div class="form-group col-md-4">
 											<label class="control-label">Flavor</label> <select
@@ -151,11 +151,11 @@
 												ng-model="installConfig.vm_config.db.ip_address" placeholder="Please Insert IP"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">IPv6 Address(optional)</label> <input
+										<div  class="form-group col-md-4">
+											<label class="control-label">IPv6 Address</label> <input
 												name="db_v6_ip_addr" class="form-control" type="text"
 												ng-model="installConfig.vm_config.db.v6_ip_addr" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv6" />
+												title="IP Address"  />
 										</div>
 										<div class="form-group col-md-4">
 											<label class="control-label">Flavor</label> <select
