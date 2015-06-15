@@ -102,7 +102,6 @@ public class LogParserFactory
     
     private ILogParser osInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("PLAY\\sRECAP", "Start COM");
         dict.put("Reboot\\sserver", "Start COM");
         dict.put("cloud\\_init\\s\\|\\scloud\\sinit\\send", "Cloud Init");
         dict.put("deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack", "check Presence of Heat stack");
@@ -128,33 +127,32 @@ public class LogParserFactory
     
     private ILogParser kvmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Configuration");
-        dict.put("TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\sstart\\svirtual\\smachine\\]","Start VM Instance");
-        dict.put("TASK\\:\\s\\[vnf\\_prepare\\_vms\\s\\|\\sgenerate\\sconfig\\sdrive\\siso\\]", "Generate Config Driver");
-        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]", "Start");
+        dict.put("Reboot\\sserver", "Finished");
+        dict.put("image\\sreplacement\\spost\\sscript", "Post Configuration");
+        dict.put("vnf_create_vms\\s\\|\\screate\\svirtual\\smachine","Start VM Instance");
+        dict.put("vnf_create_disk\\s\\|\\screate\\sdata\\sdisk\\simage", "Generate Config Driver");
+        dict.put("vnf_prepare_vms\\s\\|\\sgenerate\\smeta data", "Start");
         return new LogParser(dict);
     }
     private ILogParser kvmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[restore_data", "Data Restore");
-        dict.put("configure\\snew\\sdisk\\sdrive", "Post Configuration");
-        dict.put("run\\spost\\sreplace\\script",
-                "Post Image Replacement");
-        dict.put("TASK:\\s\\[backup_data", "Data Backup");
-        dict.put("ansible-playbook", "Start");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
+        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
+        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
-    }   
+    } 
     
     private ILogParser osUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[restore_data", "Data Restore");
-        dict.put("configure\\snew\\sdisk\\sdrive", "Post Configuration");
-        dict.put("run\\spost\\sreplace\\script",
+        dict.put("TASK:\\s\\[data_restore", "Data Restore");
+        dict.put("post_install_populated", "Post Configuration");
+        dict.put("post_image_replacement",
                 "Post Image Replacement");
-        dict.put("TASK:\\s\\[backup_data", "Data Backup");
+        dict.put("TASK:\\s\\[data_backup", "Data Backup");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
     }

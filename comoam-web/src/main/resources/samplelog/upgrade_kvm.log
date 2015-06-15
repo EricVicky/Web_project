@@ -1,264 +1,245 @@
--------Call Ansible......
-2015-06-11 07:40:31,639 p=58737 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
-timing vulnerabilities when used with pycrypto. If possible, you should update
-it (i.e. yum update gmp).
-
-2015-06-11 07:40:31,837 p=58737 u=root |   
-2015-06-11 07:40:31,837 p=58737 u=root |  /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts upgrade.yml
-2015-06-11 07:40:31,838 p=58737 u=root |   
-2015-06-11 07:40:32,062 p=58737 u=root |  PLAY [stop COM] *************************************************************** 
-2015-06-11 07:40:32,063 p=58737 u=root |  TASK: [stop_com | stop com application] *************************************** 
-2015-06-11 07:42:19,769 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 07:42:19,770 p=58737 u=root |  PLAY [backup com data] ******************************************************** 
-2015-06-11 07:42:19,772 p=58737 u=root |  TASK: [backup_data | create local backup directory] *************************** 
-2015-06-11 07:42:20,617 p=58737 u=root |  ok: [10.223.1.65]
-2015-06-11 07:42:20,997 p=58737 u=root |  ok: [10.223.1.67]
-2015-06-11 07:42:21,102 p=58737 u=root |  ok: [10.223.1.66]
-2015-06-11 07:42:21,117 p=58737 u=root |  TASK: [backup_data | mount nfs directory] ************************************* 
-2015-06-11 07:42:21,160 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 07:42:21,161 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 07:42:21,162 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 07:42:21,180 p=58737 u=root |  TASK: [backup_data | backup data] ********************************************* 
-2015-06-11 07:42:34,176 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 07:43:21,976 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 07:43:45,066 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 07:43:45,083 p=58737 u=root |  TASK: [backup_data | backup data for CSA and CFMA] **************************** 
-2015-06-11 07:43:45,123 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 07:43:45,125 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 07:43:45,126 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 07:43:45,141 p=58737 u=root |  TASK: [backup_data | backup data qosac data] ********************************** 
-2015-06-11 07:43:46,183 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 07:43:46,184 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 07:43:46,185 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 07:43:46,200 p=58737 u=root |  TASK: [backup_data | synchronize data to disk] ******************************** 
-2015-06-11 07:43:47,365 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 07:43:47,443 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 07:43:47,550 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 07:43:47,566 p=58737 u=root |  TASK: [backup_data | umount nfs directory] ************************************ 
-2015-06-11 07:43:47,609 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 07:43:47,610 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 07:43:47,610 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 07:43:47,627 p=58737 u=root |  PLAY [prepare data for virtual machines] ************************************** 
-2015-06-11 07:43:47,628 p=58737 u=root |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
-2015-06-11 07:43:47,774 p=58737 u=root |  changed: [localhost -> 127.0.0.1]
-2015-06-11 07:43:47,775 p=58737 u=root |  TASK: [vnf_prepare_vms | clean known_hosts file] ****************************** 
-2015-06-11 07:43:48,082 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:48,082 p=58737 u=root |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
-2015-06-11 07:43:48,211 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:48,212 p=58737 u=root |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
-2015-06-11 07:43:48,518 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:48,519 p=58737 u=root |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
-2015-06-11 07:43:48,838 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:48,839 p=58737 u=root |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
-2015-06-11 07:43:49,166 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:49,167 p=58737 u=root |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
-2015-06-11 07:43:49,482 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:49,483 p=58737 u=root |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
-2015-06-11 07:43:49,629 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:49,630 p=58737 u=root |  TASK: [vnf_prepare_vms | generate install options] **************************** 
-2015-06-11 07:43:49,945 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:49,946 p=58737 u=root |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
-2015-06-11 07:43:50,067 p=58737 u=root |  changed: [localhost -> 127.0.0.1]
-2015-06-11 07:43:50,067 p=58737 u=root |  TASK: [vnf_prepare_vms | clean known_hosts file] ****************************** 
-2015-06-11 07:43:50,359 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:50,360 p=58737 u=root |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
-2015-06-11 07:43:50,478 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:50,478 p=58737 u=root |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
-2015-06-11 07:43:50,770 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:50,771 p=58737 u=root |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
-2015-06-11 07:43:51,090 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:51,091 p=58737 u=root |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
-2015-06-11 07:43:51,415 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:51,415 p=58737 u=root |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
-2015-06-11 07:43:51,741 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:51,742 p=58737 u=root |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
-2015-06-11 07:43:51,876 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:51,877 p=58737 u=root |  TASK: [vnf_prepare_vms | generate install options] **************************** 
-2015-06-11 07:43:52,198 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:52,199 p=58737 u=root |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
-2015-06-11 07:43:52,322 p=58737 u=root |  changed: [localhost -> 127.0.0.1]
-2015-06-11 07:43:52,323 p=58737 u=root |  TASK: [vnf_prepare_vms | clean known_hosts file] ****************************** 
-2015-06-11 07:43:52,621 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:52,622 p=58737 u=root |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
-2015-06-11 07:43:52,747 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:52,748 p=58737 u=root |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
-2015-06-11 07:43:53,055 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:53,055 p=58737 u=root |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
-2015-06-11 07:43:53,379 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:53,380 p=58737 u=root |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
-2015-06-11 07:43:53,713 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:53,714 p=58737 u=root |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
-2015-06-11 07:43:54,045 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:54,046 p=58737 u=root |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
-2015-06-11 07:43:54,176 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:54,177 p=58737 u=root |  TASK: [vnf_prepare_vms | generate install options] **************************** 
-2015-06-11 07:43:54,489 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:54,490 p=58737 u=root |  PLAY [prepare host server environment] **************************************** 
-2015-06-11 07:43:54,491 p=58737 u=root |  TASK: [prepare_host_env | create deployment directory] ************************ 
-2015-06-11 07:43:54,811 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:54,811 p=58737 u=root |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
-2015-06-11 07:43:55,134 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:55,134 p=58737 u=root |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
-2015-06-11 07:43:55,469 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:55,470 p=58737 u=root |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
-2015-06-11 07:43:55,812 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:43:55,813 p=58737 u=root |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
-2015-06-11 07:43:56,182 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:56,182 p=58737 u=root |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
-2015-06-11 07:43:56,551 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:56,552 p=58737 u=root |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
-2015-06-11 07:43:56,920 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:56,921 p=58737 u=root |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
-2015-06-11 07:43:57,290 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:57,290 p=58737 u=root |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
-2015-06-11 07:43:57,666 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:57,667 p=58737 u=root |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
-2015-06-11 07:43:58,044 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:58,045 p=58737 u=root |  TASK: [prepare_host_env | download com iso image] ***************************** 
-2015-06-11 07:43:58,053 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:43:58,054 p=58737 u=root |  TASK: [prepare_host_env | download rhel+oracle+client qcow2 image] ************ 
-2015-06-11 07:43:58,185 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:58,185 p=58737 u=root |  TASK: [prepare_host_env | download rhel+oracle+server qcow2 image] ************ 
-2015-06-11 07:43:58,313 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:43:58,313 p=58737 u=root |  TASK: [prepare_host_env | download rhel+oracle+server qcow2 image] ************ 
-2015-06-11 07:43:58,319 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:43:58,320 p=58737 u=root |  PLAY [create virtual machines] ************************************************ 
-2015-06-11 07:43:58,321 p=58737 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
-2015-06-11 07:44:00,327 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:00,328 p=58737 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
-2015-06-11 07:44:00,516 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:44:00,516 p=58737 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
-2015-06-11 07:44:01,758 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:01,759 p=58737 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
-2015-06-11 07:44:01,921 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:44:01,922 p=58737 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
-2015-06-11 07:44:03,509 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:03,510 p=58737 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
-2015-06-11 07:44:03,688 p=58737 u=root |  ok: [localhost]
-2015-06-11 07:44:03,689 p=58737 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
-2015-06-11 07:44:03,700 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:44:03,700 p=58737 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
-2015-06-11 07:44:03,709 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:44:03,709 p=58737 u=root |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
-2015-06-11 07:44:22,533 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:22,534 p=58737 u=root |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
-2015-06-11 07:44:22,724 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:22,725 p=58737 u=root |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
-2015-06-11 07:44:26,339 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:26,340 p=58737 u=root |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
-2015-06-11 07:44:48,259 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:48,260 p=58737 u=root |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
-2015-06-11 07:44:48,413 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:48,413 p=58737 u=root |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
-2015-06-11 07:44:49,897 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:44:49,898 p=58737 u=root |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
-2015-06-11 07:45:12,306 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:45:12,307 p=58737 u=root |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
-2015-06-11 07:45:12,480 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:45:12,481 p=58737 u=root |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
-2015-06-11 07:45:13,940 p=58737 u=root |  changed: [localhost]
-2015-06-11 07:45:13,941 p=58737 u=root |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
-2015-06-11 07:45:13,949 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:45:13,950 p=58737 u=root |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
-2015-06-11 07:45:13,956 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:45:13,956 p=58737 u=root |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
-2015-06-11 07:45:13,962 p=58737 u=root |  skipping: [localhost]
-2015-06-11 07:45:13,963 p=58737 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
-2015-06-11 07:45:44,123 p=58737 u=root |  ok: [localhost -> 127.0.0.1]
-2015-06-11 07:45:44,124 p=58737 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
-2015-06-11 07:46:14,256 p=58737 u=root |  ok: [localhost -> 127.0.0.1]
-2015-06-11 07:46:14,257 p=58737 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
-2015-06-11 07:46:44,413 p=58737 u=root |  ok: [localhost -> 127.0.0.1]
-2015-06-11 07:46:44,414 p=58737 u=root |  PLAY [upload install_options] ************************************************* 
-2015-06-11 07:46:44,415 p=58737 u=root |  TASK: [upload_install_options | create /install/config directory] ************* 
-2015-06-11 07:46:45,424 p=58737 u=root |  ok: [10.223.1.66]
-2015-06-11 07:46:45,490 p=58737 u=root |  ok: [10.223.1.65]
-2015-06-11 07:46:45,899 p=58737 u=root |  ok: [10.223.1.67]
-2015-06-11 07:46:45,917 p=58737 u=root |  TASK: [upload_install_options | upload install_options] *********************** 
-2015-06-11 07:46:46,769 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 07:46:46,920 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 07:46:47,012 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 07:46:47,029 p=58737 u=root |  PLAY [image replacement post script] ****************************************** 
-2015-06-11 07:46:47,030 p=58737 u=root |  TASK: [run post replace script, may take around 20 minutes] ******************* 
-2015-06-11 07:48:19,405 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 07:48:27,729 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:12:51,684 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:12:51,704 p=58737 u=root |  TASK: [configure new disk drive] ********************************************** 
-2015-06-11 08:13:20,519 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:13:28,531 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:13:52,247 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:13:52,264 p=58737 u=root |  TASK: [organize directories for image replacement] **************************** 
-2015-06-11 08:13:53,712 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:13:53,924 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:14:42,199 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:14:42,216 p=58737 u=root |  PLAY [stop COM] *************************************************************** 
-2015-06-11 08:14:42,216 p=58737 u=root |  TASK: [stop_com | stop com application] *************************************** 
-2015-06-11 08:15:39,585 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:15:39,586 p=58737 u=root |  PLAY [restore data] *********************************************************** 
-2015-06-11 08:15:39,586 p=58737 u=root |  TASK: [restore_data | create local restore directory] ************************* 
-2015-06-11 08:15:40,338 p=58737 u=root |  ok: [10.223.1.67]
-2015-06-11 08:15:40,429 p=58737 u=root |  ok: [10.223.1.66]
-2015-06-11 08:15:40,435 p=58737 u=root |  ok: [10.223.1.65]
-2015-06-11 08:15:40,451 p=58737 u=root |  TASK: [restore_data | mount nfs directory] ************************************ 
-2015-06-11 08:15:40,496 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 08:15:40,498 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 08:15:40,499 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 08:15:40,515 p=58737 u=root |  TASK: [restore_data | restore data] ******************************************* 
-2015-06-11 08:15:46,392 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:16:37,424 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:17:04,838 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:17:04,857 p=58737 u=root |  TASK: [restore_data | restore data for CSA and CFMA] ************************** 
-2015-06-11 08:17:04,898 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 08:17:04,899 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 08:17:04,900 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 08:17:04,917 p=58737 u=root |  TASK: [restore_data | restore qosac data] ************************************* 
-2015-06-11 08:17:04,953 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 08:17:04,954 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 08:17:04,956 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 08:17:04,971 p=58737 u=root |  TASK: [restore_data | umount nfs directory] *********************************** 
-2015-06-11 08:17:05,014 p=58737 u=root |  skipping: [10.223.1.65]
-2015-06-11 08:17:05,016 p=58737 u=root |  skipping: [10.223.1.67]
-2015-06-11 08:17:05,017 p=58737 u=root |  skipping: [10.223.1.66]
-2015-06-11 08:17:05,034 p=58737 u=root |  PLAY [Vertical scaling COM VM for memory, and CPU] **************************** 
-2015-06-11 08:17:05,035 p=58737 u=root |  TASK: [tune memory] *********************************************************** 
-2015-06-11 08:17:06,085 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:17:07,045 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:17:30,264 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:17:30,283 p=58737 u=root |  PLAY [download public key from remote server] ********************************* 
-2015-06-11 08:17:30,283 p=58737 u=root |  TASK: [fetch public key from remote server] *********************************** 
-2015-06-11 08:17:30,959 p=58737 u=root |  ok: [10.223.1.65]
-2015-06-11 08:17:30,966 p=58737 u=root |  ok: [10.223.1.66]
-2015-06-11 08:17:30,980 p=58737 u=root |  ok: [10.223.1.67]
-2015-06-11 08:17:30,995 p=58737 u=root |  PLAY [put public key to db authorized keys] *********************************** 
-2015-06-11 08:17:30,997 p=58737 u=root |  TASK: [send authorized keys to db virtual machine] **************************** 
-2015-06-11 08:17:31,781 p=58737 u=root |  ok: [10.223.1.67] => (item={'key': 'oam', 'value': {'install_options': 'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '8', 'memory': '16572416', 'disk': '600', 'label': 'High End(8*16*680)'}, 'hostname': 'ibm31-oam-1-oam-1', 'ip_address': '10.223.1.65', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:31,789 p=58737 u=root |  skipping: [10.223.1.67] => (item={'key': 'db', 'value': {'install_options': 'install_options_FCAPS_db.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.DB.qcow2', 'flavor': {'vCpu': '4', 'memory': '24858624', 'disk': '300', 'label': 'Medium(4*24*380)'}, 'hostname': 'ibm31-oam-1-db-1', 'ip_address': '10.223.1.67', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:32,540 p=58737 u=root |  ok: [10.223.1.67] => (item={'key': 'cm', 'value': {'install_options': 'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '6', 'memory': '16572416', 'disk': '100', 'label': 'Low End(6*16*180)'}, 'hostname': 'ibm31-oam-1-cm-1', 'ip_address': '10.223.1.66', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:32,541 p=58737 u=root |  PLAY [put public key to oam authorized keys] ********************************** 
-2015-06-11 08:17:32,541 p=58737 u=root |  TASK: [send authorized keys to oam virtual machine] *************************** 
-2015-06-11 08:17:32,554 p=58737 u=root |  skipping: [10.223.1.65] => (item={'key': 'oam', 'value': {'install_options': 'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '8', 'memory': '16572416', 'disk': '600', 'label': 'High End(8*16*680)'}, 'hostname': 'ibm31-oam-1-oam-1', 'ip_address': '10.223.1.65', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:33,378 p=58737 u=root |  ok: [10.223.1.65] => (item={'key': 'db', 'value': {'install_options': 'install_options_FCAPS_db.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.DB.qcow2', 'flavor': {'vCpu': '4', 'memory': '24858624', 'disk': '300', 'label': 'Medium(4*24*380)'}, 'hostname': 'ibm31-oam-1-db-1', 'ip_address': '10.223.1.67', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:34,203 p=58737 u=root |  ok: [10.223.1.65] => (item={'key': 'cm', 'value': {'install_options': 'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '6', 'memory': '16572416', 'disk': '100', 'label': 'Low End(6*16*180)'}, 'hostname': 'ibm31-oam-1-cm-1', 'ip_address': '10.223.1.66', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:34,204 p=58737 u=root |  PLAY [put public key to cm authorized keys] *********************************** 
-2015-06-11 08:17:34,205 p=58737 u=root |  TASK: [send authorized keys to cm virtual machine] **************************** 
-2015-06-11 08:17:34,970 p=58737 u=root |  ok: [10.223.1.66] => (item={'key': 'oam', 'value': {'install_options': 'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '8', 'memory': '16572416', 'disk': '600', 'label': 'High End(8*16*680)'}, 'hostname': 'ibm31-oam-1-oam-1', 'ip_address': '10.223.1.65', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:35,720 p=58737 u=root |  ok: [10.223.1.66] => (item={'key': 'db', 'value': {'install_options': 'install_options_FCAPS_db.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.DB.qcow2', 'flavor': {'vCpu': '4', 'memory': '24858624', 'disk': '300', 'label': 'Medium(4*24*380)'}, 'hostname': 'ibm31-oam-1-db-1', 'ip_address': '10.223.1.67', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:35,727 p=58737 u=root |  skipping: [10.223.1.66] => (item={'key': 'cm', 'value': {'install_options': 'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.192', 'imgname': 'COM_5_0_0_2.D173.OAM.qcow2', 'flavor': {'vCpu': '6', 'memory': '16572416', 'disk': '100', 'label': 'Low End(6*16*180)'}, 'hostname': 'ibm31-oam-1-cm-1', 'ip_address': '10.223.1.66', 'gateway': '10.223.1.126'}})
-2015-06-11 08:17:35,728 p=58737 u=root |  PLAY [delete suspend file] **************************************************** 
-2015-06-11 08:17:35,728 p=58737 u=root |  TASK: [delete_suspend_file | delete suspend file] ***************************** 
-2015-06-11 08:17:36,482 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:17:36,483 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:17:36,483 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:17:36,503 p=58737 u=root |  PLAY [start com application] ************************************************** 
-2015-06-11 08:17:36,504 p=58737 u=root |  TASK: [start_com | start com application] ************************************* 
-2015-06-11 08:17:39,368 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:17:39,369 p=58737 u=root |  PLAY [Reboot] ***************************************************************** 
-2015-06-11 08:17:39,369 p=58737 u=root |  TASK: [Reboot server] ********************************************************* 
-2015-06-11 08:17:40,196 p=58737 u=root |  changed: [10.223.1.65]
-2015-06-11 08:17:40,202 p=58737 u=root |  changed: [10.223.1.67]
-2015-06-11 08:17:40,275 p=58737 u=root |  changed: [10.223.1.66]
-2015-06-11 08:17:40,291 p=58737 u=root |  PLAY RECAP ******************************************************************** 
-2015-06-11 08:17:40,292 p=58737 u=root |  10.223.1.65                : ok=18   changed=13   unreachable=0    failed=0   
-2015-06-11 08:17:40,292 p=58737 u=root |  10.223.1.66                : ok=15   changed=10   unreachable=0    failed=0   
-2015-06-11 08:17:40,292 p=58737 u=root |  10.223.1.67                : ok=15   changed=10   unreachable=0    failed=0   
-2015-06-11 08:17:40,292 p=58737 u=root |  localhost                  : ok=57   changed=44   unreachable=0    failed=0   
+2015-06-08 16:39:05,939 p=25917 u=xiaoliang |  /usr/bin/ansible-playbook -i ../../inventory/hosts.qin.fcaps upgrade.yml
+2015-06-08 16:39:05,939 p=25917 u=xiaoliang |   
+2015-06-08 16:39:06,138 p=25917 u=xiaoliang |  PLAY [stop COM] *************************************************************** 
+2015-06-08 16:39:06,139 p=25917 u=xiaoliang |  TASK: [stop_com | stop com application] *************************************** 
+2015-06-08 16:41:26,193 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 16:41:26,195 p=25917 u=xiaoliang |  PLAY [backup com data] ******************************************************** 
+2015-06-08 16:41:26,196 p=25917 u=xiaoliang |  TASK: [backup_data | create local backup directory] *************************** 
+2015-06-08 16:41:28,947 p=25917 u=xiaoliang |  ok: [135.252.138.168]
+2015-06-08 16:41:30,285 p=25917 u=xiaoliang |  ok: [135.252.138.167]
+2015-06-08 16:41:30,565 p=25917 u=xiaoliang |  ok: [135.252.138.165]
+2015-06-08 16:41:30,584 p=25917 u=xiaoliang |  TASK: [backup_data | mount nfs directory] ************************************* 
+2015-06-08 16:41:30,637 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 16:41:30,656 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 16:41:30,658 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 16:41:30,676 p=25917 u=xiaoliang |  TASK: [backup_data | backup data] ********************************************* 
+2015-06-08 16:42:10,805 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 16:42:47,131 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 16:42:57,059 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 16:42:57,111 p=25917 u=xiaoliang |  TASK: [backup_data | backup data for CSA and CFMA] **************************** 
+2015-06-08 16:42:57,237 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 16:42:57,244 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 16:42:57,247 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 16:42:57,282 p=25917 u=xiaoliang |  TASK: [backup_data | backup data qosac data] ********************************** 
+2015-06-08 16:42:57,340 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 16:42:57,348 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 16:42:57,352 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 16:42:57,374 p=25917 u=xiaoliang |  TASK: [backup_data | synchronize data to disk] ******************************** 
+2015-06-08 16:42:59,573 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 16:42:59,987 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 16:43:00,302 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 16:43:00,317 p=25917 u=xiaoliang |  PLAY [prepare data for virtual machines] ************************************** 
+2015-06-08 16:43:00,319 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
+2015-06-08 16:43:00,466 p=25917 u=xiaoliang |  changed: [localhost -> 127.0.0.1]
+2015-06-08 16:43:00,466 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
+2015-06-08 16:43:00,594 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:00,596 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
+2015-06-08 16:43:00,853 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:00,855 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
+2015-06-08 16:43:01,120 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:01,121 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
+2015-06-08 16:43:01,388 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:01,388 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
+2015-06-08 16:43:01,658 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:01,658 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
+2015-06-08 16:43:01,790 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:01,791 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate install options] **************************** 
+2015-06-08 16:43:02,069 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:02,069 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
+2015-06-08 16:43:02,203 p=25917 u=xiaoliang |  changed: [localhost -> 127.0.0.1]
+2015-06-08 16:43:02,204 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
+2015-06-08 16:43:02,352 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:02,352 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
+2015-06-08 16:43:02,721 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:02,721 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
+2015-06-08 16:43:03,132 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:03,132 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
+2015-06-08 16:43:03,393 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:03,393 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
+2015-06-08 16:43:03,659 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:03,659 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
+2015-06-08 16:43:03,790 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:03,791 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate install options] **************************** 
+2015-06-08 16:43:04,066 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:04,066 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | get authorized key] ********************************** 
+2015-06-08 16:43:04,207 p=25917 u=xiaoliang |  changed: [localhost -> 127.0.0.1]
+2015-06-08 16:43:04,208 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate mac address for virtual machine] ************ 
+2015-06-08 16:43:04,333 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:04,333 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | create data directory for virtual machine] *********** 
+2015-06-08 16:43:04,573 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:04,574 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate domain xml for virtual machine] ************* 
+2015-06-08 16:43:04,847 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:04,848 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate meta data for cloud init] ******************* 
+2015-06-08 16:43:05,119 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:05,120 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate user data for clout init] ******************* 
+2015-06-08 16:43:05,394 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:05,395 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate config drive iso] *************************** 
+2015-06-08 16:43:05,523 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:05,523 p=25917 u=xiaoliang |  TASK: [vnf_prepare_vms | generate install options] **************************** 
+2015-06-08 16:43:05,805 p=25917 u=xiaoliang |  changed: [localhost]
+2015-06-08 16:43:05,806 p=25917 u=xiaoliang |  PLAY [prepare host server environment] **************************************** 
+2015-06-08 16:43:05,807 p=25917 u=xiaoliang |  TASK: [prepare_host_env | create deployment directory] ************************ 
+2015-06-08 16:43:07,587 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:43:07,588 p=25917 u=xiaoliang |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
+2015-06-08 16:43:09,087 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:43:09,087 p=25917 u=xiaoliang |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
+2015-06-08 16:43:10,477 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:43:10,478 p=25917 u=xiaoliang |  TASK: [prepare_host_env | create directory for virtual machine] *************** 
+2015-06-08 16:43:12,194 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:43:12,196 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
+2015-06-08 16:43:15,093 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:15,094 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
+2015-06-08 16:43:18,609 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:18,610 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
+2015-06-08 16:43:27,340 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:27,342 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
+2015-06-08 16:43:30,475 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:30,478 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload domain xml for virtual machine] ************** 
+2015-06-08 16:43:33,224 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:33,226 p=25917 u=xiaoliang |  TASK: [prepare_host_env | upload config drive for virtual machine] ************ 
+2015-06-08 16:43:35,983 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:43:35,985 p=25917 u=xiaoliang |  TASK: [prepare_host_env | download com iso image] ***************************** 
+2015-06-08 16:43:36,053 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:43:36,056 p=25917 u=xiaoliang |  TASK: [prepare_host_env | download rhel+oracle+client qcow2 image] ************ 
+2015-06-08 16:44:21,351 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:44:21,352 p=25917 u=xiaoliang |  TASK: [prepare_host_env | download rhel+oracle+server qcow2 image] ************ 
+2015-06-08 16:45:04,160 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:04,161 p=25917 u=xiaoliang |  TASK: [prepare_host_env | download rhel+oracle+server qcow2 image] ************ 
+2015-06-08 16:45:04,202 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:45:04,203 p=25917 u=xiaoliang |  PLAY [create virtual machines] ************************************************ 
+2015-06-08 16:45:04,203 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
+2015-06-08 16:45:07,130 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:07,132 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
+2015-06-08 16:45:08,906 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:45:08,908 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
+2015-06-08 16:45:11,842 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:11,844 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
+2015-06-08 16:45:14,001 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:45:14,004 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
+2015-06-08 16:45:17,371 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:17,375 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
+2015-06-08 16:45:20,014 p=25917 u=xiaoliang |  ok: [135.252.138.170]
+2015-06-08 16:45:20,016 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | destroy virtual machine] ****************************** 
+2015-06-08 16:45:20,090 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:45:20,091 p=25917 u=xiaoliang |  TASK: [vnf_delete_vms | undefine virtual machine] ***************************** 
+2015-06-08 16:45:20,128 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:45:20,128 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
+2015-06-08 16:45:32,220 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:32,222 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
+2015-06-08 16:45:33,887 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:33,888 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
+2015-06-08 16:45:36,121 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:36,122 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
+2015-06-08 16:45:51,583 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:51,586 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
+2015-06-08 16:45:54,731 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:54,733 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
+2015-06-08 16:45:58,954 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:45:58,956 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
+2015-06-08 16:46:14,935 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:46:14,937 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
+2015-06-08 16:46:16,671 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:46:16,674 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
+2015-06-08 16:46:19,129 p=25917 u=xiaoliang |  changed: [135.252.138.170]
+2015-06-08 16:46:19,131 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | copy qcow2 disk image] ******************************** 
+2015-06-08 16:46:19,214 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:46:19,216 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | create virtual machine instance] ********************** 
+2015-06-08 16:46:19,272 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:46:19,273 p=25917 u=xiaoliang |  TASK: [vnf_create_vms | start virtual machine] ******************************** 
+2015-06-08 16:46:19,304 p=25917 u=xiaoliang |  skipping: [135.252.138.170]
+2015-06-08 16:46:19,305 p=25917 u=xiaoliang |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
+2015-06-08 16:46:49,501 p=25917 u=xiaoliang |  ok: [135.252.138.170 -> 127.0.0.1]
+2015-06-08 16:46:49,504 p=25917 u=xiaoliang |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
+2015-06-08 16:47:19,767 p=25917 u=xiaoliang |  ok: [135.252.138.170 -> 127.0.0.1]
+2015-06-08 16:47:19,770 p=25917 u=xiaoliang |  TASK: [vnf_wait_for_alive | wait for server to alive] ************************* 
+2015-06-08 16:47:50,031 p=25917 u=xiaoliang |  ok: [135.252.138.170 -> 127.0.0.1]
+2015-06-08 16:47:50,032 p=25917 u=xiaoliang |  PLAY [upload install_options] ************************************************* 
+2015-06-08 16:47:50,032 p=25917 u=xiaoliang |  TASK: [upload_install_options | create /install/config directory] ************* 
+2015-06-08 16:47:51,612 p=25917 u=xiaoliang |  ok: [135.252.138.165]
+2015-06-08 16:47:52,732 p=25917 u=xiaoliang |  ok: [135.252.138.168]
+2015-06-08 16:47:53,167 p=25917 u=xiaoliang |  ok: [135.252.138.167]
+2015-06-08 16:47:53,182 p=25917 u=xiaoliang |  TASK: [upload_install_options | upload install_options] *********************** 
+2015-06-08 16:47:56,229 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 16:47:56,542 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 16:48:00,894 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 16:48:00,920 p=25917 u=xiaoliang |  PLAY [image replacement post script] ****************************************** 
+2015-06-08 16:48:00,925 p=25917 u=xiaoliang |  TASK: [run post replace script, may take around 20 minutes] ******************* 
+2015-06-08 16:48:27,972 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 16:48:56,143 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:06:55,798 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:06:55,807 p=25917 u=xiaoliang |  TASK: [configure new disk drive] ********************************************** 
+2015-06-08 17:07:21,192 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:07:23,305 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:07:33,783 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:07:33,811 p=25917 u=xiaoliang |  TASK: [organize directories for image replacement] **************************** 
+2015-06-08 17:07:36,903 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:07:37,798 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:08:00,055 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:08:00,074 p=25917 u=xiaoliang |  PLAY [stop COM] *************************************************************** 
+2015-06-08 17:08:00,076 p=25917 u=xiaoliang |  TASK: [stop_com | stop com application] *************************************** 
+2015-06-08 17:08:54,665 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:08:54,667 p=25917 u=xiaoliang |  PLAY [restore data] *********************************************************** 
+2015-06-08 17:08:54,669 p=25917 u=xiaoliang |  TASK: [restore_data | create local restore directory] ************************* 
+2015-06-08 17:08:56,162 p=25917 u=xiaoliang |  ok: [135.252.138.165]
+2015-06-08 17:08:59,165 p=25917 u=xiaoliang |  ok: [135.252.138.168]
+2015-06-08 17:09:03,204 p=25917 u=xiaoliang |  ok: [135.252.138.167]
+2015-06-08 17:09:03,211 p=25917 u=xiaoliang |  TASK: [restore_data | mount nfs directory] ************************************ 
+2015-06-08 17:09:03,276 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 17:09:03,283 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 17:09:03,289 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 17:09:03,299 p=25917 u=xiaoliang |  TASK: [restore_data | restore data] ******************************************* 
+2015-06-08 17:09:14,759 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:09:52,036 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:10:28,735 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:10:28,755 p=25917 u=xiaoliang |  TASK: [restore_data | restore data for CSA and CFMA] ************************** 
+2015-06-08 17:10:28,801 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 17:10:28,812 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 17:10:28,814 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 17:10:28,825 p=25917 u=xiaoliang |  TASK: [restore_data | restore qosac data] ************************************* 
+2015-06-08 17:10:28,862 p=25917 u=xiaoliang |  skipping: [135.252.138.165]
+2015-06-08 17:10:28,868 p=25917 u=xiaoliang |  skipping: [135.252.138.168]
+2015-06-08 17:10:28,876 p=25917 u=xiaoliang |  skipping: [135.252.138.167]
+2015-06-08 17:10:28,885 p=25917 u=xiaoliang |  PLAY [Vertical scaling COM VM for memory, and CPU] **************************** 
+2015-06-08 17:10:28,886 p=25917 u=xiaoliang |  TASK: [tune memory] *********************************************************** 
+2015-06-08 17:10:31,017 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:10:32,021 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:10:52,330 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:10:52,354 p=25917 u=xiaoliang |  PLAY [download public key from remote server] ********************************* 
+2015-06-08 17:10:52,355 p=25917 u=xiaoliang |  TASK: [fetch public key from remote server] *********************************** 
+2015-06-08 17:10:54,175 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:10:54,360 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:10:54,525 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:10:54,542 p=25917 u=xiaoliang |  PLAY [put public key to db authorized keys] *********************************** 
+2015-06-08 17:10:54,544 p=25917 u=xiaoliang |  TASK: [send authorized keys to db virtual machine] **************************** 
+2015-06-08 17:10:55,452 p=25917 u=xiaoliang |  ok: [135.252.138.167] => (item={'key': 'oam', 'value': {'install_options': u'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-oam-1', 'ip_address': u'135.252.138.165', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:55,483 p=25917 u=xiaoliang |  skipping: [135.252.138.167] => (item={'key': 'db', 'value': {'install_options': u'install_options_FCAPS_db.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.DB.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-db-1', 'ip_address': u'135.252.138.167', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:56,464 p=25917 u=xiaoliang |  ok: [135.252.138.167] => (item={'key': 'cm', 'value': {'install_options': u'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-cm-1', 'ip_address': u'135.252.138.168', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:56,466 p=25917 u=xiaoliang |  PLAY [put public key to oam authorized keys] ********************************** 
+2015-06-08 17:10:56,468 p=25917 u=xiaoliang |  TASK: [send authorized keys to oam virtual machine] *************************** 
+2015-06-08 17:10:56,527 p=25917 u=xiaoliang |  skipping: [135.252.138.165] => (item={'key': 'oam', 'value': {'install_options': u'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-oam-1', 'ip_address': u'135.252.138.165', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:58,422 p=25917 u=xiaoliang |  ok: [135.252.138.165] => (item={'key': 'db', 'value': {'install_options': u'install_options_FCAPS_db.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.DB.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-db-1', 'ip_address': u'135.252.138.167', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:59,423 p=25917 u=xiaoliang |  ok: [135.252.138.165] => (item={'key': 'cm', 'value': {'install_options': u'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-cm-1', 'ip_address': u'135.252.138.168', 'gateway': '135.252.138.174'}})
+2015-06-08 17:10:59,424 p=25917 u=xiaoliang |  PLAY [put public key to cm authorized keys] *********************************** 
+2015-06-08 17:10:59,427 p=25917 u=xiaoliang |  TASK: [send authorized keys to cm virtual machine] **************************** 
+2015-06-08 17:11:01,811 p=25917 u=xiaoliang |  ok: [135.252.138.168] => (item={'key': 'oam', 'value': {'install_options': u'install_options_FCAPS_oam.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-oam-1', 'ip_address': u'135.252.138.165', 'gateway': '135.252.138.174'}})
+2015-06-08 17:11:02,727 p=25917 u=xiaoliang |  ok: [135.252.138.168] => (item={'key': 'db', 'value': {'install_options': u'install_options_FCAPS_db.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.DB.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-db-1', 'ip_address': u'135.252.138.167', 'gateway': '135.252.138.174'}})
+2015-06-08 17:11:02,748 p=25917 u=xiaoliang |  skipping: [135.252.138.168] => (item={'key': 'cm', 'value': {'install_options': u'install_options_FCAPS_cm.j2', 'netmask': '255.255.255.240', 'imgname': 'COM_5_0_0_1.OAM.qcow2', 'flavor': {'vCpu': 8, 'disk': 60, 'memory': 8286208}, 'hostname': u'qin-cm-1', 'ip_address': u'135.252.138.168', 'gateway': '135.252.138.174'}})
+2015-06-08 17:11:02,750 p=25917 u=xiaoliang |  PLAY [delete suspend file] **************************************************** 
+2015-06-08 17:11:02,752 p=25917 u=xiaoliang |  TASK: [delete_suspend_file | delete suspend file] ***************************** 
+2015-06-08 17:11:04,384 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:11:06,182 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:11:06,796 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:11:06,819 p=25917 u=xiaoliang |  PLAY [start com application] ************************************************** 
+2015-06-08 17:11:06,820 p=25917 u=xiaoliang |  TASK: [start_com | start com application] ************************************* 
+2015-06-08 17:11:08,876 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:11:08,878 p=25917 u=xiaoliang |  PLAY [Reboot] ***************************************************************** 
+2015-06-08 17:11:08,879 p=25917 u=xiaoliang |  TASK: [Reboot server] ********************************************************* 
+2015-06-08 17:11:10,999 p=25917 u=xiaoliang |  changed: [135.252.138.165]
+2015-06-08 17:11:11,019 p=25917 u=xiaoliang |  changed: [135.252.138.168]
+2015-06-08 17:11:12,357 p=25917 u=xiaoliang |  changed: [135.252.138.167]
+2015-06-08 17:11:12,365 p=25917 u=xiaoliang |  PLAY RECAP ******************************************************************** 
+2015-06-08 17:11:12,366 p=25917 u=xiaoliang |  135.252.138.165            : ok=18   changed=14   unreachable=0    failed=0   
+2015-06-08 17:11:12,366 p=25917 u=xiaoliang |  135.252.138.167            : ok=15   changed=11   unreachable=0    failed=0   
+2015-06-08 17:11:12,366 p=25917 u=xiaoliang |  135.252.138.168            : ok=15   changed=11   unreachable=0    failed=0   
+2015-06-08 17:11:12,366 p=25917 u=xiaoliang |  135.252.138.170            : ok=30   changed=20   unreachable=0    failed=0   
+2015-06-08 17:11:12,368 p=25917 u=xiaoliang |  localhost                  : ok=24   changed=24   unreachable=0    failed=0   
