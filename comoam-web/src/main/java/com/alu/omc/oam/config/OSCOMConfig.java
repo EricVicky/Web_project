@@ -33,7 +33,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private COMProvidernetwork com_provider_network;
     private Map vm_config;
     private Map<String, String> app_install_options;
-    private COMType            com_type;
+    private COMType            comType;
     private String timezone;
     private COMPrivatenetwork com_private_network = new COMPrivatenetwork("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
     private String template_version;
@@ -43,6 +43,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	private String key_name;
 	private boolean juno_base = false;
 	private static Logger log = LoggerFactory.getLogger(OSCOMConfig.class);	
+	
 
     public Map<String, String> getApp_install_options() {
 		return app_install_options;
@@ -54,7 +55,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 
 	public boolean getJuno_base()
     {
-        return juno_base;
+        return this.isJuno();
     }
 
     public void setJuno_base(boolean juno_base)
@@ -151,7 +152,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     public COMType getCOMType()
     {
         // TODO Auto-generated method stub
-        return com_type;
+        return comType;
     }
     
     public class ComputeAvailZone implements Serializable
@@ -392,19 +393,19 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         this.com_provider_network = com_provider_network;
     }
 
-    public COMType getCom_type()
+    public COMType getComType()
     {
-        return com_type;
+        return comType;
     }
 
-    public void setCom_type(COMType com_type)
+    public void setComType(COMType comType)
     {
-        this.com_type = com_type;
+        this.comType = comType;
     }
 
     public String toString()
     {
-        return this.com_type + "," + this.getEnvironment();
+        return this.comType + "," + this.getEnvironment();
     }
 
     public Map<String, Object> getVm_config()
@@ -492,6 +493,11 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	    }
         return vmnics;
     }
+    
+   private boolean  isJuno(){
+       return this.getTemplate_version().indexOf("2014-10-16") != -1;
+   }
+
 
 
 

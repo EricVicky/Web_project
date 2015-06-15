@@ -6,11 +6,20 @@ if [ $# -lt 2 ]; then
 fi
 eth=$1
 br=$2
-HWADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=HWADDR=).*$')
-IPADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=IPADDR=).*$')
-NETMASK=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=NETMASK=).*$')
-GATEWAY=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=GATEWAY=).*$')
-PREFIX=$(cat /etc/sysconfig/network-scripts/ifcfg-eth0 |grep -oP '(?<=PREFIX=).*$')
+if [ ! -f /etc/sysconfig/network-scripts/ifcfg-"$eth" ] ; then
+    echo "$eth not found"
+    exit 1
+fi
+bridge=$(grep -i bridge /etc/sysconfig/network-scripts/ifcfg-"$eth")
+if [ ! -z "$bridge" ]; then
+    echo " the bridge on $eth has already been setup"
+    exit 1
+fi
+HWADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=HWADDR=).*$')
+IPADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=IPADDR=).*$')
+NETMASK=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=NETMASK=).*$')
+GATEWAY=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=GATEWAY=).*$')
+PREFIX=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=PREFIX=).*$')
 echo HWADDR=$HWADDR
 echo IPADDR=$IPADDR
 echo NETMASK=$NETMASK

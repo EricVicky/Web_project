@@ -52,12 +52,29 @@ public class COMStackService
             if(stack.getName().equals(comStack.getName())){
                 stack.setUpdatedate(new Date());
                 stack.setComConfig(comStack.getComConfig());
+                stack.setStatus(comStack.getStatus());
                 break;
             }
         }
         dataSource.save(stacks);
         
     }
+    
+    public void grupdate(COMStack comStack){
+        List<COMStack> stacks = dataSource.list();
+        if(stacks == null){
+            stacks = new ArrayList<COMStack>();
+        }
+        for(COMStack stack : stacks){
+            if(stack.getName().equals(comStack.getName())){
+                stack.setStatus(comStack.getStatus());
+                break;
+            }
+        }
+        dataSource.save(stacks);
+        
+    }
+    
     public void delete(String name){
     	if(name == null || name.length() == 0){
     		return;

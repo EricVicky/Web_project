@@ -81,3 +81,43 @@ body {
 text-decoration: none;
 background-color: #eee;
 }
+
+#list{
+	padding:1px 4px;
+	background-color: rgb(202,244,252);
+}
+
+#operations {
+	position:reletive;
+	left:28px;
+	top:-9px;
+	width:100px;
+	min-width:102px;
+	padding:0px 0;
+}
+
+#operations li {
+	width:100px;
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: gray;
+}
+
+#operations li a {
+	padding:3px 10px;
+}
+
+#canvas {
+	background-attachment: false;
+	background-repeat:no-repeat;
+}
+
+#menu{
+	border: 1px solid rgb(175,238,251);
+	border-radius: 2px;	
+}
+
+.modal-backdrop{
+	bottom: 0;
+	position: fixed;
+}

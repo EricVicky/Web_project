@@ -28,20 +28,27 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK), osBackupParser());
         parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK), osRestoreParser());
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
-        parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstPriParser());
+        parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
+        parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM_OVM), kvmovmInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[install\\sSEC\\sDB\\sGR\\]", "Sec GR Install");
         dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}
+    private ILogParser kvmGrInstSecParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sSEC\\sDB\\sGR\\]", "Sec GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
-    private ILogParser kvmGrUnInstPriParser() {
+    private ILogParser kvmGrUnInstParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[Uninstall\\sOAM\\sGR\\]", "GR Uninstall");
@@ -52,6 +59,8 @@ public class LogParserFactory
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK:\\s\\[vnf\\_destroy\\_vms\\s\\|\\sundefine\\soam\\svirtual\\smachine", "Undefine Virtual Machine");
+        dict.put("TASK:\\s\\[vnf\\_destroy\\_vms\\s\\|\\sdestroy\\soam\\svirtual\\smachine", "Destroy Virtual Machine");
         dict.put("PLAY\\s\\[destroy", "Start");
         return new LogParser(dict);
 	}
@@ -59,7 +68,7 @@ public class LogParserFactory
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("PLAY\\s\\[destroy", "Start");
+        dict.put("PLAY\\s\\[destroy", "Begin");
         return new LogParser(dict);
 	}
     
@@ -120,10 +129,10 @@ public class LogParserFactory
     private ILogParser kvmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("Reboot\\sserver", "Finished");
-        dict.put("Run\\s\\/install\\/scripts\\/post\\_image\\_replacement\\.sh", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        dict.put("image\\sreplacement\\spost\\sscript", "Post Configuration");
+        dict.put("vnf_create_vms\\s\\|\\screate\\svirtual\\smachine","Start VM Instance");
+        dict.put("vnf_create_disk\\s\\|\\screate\\sdata\\sdisk\\simage", "Generate Config Driver");
+        dict.put("vnf_prepare_vms\\s\\|\\sgenerate\\smeta data", "Start");
         return new LogParser(dict);
     }
     private ILogParser kvmUpgradeParser(){

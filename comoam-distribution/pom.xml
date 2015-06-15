@@ -12,6 +12,7 @@
 	<properties>
 		<tomcat.version>8.0.14</tomcat.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <host.jdk.version>java-1.7.0-openjdk-1.7.0.71.x86_64</host.jdk.version>
 	</properties>
 
 	<dependencies>
@@ -118,11 +119,12 @@
 							</execution>
 						</executions>
 						<configuration>
-							<name>comoam</name>
+							<name>ELCM</name>
 							<license>GPL (c) 2015, ALU</license>
 							<distribution>ALU 2005</distribution>
 							<group>Alcatel-lucent</group>
-							<version>0.1</version>
+							<version>0.3</version>
+							<targetArchitecture>x86_64</targetArchitecture>
 							<mappings>
 								<mapping>
 									<directory>/opt/PlexView/comoam/</directory>
@@ -131,6 +133,26 @@
 									<sources>
 										<source>
 											<location>${project.build.directory}/playbook.tar</location>
+										</source>
+									</sources>
+								</mapping>
+								<mapping>
+									<directory>/etc/pam.d</directory>
+									<username>root</username>
+									<groupname>root</groupname>
+									<sources>
+										<source>
+											<location>src/main/config/pam.d/net-sf-jpam</location>
+										</source>
+									</sources>
+								</mapping>
+								<mapping>
+									<directory>/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/</directory>
+									<username>root</username>
+									<groupname>root</groupname>
+									<sources>
+										<source>
+											<location>src/main/lib/libjpam.so.tar.gz</location>
 										</source>
 									</sources>
 								</mapping>

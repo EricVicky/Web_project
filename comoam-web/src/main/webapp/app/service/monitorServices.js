@@ -6,17 +6,18 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
-				 "delete":["Start","Finished"],
-				 "gr_pri_install":["Start","Pri GR Install","Sec GR Install","Finished"],
+				 "gr_pri_install":["Start","Pri GR Install","Finished"],
+				 "gr_sec_install":["Start","Sec GR Install","Finished"],
 				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"Openstack" :{
 				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "restore":["Start","Data Restore","Finished"],
-				 "delete":["Start","Finished"]
+				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
+				 "restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_OVM" :{
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
@@ -57,7 +58,12 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "gr_pri_install";
 			channel = ch;
 		},
-		monitorKVMGR_Pri_UnInstall: function(ch) {
+		monitorKVMGR_Sec_Install: function(ch) {
+			environment = "KVM";
+			action = "gr_sec_install";
+			channel = ch;
+		},
+		monitorKVMGR_UnInstall: function(ch) {
 			environment = "KVM";
 			action = "gr_uninstall";
 			channel = ch;

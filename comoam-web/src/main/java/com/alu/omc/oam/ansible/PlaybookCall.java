@@ -17,7 +17,7 @@ public class PlaybookCall implements AnsibleCall
                                                         .getLogger(PlaybookCall.class);
     private COMConfig           config;
     private Action              action;
-    private static final String ANSIBLE_COMMAND = "ansible-playbook ";
+    private static final String ANSIBLE_COMMAND = "ansible-playbook -c paramiko ";
 
     /**
      * @Fields playbook : the file name of playbook
