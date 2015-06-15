@@ -4,11 +4,19 @@ public class ActionKey
 {
     private Action      action;
     private Environment env;
+    private COMType comType;
 
     public ActionKey(Action action, Environment env)
     {
         this.action = action;
         this.env = env;
+    }
+    
+    public ActionKey(Action action, Environment env, COMType comType)
+    {
+        this.action = action;
+        this.env = env;
+        this.comType = comType;
     }
     @Override
     public int hashCode(){
@@ -30,7 +38,11 @@ public class ActionKey
     }
     
     public String toString(){
-        return action.name().concat("_").concat(env.name());
+    	if(this.comType != null && this.comType != COMType.FCAPS && this.comType != COMType.CM && this.comType != COMType.OAM){
+    		return action.name().concat("_").concat(env.name().concat("_").concat(this.comType.name()));
+    	}else{
+    		return action.name().concat("_").concat(env.name());
+    	}
     }
 
 }

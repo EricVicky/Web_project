@@ -67,7 +67,7 @@ public class AnsibleDelegator implements ApplicationContextAware
     } 
     private IAnsibleHandler getHandler(Action action, COMConfig config)
     {
-      String handlerBeanName = new ActionKey(action, config.getEnvironment())
+      String handlerBeanName = new ActionKey(action, config.getEnvironment(), config.getCOMType())
       								.toString().concat(IAnsibleHandler.HANDLER_END_FIX);
       IAnsibleHandler handler =   (IAnsibleHandler) applicationContext
                 .getBean(handlerBeanName);

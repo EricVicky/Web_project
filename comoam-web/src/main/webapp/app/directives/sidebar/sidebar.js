@@ -67,7 +67,7 @@ angular.module('comoamApp')
 	  
 	  $scope.EnvItems = [{'name':'KVM','url':'kvm'},{'name':'Openstack','url':'os'}];
 	  $scope.VNFitems = [{'name':'OAM','url':'install'},{'name':'FCAPS','url':'install'}];
-	  $scope.OVNFitems = [{'name':'QoSAC','url':''}, {'name':'ATC','url':'ovminstall'}, {'name':'HPsim','url':'ovminstall'}];
+	  $scope.OVNFitems = [{'name':'QoSAC','url':''}, {'name':'ATC','url':'ovminstall'}, {'name':'HPSIM','url':'ovminstall'}];
 	  
 	  $scope.selected = [];
 	  

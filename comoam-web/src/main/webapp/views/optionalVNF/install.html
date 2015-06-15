@@ -58,9 +58,14 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">IPv6 Address</label> <input name="ipv6_address"
-                            class="form-control" type="text" ng-model="installConfig.vm_config.ovm.ipv6_address""
+                            class="form-control" type="text" ng-model="installConfig.vm_config.ovm.ipv6_address"
                             placeholder="Please Insert IP Address" title="IPv6 Address"
                             validation="ipv6" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">IPv6 Netmask</label> <input name="ipv6_netmask"
+                            class="form-control" type="text" ng-model="installConfig.vm_config.ovm.ipv6_netmask"
+                            title="IPv6 netmask" validation="netmask" />
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">IPv6 Gateway</label> <input name="ipv6_gateway"

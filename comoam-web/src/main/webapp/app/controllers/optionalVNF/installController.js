@@ -1,6 +1,14 @@
 angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, $state){
                         	
-    $scope.installConfig ={};                    	
+    $scope.installConfig ={
+    		"vm_config":{
+    			"ovm":{
+    				"ipv6_address":"",
+    				"ipv6_netmask":"",
+    				"ipv6_gateway":""
+    			}
+    		}
+    };    
     
     KVMService.getFlavorStore().then( function(data) {
 		$scope.flavorStore = data.Flavors;
@@ -11,11 +19,13 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 	});
     
     $scope.deploy = function(){
-    	if(KVMService.VNFType=='HPsim'){
-    		$scope.installConfig.vm_config.imgname='hpsim_new.c.qcow2';
+    	if(KVMService.VNFType=='HPSIM'){
+    		$scope.installConfig.vm_config.ovm.imgname='hpsim_new.c.qcow2';
     	}else if(KVMService.VNFType=='ATC'){
-    		$scope.installConfig.vm_config.imgname='atc.c.qcow2';
+    		$scope.installConfig.vm_config.ovm.imgname='atc.c.qcow2';
     	}
+    	
+    	$scope.installConfig.comType = KVMService.VNFType;
     	
     	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
     		if(response.succeed == true){

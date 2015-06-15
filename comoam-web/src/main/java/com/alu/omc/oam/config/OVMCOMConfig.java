@@ -43,7 +43,7 @@ public class OVMCOMConfig extends COMConfig {
 
 	@Override
 	public Environment getEnvironment() {
-		return Environment.KVM_OVM;
+		return Environment.KVM;
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class OVMCOMConfig extends COMConfig {
 	private String deployment_prefix = "";
 	private String atc_switches = "";
 	private Map<String, Object> vm_config;
+	private String vnfType = "";
 
 	public Host getHost(){
 		return new Host(active_host_ip);
@@ -104,6 +105,14 @@ public class OVMCOMConfig extends COMConfig {
 
 	public void setVm_config(Map<String, Object> vm_config) {
 		this.vm_config = vm_config;
+	}
+
+	public String getComType() {
+		return vnfType;
+	}
+
+	public void setComType(String vnfType) {
+		this.vnfType = vnfType;
 	}
 	
 	

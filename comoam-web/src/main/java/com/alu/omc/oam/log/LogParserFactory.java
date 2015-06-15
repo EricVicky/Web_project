@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionKey;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.COMType;
 import com.alu.omc.oam.config.Environment;
 
 @Component
@@ -30,7 +31,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
         parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
-        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM_OVM), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.OVM), kvmovmInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -116,7 +117,7 @@ public class LogParserFactory
     {
         try
         {
-            return parserCache.get(new ActionKey(action, config.getEnvironment())).clone();
+            return parserCache.get(new ActionKey(action, config.getEnvironment(), config.getCOMType())).clone();
         }
         catch (CloneNotSupportedException e)
         {
