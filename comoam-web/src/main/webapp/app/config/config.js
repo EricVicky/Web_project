@@ -4,17 +4,13 @@ angular .module('comoamApp')
 	    prefix: 'locales/validation/',
 	    suffix: '.json'
 		});
-
-  	// load English ('en') table on startup
-		$translateProvider.preferredLanguage('en');
+	    $translateProvider.preferredLanguage('en');
 	}])
 	.config(['$translateProvider', function ($translateProvider) {
 	  $translateProvider.useStaticFilesLoader({
 	    prefix: 'locales/login/',
 	    suffix: '.json'
 		});
-
-  	// load English ('en') table on startup
 		$translateProvider.preferredLanguage('en');
 	}]);
 

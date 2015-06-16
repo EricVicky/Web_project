@@ -110,7 +110,7 @@ angular.module('kvm', [ 'ui.router',
 		      $log.info('Modal dismissed at: ' + new Date());
 		    });
 	  };
-	 //$scope.open('sm');
+	 //$scope.open('sm');	  	  
 
 })
 .controller('NFVChooseController', function($scope, $modalInstance, NFVTypes ){
