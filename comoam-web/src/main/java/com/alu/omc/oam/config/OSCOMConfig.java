@@ -218,6 +218,39 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         String                    netmask;
         String                    gateway;
         String                    dns1;
+        String                    v6_subnet = "";
+        String                    v6_gateway = "";
+        String                    v6_prefix = "";
+
+        public String getV6_subnet()
+        {
+            return v6_subnet;
+        }
+
+        public void setV6_subnet(String v6_subnet)
+        {
+            this.v6_subnet = v6_subnet;
+        }
+
+        public String getV6_gateway()
+        {
+            return v6_gateway;
+        }
+
+        public void setV6_gateway(String v6_gateway)
+        {
+            this.v6_gateway = v6_gateway;
+        }
+
+        public String getV6_prefix()
+        {
+            return v6_prefix;
+        }
+
+        public void setV6_prefix(String v6_prefix)
+        {
+            this.v6_prefix = v6_prefix;
+        }
 
         public String getDns1()
         {

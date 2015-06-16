@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.network.IP;
+import org.openstack4j.model.network.IPVersionType;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Port;
 import org.openstack4j.model.network.Subnet;
@@ -78,6 +79,24 @@ public class NeutronService
 		for(NeutronSubnet subnet : subnetList)
 		{
 			if(subnet.getNetworkId().equalsIgnoreCase(networkId))
+			{
+				subnetNames.add(new IdNamePair(subnet.getId(), subnet.getName()));
+			}
+		}
+		return subnetNames;
+	}
+	
+		@SuppressWarnings("unchecked")
+	public List<IdNamePair> getSubetNamesByNetworkId(OSClient client, String networkId, boolean ipv4)
+	{
+		List<NeutronSubnet> subnetList = (List<NeutronSubnet>)client.networking().subnet().list();
+		List<IdNamePair> subnetNames = new ArrayList<IdNamePair>();
+		for(NeutronSubnet subnet : subnetList)
+		{
+			if((subnet.getIpVersion() == IPVersionType.V4) ^ ipv4){
+			    continue;
+			}
+		    if(subnet.getNetworkId().equalsIgnoreCase(networkId))
 			{
 				subnetNames.add(new IdNamePair(subnet.getId(), subnet.getName()));
 			}

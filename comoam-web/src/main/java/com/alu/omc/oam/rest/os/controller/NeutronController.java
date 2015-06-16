@@ -53,7 +53,24 @@ public class NeutronController {
 		else
 			return Collections.<NeutronService.IdNamePair>emptyList();
 	}
-	
+	@RequestMapping("/{networkId}/subnet/v4/list/names")
+	public List<NeutronService.IdNamePair> getV4SubnetNamesByNetworkId(@PathVariable String networkId)
+	{
+		OSClient os = yaoOsClientService.getOsClient();
+		if(os != null)
+			return neutronService.getSubetNamesByNetworkId(os, networkId, true);
+		else
+			return Collections.<NeutronService.IdNamePair>emptyList();
+	}
+	@RequestMapping("/{networkId}/subnet/v6/list/names")
+	public List<NeutronService.IdNamePair> getV6SubnetNamesByNetworkId(@PathVariable String networkId)
+	{
+		OSClient os = yaoOsClientService.getOsClient();
+		if(os != null)
+			return neutronService.getSubetNamesByNetworkId(os, networkId, false);
+		else
+			return Collections.<NeutronService.IdNamePair>emptyList();
+	}
 	@RequestMapping("/subnet/list/names")
 	public List<NeutronService.IdNamePair> getSubnetNames()
 	{
