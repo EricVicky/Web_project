@@ -157,8 +157,8 @@ public class GRIP implements Serializable{
     }
     
     private void simpleGR(NIC actnic, NIC stbnic, boolean isIPv4 ){
-        this.pri_ip = actnic.getIpv4().getIpaddress();
-        this.sec_ip = stbnic.getIpv4().getIpaddress();
+        this.pri_ip = isIPv4?actnic.getIpv4().getIpaddress():actnic.getIpv6().get(0).getIpaddress();
+        this.sec_ip = isIPv4?stbnic.getIpv4().getIpaddress():stbnic.getIpv6().get(0).getIpaddress();
     }
     
     private void sepGR(List<NIC> actNics, List<NIC> stbNics, boolean isIPv4, boolean installActive){
