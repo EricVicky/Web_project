@@ -485,6 +485,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
 	        vmcfg.put("image", this.getVMImageName(name));
 	        if(this.getCom_private_network().ippool.size() >0){
 	        	vmcfg.put("private_ip_address", this.getCom_private_network().popIp());
