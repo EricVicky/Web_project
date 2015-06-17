@@ -6,7 +6,7 @@ angular.module('backup_restore', ['ui.router',
                                   'ghiscoding.validation',
                                   'monitor',
                                   'ngResource']).controller('backup_resctr', function($scope,  $log, KVMService
-		, Backup_ResService, monitorService,DashboardService, $dialogs, $state) {
+		, Backup_ResService, monitorService,DashboardService, $dialogs, $state,$translate) {
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
@@ -62,8 +62,6 @@ angular.module('backup_restore', ['ui.router',
     		});
     	}
     }
-
-
 } );
 
 
