@@ -100,3 +100,4 @@ angular.module('comoamApp')
 		 $modalInstance.dismiss('cancel');
      };
 });
+
