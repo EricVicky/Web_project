@@ -150,7 +150,7 @@
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 										<legend>DB VM</legend>
 										<div class="form-group col-md-4">
-											<label class="control-label">IP Address</label> <input
+											<label class="control-label">IPv4 Address</label> <input
 												name="db_ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.db.ip_address" placeholder="Please Insert IP"
 												title="IP Address" validation="ipv4|required" />
@@ -176,7 +176,7 @@
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 										<legend>CM VM</legend>
 										<div class="form-group col-md-4">
-											<label class="control-label">IP Address</label> <input
+											<label class="control-label">IPv4 Address</label> <input
 												name="cm_ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.cm.ip_address" placeholder="Please Insert IP"
 												title="IP Address" validation="ipv4|required" />
