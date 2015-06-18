@@ -11,9 +11,6 @@ angular.module('kvm', [ 'ui.router',
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
 
-			$scope.installConfig ={
-					vm_img_dir : "/var/images"
-					};
             $scope.changeComType = function(){
 				$scope.installConfig.vm_config = null;
 			};
