@@ -14,39 +14,23 @@ angular.module('gr', [ 'ui.router',
     	 GRService.getComInstance().then(function( comstacks ){
     		 if(comstacks.length > 0){
     		    var instances = new Array();
-    		    var Stack = new Array();
     		    for(var i=0; i < comstacks.length; i++){
     		    	instances.push(JSON3.parse(comstacks[i].comConfig));
-    		    	Stack.push(comstacks[i]);
     		    }
-    		    $scope.COMStack = Stack;
+    		    $scope.COMStack = comstacks;
     		    $scope.instances = instances;
     		 }
     	 }); 
-    	 $scope.$watch('gr_config.pri',function(){
-    		 if($scope.gr_config!=null){
-    			 GRService.checkInstalled({"name":$scope.gr_config.pri.deployment_prefix}).then(function(data){
-        			 if(data.succeed){
-        				 $scope.installedPriGR = "Installed";
-        			 }else{
-        				 $scope.installedPriGR = "Not Installed";
-        			 }
-            	 });
-    		 }
-    		 
-    	 });
-    	 $scope.$watch('gr_config.sec',function(){
-    		 if($scope.gr_config!=null){
-    			 GRService.checkInstalled({"name":$scope.gr_config.sec.deployment_prefix}).then(function(data){
-        			 if(data.succeed){
-        				 $scope.installedSecGR = "Installed";
-        			 }else{
-        				 $scope.installedSecGR = "Not Installed";
-        			 }
-            	 });
-    		 }
-    		 
-    	 });
+    	 $scope.primarycfg = function(){
+    		 GRService.checkInstalled({"name":$scope.gr_config.pri.deployment_prefix}).then(function(data){
+    			 $scope.installedPriGR = (data.succeed == true?"Installed":"Not Installed");
+        	 });
+    	 };
+    	 $scope.secondarycfg = function(){
+    		 GRService.checkInstalled({"name":$scope.gr_config.sec.deployment_prefix}).then(function(data){
+    			 $scope.installedSecGR = (data.succeed == true?"Installed":"Not Installed");
+        	 });
+    	 };
     	 $scope.installGR = function() {
     		 if($scope.COMStack.length > 0){
     			 for(var i=0; i < $scope.COMStack.length; i++){
@@ -74,7 +58,6 @@ angular.module('gr', [ 'ui.router',
 	GRService.getComInstance().then(function( comstacks ){
 		 if(comstacks.length > 0){
 		    var instances = new Array();
-		    var Stack = new Array();
 		    for(var i=0; i < comstacks.length; i++){
 		    	if(comstacks[i].status == "GRINSTALLED"){
 		    		instances.push(JSON3.parse(comstacks[i].comConfig));

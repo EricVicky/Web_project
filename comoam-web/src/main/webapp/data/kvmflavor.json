@@ -1,30 +1,30 @@
 {"Flavors": {
         "FCAPS":{
- 			"oam": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
-				   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
-				   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 
+ 			"oam": [ {"label": "Low End(4*16*130)", "vCpu": "4", "memory": "16777216", "disk": "50"}, 
+				   {"label": "Medium(6*24*180)","vCpu": "6", "memory": "25165824", "disk": "100"}, 
+				   {"label": "High End(8*32*330)","vCpu": "8", "memory": "33554432", "disk": "250"} 
  				 ],
- 			"cm": [ {"label": "Low End(6*16*180)", "vCpu": "6", "memory": "16572416", "disk": "100"}, 
-				   {"label": "Medium(12*32*180)","vCpu": "12", "memory": "33144832", "disk": "100"}, 
-				   {"label": "High End(18*64*180)","vCpu": "18", "memory": "66289664", "disk": "100"} 
+ 			"cm": [ {"label": "Low End(6*16*130)", "vCpu": "6", "memory": "16777216", "disk": "50"}, 
+				   {"label": "Medium(12*32*180)","vCpu": "12", "memory": "33554432", "disk": "100"}, 
+				   {"label": "High End(18*64*280)","vCpu": "18", "memory": "67108864", "disk": "200"} 
  				 ],
- 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "24858624", "disk": "200"}, 
-				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "24858624", "disk": "300"}, 
-				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "24858624", "disk": "500"} 
+ 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "25165824", "disk": "200"}, 
+				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "25165824", "disk": "300"}, 
+				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "25165824", "disk": "500"} 
  				 ]
         },
         "CM":{
- 			"oam": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
-				   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
-				   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 
+ 			"oam": [ {"label": "Low End(4*16*130)", "vCpu": "4", "memory": "16777216", "disk": "50"}, 
+				   {"label": "Medium(6*24*180)","vCpu": "6", "memory": "25165824", "disk": "100"}, 
+				   {"label": "High End(8*32*330)","vCpu": "8", "memory": "33554432", "disk": "250"} 
  				 ],
- 			"cm": [ {"label": "Low End(6*16*180)", "vCpu": "6", "memory": "16572416", "disk": "100"}, 
-				   {"label": "Medium(12*32*180)","vCpu": "12", "memory": "33144832", "disk": "100"}, 
-				   {"label": "High End(18*64*180)","vCpu": "18", "memory": "66289664", "disk": "100"} 
+ 			"cm": [ {"label": "Low End(6*16*130)", "vCpu": "6", "memory": "16777216", "disk": "50"}, 
+				   {"label": "Medium(12*32*180)","vCpu": "12", "memory": "33554432", "disk": "100"}, 
+				   {"label": "High End(18*64*280)","vCpu": "18", "memory": "67108864", "disk": "200"} 
  				 ],
- 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "24858624", "disk": "200"}, 
-				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "24858624", "disk": "300"}, 
-				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "24858624", "disk": "500"} 
+ 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "25165824", "disk": "200"}, 
+				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "25165824", "disk": "300"}, 
+				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "25165824", "disk": "500"} 
  				 ]
         },
         "QOSAC":{
@@ -34,13 +34,13 @@
  				 ]
         },
         "OAM":{
- 			"oam": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
-				   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
-				   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 
+ 			"oam": [ {"label": "Low End(4*16*130)", "vCpu": "4", "memory": "16777216", "disk": "50"}, 
+				   {"label": "Medium(6*24*180)","vCpu": "6", "memory": "25165824", "disk": "100"}, 
+				   {"label": "High End(8*32*330)","vCpu": "8", "memory": "33554432", "disk": "250"} 
  				 ],
- 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "24858624", "disk": "200"}, 
-				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "24858624", "disk": "300"}, 
-				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "24858624", "disk": "500"} 
+ 			"db": [ {"label": "Low End(2*24*280)", "vCpu": "2", "memory": "25165824", "disk": "200"}, 
+				   {"label": "Medium(4*24*380)","vCpu": "4", "memory": "25165824", "disk": "300"}, 
+				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "25165824", "disk": "500"} 
  				 ]
         },
         "OVM":{

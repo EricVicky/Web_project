@@ -1,0 +1,19 @@
+{
+	"FCAPS":{
+		"oam": "{{ deployment_prefix}}M001OAM01",
+		"cm": "{{ deployment_prefix }}M002CM01",
+		"db": "{{ deployment_prefix }}M003DB01"
+	},
+	"CM":{
+		"oam": "{{ deployment_prefix }}M001OAM01",
+		"cm": "{{ deployment_prefix }}M002CM01",
+		"db": "{{ deployment_prefix }}M003DB01"
+	},
+	"OAM":{
+		"oam": "{{ deployment_prefix }}M001OAM01",
+		"db": "{{ deployment_prefix }}M001DB01"
+	},
+	"QoSAC":{
+		"oam": "{{ deployment_prefix }}M001OAM01",
+	}
+}

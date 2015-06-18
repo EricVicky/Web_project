@@ -11,7 +11,9 @@ angular.module('kvm', [ 'ui.router',
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
 
-			$scope.installConfig ={};
+			$scope.installConfig ={
+					vm_img_dir : "/var/images"
+					};
             $scope.changeComType = function(){
 				$scope.installConfig.vm_config = null;
 			};
@@ -108,7 +110,7 @@ angular.module('kvm', [ 'ui.router',
 		      $log.info('Modal dismissed at: ' + new Date());
 		    });
 	  };
-	 //$scope.open('sm');
+	 //$scope.open('sm');	  	  
 
 })
 .controller('NFVChooseController', function($scope, $modalInstance, NFVTypes ){

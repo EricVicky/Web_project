@@ -29,7 +29,7 @@
 								<div class="tab-content">
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
-													<label class="control-label">COM Type</label> <select
+													<label class="control-label">VNFC Type</label> <select
 														name="comType" ng-model="installConfig.comType" ng-change="changeComType()"
 														class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
@@ -45,7 +45,6 @@
 												</div>
 											</form>
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
-											<div class="tab-pane" id="tab2" name="tab2">
 												<div class="form-group">
 													<label class="control-label">Network</label> <select
 														name="network"
@@ -56,12 +55,21 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Sub Network</label> <select
+													<label class="control-label">IPv4 Sub Network</label> <select
 														name="sub_network" 
 														ng-model="installConfig.com_provider_network.subnet"
 														class="form-control"
-														ng-options="sn.id as sn.name for sn in subNetworkStore"
+														ng-options="sn.id as sn.name for sn in v4subnets"
 														title="Sub Network" validation="required">
+													</select>
+												</div>
+												<div class="form-group">
+													<label class="control-label">IPv6 Sub Network</label> <select
+														name="v6_sub_network" 
+														ng-model="installConfig.com_provider_network.v6_subnet"
+														class="form-control"
+														ng-options="sn.id as sn.name for sn in v6subnets"
+														title="Sub Network" >
 													</select>
 												</div>
 												<div class="form-group">
@@ -73,26 +81,32 @@
 														title="Private Network" validation="required">
 													</select>
 												</div>
-											</div>
+												</fieldset>
 											</form>
 											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 												<div class="form-group">
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 														<legend>OAM VM</legend>
-														<div class="form-group col-md-4">
-															<label class="control-label">IP Address</label> <input
+														<div class="form-group col-md-3">
+															<label class="control-label">IPv4 Address</label> <input
 																name="oam_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div ng-if="installConfig.com_provider_network.v6_subnet" class="form-group col-md-3">
+															<label class="control-label">IPv6 Address</label> <input
+																name="oam_v6_ip_address" class="form-control" type="text"
+																ng-model="installConfig.vm_config.oam.provider_v6_ip_address"
+																title="IP Address"  />
+														</div>
+														<div class="form-group col-md-3">
 															<label class="control-label">Disk(GB)</label> <input
 																name="oam_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 															<label class="control-label">Flavor</label> <select
 																name="oam_flavor"
 																ng-model="installConfig.vm_config.oam.flavor"
@@ -105,19 +119,25 @@
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM'">
 														<legend>CM VM</legend>
-														<div class="form-group col-md-4">
-															<label class="control-label">IP Address</label> <input
+														<div class="form-group col-md-3">
+															<label class="control-label">IPv4 Address</label> <input
 																name="cm_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.cm.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div ng-if= "installConfig.com_provider_network.v6_subnet" class="form-group col-md-3">
+															<label class="control-label">IPv6 Address</label> <input
+																name="cm_v6_ip_address" class="form-control" type="text"
+																ng-model="installConfig.vm_config.cm.provider_v6_ip_address"
+																title="IP Address"  />
+														</div>
+														<div class="form-group col-md-3">
 															<label class="control-label">Disk(GB)</label> <input
 																name="cm_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.cm.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 															<label class="control-label">Flavor</label> <select
 																name="cm_flavor"
 																ng-model="installConfig.vm_config.cm.flavor"
@@ -130,19 +150,25 @@
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM' || installConfig.comType=='OAM'">
 														<legend>DB VM</legend>
-														<div class="form-group col-md-4">
-															<label class="control-label">IP Address</label> <input
+														<div class="form-group col-md-3">
+															<label class="control-label">IPv4 Address</label> <input
 																name="db_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.db.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div ng-if= "installConfig.com_provider_network.v6_subnet"  class="form-group col-md-3">
+															<label class="control-label">IPv6 Address</label> <input
+																name="db_v6_ip_address" class="form-control" type="text"
+																ng-model="installConfig.vm_config.db.provider_v6_ip_address"
+																title="IP Address" />
+														</div>
+														<div class="form-group col-md-3">
 															<label class="control-label">Disk(GB)</label> <input
 																name="db_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.db.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 															<label class="control-label">Flavor</label> <select
 																name="db_flavor"
 																ng-model="installConfig.vm_config.db.flavor"

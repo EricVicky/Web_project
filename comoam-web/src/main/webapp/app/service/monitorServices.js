@@ -4,7 +4,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 	var stepsDict= {
 			"KVM" : {
 				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
-				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
+				"upgrade": ["Start", "Data Backup", "Prepare Virtual Machines", "Post Image Replacement", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
@@ -13,7 +13,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"Openstack" :{
-				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM"],
+				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM", "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
@@ -23,6 +23,41 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
 			}
 	};
+	
+	var endMsg = {
+			"install": {
+				"success" : "Installation Completed",
+				"error": "Installation Failed"
+			},
+			"upgrade":{
+				"success" : "Upgrade Completed",
+				"error": "Upgrade Failed"
+			},
+			"backup":{
+				"success" : "Backup Completed",
+				"error": "Backup Failed"
+			},
+			"delete":{
+				"success" : "Destroyed",
+				"error": "Deletion failed"
+			},
+			"restore":{
+				"success" : "Restore completed!",
+				"error": "Restore failed"
+			},
+			"gr_pri_install":{
+				"success" : "Installation of Primary completed!",
+				"error": "Installation of Primary failed"
+			},
+			"gr_sec_install":{
+				"success" : "Installation of GR on secondary completed!",
+				"error": "Installation of GR on secondary  failed"
+			},
+			"gr_uninstall":{
+				"success" : "Uninstallation of GR completed!",
+				"error": "Uninstallation  of GR failed"
+			}
+	}
 	var environment;
 	var action;
 	var channel;
@@ -103,6 +138,9 @@ angular.module('monitor').factory('monitorService', function($log) {
 		},
 		getSteps: function(){
 			return stepsDict[environment][action];
+		},
+		getEndMsg: function(res){
+			return endMsg[action][res];
 		}
 	};
 });

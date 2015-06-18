@@ -218,6 +218,39 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         String                    netmask;
         String                    gateway;
         String                    dns1;
+        String                    v6_subnet = "";
+        String                    v6_gateway = "";
+        String                    v6_prefix = "";
+
+        public String getV6_subnet()
+        {
+            return v6_subnet;
+        }
+
+        public void setV6_subnet(String v6_subnet)
+        {
+            this.v6_subnet = v6_subnet;
+        }
+
+        public String getV6_gateway()
+        {
+            return v6_gateway;
+        }
+
+        public void setV6_gateway(String v6_gateway)
+        {
+            this.v6_gateway = v6_gateway;
+        }
+
+        public String getV6_prefix()
+        {
+            return v6_prefix;
+        }
+
+        public void setV6_prefix(String v6_prefix)
+        {
+            this.v6_prefix = v6_prefix;
+        }
 
         public String getDns1()
         {
@@ -452,6 +485,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
 	        vmcfg.put("image", this.getVMImageName(name));
 	        if(this.getCom_private_network().ippool.size() >0){
 	        	vmcfg.put("private_ip_address", this.getCom_private_network().popIp());
@@ -483,10 +517,14 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	        IFCfg eth0cfg = new IFCfg();
 	        eth0cfg.setIpaddress((String)config.get("provider_ip_address"));
 	        eth0.setIpv4(eth0cfg);
-	        nics.add(eth0);
+	        IFCfg v6cfg = new IFCfg();
+		    v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
+	        eth0.addIpv6(v6cfg);        nics.add(eth0);
 	        NIC eth1 = new NIC();
 	        IFCfg eth1cfg = new IFCfg();
 	        eth1cfg.setIpaddress((String)config.get("private_ip_address"));
+	        v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
+	        eth0.addIpv6(v6cfg);
 	        eth1.setIpv4(eth1cfg);
 	        nics.add(eth1);
 	        vmnics.put(vm, nics);

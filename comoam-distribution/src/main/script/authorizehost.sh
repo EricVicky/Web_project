@@ -3,6 +3,13 @@
 #This script add SSH authorize key to remote server 
 #and add host info into json file
 
+real_exec_user=`/usr/bin/id -un`
+[ "${runner}" = "" ] && runner=root
+if [ "${real_exec_user}" != "${runner}" ]; then
+   echo " This script must be run by ${runner} user"
+   exit 1
+fi
+
 
 /bin/echo "Please input hostname"
 read host

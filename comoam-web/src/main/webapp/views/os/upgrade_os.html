@@ -1,9 +1,8 @@
 
 <div class="container-fluid" ng-controller="osupgradectr">
 	<div class="row">
-		<div style="width: 570px">
-			<div rc-wizard="kvmupgradeWizard"
-				class="modal-body col-md-12 col-md-offset-4">
+		<div class="col-md-10">
+			<div rc-wizard="kvmupgradeWizard" class="modal-body">
 				<section id="wizard">
 					<div id="rootwizard">
 						<ul class="nav rc-nav-wizard" style="margin-left: 100px">
@@ -15,7 +14,10 @@
 									class="badge">2</span> <span>Select Image&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									class="badge">3</span> <span>Install Options&nbsp;</span>
+							</a></li>
+							<li><a href="#tab4" data-toggle="tab"> <span
+									class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 						</ul>
 						<div class="modal-body col-md-12">
@@ -118,6 +120,9 @@
 									</div>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+									<div ng-include="'views/common/common.html'"></div>
+								</form>
+								<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label">Deployment Summary</label>

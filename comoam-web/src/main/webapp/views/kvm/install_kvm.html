@@ -71,21 +71,23 @@
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-										<label class="control-label">OAM/CM image</label> <select
+										<label class="control-label">OAM/CM image</label> <select mutuexclude="db_image" form="tab2"
 											name="oam_cm_image" class="form-control"
 											ng-model="installConfig.oam_cm_image" title="OAM/CM image"
 											validation="required"><option ng-repeat="oamcm in imagelist">{{oamcm}}</option>
 											<option value="">--Please Select--</option>
 										</select>
+										<span class="validation text-danger" ng-show="tab2.oam_cm_image.$error.samefieldvalue">same image</span>
 									</fieldset>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-										<label class="control-label">DB image</label> <select
+										<label class="control-label">DB image</label> <select mutuexclude="oam_cm_image" form="tab2"
 											name="db_image" class="form-control"
 											ng-model="installConfig.db_image" title="OAM/CM image"
 											validation="required"><option ng-repeat="db in imagelist">{{db}}</option>
 											<option value="">--Please Select--</option>
 										</select>
+										<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
 									</fieldset>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
@@ -103,6 +105,8 @@
 												ng-model="installConfig.gateway" placeholder="Please Insert Gateway"
 												title="gateway" validation="gateway|required" />
 										</div>
+									</fieldset>
+									<fieldset>
 										<div class="form-group col-md-6">
 											<label class="control-label">Network Prefix(IPv6)</label> <input
 												name="prefix" class="form-control" type="text"
@@ -113,7 +117,7 @@
 											<label class="control-label">Gateway(IPv6)</label> <input
 												name="v6_gateway" class="form-control" type="text"
 												ng-model="installConfig.v6_gateway" placeholder="Please Insert Gateway"
-												title="gateway" validation="ipv6" />
+												title="gateway"  />
 										</div>
 									</fieldset>
 									<fieldset
@@ -126,10 +130,10 @@
 												title="IP Address" validation="ipv4|required" />
 										</div>
 										<div class="form-group col-md-4">
-											<label class="control-label">IPv6 Address(optional)</label> <input
+											<label class="control-label">IPv6 Address</label> <input
 												name="oam_v6_ip_addr" class="form-control" type="text"
 												ng-model="installConfig.vm_config.oam.v6_ip_addr" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv6" />
+												title="IP Address"  />
 										</div>
 										<div class="form-group col-md-4">
 											<label class="control-label">Flavor</label> <select
@@ -146,16 +150,16 @@
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 										<legend>DB VM</legend>
 										<div class="form-group col-md-4">
-											<label class="control-label">IP Address</label> <input
+											<label class="control-label">IPv4 Address</label> <input
 												name="db_ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.db.ip_address" placeholder="Please Insert IP"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label">IPv6 Address(optional)</label> <input
+										<div  class="form-group col-md-4">
+											<label class="control-label">IPv6 Address</label> <input
 												name="db_v6_ip_addr" class="form-control" type="text"
 												ng-model="installConfig.vm_config.db.v6_ip_addr" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv6" />
+												title="IP Address"  />
 										</div>
 										<div class="form-group col-md-4">
 											<label class="control-label">Flavor</label> <select
@@ -172,7 +176,7 @@
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 										<legend>CM VM</legend>
 										<div class="form-group col-md-4">
-											<label class="control-label">IP Address</label> <input
+											<label class="control-label">IPv4 Address</label> <input
 												name="cm_ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.cm.ip_address" placeholder="Please Insert IP"
 												title="IP Address" validation="ipv4|required" />
@@ -181,7 +185,7 @@
 											<label class="control-label">IPv6 Address(optional)</label> <input
 												name="cm_v6_ip_addr" class="form-control" type="text"
 												ng-model="installConfig.vm_config.cm.v6_ip_addr" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv6" />
+												title="IP Address"  />
 										</div>
 										<div class="form-group col-md-4">
 											<label class="control-label">Flavor</label> <select

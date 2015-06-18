@@ -25,7 +25,7 @@
 											<label class="control-label">Primary VNF</label> <select
 												name="pri" ng-model="gr_config.pri" class="form-control"
 												ng-options="  inst.deployment_prefix for inst in instances"
-												title="COM Instance" validation="required">
+												title="COM Instance" validation="required" ng-change="primarycfg()">
 											</select>
 										<div class="panel-body" ng-if="gr_config.pri != null&&gr_config.pri.environment=='KVM'">
 											<div class="dataTable_wrapper">
@@ -163,7 +163,7 @@
 											<label class="control-label">Secondary VNF</label> <select
 												name="sec" ng-model="gr_config.sec" class="form-control"
 												ng-options="  inst.deployment_prefix for inst in instances"
-												title="COM Instance" validation="required">
+												title="COM Instance" validation="required" ng-change="secondarycfg()">
 											</select>
 										<div class="panel-body" ng-if="gr_config.sec != null&&gr_config.sec.environment=='KVM'">
 											<div class="dataTable_wrapper">

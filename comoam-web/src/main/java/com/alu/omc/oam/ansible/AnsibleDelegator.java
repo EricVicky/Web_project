@@ -2,6 +2,7 @@ package com.alu.omc.oam.ansible;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +59,13 @@ public class AnsibleDelegator implements ApplicationContextAware
            providerNetwork.setDns1(subnet.getDnsNames()==null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
            providerNetwork.setGateway(subnet.getGateway());
            providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
+               NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
+               providerNetwork.setV6_gateway(v6subnet.getGateway());
+               if(v6subnet != null){
+                   providerNetwork.setV6_prefix(NetworkUtil.getNetWorkPrefix(v6subnet.getCidr()));
+               }
+           }
            ansibleInvoker.invoke(playbookCall, getHandler(action, config));
         }
         catch (AnsibleException e)

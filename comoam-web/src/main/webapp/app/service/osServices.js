@@ -50,6 +50,14 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/list/names");
 			return subnetRes.query().$promise;
 		},
+		getV4Subnets: function (networkId){
+			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/v4/list/names");
+			return subnetRes.query().$promise;
+		},
+		getV6Subnets: function (networkId){
+			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/v6/list/names");
+			return subnetRes.query().$promise;
+		},
 		getImages: function(){
 			var imgRes = $resource(restUrl + "nfv/os/glance/image/list");
 			return imgRes.query().$promise;

@@ -140,14 +140,14 @@ public class LogParserFactory
     }
     private ILogParser kvmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_restore", "Data Restore");
-        dict.put("post_install_populated", "Post Configuration");
-        dict.put("post_image_replacement","Post Image Replacement");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
-        dict.put("ansible-playbook", "Start");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
+        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
+        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
-    }   
+    } 
     
     private ILogParser osUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
