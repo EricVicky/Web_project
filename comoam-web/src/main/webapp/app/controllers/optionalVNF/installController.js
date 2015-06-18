@@ -10,6 +10,19 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     		}
     };    
     
+    $scope.submitComtype = function(){
+		$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+	};
+	
+	 $scope.loadimglist = function(host, dir){
+     	KVMService.imagelist( { "host":host, "dir":dir}).then(
+     			function(data) {
+     				$log.info(data);
+     				$scope.imagelist = data;
+     			});   
+     };
+
+    
     KVMService.getFlavorStore().then( function(data) {
 		$scope.flavorStore = data.Flavors;
 	});
@@ -17,15 +30,17 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     KVMService.hostips().then(function(data) {
 		$scope.hostIPs = data;
 	});
+
+    KVMService.getTimezoneStore().then( function(data) {
+    	$scope.timezoneStore = data;
+    });
+    
+    KVMService.getComTypeStore().then(function(data){
+		$scope.comTypeStore = data.OVMType;
+	 	$scope.installConfig.comType = KVMService.VNFType;
+	});
     
     $scope.deploy = function(){
-    	if(KVMService.VNFType=='HPSIM'){
-    		$scope.installConfig.vm_config.ovm.imgname='hpsim_new.c.qcow2';
-    	}else if(KVMService.VNFType=='ATC'){
-    		$scope.installConfig.vm_config.ovm.imgname='atc.c.qcow2';
-    	}
-    	
-    	$scope.installConfig.comType = KVMService.VNFType;
     	
     	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
     		if(response.succeed == true){
@@ -50,5 +65,9 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
  			$state.go("dashboard.monitor");
 		});
     };
+    
+    $scope.genExport = function (){
+    	$scope.export = !$scope.export;
+    }
     
 });

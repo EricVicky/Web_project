@@ -52,22 +52,26 @@ angular.module('comoamApp')
         	    });
 
         	modalInstance.result.then(function (selectedItems) {
-        	  if(selectedItems.EnvItem.name == 'KVM'){
-        		  KVMService.VNFType = selectedItems.VNFitem.name;
+        	  if(selectedItems.EnvItem.Name == 'KVM'){
+        		  KVMService.VNFType = selectedItems.VNFitem.Name;
         	  }
         	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFitem.url));
         	}, function () {
-        	  $log.info('Modal dismissed at: ' + new Date());
         	});
         };
       }
     }
   }])
-  .controller('chooseOperationCtrl', function($scope, $modalInstance) {
+  .controller('chooseOperationCtrl', function($scope, $modalInstance, KVMService) {
 	  
-	  $scope.EnvItems = [{'name':'KVM','url':'kvm'},{'name':'Openstack','url':'os'}];
-	  $scope.VNFitems = [{'name':'OAM','url':'install'},{'name':'FCAPS','url':'install'}];
-	  $scope.OVNFitems = [{'name':'QoSAC','url':''}, {'name':'ATC','url':'ovminstall'}, {'name':'HPSIM','url':'ovminstall'}];
+	  KVMService.getComTypeStore().then(function(data){
+			$scope.VNFitems = data.COMType;
+			$scope.OVNFitems = data.OVMType;
+		});
+	  
+	  $scope.EnvItems = [{'Name':'KVM','url':'kvm'},{'Name':'Openstack','url':'os'}];
+//	  $scope.VNFitems = [{'name':'OAM','url':'install'},{'name':'FCAPS','url':'install'}];
+//	  $scope.OVNFitems = [{'name':'QOSAC','url':'ovminstall'}, {'name':'ATC','url':'ovminstall'}, {'name':'HPSIM','url':'ovminstall'}];
 	  
 	  $scope.selected = [];
 	  
@@ -84,11 +88,11 @@ angular.module('comoamApp')
       
       $scope.selectENVItem = function(data){
     	  $scope.selected.EnvItem = data;
-    	  $scope.EnvItemVar = data.name;
+    	  $scope.EnvItemVar = data.Name;
       };
       
       $scope.selectVNFItem = function(data){
     	  $scope.selected.VNFitem = data;
-    	  $scope.VNFitemVar = data.name;
+    	  $scope.VNFitemVar = data.Name;
       };
   });

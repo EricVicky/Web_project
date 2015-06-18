@@ -13,14 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
+
+
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.AtcCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
+import com.alu.omc.oam.config.HpsimCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.config.QosacCOMConfig;
 import com.alu.omc.oam.config.Status;
 import com.alu.omc.oam.config.OVMCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
@@ -49,8 +55,20 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.INSTALL, config );
     }
 
-    @RequestMapping(value="/ovm/deployment", method=RequestMethod.POST)
-    public void deploy( @RequestBody OVMCOMConfig config) throws IOException, InterruptedException
+    @RequestMapping(value="/ovm/HPSIMdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/ovm/QOSACdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.INSTALL, config );
     }

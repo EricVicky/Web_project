@@ -31,7 +31,9 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
         parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
-        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.OVM), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.HPSIM), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.QOSAC), kvmqosacInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -162,12 +164,21 @@ public class LogParserFactory
     private ILogParser kvmovmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("localhost", "Finished");
-        dict.put("post_install_atc", "Post Configuration");
+        dict.put("post_install", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
         dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
         return new LogParser(dict);
     }
-    
+
+    private ILogParser kvmqosacInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post\\s\\script", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        return new LogParser(dict);
+    }
     
 }

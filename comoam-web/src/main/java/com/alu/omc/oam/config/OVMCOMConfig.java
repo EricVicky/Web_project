@@ -11,7 +11,7 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class OVMCOMConfig extends COMConfig {
+public abstract class OVMCOMConfig extends COMConfig {
 
 	@Override
 	@JsonIgnore 
@@ -37,6 +37,18 @@ public class OVMCOMConfig extends COMConfig {
 	@Override
 	@JsonIgnore 
 	public String getVars() {
+        Iterator<String> it = vm_config.keySet().iterator(); 
+	    while(it.hasNext()){
+	        String name = it.next();
+	        @SuppressWarnings("unchecked")
+            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(this.getComType().toLowerCase()).concat("-1"));
+	        String istoption = "";
+	        if(this.getComType().equals(COMType.QOSAC.name())){
+		        istoption = InstallOptions.get(COMType.QOSAC, COMType.QOSAC.name());
+	        }
+	        vmcfg.put("install_options", istoption );
+	    }
 		Yaml yaml = new Yaml();
         return YamlFormatterUtil.format(yaml.dump(this));	
 	}
@@ -44,11 +56,6 @@ public class OVMCOMConfig extends COMConfig {
 	@Override
 	public Environment getEnvironment() {
 		return Environment.KVM;
-	}
-
-	@Override
-	public COMType getCOMType() {
-		return COMType.OVM;
 	}
 
 	@Override
@@ -62,6 +69,7 @@ public class OVMCOMConfig extends COMConfig {
 	private String atc_switches = "";
 	private Map<String, Object> vm_config;
 	private String vnfType = "";
+	private String timezone;
 
 	public Host getHost(){
 		return new Host(active_host_ip);
@@ -113,6 +121,14 @@ public class OVMCOMConfig extends COMConfig {
 
 	public void setComType(String vnfType) {
 		this.vnfType = vnfType;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
 	}
 	
 	

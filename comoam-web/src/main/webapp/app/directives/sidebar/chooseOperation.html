@@ -9,7 +9,7 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <li ng-repeat="EnvItem in EnvItems">
-            <a ng-click="selectENVItem(EnvItem)">{{ EnvItem.name }}</a>
+            <a ng-click="selectENVItem(EnvItem)">{{ EnvItem.Name }}</a>
           </li>
         </ul>
       </div>
@@ -20,11 +20,11 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <li ng-repeat="VNFitem in VNFitems">
-            <a ng-click="selectVNFItem(VNFitem)">{{ VNFitem.name }}</a>
+            <a ng-click="selectVNFItem(VNFitem)">{{ VNFitem.Name }}</a>
           </li>
           <li class="divider"></li>
           <li ng-if="EnvItemVar=='KVM'" ng-repeat="OVNFitem in OVNFitems">
-            <a ng-click="selectVNFItem(OVNFitem)">{{ OVNFitem.name }}</a>
+            <a ng-click="selectVNFItem(OVNFitem)">{{ OVNFitem.Name }}</a>
           </li>
         </ul>
       </div>

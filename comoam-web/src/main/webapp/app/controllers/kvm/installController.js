@@ -75,7 +75,7 @@ angular.module('kvm', [ 'ui.router',
             				$scope.flavorStore = data.Flavors;
             			});
             KVMService.getComTypeStore().then(function(data){
-            				$scope.comTypeStore = data;
+            				$scope.comTypeStore = data.COMType;
             			});
             KVMService.getTimezoneStore().then( function(data) {
             				$scope.timezoneStore = data;

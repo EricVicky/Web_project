@@ -27,7 +27,7 @@
 				   {"label": "High End(6*24*580)","vCpu": "6", "memory": "24858624", "disk": "500"} 
  				 ]
         },
-        "QoSAC":{
+        "QOSAC":{
  			"oam": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
 				   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
 				   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 

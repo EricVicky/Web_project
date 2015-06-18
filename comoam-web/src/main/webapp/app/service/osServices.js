@@ -19,7 +19,7 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		},
 		getComTypeStore: function () {
 			var comTypeRes = $resource(baseUrl + "data/comType.json");
-			return comTypeRes.query().$promise;
+			return comTypeRes.get().$promise;
 		},
 		getTimezoneStore: function () {
 			var timezoneRes = $resource(baseUrl + "data/timezone.json");

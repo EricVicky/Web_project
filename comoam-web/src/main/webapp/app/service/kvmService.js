@@ -20,12 +20,12 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			return deployRes.save(config).$promise;
 		},
 		deployOVM:function(config){
-			var deployRes = $resource(restUrl + "rest/ovm/deployment");
+			var deployRes = $resource(restUrl + "rest/ovm/" + config.comType + "deployment");
 			return deployRes.save(config).$promise;
 		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(restUrl + "data/comType.json");
-			return comTypeRes.query().$promise;
+			return comTypeRes.get().$promise;
 		},
 		getTimezoneStore: function(success,error) {
 			var timezoneRes = $resource(baseUrl + "data/timezone.json");

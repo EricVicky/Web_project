@@ -45,7 +45,7 @@ angular.module('os', [ 'ui.router',
             	$scope.flavorStore = data;
 			});
             OSService.getComTypeStore().then(function(data) {
-            	$scope.comTypeStore = data;
+            	$scope.comTypeStore = data.COMType;
 			});
             OSService.getTimezoneStore().then(function(data) {
             	$scope.timezoneStore = data;

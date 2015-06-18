@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 public enum COMType implements Serializable
 {
-    FCAPS, OAM, QoSAC, CM, OVM
+    FCAPS, OAM, QOSAC, CM, HPSIM, ATC
 }
