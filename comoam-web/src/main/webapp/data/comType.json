@@ -1,4 +1,12 @@
-[	{"Name": "FCAPS"}, 
-	{"Name": "CM"},
-	{"Name": "OAM"} 
-] 
+{
+  "COMType":[{"Name": "FCAPS","url":"install"}, 
+    	{"Name": "CM","url":"install"},
+    	{"Name": "OAM","url":"install"} 
+    ],
+   "OVMType": [{"Name": "QOSAC","url":"ovminstall"}, 
+        {"Name": "ATC","url":"ovminstall"}, 
+        {"Name": "HPSIM","url":"ovminstall"},
+        {"Name": "ARS","url":"ovminstall"} 
+    ]
+    
+}

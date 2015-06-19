@@ -2,9 +2,11 @@
 angular.module('kvm').factory('KVMService', function($location, $q, $resource, $log, $http) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
+	var VNFType = '';
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
+		VNFType    : VNFType,
 		getFlavorStore: function () {
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
 			return flavorRes.get().$promise;
@@ -17,9 +19,13 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var deployRes = $resource(restUrl + "rest/kvm/deployment");
 			return deployRes.save(config).$promise;
 		},
+		deployOVM:function(config){
+			var deployRes = $resource(restUrl + "rest/ovm/" + config.comType + "deployment");
+			return deployRes.save(config).$promise;
+		},
 		getComTypeStore: function(success,error) {
 			var comTypeRes = $resource(restUrl + "data/comType.json");
-			return comTypeRes.query().$promise;
+			return comTypeRes.get().$promise;
 		},
 		getTimezoneStore: function(success,error) {
 			var timezoneRes = $resource(baseUrl + "data/timezone.json");
