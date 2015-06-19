@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionKey;
 import com.alu.omc.oam.config.COMFact;
+import com.alu.omc.oam.config.COMType;
 import com.alu.omc.oam.config.Environment;
 
 public class PlaybookFactory
@@ -30,10 +32,14 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.RESTORE), new Playbook("restore.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.RESTORE), new Playbook("restore.yml") );
+        playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("ovm_install_kvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.HPSIM), new Playbook("ovm_install_kvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.ATC), new Playbook("ovm_install_kvm.yml") );
+        playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.QOSAC), new Playbook("deploy_qosac.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {
-        return playbooks.get(key(fact.getEnvironment(), action));
+        return playbooks.get(key(fact.getEnvironment(), action, fact.getCOMType()));
     }
     
     public static PlaybookFactory getInstance(){
@@ -43,9 +49,14 @@ public class PlaybookFactory
         return instance;
     }
     
-    private static String key(Environment env, Action action){
-        return env.toString().concat(action.toString());
+    private static String key(Environment env, Action action, COMType comType){
+        return new ActionKey( action,  env,  comType).toString();
     }
+    
+    private static String key(Environment env, Action action){
+        return new ActionKey( action,  env).toString();
+    }
+    
     
     private PlaybookFactory(){}
 }

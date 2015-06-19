@@ -86,3 +86,37 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
+<div class="form-group">
+    <label class="control-label">BACKUP SERVER IS LOCAL</label> <select
+        name="BACKUP_SERVER_IS_LOCAL" class="form-control" type="text"
+        ng-init="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL='YES'" 
+        ng-model="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL"
+        title="BACKUP SERVER IS LOCAL" validation="required">
+        <option>YES</option>
+        <option>NO</option>
+        </select>
+</div>
+<div class="form-group">
+    <label class="control-label">SOFTWARE SERVER IS LOCAL</label> <select
+        name="SOFTWARE_SERVER_IS_LOCAL" class="form-control" type="text"
+        ng-init="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL='YES'" 
+        ng-model="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL"
+        title="SOFTWARE SERVER IS LOCAL" validation="required">
+        <option>YES</option>
+        <option>NO</option>
+        </select>
+</div>
+<div class="form-group">
+    <label class="control-label">SOFTWARE SERVER ADDRESS</label> <input
+        name="SOFTWARE_SERVER_ADDRESS" class="form-control" type="text"
+        ng-init="installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS=''" 
+        ng-model="installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS"
+        title="SOFTWARE SERVER ADDRESS" validation="required" />
+</div>
+<div class="form-group">
+    <label class="control-label">BACKUP SERVER ADDRESS</label> <input
+        name="BACKUP_SERVER_ADDRESS" class="form-control" type="text"
+        ng-init="installConfig.app_install_options.BACKUP_SERVER_ADDRESS=''" 
+        ng-model="installConfig.app_install_options.BACKUP_SERVER_ADDRESS"
+        title="BACKUP SERVER ADDRESS" validation="required" />
+</div>
