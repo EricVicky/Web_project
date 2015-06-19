@@ -64,7 +64,7 @@
 									<div class="form-group">
 										<label class="control-label">Image Directory</label> <input
 											name="vm_image_dir" class="form-control" type="text"
-											ng-model="installConfig.vm_img_dir" placeholder="Please Insert Image Dir"
+											ng-model="installConfig.vm_img_dir" ng-init="installConfig.vm_img_dir='/var/images'" placeholder="Please Insert Image Dir"
 											title="VM image directory" validation="required" />
 									</div>
 								</form>
