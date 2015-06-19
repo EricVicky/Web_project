@@ -15,7 +15,7 @@ angular.module('comoamApp')
       replace: true,
       scope: {
       },
-      controller:function($scope, $modal, $state, KVMService){
+      controller:function($scope, $modal, $state, KVMService, OSService){
         $scope.selectedMenu = 'dashboard';
         $scope.collapseVar = 0;
         $scope.multiCollapseVar = 0;
@@ -43,7 +43,7 @@ angular.module('comoamApp')
         	      animation: true,
         	      templateUrl: 'app/directives/sidebar/chooseOperation.html',
         	      controller: 'chooseOperationCtrl',
-        	      size: 'lg',
+        	      size: 'sm',
         	      resolve: {
 //        	        items: function () {
 //        	          return $scope.items;
@@ -53,9 +53,12 @@ angular.module('comoamApp')
 
         	modalInstance.result.then(function (selectedItems) {
         	  if(selectedItems.EnvItem.Name == 'KVM'){
-        		  KVMService.VNFType = selectedItems.VNFitem.Name;
+        		  KVMService.VNFType = selectedItems.VNFItem.Name;
+        	  } else if(selectedItems.EnvItem.Name == 'Openstack'){
+        		  OSService.VNFType = selectedItems.VNFItem.Name;
         	  }
-        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFitem.url));
+        	  
+        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFItem.url));
         	}, function () {
         	});
         };
@@ -65,8 +68,8 @@ angular.module('comoamApp')
   .controller('chooseOperationCtrl', function($scope, $modalInstance, KVMService) {
 	  
 	  KVMService.getComTypeStore().then(function(data){
-			$scope.VNFitems = data.COMType;
-			$scope.OVNFitems = data.OVMType;
+			$scope.VNFItems = data.COMType;
+			$scope.OVNFItems = data.OVMType;
 		});
 	  
 	  $scope.EnvItems = [{'Name':'KVM','url':'kvm'},{'Name':'Openstack','url':'os'}];
@@ -74,9 +77,6 @@ angular.module('comoamApp')
 //	  $scope.OVNFitems = [{'name':'QOSAC','url':'ovminstall'}, {'name':'ATC','url':'ovminstall'}, {'name':'HPSIM','url':'ovminstall'}];
 	  
 	  $scope.selected = [];
-	  
-	  $scope.EnvItemVar = 'Environment';
-	  $scope.VNFitemVar = 'VNF Type';
 	  
 	  $scope.ok = function(){
 		$modalInstance.close($scope.selected);
@@ -86,13 +86,4 @@ angular.module('comoamApp')
 		$modalInstance.dismiss('cancel');
       };
       
-      $scope.selectENVItem = function(data){
-    	  $scope.selected.EnvItem = data;
-    	  $scope.EnvItemVar = data.Name;
-      };
-      
-      $scope.selectVNFItem = function(data){
-    	  $scope.selected.VNFitem = data;
-    	  $scope.VNFitemVar = data.Name;
-      };
   });

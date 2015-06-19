@@ -78,6 +78,7 @@ angular.module('kvm', [ 'ui.router',
             			});
             KVMService.getComTypeStore().then(function(data){
             				$scope.comTypeStore = data.COMType;
+            			 	$scope.installConfig.comType = KVMService.VNFType;
             			});
             KVMService.getTimezoneStore().then( function(data) {
             				$scope.timezoneStore = data;

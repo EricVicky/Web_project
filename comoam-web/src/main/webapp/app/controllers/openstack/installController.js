@@ -51,6 +51,7 @@ angular.module('os', [ 'ui.router',
 			});
             OSService.getComTypeStore().then(function(data) {
             	$scope.comTypeStore = data.COMType;
+			 	$scope.installConfig.comType = OSService.VNFType;
 			});
             OSService.getTimezoneStore().then(function(data) {
             	$scope.timezoneStore = data;

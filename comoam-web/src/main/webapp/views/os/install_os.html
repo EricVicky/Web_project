@@ -30,7 +30,8 @@
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
 													<label class="control-label">VNFC Type</label> <select
-														name="comType" ng-model="installConfig.comType" ng-change="changeComType()"
+														name="comType" ng-model="installConfig.comType" ng-change="changeComType()" 
+														ng-init="installConfig.comType = installConfig.comType || options[0].value"
 														class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
