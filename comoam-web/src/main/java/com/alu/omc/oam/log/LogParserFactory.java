@@ -34,6 +34,8 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.HPSIM), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.QOSAC), kvmqosacInstallParser());
+        parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.HPSIM), kvmovmUpgradeParser());
+        parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -172,6 +174,26 @@ public class LogParserFactory
     }
 
     private ILogParser kvmqosacInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post\\s\\script", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        return new LogParser(dict);
+    }
+
+    private ILogParser kvmovmUpgradeParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post_install", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        return new LogParser(dict);
+    }
+
+    private ILogParser kvmqosacUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("localhost", "Finished");
         dict.put("post\\s\\script", "Post Configuration");

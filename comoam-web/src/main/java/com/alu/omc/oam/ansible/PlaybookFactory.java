@@ -32,10 +32,11 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.RESTORE), new Playbook("restore.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.RESTORE), new Playbook("restore.yml") );
-        playbooks.put(key(Environment.KVM, Action.INSTALL), new Playbook("ovm_install_kvm.yml") );
         playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.HPSIM), new Playbook("ovm_install_kvm.yml") );
         playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.ATC), new Playbook("ovm_install_kvm.yml") );
         playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.QOSAC), new Playbook("deploy_qosac.yml") );
+        playbooks.put(key(Environment.KVM, Action.UPGRADE, COMType.QOSAC), new Playbook("upgrade_qosac.yml") );
+        playbooks.put(key(Environment.KVM, Action.UPGRADE, COMType.HPSIM), new Playbook("ovm_upgrade.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

@@ -1,16 +1,6 @@
 
 
 <div class="modal-body">
-	<!--  <div class="btn-group" dropdown>
-        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
-          {{EnvItemVar}} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li ng-repeat="EnvItem in EnvItems">
-            <a ng-click="selectENVItem(EnvItem)">{{ EnvItem.Name }}</a>
-          </li>
-        </ul>
-      </div> -->
 	<div class="form-group">
 		<label class="control-label">Environment</label> <select name="comType"
 			ng-model="selected.EnvItem" class="form-control"
@@ -20,20 +10,6 @@
 		</select>
 	</div>
 
-	<!-- <div class="btn-group" dropdown>
-        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="EnvItemVar == 'Environment'">
-          {{VNFitemVar}} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li >
-            <a ng-click="selectVNFItem(VNFitem)">{{ VNFitem.Name }}</a>
-          </li>
-          <li class="divider"></li>
-          <li ng-if="EnvItemVar=='KVM'" ng-repeat="OVNFitem in OVNFitems">
-            <a ng-click="selectVNFItem(OVNFitem)">{{ OVNFitem.Name }}</a>
-          </li>
-        </ul>
-	</div>-->
 	<div class="form-group">
 		<label class="control-label">VNF Type</label> <select name="Environment"
 			ng-model="selected.VNFItem" class="form-control"

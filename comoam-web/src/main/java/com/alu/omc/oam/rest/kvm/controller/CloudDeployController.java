@@ -72,6 +72,18 @@ public class CloudDeployController
     {
         ansibleDelegator.execute(Action.INSTALL, config );
     }
+
+    @RequestMapping(value="/ovm/HPSIMupgrade", method=RequestMethod.POST)
+    public void upgrade( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.UPGRADE, config );
+    }
+
+    @RequestMapping(value="/ovm/QOSACupgrade", method=RequestMethod.POST)
+    public void upgrade( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.UPGRADE, config );
+    }
     
     @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.POST)
     public void deleteKVM( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
