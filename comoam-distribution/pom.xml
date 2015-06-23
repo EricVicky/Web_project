@@ -123,7 +123,7 @@
 							<license>GPL (c) 2015, ALU</license>
 							<distribution>ALU 2005</distribution>
 							<group>Alcatel-lucent</group>
-							<version>0.5</version>
+							<version>0.6</version>
 							<targetArchitecture>x86_64</targetArchitecture>
 							<mappings>
 								<mapping>
