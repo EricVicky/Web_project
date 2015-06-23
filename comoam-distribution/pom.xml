@@ -196,6 +196,16 @@
 									</sources>
 								</mapping>
 								<mapping>
+									<directory>/tmp/</directory>
+									<username>root</username>
+									<groupname>root</groupname>
+									<sources>
+										<source>
+											<location>src/main/rootkey/</location>
+										</source>
+									</sources>
+								</mapping>
+								<mapping>
 									<directory>/opt/PlexView/comoam/script</directory>
 									<username>root</username>
 									<groupname>root</groupname>
