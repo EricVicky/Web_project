@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionKey;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.COMType;
 import com.alu.omc.oam.config.Environment;
 
 @Component
@@ -30,6 +31,9 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
         parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.HPSIM), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.QOSAC), kvmqosacInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -115,7 +119,7 @@ public class LogParserFactory
     {
         try
         {
-            return parserCache.get(new ActionKey(action, config.getEnvironment())).clone();
+            return parserCache.get(new ActionKey(action, config.getEnvironment(), config.getCOMType())).clone();
         }
         catch (CloneNotSupportedException e)
         {
@@ -154,6 +158,26 @@ public class LogParserFactory
                 "Post Image Replacement");
         dict.put("TASK:\\s\\[data_backup", "Data Backup");
         dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+    }
+    
+    private ILogParser kvmovmInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post_install", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        return new LogParser(dict);
+    }
+
+    private ILogParser kvmqosacInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("localhost", "Finished");
+        dict.put("post\\s\\script", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
         return new LogParser(dict);
     }
     

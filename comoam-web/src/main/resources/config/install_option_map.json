@@ -13,7 +13,7 @@
 		"oam": "install_options_OAM_oam.j2",
 		"db": "install_options_OAM_db.j2"
 	},
-	"QoSAC":{
-		"oam": "install_options_QoSAC_oam.j2"
+	"QOSAC":{
+		"QOSAC": "install_options_QOSAC_qosac.j2"
 	}
 }

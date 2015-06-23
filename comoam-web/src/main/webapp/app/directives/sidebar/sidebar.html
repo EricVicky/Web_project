@@ -3,19 +3,10 @@
         <ul class="nav in" id="side-menu">
             <sidebar-search></sidebar-search>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i><label  translate="DASHBOARD">Dashboard</label></a>
+                <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
            <li ng-class="{active:collapseVar==1}">
-                <a href="" ng-click="check(1)" ><i class="fa fa-files-o fa-fw"></i><label translate="INSTALLATION">Installation</label><span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level" collapse="collapseVar!=1">
-                    <li ng-class="{active: selectedMenu=='kvminstall'}">
-                        <a ui-sref="dashboard.kvminstall" ng-click="selectedMenu='kvminstall'"><label translate="KVM">KVM</label></a>
-                    </li>
-                    <li>
-                        <a ui-sref="dashboard.osinstall"><label translate="OPENSTACK">Openstack</label></a>
-                    </li>
-                </ul>
+                <a href="" ng-click="openInstallSelect()"><i class="fa fa-files-o fa-fw"></i>Installation</a>
             </li>
             
             <li ui-sref-active="active">
@@ -58,7 +49,6 @@
         </ul>
     </div>
     <!-- /.sidebar-collapse -->
+
 </div> 
-
-
 

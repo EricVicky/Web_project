@@ -11,9 +11,9 @@
 	},
 	"OAM":{
 		"oam": "{{ deployment_prefix }}M001OAM01",
-		"db": "{{ deployment_prefix }}M001DB01"
+		"db": "{{ deployment_prefix }}M002DB01"
 	},
 	"QoSAC":{
-		"oam": "{{ deployment_prefix }}M001OAM01",
+		"oam": "{{ deployment_prefix }}M001OAM01"
 	}
 }
