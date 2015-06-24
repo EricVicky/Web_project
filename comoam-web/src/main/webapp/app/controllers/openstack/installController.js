@@ -26,7 +26,20 @@ angular.module('os', [ 'ui.router',
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
-            
+            $scope.installConfig.app_install_options = {
+					BACKUP_SERVER_DISK_SPACE:'20000',
+					CALL_TRACE_DISK_SPACE:'1000',
+					CODE_SERVER_DISK_SPACE:'20000',
+					OMCCN_SUPPORT_WEBSSO_SANE:'false',
+					NTP_SERVER:'135.251.111.73',
+					SEC_UNIX_ENABLE:'NO',
+					OMCCN_SUPPORT_COM_GR:'false',
+					OMCCN_SUPPORT_SP_FM:'YES',
+					OMCCN_SUPPORT_SP_PM:'YES',
+					OMCCN_SUPPORT_SP_HVP:'NO',
+					BACKUP_SERVER_IS_LOCAL:'YES',
+					SOFTWARE_SERVER_IS_LOCAL:'YES',
+			};
             $scope.deploy = function (){
             	OSService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorOSInstall($scope.installConfig.stack_name);
@@ -34,7 +47,6 @@ angular.module('os', [ 'ui.router',
         		});
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
-            	$scope.installConfig.com_provider_network.v6_subnet = null;
             	if($scope.installConfig.com_provider_network!=null){
             		OSService.getV4Subnets($scope.installConfig.com_provider_network.network)
                	 	.then(function(data){

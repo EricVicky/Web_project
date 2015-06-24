@@ -7,14 +7,14 @@
 					<div id="rootwizard">
 						<ul class="nav rc-nav-wizard" style="margin-left: 200px">
 							<li class="active"><a class="active" href="#tab1"
-								data-toggle="tab"> <span class="badge">1</span> <span>COM
+								data-toggle="tab"> <span class="badge">1</span> <span translate="COM_INFO">COM
 										Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab2" data-toggle="tab"> <span
-									class="badge">2</span> <span> GR Network Config</span>
+									class="badge">2</span> <span translate="GR_NETWORK_CONFIG"> GR Network Config</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Deploy</span>
+									class="badge">3</span> <span translate="DEPLOY">Deploy</span>
 							</a></li>
 						</ul>
 						<div class="modal-body col-md-12">
@@ -22,10 +22,11 @@
 								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
 									name="tab1" rc-submit="" rc-step>
 									<div class="col-md-6">
-											<label class="control-label">Primary VNF</label> <select
+											<label class="control-label" translate="PRIMARY_VNF">Primary VNF</label> <select
 												name="pri" ng-model="gr_config.pri" class="form-control"
 												ng-options="  inst.deployment_prefix for inst in instances"
 												title="COM Instance" validation="required" ng-change="primarycfg()">
+												<option value="" translate="PLEASE_SELECT">--Please Select--</option>
 											</select>
 										<div class="panel-body" ng-if="gr_config.pri != null&&gr_config.pri.environment=='KVM'">
 											<div class="dataTable_wrapper">
@@ -34,54 +35,70 @@
 													id="dataTables-example">
 													<tbody>
 													    <tr align="center">
-															<td colspan="2">GR Status</td>
+															<td colspan="2" translate="GR_STATUS">GR Status</td>
 															<td>{{installedPriGR}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{gr_config.pri.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Host IP</td>
+															<td colspan="2" translate="HOST_IP">Host IP</td>
 															<td>{{gr_config.pri.active_host_ip}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Prefix of VM Instance</td>
+															<td colspan="2" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 															<td>{{gr_config.pri.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.oam.ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.oam.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.oam.flavor.label}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.db.ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.db.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.db.flavor.label}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.cm.ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.cm.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.cm.flavor.label}}</td>
 														</tr>
 													</tbody>
@@ -95,63 +112,79 @@
 													id="dataTables-example">
 													<tbody>
 													    <tr align="center">
-															<td colspan="2">GR Status</td>
+															<td colspan="2" translate="GR_STATUS">GR Status</td>
 															<td>{{installedPriGR}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{gr_config.pri.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Stack Name</td>
+															<td colspan="2" translate="STACK_NAME">Stack Name</td>
 															<td>{{gr_config.pri.stack_name}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Compute Avail Zone</td>
+															<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>
 															<td>{{gr_config.pri.compute_avail_zone.zoneA}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Block Storage Avail Zone</td>
+															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
 															<td>{{gr_config.pri.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 
 														<tr align="center">
-															<td colspan="2">Deployment Prefix</td>
+															<td colspan="2" translate="DEPLOYMENT_PREFIX">Deployment Prefix</td>
 															<td>{{gr_config.pri.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
 															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.oam.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
 															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.db.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
 															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.pri.vm_config.cm.provider_ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.pri.vm_config.cm.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.pri.vm_config.cm.flavor}}</td>
 														</tr>
 													</tbody>
@@ -160,10 +193,11 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-											<label class="control-label">Secondary VNF</label> <select
+											<label class="control-label" translate="SECONDARY_VNF">Secondary VNF</label> <select
 												name="sec" ng-model="gr_config.sec" class="form-control"
 												ng-options="  inst.deployment_prefix for inst in instances"
 												title="COM Instance" validation="required" ng-change="secondarycfg()">
+												<option value="" translate="PLEASE_SELECT">--Please Select--</option>
 											</select>
 										<div class="panel-body" ng-if="gr_config.sec != null&&gr_config.sec.environment=='KVM'">
 											<div class="dataTable_wrapper">
@@ -172,54 +206,70 @@
 													id="dataTables-example">
 													<tbody>
 														<tr align="center">
-															<td colspan="2">GR Status</td>
+															<td colspan="2" translate="GR_STATUS">GR Status</td>
 															<td>{{installedSecGR}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{gr_config.sec.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Host IP</td>
+															<td colspan="2" translate="HOST_IP">Host IP</td>
 															<td>{{gr_config.sec.active_host_ip}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Prefix of VM Instance</td>
+															<td colspan="2" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 															<td>{{gr_config.sec.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.oam.ip_address}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.oam.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.oam.flavor.label}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.db.ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.db.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.db.flavor.label}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.cm.ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.cm.v6_ip_addr}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.cm.flavor.label}}</td>
 														</tr>
 													</tbody>
@@ -233,63 +283,79 @@
 													id="dataTables-example">
 													<tbody>
 														<tr align="center">
-															<td colspan="2">GR Status</td>
+															<td colspan="2" translate="GR_STATUS">GR Status</td>
 															<td>{{installedSecGR}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{gr_config.sec.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Stack Name</td>
+															<td colspan="2" translate="STACK_NAME">Stack Name</td>
 															<td>{{gr_config.sec.stack_name}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Compute Avail Zone</td>
+															<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>
 															<td>{{gr_config.sec.compute_avail_zone.zoneA}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Block Storage Avail Zone</td>
+															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
 															<td>{{gr_config.sec.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 
 														<tr align="center">
-															<td colspan="2">Deployment Prefix</td>
+															<td colspan="2" translate="DEPLOYMENT_PREFIX">Deployment Prefix</td>
 															<td>{{gr_config.sec.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.oam.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.db.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.cm.provider_ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{gr_config.sec.vm_config.cm.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{gr_config.sec.vm_config.cm.flavor}}</td>
 														</tr>
 													</tbody>
@@ -300,25 +366,26 @@
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<div class="form-group">
-										<label class="control-label">GR Traffic</label> <select
+										<label class="control-label" translate="GR_TRAFFIC">GR Traffic</label> <select
 											name="gr_traffic" class="form-control"
 											ng-model="gr_config.gr_traffic" title="GR Traffic"
 											ng-options=" t.value as t.label for t in gr_traffic_types "
-											validation="required">
+											validation="required"><option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
 									</div>
 									<div class="form-group">
-										<label class="control-label">IP Type</label> <select
+										<label class="control-label" translate="IP_TYPE">IP Type</label> <select
 											name="gr_traffic" class="form-control"
 											ng-model="gr_config.gr_ip_type" title="GR Traffic"
 											ng-options=" im for im in ip_types " validation="required">
+											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
 									</div>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<label class="control-label">GR Summary</label>
+											<label class="control-label" translate="GR_SUMMERY">GR Summary</label>
 										</div>
 										<div class="panel-body">
 											<div class="dataTable_wrapper">
@@ -327,21 +394,21 @@
 													id="dataTables-example">
 													<tbody>
 													    <tr align="center">
-															<td>GR Traffic</td>
+															<td translate="GR_TRAFFIC">GR Traffic</td>
 															<td>{{gr_config.gr_traffic}}</td>
-															<td>IP Type</td>
+															<td translate="IP_TYPE">IP Type</td>
 															<td>{{gr_config.gr_ip_type}}</td>
 														</tr>
 														<tr align="center">
-															<td>Primary VNF</td>
+															<td translate="PRIMARY_VNF">Primary VNF</td>
 															<td>{{gr_config.pri.deployment_prefix}}</td>
-															<td>Secondary VNF</td>
+															<td translate="SECONDARY_VNF">Secondary VNF</td>
 															<td>{{gr_config.sec.deployment_prefix}}</td>
 														</tr>
 														<tr align="center">
-															<td>Primary Host IP</td>
+															<td translate="PRIMARY_HOST_IP">Primary Host IP</td>
 															<td>{{gr_config.pri.active_host_ip}}</td>
-															<td>Secondary Host IP</td>
+															<td translate="SECONDARY_HOST_IP">Secondary Host IP</td>
 															<td>{{gr_config.sec.active_host_ip}}</td>
 														</tr>
 													</tbody>
@@ -357,12 +424,12 @@
 								<div class="pull-right">
 									<a class="btn btn-default"
 										ng-click="rc.grInstallWizard.backward()"
-										ng-show="rc.grInstallWizard.currentIndex > rc.grInstallWizard.firstIndex">Back</a>
+										ng-show="rc.grInstallWizard.currentIndex > rc.grInstallWizard.firstIndex" translate="BACK">Back</a>
 									<a class="btn btn-primary"
 										ng-click="rc.grInstallWizard.forward()"
-										ng-show="rc.grInstallWizard.currentIndex < rc.grInstallWizard.navigationLength">Continue</a>
+										ng-show="rc.grInstallWizard.currentIndex < rc.grInstallWizard.navigationLength" translate="CONTINUE">Continue</a>
 									<a class="btn btn-primary" ng-click="installGR()"
-										ng-show="rc.grInstallWizard.currentIndex == rc.grInstallWizard.navigationLength">Install</a>
+										ng-show="rc.grInstallWizard.currentIndex == rc.grInstallWizard.navigationLength" translate="INSTALL">Install</a>
 								</div>
 							</div>
 						</div>

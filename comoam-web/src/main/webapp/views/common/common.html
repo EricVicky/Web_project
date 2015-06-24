@@ -1,28 +1,24 @@
 <div class="form-group">
 	<label class="control-label" translate="BACKUP_SERVER_DISK_SPACE">Backup Server Disk Space</label> <input
 		name="BACKUP_SERVER_DISK_SPACE" class="form-control" type="text"
-		ng-init="installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE='20000'"
 		ng-model="installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE"
 		title="Backup Server Disk Space" validation="required" />
 </div>
 <div class="form-group">
 	<label class="control-label" translate="CALL_TRACE_DISK_SPACE">Call Trace Disk Space</label> <input
-		name="CALL_TRACE_DISK_SPACE" class="form-control" type="text"
-		ng-init="installConfig.app_install_options.CALL_TRACE_DISK_SPACE='1000'" 
+		name="CALL_TRACE_DISK_SPACE" class="form-control" type="text" 
 		ng-model="installConfig.app_install_options.CALL_TRACE_DISK_SPACE"
 		title="Call Trace Disk Space" validation="required" />
 </div>
 <div class="form-group">
 	<label class="control-label" translate="CODE_SERVER_DISK_SPACE">Code Server Disk Space</label> <input
 		name="CODE_SERVER_DISK_SPACE" class="form-control" type="text"
-		ng-init="installConfig.app_install_options.CODE_SERVER_DISK_SPACE='20000'" 
 		ng-model="installConfig.app_install_options.CODE_SERVER_DISK_SPACE"
 		title="Code Server Disk Space" validation="required" />
 </div>
 <div class="form-group">
 	<label class="control-label" translate="OMCCN_SUPPORT_WEBSS0_SANE">OMCCN Support Webss0 SANE</label> <select
 		name="OMCCN_SUPPORT_WEBSSO_SANE" class="form-control" type="text"
-		ng-init="installConfig.app_install_options.OMCCN_SUPPORT_WEBSSO_SANE='false'" 
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_WEBSSO_SANE"
 		title="OMCCN Support Webss0 SANE" validation="required">
 		<option value="false" translate="FALSE">false</option>
@@ -32,14 +28,12 @@
 <div class="form-group">
 	<label class="control-label" translate="NTP_SERVER">NTP Server</label> <input
 		name="NTP_SERVER" class="form-control" type="text" 
-		ng-init="installConfig.app_install_options.NTP_SERVER='COM_LOCAL_CLOCK'"
-		ng-model="installConfig.app_install_options.NTP_SERVER"
+        ng-model="installConfig.app_install_options.NTP_SERVER"
 		title="NTP Server" />
 </div>
 <div class="form-group">
 	<label class="control-label" translate="SEC_UNIX_ENABLE">Sec Unix Enable</label> <select
 		name="SEC_UNIX_ENABLE" class="form-control" type="text"
-		ng-init="installConfig.app_install_options.SEC_UNIX_ENABLE='No'" 
 		ng-model="installConfig.app_install_options.SEC_UNIX_ENABLE"
 		title="Sec Unix Enable" validation="required">
 		<option value="NO" translate="NO">No</option>
@@ -49,7 +43,6 @@
 <div class="form-group">
     <label class="control-label" translate="OMCCN_SUPPORT_COM_GR">OMCCN Support COM GR</label> <select
         name="OMCCN_SUPPORT_COM_GR " class="form-control" type="text"
-        ng-init="installConfig.app_install_options.OMCCN_SUPPORT_COM_GR='false'" 
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_COM_GR"
         title="OMCCN SUPPORT COM GR" validation="required">
         <option value="false" translate="FALSE">false</option>
@@ -59,7 +52,6 @@
 <div class="form-group" ng-if="installConfig.comType=='OAM'">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_FM">OMCCN Support SP FM</label> <select
         name="OMCCN_SUPPORT_SP_FM " class="form-control" type="text"
-        ng-init="installConfig.app_install_options.OMCCN_SUPPORT_SP_FM='Yes'" 
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_FM"
         title="OMCCN Support SP FM" validation="required">
         <option value="NO" translate="NO">No</option>
@@ -69,7 +61,6 @@
 <div class="form-group" ng-if="installConfig.comType=='OAM'">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">OMCCN Support SP PM</label> <select
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
-        ng-init="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM='Yes'" 
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"
         title="OMCCN Support SP PM" validation="required">
         <option value="NO" translate="NO">No</option>
@@ -79,7 +70,6 @@
 <div class="form-group" ng-if="installConfig.comType=='CM'">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_HVP">OMCCN Support SP HVP</label> <select
         name="OMCCN_SUPPORT_SP_HVP " class="form-control" type="text"
-        ng-init="installConfig.app_install_options.OMCCN_SUPPORT_SP_HVP='No'" 
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_HVP"
         title="OMCCN Support SP HVP" validation="required">
         <option value="NO" translate="NO">No</option>
@@ -87,9 +77,8 @@
         </select>
 </div>
 <div class="form-group">
-    <label class="control-label">BACKUP SERVER IS LOCAL</label> <select
+    <label class="control-label" translate="BACKUP SERVER IS LOCAL">Backup Server is Local</label> <select
         name="BACKUP_SERVER_IS_LOCAL" class="form-control" type="text"
-        ng-init="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL='YES'" 
         ng-model="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL"
         title="BACKUP SERVER IS LOCAL" validation="required">
         <option>YES</option>
@@ -97,9 +86,8 @@
         </select>
 </div>
 <div class="form-group">
-    <label class="control-label">SOFTWARE SERVER IS LOCAL</label> <select
+    <label class="control-label" translate="SOFTWARE SERVER IS LOCAL">Software Server is Local</label> <select
         name="SOFTWARE_SERVER_IS_LOCAL" class="form-control" type="text"
-        ng-init="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL='YES'" 
         ng-model="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL"
         title="SOFTWARE SERVER IS LOCAL" validation="required">
         <option>YES</option>
@@ -107,16 +95,14 @@
         </select>
 </div>
 <div class="form-group">
-    <label class="control-label">SOFTWARE SERVER ADDRESS</label> <input
+    <label class="control-label" translate="SOFTWARE SERVER ADDRESS">Software Server Address</label> <input
         name="SOFTWARE_SERVER_ADDRESS" class="form-control" type="text"
-        ng-init="installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS=''" 
         ng-model="installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS"
         title="SOFTWARE SERVER ADDRESS" validation="required" />
 </div>
 <div class="form-group">
-    <label class="control-label">BACKUP SERVER ADDRESS</label> <input
+    <label class="control-label" translate="BACKUP SERVER ADDRESS">Backup Server Address</label> <input
         name="BACKUP_SERVER_ADDRESS" class="form-control" type="text"
-        ng-init="installConfig.app_install_options.BACKUP_SERVER_ADDRESS=''" 
         ng-model="installConfig.app_install_options.BACKUP_SERVER_ADDRESS"
         title="BACKUP SERVER ADDRESS" validation="required" />
 </div>

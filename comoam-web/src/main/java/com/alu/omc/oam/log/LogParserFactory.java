@@ -165,8 +165,8 @@ public class LogParserFactory
     
     private ILogParser kvmovmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("post_install", "Post Configuration");
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put(".*post_install.*", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
         dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
@@ -185,21 +185,23 @@ public class LogParserFactory
 
     private ILogParser kvmovmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("post_install", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
+        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
+        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
     }
 
     private ILogParser kvmqosacUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("post\\s\\script", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
+        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
+        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
     }
     

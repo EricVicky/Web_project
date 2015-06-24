@@ -110,4 +110,8 @@ angular.module('login', [
 			$log.info("failed to log out!");
 		});
 	};
+}).controller('LanguageController', function($scope, $translate){
+    $scope.changeLanguage = function (langKey) {
+        $translate.use(langKey);
+      };
 });

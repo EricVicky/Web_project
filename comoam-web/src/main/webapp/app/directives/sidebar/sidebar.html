@@ -10,20 +10,20 @@
             </li>
             
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.backup"><i class="fa fa-edit fa-fw"></i> Backup</a>
+                <a ui-sref="dashboard.backup"><i class="fa fa-edit fa-fw"></i><label translate="BACKUP">Backup</label></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.restore"><i class="fa fa-edit fa-fw"></i> Restore</a>
+                <a ui-sref="dashboard.restore"><i class="fa fa-edit fa-fw"></i><label translate="RESTORE">Restore</label></a>
             </li>
             <li ng-class="{active:collapseVar==3}">
-                <a href="" ng-click="check(3)"><i class="fa fa-files-o fa-fw"></i>GR<span
+                <a href="" ng-click="check(3)"><i class="fa fa-files-o fa-fw"></i><label translate="GR">GR</label><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=3">
                     <li ng-class="{active: selectedMenu=='kvminstall'}">
-                        <a ui-sref="dashboard.grinstall" ng-click="selectedMenu='grinstall'">Install</a>
+                        <a ui-sref="dashboard.grinstall" ng-click="selectedMenu='grinstall'"><label translate="INSTALL">Install</label></a>
                     </li>
                     <li>
-                        <a ui-sref="dashboard.gruninstall">Uninstall</a>
+                        <a ui-sref="dashboard.gruninstall"><label translate="UNINSTALL">Uninstall</label></a>
                     </li>
                 </ul>
             </li>
@@ -32,10 +32,10 @@
                 <a href="" ng-click="openUpInstallSelect()"><i class="fa fa-files-o fa-fw"></i>Upgrade</a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i>Scaling </a>
+                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i><label translate="SCALING">Scaling</label></a>
             </li>  
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.oscredential"><i class="fa fa-edit fa-fw"></i>Openstack Credential</a>
+                <a ui-sref="dashboard.oscredential"><i class="fa fa-edit fa-fw"></i><label translate="OPENSTACK_CREDENTIAL">Openstack Credential</label></a>
             </li>
         </ul>
     </div>

@@ -10,13 +10,30 @@ angular.module('kvm', [ 'ui.router',
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
-
+			$scope.installConfig ={
+					vm_img_dir : "/var/images"
+					};
             $scope.changeComType = function(){
 				$scope.installConfig.vm_config = null;
 			};
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             };
+            $scope.installConfig.app_install_options = {
+					BACKUP_SERVER_DISK_SPACE:'20000',
+					CALL_TRACE_DISK_SPACE:'1000',
+					CODE_SERVER_DISK_SPACE:'20000',
+					OMCCN_SUPPORT_WEBSSO_SANE:'false',
+					NTP_SERVER:'135.251.111.73',
+					SEC_UNIX_ENABLE:'NO',
+					OMCCN_SUPPORT_COM_GR:'false',
+					OMCCN_SUPPORT_SP_FM:'YES',
+					OMCCN_SUPPORT_SP_PM:'YES',
+					OMCCN_SUPPORT_SP_HVP:'NO',
+					BACKUP_SERVER_IS_LOCAL:'YES',
+					SOFTWARE_SERVER_IS_LOCAL:'YES',
+			};
+            
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
 				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;
@@ -75,7 +92,6 @@ angular.module('kvm', [ 'ui.router',
             			});
             KVMService.getComTypeStore().then(function(data){
             				$scope.comTypeStore = data.COMType;
-            			 	$scope.installConfig.comType = KVMService.VNFType;
             			});
             KVMService.getTimezoneStore().then( function(data) {
             				$scope.timezoneStore = data;
