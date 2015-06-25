@@ -22,12 +22,15 @@ public abstract class OVMCOMConfig extends COMConfig {
 	    inv.addGroup(hostg);
 	    @SuppressWarnings("unchecked")
         Iterator<String> it = vm_config.keySet().iterator(); 
+	    Group allVM = new Group(Inventory.ALL_VMS);
+	    inv.addGroup(allVM);
 	    while(it.hasNext()){
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
 	        String ipAddress = vmcfg.get("ip_address");
 	        Group g = new Group(name);
+	        allVM.add(g);
 	        g.add(new Host(ipAddress));
 	        inv.addGroup(g);
 	    }

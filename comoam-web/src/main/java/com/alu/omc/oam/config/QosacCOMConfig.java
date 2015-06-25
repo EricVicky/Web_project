@@ -23,7 +23,7 @@ public class QosacCOMConfig extends OVMCOMConfig {
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)getVm_config().get(name);
-	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(this.getComType().toLowerCase()).concat("-1"));
+	        VNFHostName.add(vmcfg, this.getCOMType(), name, getDeployment_prefix());
 	        String istoption = "";
 		    istoption = InstallOptions.get(COMType.QOSAC, COMType.QOSAC.name());
 	        vmcfg.put("install_options", istoption );

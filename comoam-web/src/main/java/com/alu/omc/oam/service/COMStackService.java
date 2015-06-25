@@ -35,9 +35,10 @@ public class COMStackService
     	List<COMStack> stacks = dataSource.list();
     	if(stacks != null && stacks.size() >0){
             for(COMStack stack : stacks){
-            	if(stack.getName().equals(comStack.getName())){
-            		return true;
-            	}
+				if (stack.getName().equals(comStack.getName())
+						&& stack.getComType().equals(comStack.getComType())) {
+					return true;
+				}
             }
         }
     	return false;

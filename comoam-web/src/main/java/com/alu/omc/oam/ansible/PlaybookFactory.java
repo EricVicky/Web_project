@@ -37,6 +37,9 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.INSTALL, COMType.QOSAC), new Playbook("deploy_qosac.yml") );
         playbooks.put(key(Environment.KVM, Action.UPGRADE, COMType.QOSAC), new Playbook("upgrade_qosac.yml") );
         playbooks.put(key(Environment.KVM, Action.UPGRADE, COMType.HPSIM), new Playbook("ovm_upgrade.yml") );
+        playbooks.put(key(Environment.KVM, Action.DELETE, COMType.QOSAC), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.KVM, Action.DELETE, COMType.HPSIM), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.KVM, Action.DELETE, COMType.ATC), new Playbook("destroy.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

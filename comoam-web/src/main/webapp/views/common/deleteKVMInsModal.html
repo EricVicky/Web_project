@@ -26,7 +26,14 @@
 			<td width="35%">IP Address</td>
 			<td>{{selectedIns.vm_config.oam.ip_address}}</td>
 		</tr>
-		<tr align="center"
+			<tr align="center"
+				ng-if="selectedIns.comtype=='OVM' || selectedIns.comtype=='HPSIM' || selectedIns.comtype=='ATC'">
+				<td rowspan="2" width="25%" align="center"
+					style="vertical-align: middle">OVM</td>
+				<td width="35%">IP Address</td>
+				<td>{{selectedIns.vm_config.ovm.ip_address}}</td>
+			</tr>
+					<tr align="center"
 			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM' || selectedIns.comtype=='QoSAC'">
 			<td>Flavor</td>
 			<td>{{selectedIns.vm_config.oam.flavor.label}}</td>
