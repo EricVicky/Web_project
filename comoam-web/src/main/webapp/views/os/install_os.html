@@ -7,36 +7,36 @@
 							<ul class="nav rc-nav-wizard" style="margin-left:100px;">
 								<li class="active"><a class="active" href="#tab1"
 									data-toggle="tab">
-									<span class="badge">1</span> <span>COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<span class="badge">1</span> <span translate="COM_TYPE">COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span>Network Config</span>
+										class="badge">2</span> <span translate="NETWORK_CONFIG">Network Config</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span>VNFc Config&nbsp;</span>
+										class="badge">3</span> <span translate="VNFC_CONFIG">VNFc Config&nbsp;</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span>Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+										class="badge">4</span> <span translate="HEAT_STACK">Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
-										class="badge">5</span> <span>Install Options&nbsp;</span>
+										class="badge">5</span> <span translate="INSTALL_OPTION">Install Options&nbsp;</span>
 								</a></li>
 								<li><a href="#tab6" data-toggle="tab"> <span
-										class="badge">6</span> <span>Deploy</span>
+										class="badge">6</span> <span translate="DEPLOY">Deploy</span>
 								</a></li>
 							</ul>
 							<div class="modal-body">
 								<div class="tab-content">
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
-													<label class="control-label">VNFC Type</label> <select
+													<label class="control-label" translate="VNFC_TYPE">VNFC Type</label> <select
 														name="comType" ng-model="installConfig.comType" ng-change="changeComType()"
 														class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Timezone</label> <select
+													<label class="control-label" translate="TIMEZONE">Timezone</label> <select
 														name="time_zone" ng-model="installConfig.timezone"
 														class="form-control"
 														ng-options="t.Time as t.Time for t in timezoneStore"
@@ -46,7 +46,7 @@
 											</form>
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 												<div class="form-group">
-													<label class="control-label">Network</label> <select
+													<label class="control-label" translate="NETWORK">Network</label> <select
 														name="network"
 														ng-model="installConfig.com_provider_network.network"
 														class="form-control"
@@ -55,7 +55,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">IPv4 Sub Network</label> <select
+													<label class="control-label" translate="IPV4_SUB_NETWORK">IPv4 Sub Network</label> <select
 														name="sub_network" 
 														ng-model="installConfig.com_provider_network.subnet"
 														class="form-control"
@@ -64,7 +64,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">IPv6 Sub Network</label> <select
+													<label class="control-label" translate="IPV6_SUB_NETWORK">IPv6 Sub Network</label> <select
 														name="v6_sub_network" 
 														ng-model="installConfig.com_provider_network.v6_subnet"
 														class="form-control"
@@ -73,7 +73,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<label class="control-label">Private Network</label> <select
+													<label class="control-label" translate="PRIVATE_NETWORK">Private Network</label> <select
 														name="private_network"
 														ng-model="installConfig.enable_private_network"
 														class="form-control"
@@ -87,27 +87,27 @@
 												<div class="form-group">
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-														<legend>OAM VM</legend>
+														<legend translate="OAM_VM">OAM VM</legend>
 														<div class="form-group col-md-3">
-															<label class="control-label">IPv4 Address</label> <input
+															<label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label> <input
 																name="oam_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
 														<div ng-if="installConfig.com_provider_network.v6_subnet" class="form-group col-md-3">
-															<label class="control-label">IPv6 Address</label> <input
+															<label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label> <input
 																name="oam_v6_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.provider_v6_ip_address"
 																title="IP Address"  />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Disk(GB)</label> <input
+															<label class="control-label" translate="DISK">Disk(GB)</label> <input
 																name="oam_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Flavor</label> <select
+															<label class="control-label" translate="FLAVOR">Flavor</label> <select
 																name="oam_flavor"
 																ng-model="installConfig.vm_config.oam.flavor"
 																class="form-control"
@@ -118,27 +118,27 @@
 													</fieldset>
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM'">
-														<legend>CM VM</legend>
+														<legend translate="CM_VM">CM VM</legend>
 														<div class="form-group col-md-3">
-															<label class="control-label">IPv4 Address</label> <input
+															<label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label> <input
 																name="cm_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.cm.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
 														<div ng-if= "installConfig.com_provider_network.v6_subnet" class="form-group col-md-3">
-															<label class="control-label">IPv6 Address</label> <input
+															<label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label> <input
 																name="cm_v6_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.cm.provider_v6_ip_address"
 																title="IP Address"  />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Disk(GB)</label> <input
+															<label class="control-label" translate="DISK">Disk(GB)</label> <input
 																name="cm_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.cm.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Flavor</label> <select
+															<label class="control-label" translate="FLAVOR">Flavor</label> <select
 																name="cm_flavor"
 																ng-model="installConfig.vm_config.cm.flavor"
 																class="form-control"
@@ -149,27 +149,27 @@
 													</fieldset>
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' ||  installConfig.comType=='CM' || installConfig.comType=='OAM'">
-														<legend>DB VM</legend>
+														<legend translate="DB_VM">DB VM</legend>
 														<div class="form-group col-md-3">
-															<label class="control-label">IPv4 Address</label> <input
+															<label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label> <input
 																name="db_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.db.provider_ip_address"
 																title="IP Address" validation="ipv4|required" />
 														</div>
 														<div ng-if= "installConfig.com_provider_network.v6_subnet"  class="form-group col-md-3">
-															<label class="control-label">IPv6 Address</label> <input
+															<label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label> <input
 																name="db_v6_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.db.provider_v6_ip_address"
 																title="IP Address" />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Disk(GB)</label> <input
+															<label class="control-label" translate="DISK">Disk(GB)</label> <input
 																name="db_disk" class="form-control" type="text"
 																ng-model="installConfig.vm_config.db.com_data_vol_size"
 																title="Disk(GB)" validation="int|required" />
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Flavor</label> <select
+															<label class="control-label" translate="FLAVOR">Flavor</label> <select
 																name="db_flavor"
 																ng-model="installConfig.vm_config.db.flavor"
 																class="form-control"
@@ -182,51 +182,51 @@
 											</form>
 											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 													<fieldset >
-														<legend>Heat</legend>
+														<legend translate="HEAT">Heat</legend>
 														<div class="form-group col-md-3">
-															<label class="control-label">Heat Version</label>
+															<label class="control-label" translate="HEAT_VERSION">Heat Version</label>
 															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv.version as hv.name for hv in heat_version" title="Heat Version" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Config Drive</label>
+															<label class="control-label" translate="CONFIG_DRIVE">Config Drive</label>
 															 <select name="config_drive" ng-model="installConfig.config_drive" class="form-control" ng-options="cd for cd in config_drive" title="Config Drive" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Prefix of Stack Resource</label>
+															<label class="control-label" translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack Resource</label>
 															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required">
 														</div>
 														<div class="form-group col-md-3">
-															<label class="control-label">Stack Name</label>
+															<label class="control-label" translate="STACK_NAME">Stack Name</label>
 															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required" unique-stack>
-															<span class="validation text-danger" ng-show="tab4.stack_name.$error.notunique">Existed Stack Name!</span>
+															<span class="validation text-danger" ng-show="tab4.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
 														</div>
 													</fieldset>
 													<fieldset >
-														<legend>Available Zone</legend>
+														<legend translate="AVAILABLE_ZONE">Available Zone</legend>
 														<div class="form-group col-md-6">
-															<label class="control-label">Compute Avail Zone</label> 
+															<label class="control-label" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</label> 
 															<select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore" title="Compute Avail Zone" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-6">
-															<label class="control-label">Block Storage Avail Zone</label> 
+															<label class="control-label" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</label> 
 															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="zone for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
 														</div>
 													</fieldset>
 													<fieldset>
-														<legend>Image</legend>
+														<legend translate="IMAGE">Image</legend>
 														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<label class="control-label">OAM/CM image</label> 
+															<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
 															<select name="oamcm_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
 														</div>
 														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<label class="control-label">DB image</label> 
+															<label class="control-label" translate="DB_IMAGE">DB image</label> 
 															<select name="db_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
 														</div>
 													</fieldset>
 													<fieldset >
-														<legend>Security</legend>
+														<legend translate="SECURITY">Security</legend>
 														<div class="form-group col-md-6">
-															<label class="control-label">Key Pair</label> 
+															<label class="control-label" translate="KEY_PAIR">Key Pair</label> 
 															<select name="key_name" ng-model="installConfig.key_name" class="form-control" ng-options="key  for key in keys" title="Key Pair" validation="required"> </select>
 														</div>
 													</fieldset>
@@ -237,7 +237,7 @@
 											<form class="tab-pane" id="tab6" name="tab6" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<label class="control-label">Deployment Summary</label>
+											<label class="control-label" translate="DEPLOYMENT_SUMMERY">Deployment Summary</label>
 										</div>
 										<div class="panel-body" >
 											<div class="dataTable_wrapper">
@@ -246,59 +246,75 @@
 													id="dataTables-example">
 													<tbody>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{installConfig.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Stack Name</td>
+															<td colspan="2" translate="STACK_NAME">Stack Name</td>
 															<td>{{installConfig.stack_name}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Compute Avail Zone</td>
+															<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>
 															<td>{{installConfig.compute_avail_zone.zoneA}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Block Storage Avail Zone</td>
+															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
 															<td>{{installConfig.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 														
 														<tr align="center">
-															<td colspan="2">Deployment Prefix</td>
+															<td colspan="2" translate="DEPLOYMENT_PREFIX">Deployment Prefix</td>
 															<td>{{installConfig.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.oam.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.db.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.cm.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
 														</tr>
 													</tbody>
@@ -317,12 +333,12 @@
 										<div class="pull-right">
 											<a class="btn btn-default" 
 												ng-click="rc.OSInstallWizard.backward()"
-												ng-show="rc.OSInstallWizard.currentIndex > rc.OSInstallWizard.firstIndex">Back</a>
+												ng-show="rc.OSInstallWizard.currentIndex > rc.OSInstallWizard.firstIndex" translate="BACK">Back</a>
 											<a class="btn btn-primary" 
 												ng-click="rc.OSInstallWizard.forward()"
-												ng-show="rc.OSInstallWizard.currentIndex < rc.OSInstallWizard.navigationLength">Continue</a>
+												ng-show="rc.OSInstallWizard.currentIndex < rc.OSInstallWizard.navigationLength" translate="CONTINUE">Continue</a>
 											<a class="btn btn-primary" ng-click="deploy()"
-												ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength">Deploy</a>
+												ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength" translate="DEPLOY">Deploy</a>
 										</div>
 									</div>
 								</div>
