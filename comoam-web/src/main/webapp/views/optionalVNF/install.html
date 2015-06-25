@@ -56,7 +56,7 @@
 									<div class="form-group">
 										<label class="control-label">VM Image directory</label> <input
 											name="vm_img_dir" class="form-control" type="text"
-											ng-model="installConfig.vm_img_dir"
+											ng-model="installConfig.vm_img_dir" ng-init="installConfig.vm_img_dir='/var/images'"
 											placeholder="Please Insert VM Image directory"
 											title="VM Image directory" validation="required" />
 									</div>
@@ -65,7 +65,7 @@
 											name="deployment_prefix" class="form-control" type="text"
 											ng-model="installConfig.deployment_prefix"
 											placeholder="Please Insert Deployment Prefix"
-											title="VM Image directory" validation="required" />
+											title="Deployment Prefix" validation="required" />
 									</div>
 									<div class="form-group" ng-if="installConfig.comType=='ATC'">
 										<label class="control-label">ATC switches</label> <input
@@ -134,7 +134,7 @@
 												name="ovm_flavor"
 												ng-model="installConfig.vm_config.ovm.flavor"
 												class="form-control"
-												ng-options="fl.label for fl in flavorStore.OVM.ovm"
+												ng-options="fl.label for fl in flavorStore.OVM[installConfig.comType]"
 												title="Flavor" validation="required">
 												<option value="">--Please Select--</option>
 											</select>

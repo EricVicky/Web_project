@@ -27,12 +27,6 @@
 				   {"label": "High End(6*24*500)","vCpu": "6", "memory": "25165824", "disk": "500"} 
  				 ]
         },
-        "QOSAC":{
- 			"oam": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
-				   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
-				   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 
- 				 ]
-        },
         "OAM":{
  			"oam": [ {"label": "Low End(4*16*50)", "vCpu": "4", "memory": "16777216", "disk": "50"}, 
 				   {"label": "Medium(6*24*100)","vCpu": "6", "memory": "25165824", "disk": "100"}, 
@@ -44,10 +38,10 @@
  				 ]
         },
         "OVM":{
-            "ovm": [ {"label": "Low End(2*8*230)", "vCpu": "2", "memory": "8286208", "disk": "150"}, 
-                   {"label": "Medium(4*16*430)","vCpu": "4", "memory": "16572416", "disk": "350"}, 
-                   {"label": "High End(8*16*680)","vCpu": "8", "memory": "16572416", "disk": "600"} 
-                 ]
+            "QOSAC":[ {"label": "Normal(2*24*200)", "vCpu": "2", "memory": "25165824", "disk": "200"} ],
+            "ATC": [ {"label": "Normal(2*8*200)", "vCpu": "2", "memory": "8388608", "disk": "100"} ],
+            "HPSIM": [ {"label": "Normal(2*8*20)", "vCpu": "2", "memory": "8388608", "disk": "20"} ]
         }
+        
      }
 } 

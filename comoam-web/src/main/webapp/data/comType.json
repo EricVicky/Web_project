@@ -3,10 +3,10 @@
     	{"Name": "CM","url":"install"},
     	{"Name": "OAM","url":"install"} 
     ],
-   "OVMType": [{"Name": "QOSAC","url":"ovminstall"}, 
-        {"Name": "ATC","url":"ovminstall"}, 
-        {"Name": "HPSIM","url":"ovminstall"},
-        {"Name": "ARS","url":"ovminstall"} 
+   "OVMType": [{"Name": "QOSAC","url":"ovminstall","upgradeUrl":"ovmupgrade"}, 
+        {"Name": "ATC","url":"ovminstall","upgradeUrl":""}, 
+        {"Name": "HPSIM","url":"ovminstall","upgradeUrl":"ovmupgrade"},
+        {"Name": "ARS","url":"ovminstall","upgradeUrl":""} 
     ]
     
 }

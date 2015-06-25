@@ -13,7 +13,13 @@
 		"oam": "{{ deployment_prefix }}M001OAM01",
 		"db": "{{ deployment_prefix }}M002DB01"
 	},
-	"QoSAC":{
-		"oam": "{{ deployment_prefix }}M001OAM01"
-	}
+	"QOSAC":{
+		"ovm": "{{ deployment_prefix }}M001OQOSAC01"
+	},
+    "ATC":{
+        "ovm": "{{ deployment_prefix }}M001OATC01"
+    },
+    "HPSIM":{
+        "ovm": "{{ deployment_prefix }}M001OHPSIM01"
+    }
 }

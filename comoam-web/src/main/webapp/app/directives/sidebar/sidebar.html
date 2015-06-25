@@ -29,16 +29,7 @@
             </li>
 
             <li ng-class="{active:collapseVar==2}">
-                <a href="" ng-click="check(2)"><i class="fa fa-files-o fa-fw"></i><label translate="UPGRADE">Upgrade</label><span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level" collapse="collapseVar!=2">
-                    <li ng-class="{active: selectedMenu=='kvminstall'}">
-                        <a ui-sref="dashboard.kvmupgrade" ng-click="selectedMenu='kvminstall'"><label translate="KVM">KVM</label></a>
-                    </li>
-                    <li>
-                        <a ui-sref="dashboard.osupgrade"><label translate="OPENSTACK">Openstack</label></a>
-                    </li>
-                </ul>
+                <a href="" ng-click="openUpInstallSelect()"><i class="fa fa-files-o fa-fw"></i>Upgrade</a>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i><label translate="SCALING">Scaling</label></a>
