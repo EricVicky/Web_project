@@ -8,10 +8,23 @@ if [ "${real_exec_user}" != "${runner}" ]; then
 fi
 
 if [ $# -lt 2 ]; then
-   echo "enter both eth device and bridge name, examples:"
+   echo "Enter both eth device and bridge name, examples:"
    echo "./config_bridge.sh eth0 br0"
+   echo ""
+   echo "This script creates one primary bridge."
+   echo "Its gateway is used at the default gateway."
+   echo "A non-primary bridge can be created as below:"
+   echo "./config_bridge.sh -s eth0 br0"
    exit 1
 fi
+
+PRIMARY="true"
+
+if [ "$1" == "-s" ]; then
+ PRIMARY="false"
+ shift
+fi
+
 eth=$1
 br=$2
 if [ ! -f /etc/sysconfig/network-scripts/ifcfg-"$eth" ] ; then
@@ -45,5 +58,5 @@ while [ -h "$PRG" ] ; do
   fi
 done
 PRGDIR=`dirname "$PRG"`
-VARS="eth=$eth br=$br HWADDR=$HWADDR IPADDR=$IPADDR NETMASK=$NETMASK GATEWAY=$GATEWAY PREFIX=$PREFIX"
+VARS="eth=$eth br=$br HWADDR=$HWADDR IPADDR=$IPADDR NETMASK=$NETMASK GATEWAY=$GATEWAY PREFIX=$PREFIX PRIMARY=${PRIMARY}"
 ansible-playbook -i ../ELCM-playbook/inventory/hosts.local -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml
