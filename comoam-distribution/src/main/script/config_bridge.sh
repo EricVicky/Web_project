@@ -46,4 +46,4 @@ while [ -h "$PRG" ] ; do
 done
 PRGDIR=`dirname "$PRG"`
 VARS="eth=$eth br=$br HWADDR=$HWADDR IPADDR=$IPADDR NETMASK=$NETMASK GATEWAY=$GATEWAY PREFIX=$PREFIX"
-ansible-playbook -i ../comoam-playbook/inventory/hosts.local -e "$VARS"  $PRGDIR/../comoam-playbook/playbooks/kvm/install_bridge.yml
+ansible-playbook -i ../ELCM-playbook/inventory/hosts.local -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml

@@ -1,28 +1,28 @@
 #!/bin/sh
 echo "extract playbook"
-tar -xf  /opt/PlexView/comoam/playbook.tar -C /opt/PlexView/comoam/
+tar -xf  /opt/PlexView/ELCM/playbook.tar -C /opt/PlexView/ELCM/
 
-if [ -f /opt/PlexView/comoam/datasource.tar.gz ]; then
+if [ -f /opt/PlexView/ELCM/datasource.tar.gz ]; then
     echo "restore data"
-    tar -xzf /opt/PlexView/comoam/datasource.tar.gz  -C / 
+    tar -xzf /opt/PlexView/ELCM/datasource.tar.gz  -C / 
 fi
 echo "install jpam"
 tar -xzf /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/libjpam.so.tar.gz -C /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/
 echo "start COM ELCM"
-if [ ! -d /opt/PlexView/comoam/server/logs ]; then
-    mkdir /opt/PlexView/comoam/server/logs
+if [ ! -d /opt/PlexView/ELCM/server/logs ]; then
+    mkdir /opt/PlexView/ELCM/server/logs
 fi
-if [ ! -d /opt/PlexView/comoam/workspace ]; then
-    mkdir /opt/PlexView/comoam/workspace
+if [ ! -d /opt/PlexView/ELCM/workspace ]; then
+    mkdir /opt/PlexView/ELCM/workspace
 fi
 
-if [ ! -d /opt/PlexView/comoam/comoam-playbook/hot_files ]; then
-    mkdir /opt/PlexView/comoam/comoam-playbook/hot_files 
+if [ ! -d /opt/PlexView/ELCM/ELCM-playbook/hot_files ]; then
+    mkdir /opt/PlexView/ELCM/ELCM-playbook/hot_files 
 fi
-chmod +x /opt/PlexView/comoam/server/bin/*sh
+chmod +x /opt/PlexView/ELCM/server/bin/*sh
 #key file generation and import
 apachePKCS12File=/tmp/server.pkcs12
-tomcatHomeDir=/opt/PlexView/comoam/server
+tomcatHomeDir=/opt/PlexView/ELCM/server
 tomcatKeyStoreDir="$tomcatHomeDir/ssl/keystore"
 if [ ! -f $tomcatKeyStoreDir/elcm.jks ]
 then
@@ -60,16 +60,16 @@ else
 fi
 
 
-/opt/PlexView/comoam/server/bin/startup.sh
-bootrc=$(grep comoam /etc/rc.local)
+/opt/PlexView/ELCM/server/bin/startup.sh
+bootrc=$(grep ELCM /etc/rc.local)
 if [ -z "$bootrc" ]; then
-    echo "/opt/PlexView/comoam/server/bin/startup.sh" >>/etc/rc.local
+    echo "/opt/PlexView/ELCM/server/bin/startup.sh" >>/etc/rc.local
 fi
 if [ ! -f ~/.ssh/id_rsa ]; then
     echo "generate ssh key"
     ssh-keygen -f ~/.ssh/id_rsa -t rsa -N '' -q
 fi
 echo 'Installation of ELCM tool completed!'
-echo 'Access COM ELCM from the link http://HOST_IP_ADDRESS/ as axadmin user'
+echo 'Access COM ELCM from the link https://HOST_IP_ADDRESS/ as axadmin user'
 
 

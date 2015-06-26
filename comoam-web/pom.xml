@@ -32,7 +32,7 @@
 		<junit.version>4.12</junit.version>
 
 		<tomcat.version>8.0.14</tomcat.version>
-		<install.root>/opt/PlexView/comoam/</install.root>
+		<install.root>/opt/PlexView/ELCM/</install.root>
 		<install.datasource>${install.root}datasource/</install.datasource>
 	</properties>
 
