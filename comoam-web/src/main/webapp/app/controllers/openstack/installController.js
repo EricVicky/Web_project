@@ -40,6 +40,10 @@ angular.module('os', [ 'ui.router',
 					BACKUP_SERVER_IS_LOCAL:'YES',
 					SOFTWARE_SERVER_IS_LOCAL:'YES',
 			};
+            $scope.Backup_Server_Addr = function(){
+            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
+                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
+            }
             $scope.deploy = function (){
             	OSService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorOSInstall($scope.installConfig.stack_name);
