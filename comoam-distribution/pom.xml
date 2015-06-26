@@ -10,7 +10,7 @@
 	<artifactId>comoam-distribution</artifactId>
 	<packaging>pom</packaging>
 	<properties>
-		<tomcat.version>8.0.14</tomcat.version>
+		<tomcat.version>8.0.23</tomcat.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <host.jdk.version>java-1.7.0-openjdk-1.7.0.71.x86_64</host.jdk.version>
 	</properties>
