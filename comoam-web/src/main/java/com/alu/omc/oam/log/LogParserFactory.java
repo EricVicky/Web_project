@@ -133,11 +133,11 @@ public class LogParserFactory
     
     private ILogParser kvmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("Reboot\\sserver", "Finished");
-        dict.put("image\\sreplacement\\spost\\sscript", "Post Configuration");
-        dict.put("vnf_create_vms\\s\\|\\screate\\svirtual\\smachine","Start VM Instance");
-        dict.put("vnf_create_disk\\s\\|\\screate\\sdata\\sdisk\\simage", "Generate Config Driver");
-        dict.put("vnf_prepare_vms\\s\\|\\sgenerate\\smeta data", "Start");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Prepare Install Options");
+        dict.put("TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\screate\\svirtual\\smachine\\sinstance\\]","Start VM Instance");
+        dict.put("TASK\\:\\s\\[vnf\\_create\\_disk\\s\\|\\screate\\sdata\\sdisk\\simage\\]", "Generate Config Driver");
+        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]", "Start");
         return new LogParser(dict);
     }
     private ILogParser kvmUpgradeParser(){

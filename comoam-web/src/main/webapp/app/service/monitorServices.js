@@ -3,7 +3,7 @@
 angular.module('monitor').factory('monitorService', function($log) {
 	var stepsDict= {
 			"KVM" : {
-				"install" :["Start", "Generate Config Driver", "Start VM instance", "Prepare Install Options",  "Finished"],
+				"install" :["Start", "Generate Config Driver", "Start VM Instance", "Prepare Install Options",  "Finished"],
 				"upgrade": ["Start", "Data Backup", "Prepare Virtual Machines", "Post Image Replacement", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
