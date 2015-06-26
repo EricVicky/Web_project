@@ -1,7 +1,7 @@
 {
-  "COMType":[{"Name": "FCAPS","url":"install"}, 
-    	{"Name": "CM","url":"install"},
-    	{"Name": "OAM","url":"install"} 
+  "COMType":[{"Name": "FCAPS","url":"install","upgradeUrl":"upgrade"}, 
+    	{"Name": "CM","url":"install","upgradeUrl":"upgrade"},
+    	{"Name": "OAM","url":"install","upgradeUrl":"upgrade"} 
     ],
    "OVMType": [{"Name": "QOSAC","url":"ovminstall","upgradeUrl":"ovmupgrade"}, 
         {"Name": "ATC","url":"ovminstall","upgradeUrl":""}, 

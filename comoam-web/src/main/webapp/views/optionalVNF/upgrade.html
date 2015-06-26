@@ -20,11 +20,11 @@
                         <div class="modal-body col-md-12">
                             <div class="tab-content">
                                 <form class="tab-pane active ng-pristine ng-valid" id="tab1"
-                                    name="tab1" rc-submit="" rc-step>
+                                    name="tab1" rc-submit="reloadimglist()" rc-step>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <label class="control-label">COM Instance</label> <select
-                                                ng-change="reloadimglist()" name="com_instance"
+                                                ng-change="reloadinstallconfig()" name="com_instance"
                                                 ng-model="com_instance" class="form-control"
                                                 ng-options="  inst.name for inst in kvmcomInstance"
                                                 title="COM Instance">

@@ -99,7 +99,7 @@ angular.module('comoamApp')
 			$scope.OVNFItems = data.OVMType;
 		});
 	  
-	  $scope.EnvItems = [{'Name':'KVM','url':'kvm'},{'Name':'Openstack','url':'os'}];
+	  $scope.EnvItems = KVMService.getInstallEnvItems();
 	  
 	  $scope.selected = [];
 	  
@@ -114,10 +114,15 @@ angular.module('comoamApp')
   })
   .controller('chooseUpOperationCtrl', function($scope, $modalInstance, KVMService) {
 	  
-	  $scope.VNFItems = [{"Name": "COM","upgradeUrl":"upgrade"}];
+	  $scope.VNFItems = [];
 	  $scope.OVNFItems = [];
 	  
 	  KVMService.getComTypeStore().then(function(data){
+			for(var i in data.COMType){
+				if(data.COMType[i].upgradeUrl != ""){
+					$scope.VNFItems = $scope.VNFItems.concat(data.COMType[i]);
+				}
+			}
 			for(var i in data.OVMType){
 				if(data.OVMType[i].upgradeUrl != ""){
 					$scope.OVNFItems = $scope.OVNFItems.concat(data.OVMType[i]);
@@ -125,7 +130,7 @@ angular.module('comoamApp')
 			}
 		});
 	  
-	  $scope.EnvItems = [{'Name':'KVM','url':'kvm'},{'Name':'Openstack','url':'os'}];
+	  $scope.EnvItems = KVMService.getInstallEnvItems();
 	  
 	  $scope.selected = [];
 	  

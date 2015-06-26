@@ -14,12 +14,12 @@
 		"db": "{{ deployment_prefix }}M002DB01"
 	},
 	"QOSAC":{
-		"ovm": "{{ deployment_prefix }}M001OQOSAC01"
+		"ovm": "{{ deployment_prefix }}M001OOSAC01"
 	},
     "ATC":{
-        "ovm": "{{ deployment_prefix }}M001OATC01"
+        "ovm": "{{ deployment_prefix }}M001ATC01"
     },
     "HPSIM":{
-        "ovm": "{{ deployment_prefix }}M001OHPSIM01"
+        "ovm": "{{ deployment_prefix }}M001HPSIM01"
     }
 }
