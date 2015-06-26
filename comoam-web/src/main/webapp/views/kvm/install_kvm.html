@@ -44,7 +44,7 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<label class="control-label" translate="TIMAZONE">Timezone</label> <select
+										<label class="control-label" translate="TIMEZONE">Timezone</label> <select
 											name="time_zone" ng-model="installConfig.timezone"
 											class="form-control"
 											ng-options="t.Time as t.Time for t in timezoneStore"
@@ -90,7 +90,7 @@
 										<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
 									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+								<form class="tab-pane" id="tab3" name="tab3" rc-submit="Backup_Server_Addr()" rc-step>
 									<fieldset>
 										<legend translate="NETWORK">NETWORK</legend>
 										<div class="form-group col-md-6">
