@@ -3,6 +3,7 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
 	var VNFType = '';
+	var installEnvItems = [{'Name':'KVM','url':'kvm'},{'Name':'Openstack','url':'os'}];
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
@@ -73,6 +74,9 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var deleteRes = $resource(restUrl + "rest/kvm/instances/"+vnfType+name);
 			return deleteRes.save(config).$promise;
 		},
+		getInstallEnvItems: function(){
+			return installEnvItems;
+		}
 	};
 });
 

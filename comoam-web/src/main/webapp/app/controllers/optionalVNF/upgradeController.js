@@ -38,12 +38,15 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 		
     });
 	
-    $scope.reloadimglist = function(){
+	$scope.reloadinstallconfig = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    };
+	
+    $scope.reloadimglist = function(){
+    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
     };
     
 
