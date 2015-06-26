@@ -7,17 +7,17 @@
 					<div id="rootwizard">
 						<ul class="nav rc-nav-wizard" style="margin-left: 100px">
 							<li class="active"><a class="active" href="#tab1"
-								data-toggle="tab"> <span class="badge">1</span> <span>COM
+								data-toggle="tab"> <span class="badge">1</span> <span translate="COM_INFO">COM
 										Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab2" data-toggle="tab"> <span
-									class="badge">2</span> <span>Select Image&nbsp;&nbsp;</span>
+									class="badge">2</span> <span translate="SELECT_IMAGE">Select Image&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Install Options&nbsp;</span>
+									class="badge">3</span> <span translate="INSTALL_OPTION">Install Options&nbsp;</span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> <span
-									class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									class="badge">4</span> <span translate="DEPLOY">Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 						</ul>
 						<div class="modal-body col-md-12">
@@ -26,12 +26,12 @@
 									name="tab1" rc-submit="" rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<label class="control-label">COM Instance</label> <select
+											<label class="control-label" translate="COM_INSTANCE">COM Instance</label> <select
 												ng-change="showInstance()" name="os_com_instance"
 												ng-model="com_instance" class="form-control"
 												ng-options="  inst.name for inst in oscomInstance"
 												title="COM Instance" validation="required">
-												<option value="" default>--Please Select--</option>
+												<option value="" default translate="PLEASE_SELECT">--Please Select--</option>
 											</select>
 										</div>
 										<div class="panel-body" ng-if="com_instance != null">
@@ -41,59 +41,75 @@
 													id="dataTables-example">
 													<tbody>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{installConfig.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Stack Name</td>
+															<td colspan="2" translate="STACK_NAME">Stack Name</td>
 															<td>{{installConfig.stack_name}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Compute Avail Zone</td>
+															<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>
 															<td>{{installConfig.compute_avail_zone.zoneA}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Block Storage Avail Zone</td>
+															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
 															<td>{{installConfig.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 														
 														<tr align="center">
-															<td colspan="2">Deployment Prefix</td>
+															<td colspan="2" translate="DEPLOYMENT_PREFIX">Deployment Prefix</td>
 															<td>{{installConfig.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.oam.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.db.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.cm.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
 														</tr>
 													</tbody>
@@ -106,13 +122,13 @@
 									name="tab2" rc-submit="" rc-step>
 									<div class="form-group">
 										<div ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-											<label class="control-label">OAM/CM image</label> 
+											<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
 											<select name="oamcm_image" ng-model="installConfig.oam_cm_image" 
 											class="form-control" ng-options="o.name as o.name for o in oam_cm_images" 
 											title="OAM/CM image" validation="required"> </select>
 										</div>
 										<div ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-											<label class="control-label">DB image</label> 
+											<label class="control-label" translate="DB_IMAGE">DB image</label> 
 											<select name="db_image" ng-model="installConfig.db_image" 
 											class="form-control" ng-options="d.name as d.name for d in db_images" 
 											title="DB image" validation="required"> </select>
@@ -125,7 +141,7 @@
 								<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<label class="control-label">Deployment Summary</label>
+											<label class="control-label" translate="DEPLOYMENT_SUMMERY">Deployment Summary</label>
 										</div>
 										<div class="panel-body" >
 											<div class="dataTable_wrapper">
@@ -134,59 +150,75 @@
 													id="dataTables-example">
 													<tbody>
 														<tr align="center">
-															<td colspan="2">COM Type</td>
+															<td colspan="2" translate="COM_TYPE">COM Type</td>
 															<td>{{installConfig.comType}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Stack Name</td>
+															<td colspan="2" translate="STACK_NAME">Stack Name</td>
 															<td>{{installConfig.stack_name}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Compute Avail Zone</td>
+															<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>
 															<td>{{installConfig.compute_avail_zone.zoneA}}</td>
 														</tr>
 														<tr align="center">
-															<td colspan="2">Block Storage Avail Zone</td>
+															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
 															<td>{{installConfig.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 														
 														<tr align="center">
-															<td colspan="2">Deployment Prefix</td>
+															<td colspan="2" translate="DEPLOYMENT_PREFIX">Deployment Prefix</td>
 															<td>{{installConfig.deployment_prefix}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">OAM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.oam.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">DB VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="DB_VM">DB VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.db.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="2" width="25%" align="center"
-																style="vertical-align: middle">CM VM</td>
-															<td width="35%">IP Address</td>
+															<td rowspan="3" width="25%" align="center"
+																style="vertical-align: middle" translate="CM_VM">CM VM</td>
+															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
+														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td>Flavor</td>
+															<td translate="IPV6_ADDRESS">IPv6 Address</td>
+															<td>{{installConfig.vm_config.cm.provider_v6_ip_address}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
 														</tr>
 													</tbody>
@@ -202,12 +234,12 @@
 								<div class="pull-right">
 									<a class="btn btn-default"
 										ng-click="rc.kvmupgradeWizard.backward()"
-										ng-show="rc.kvmupgradeWizard.currentIndex > rc.kvmupgradeWizard.firstIndex">Back</a>
+										ng-show="rc.kvmupgradeWizard.currentIndex > rc.kvmupgradeWizard.firstIndex" translate="BACK">Back</a>
 									<a class="btn btn-primary"
 										ng-click="rc.kvmupgradeWizard.forward()"
-										ng-show="rc.kvmupgradeWizard.currentIndex < rc.kvmupgradeWizard.navigationLength">Continue</a>
+										ng-show="rc.kvmupgradeWizard.currentIndex < rc.kvmupgradeWizard.navigationLength" translate="CONTINUE">Continue</a>
 									<a class="btn btn-primary" ng-click="upgrade()"
-										ng-show="rc.kvmupgradeWizard.currentIndex == rc.kvmupgradeWizard.navigationLength">Upgrade</a>
+										ng-show="rc.kvmupgradeWizard.currentIndex == rc.kvmupgradeWizard.navigationLength" translate="UPGRADE">Upgrade</a>
 								</div>
 							</div>
 						</div>

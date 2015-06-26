@@ -1,6 +1,6 @@
 <div>
     <div class="modal-header">
-        <h3 class="modal-title">Are you sure you want to destroy:<strong>{{selectedIns.deployment_prefix}}</strong>?</h3>
+        <h3 class="modal-title"><label translate="ARE_YOU_SURE_YOU_WANT_TO_DESTROY">Are you sure you want to destroy:</label><strong>{{selectedIns.deployment_prefix}}</strong>?</h3>
     </div>
     <div class="modal-body">
     <div class="panel panel-default">
@@ -8,22 +8,22 @@
 							id="dataTables-example">
 			<tbody>
 				<tr align="center">
-					<td colspan="2">COM Type</td>
+					<td colspan="2" translate="COM_TYPE">COM Type</td>
 					<td>{{selectedIns.comtype}}</td>
 				</tr>
 				<tr align="center">
-					<td colspan="2">Host IP</td>
+					<td colspan="2" translate="HOST_IP">Host IP</td>
 					<td>{{selectedIns.active_host_ip}}</td>
 				</tr>
 				<tr align="center">
-					<td colspan="2">Prefix of VM Instance</td>
+					<td colspan="2" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 					<td>{{selectedIns.deployment_prefix}}</td>
 				</tr>
 				<tr align="center"
 					ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM' || selectedIns.comtype=='QoSAC'">
-					<td rowspan="2" width="25%" align="center"
-						style="vertical-align: middle">OAM VM</td>
-			<td width="35%">IP Address</td>
+					<td rowspan="3" width="25%" align="center"
+						style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
+			<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 			<td>{{selectedIns.vm_config.oam.ip_address}}</td>
 		</tr>
 			<tr align="center"
@@ -35,38 +35,54 @@
 			</tr>
 					<tr align="center"
 			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM' || selectedIns.comtype=='QoSAC'">
-			<td>Flavor</td>
+			<td translate="IPV6_ADDRESS">IPv6 Address</td>
+			<td>{{selectedIns.vm_config.oam.v6_ip_addr}}</td>
+		</tr>
+		<tr align="center"
+			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM' || selectedIns.comtype=='QoSAC'">
+			<td translate="FLAVOR">Flavor</td>
 			<td>{{selectedIns.vm_config.oam.flavor.label}}</td>
 		</tr>
 		<tr align="center"
 			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM'">
-			<td rowspan="2" width="25%" align="center"
-				style="vertical-align: middle">DB VM</td>
-			<td width="35%">IP Address</td>
+			<td rowspan="3" width="25%" align="center"
+				style="vertical-align: middle" translate="DB_VM">DB VM</td>
+			<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 			<td>{{selectedIns.vm_config.db.ip_address}}</td>
 		</tr>
 		<tr align="center"
 			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM'">
-			<td>Flavor</td>
+			<td translate="IPV6_ADDRESS">IPv6 Address</td>
+			<td>{{selectedIns.vm_config.db.v6_ip_addr}}</td>
+		</tr>
+		<tr align="center"
+			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='OAM' || selectedIns.comtype=='CM'">
+			<td translate="FLAVOR">Flavor</td>
 			<td>{{selectedIns.vm_config.db.flavor.label}}</td>
 		</tr>
 		<tr align="center"
 			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='CM'">
-			<td rowspan="2" width="25%" align="center"
-				style="vertical-align: middle">CM VM</td>
-					<td width="35%">IP Address</td>
+			<td rowspan="3" width="25%" align="center"
+				style="vertical-align: middle" translate="CM_VM">CM VM</td>
+					<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 					<td>{{selectedIns.vm_config.cm.ip_address}}</td>
+				</tr>
+				<tr align="center"
+			ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='CM'">
+			<td translate="IPV6_ADDRESS">IPv6 Address</td>
+			<td>{{selectedIns.vm_config.cm.v6_ip_addr}}</td>
+		</tr>
 				<tr align="center"
 					ng-if="selectedIns.comtype=='FCAPS' || selectedIns.comtype=='CM'">
-					<td>Flavor</td>
+					<td translate="FLAVOR">Flavor</td>
 					<td>{{selectedIns.vm_config.cm.flavor.label}}</td>
 				</tr>
 			</tbody>
 		</table>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">Destroy</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="ok()" translate="DESTROY">Destroy</button>
+        <button class="btn btn-warning" ng-click="cancel()" translate="CANCEL">Cancel</button>
     </div>
 
 </div>
