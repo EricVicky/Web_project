@@ -81,9 +81,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 		this.timezone = timezone;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
     public COMType getComType()
     {
