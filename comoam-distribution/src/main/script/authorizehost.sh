@@ -17,7 +17,7 @@ read host
 read IP
 
 export host_IP=$IP
-ansible-playbook -i host  --ask-pass ../comoam-playbook/playbooks/kvm/authhost.yml
+ansible-playbook -i host  --ask-pass ../ELCM-playbook/playbooks/kvm/authhost.yml
 
 if [ $? = 0 ]
 then

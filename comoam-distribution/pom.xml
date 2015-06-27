@@ -24,7 +24,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.alu.ems</groupId>
-			<artifactId>comoam-playbook</artifactId>
+			<artifactId>ELCM-playbook</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<type>tar</type>
 		</dependency>
@@ -74,7 +74,7 @@
 									<artifactItems>
 										<artifactItem>
 											<groupId>com.alu.ems</groupId>
-											<artifactId>comoam-playbook</artifactId>
+											<artifactId>ELCM-playbook</artifactId>
 											<version>${project.version}</version>
 											<type>tar</type>
 											<overWrite>true</overWrite>
@@ -127,7 +127,7 @@
 							<targetArchitecture>x86_64</targetArchitecture>
 							<mappings>
 								<mapping>
-									<directory>/opt/PlexView/comoam/</directory>
+									<directory>/opt/PlexView/ELCM/</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
@@ -157,7 +157,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/opt/PlexView/comoam/server</directory>
+									<directory>/opt/PlexView/ELCM/server</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
@@ -176,7 +176,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/opt/PlexView/comoam/datasource</directory>
+									<directory>/opt/PlexView/ELCM/datasource</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
@@ -186,7 +186,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/opt/PlexView/comoam/server/conf</directory>
+									<directory>/opt/PlexView/ELCM/server/conf</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
@@ -206,7 +206,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/opt/PlexView/comoam/script</directory>
+									<directory>/opt/PlexView/ELCM/script</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
@@ -219,13 +219,14 @@
 								     <directory>/usr/bin</directory>
 								     <sources>
 								         <softlinkSource>
-								              <location>/opt/PlexView/comoam/script/config_bridge.sh</location>
+								              <location>/opt/PlexView/ELCM/script/config_bridge.sh</location>
 								         </softlinkSource>
 								     </sources>
 								</mapping>
 							</mappings>
 							<preinstallScriptlet>
-								<script>echo "installing now"</script>
+							        <scriptFile>src/main/script/preinstall.sh</scriptFile>
+							        <fileEncoding>utf-8</fileEncoding>
 							</preinstallScriptlet>
 							<postinstallScriptlet>
 							        <scriptFile>src/main/script/postinstall.sh</scriptFile>
