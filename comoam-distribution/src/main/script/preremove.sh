@@ -1,7 +1,7 @@
 #!/bin/sh
 PRO_COMOAM=$(ps -ef|grep 'opt/PlexView/ELCM'|grep -v grep)
 if [ ! -z "$PRO_COMOAM" ]; then
-    echo "Stop COM LCM"
+    echo "Stop ELCM"
     /opt/PlexView/ELCM/server/bin/shutdown.sh
     sleep 5 
 fi
