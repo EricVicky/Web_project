@@ -6,6 +6,9 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>COM LCM tool</name>
 	<packaging>pom</packaging>
+	<properties>
+		<release.version>0.7</release.version>
+	</properties>
   <modules>
     <module>comoam-web</module>
     <module>comoam-distribution</module>
@@ -31,7 +34,7 @@
               <artifactId>maven-release-plugin</artifactId>
               <version>2.5</version>
               <configuration>
-                 <tagNameFormat>v@{project.version}</tagNameFormat>
+                 <tagNameFormat>v@{release.version}</tagNameFormat>
               </configuration>
            </plugin>
         </plugins>

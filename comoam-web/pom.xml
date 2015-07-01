@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -32,7 +33,7 @@
 		<junit.version>4.12</junit.version>
 
 		<tomcat.version>8.0.14</tomcat.version>
-		<install.root>/opt/PlexView/comoam/</install.root>
+		<install.root>/opt/PlexView/ELCM/</install.root>
 		<install.datasource>${install.root}datasource/</install.datasource>
 	</properties>
 
@@ -247,6 +248,15 @@
 									<targetPath>WEB-INF/classes/</targetPath>
 									<filtering>true</filtering>
 								</resource>
+								<resource>
+									<directory>src/main/resources/config/</directory>
+									<targetPath>app/directives/header/</targetPath>
+									<filtering>true</filtering>
+									<includes>
+										<include>header.html</include>
+									</includes>
+								</resource>
+
 							</webResources>
 						</configuration>
 					</plugin>
@@ -287,6 +297,7 @@
 							<exclude>**/samplelog/*.log</exclude>
 						</excludes>
 					</resource>
+
 					<resource>
 						<directory>profiles/${build.env}/</directory>
 						<filtering>true</filtering>
@@ -318,6 +329,14 @@
 									<targetPath>WEB-INF/classes/</targetPath>
 									<filtering>true</filtering>
 								</resource>
+								<resource>
+									<directory>src/main/resources/config/</directory>
+									<targetPath>app/directives/header/</targetPath>
+									<filtering>true</filtering>
+									<includes>
+										<include>header.html</include>
+									</includes>
+								</resource>
 							</webResources>
 						</configuration>
 					</plugin>
@@ -333,12 +352,12 @@
 			</build>
 		</profile>
 	</profiles>
-   <distributionManagement>
-            <repository>
-                        <id>thirdparty</id>
-                        <name>thirdparty</name>
-                        <url>http://135.252.30.216:8081/nexus/content/repositories/thirdparty/</url>
-            </repository>
-   </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>thirdparty</name>
+			<url>http://135.252.30.216:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
 </project>
 

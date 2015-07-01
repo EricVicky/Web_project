@@ -32,7 +32,16 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SP_HVP:'NO',
 					BACKUP_SERVER_IS_LOCAL:'YES',
 					SOFTWARE_SERVER_IS_LOCAL:'YES',
+					OMCCN_SUPPORT_3GPP:'true',
+					OMCCN_SUPPORT_SNMP_N_ITF:'true',
+					OMCCN_SUPPORT_GSST:'false',
+					OMCCN_SUPPORT_NETRA:'false',
+
 			};
+            $scope.Backup_Server_Addr = function(){
+            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
+                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
+            }
             
 			$scope.doDeploy = function (){
 				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
@@ -125,7 +134,7 @@ angular.module('kvm', [ 'ui.router',
 		      $log.info('Modal dismissed at: ' + new Date());
 		    });
 	  };
-	 //$scope.open('sm');	  	  
+	 //$scope.open('sm');	
 
 })
 .controller('NFVChooseController', function($scope, $modalInstance, NFVTypes ){

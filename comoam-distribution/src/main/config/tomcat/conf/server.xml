@@ -83,7 +83,7 @@
          documentation -->
     <Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
-               keystoreFile="/opt/PlexView/comoam/server/ssl/keystore/ELCM.jks" keystorePass="serverpkcs12"
+               keystoreFile="/opt/PlexView/ELCM/server/ssl/keystore/ELCM.jks" keystorePass="serverpkcs12"
                clientAuth="false" sslProtocol="TLS" />
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
