@@ -209,6 +209,7 @@
 									<directory>/opt/PlexView/ELCM/script</directory>
 									<username>root</username>
 									<groupname>root</groupname>
+									<filemode>744</filemode>
 									<sources>
 										<source>
 											<location>src/main/script</location>
