@@ -75,7 +75,6 @@ angular.module('kvm', [ 'ui.router',
             			}
             		}
             	}
-            	return;
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
             		if(response.succeed == true){
             			locked = true;
