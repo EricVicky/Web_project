@@ -1,10 +1,12 @@
 package com.alu.omc.oam.kvm.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("serial")
-public class KvmFlavor
+public class KvmFlavor implements  Serializable
 {
+private static final long serialVersionUID = 3742611248807337883L;
 private int memory;
 private int vcpu;
 private int disk;
@@ -17,7 +19,7 @@ public void setMemory(int memory)
 {
     this.memory = memory;
 }
-@JsonProperty("vcpu")
+@JsonProperty("vCpu")
 public int getVcpu()
 {
     return vcpu;
@@ -41,5 +43,9 @@ public KvmFlavor(int memory, int vcpu, int disk)
     this.memory = memory;
     this.vcpu = vcpu;
     this.disk = disk;
+}
+
+public KvmFlavor(){
+    
 }
 }

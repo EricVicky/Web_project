@@ -14,10 +14,52 @@ import com.fasterxml.jackson.annotation.JsonCreator;
           * @Fields serialVersionUID :
           */
         private static final long serialVersionUID = 1L;
-        String name;
+        String hostname;
+        public String getHostname()
+        {
+            return hostname;
+        }
+
+        public void setHostname(String hostname)
+        {
+            this.hostname = hostname;
+        }
+
+
+        ArrayList<NIC> nic = new ArrayList<NIC>();
         String imgname;
         KvmFlavor flavor;
-        List<NIC> nic = new ArrayList<NIC>();
+
+        public String getImgname()
+        {
+            return imgname;
+        }
+
+        public void setImgname(String imgname)
+        {
+            this.imgname = imgname;
+        }
+
+        public KvmFlavor getFlavor()
+        {
+            return flavor;
+        }
+
+        public void setFlavor(KvmFlavor flavor)
+        {
+            this.flavor = flavor;
+        }
+
+        public List<NIC> getNic()
+        {
+            return nic;
+        }
+
+        public void setNic(ArrayList<NIC> nic)
+        {
+            this.nic = nic;
+        }
+
 
         @JsonCreator
         public VMConfig()

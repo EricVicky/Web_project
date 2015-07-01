@@ -33,31 +33,25 @@ angular.module('kvm', [ 'ui.router',
 					BACKUP_SERVER_IS_LOCAL:'YES',
 					SOFTWARE_SERVER_IS_LOCAL:'YES',
 			};
+            
+            $scope.installConfig.vm_config = {
+            		"oam": { "nic": []},
+            		"cm" : { "nic": []},
+            		"db" : { "nic": []}
+            }
+            $scope.nics = [ "eth0", "eth1", "eth2"];
+            $scope.ntoptions  = [ {"label":"Simple", "mode": 1}, 
+    	                             {"label":"Traffic Separation", "mode": 2 },
+    	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
+            $scope.networktraffic = 1;
+            $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
             $scope.Backup_Server_Addr = function(){
-            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
-                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
+            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
+                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
             }
             
 			$scope.doDeploy = function (){
-				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
-				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;
-				$scope.installConfig.vm_config.oam.v6_gateway = $scope.installConfig.v6_gateway;
-				$scope.installConfig.vm_config.oam.v6_prefix= $scope.installConfig.v6_prefix;
-				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
-					$scope.installConfig.vm_config.db.netmask = $scope.installConfig.netmask;
-					$scope.installConfig.vm_config.db.gateway = $scope.installConfig.gateway;
-					$scope.installConfig.vm_config.db.v6_gateway = $scope.installConfig.v6_gateway;
-					$scope.installConfig.vm_config.db.v6_prefix= $scope.installConfig.v6_prefix;
-				
-				}
-				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='CM'){
-					$scope.installConfig.vm_config.cm.netmask = $scope.installConfig.netmask;
-					$scope.installConfig.vm_config.cm.gateway = $scope.installConfig.gateway;
-					$scope.installConfig.vm_config.cm.v6_gateway = $scope.installConfig.v6_gateway;
-					$scope.installConfig.vm_config.cm.v6_prefix= $scope.installConfig.v6_prefix;
-				}
-				$scope.installConfig.netmask = null;
-				$scope.installConfig.gateway = null;
+				$log.info($scope.installConfig);
             	KVMService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
          			$state.go("dashboard.monitor");
@@ -72,6 +66,16 @@ angular.module('kvm', [ 'ui.router',
             			});   
             };
             $scope.deploy = function(){
+            	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
+            	for(var name in vms_flavor){
+            		var vm_flavor = vms_flavor[name];
+            		for(var index in vm_flavor){
+            			if(vm_flavor[index].label.indexOf($scope.flavor) != -1){
+            				$scope.installConfig.vm_config[name].flavor = vm_flavor[index];
+            			}
+            		}
+            	}
+            	return;
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
             		if(response.succeed == true){
             			locked = true;
