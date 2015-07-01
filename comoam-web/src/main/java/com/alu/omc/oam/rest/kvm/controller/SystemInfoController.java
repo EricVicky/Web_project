@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alu.omc.oam.util.COMTimeZone;
+import com.alu.omc.oam.util.Timezone;
 
 @RestController 
 public class SystemInfoController
 {
 
     @RequestMapping(value="/sysinfo/timezone", method=RequestMethod.GET)
-    public String[]  timezone() 
+    public Timezone[]  timezone() 
     {
     	return COMTimeZone.getTimeZone();
     }

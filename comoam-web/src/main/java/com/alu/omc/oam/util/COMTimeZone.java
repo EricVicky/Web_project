@@ -39,23 +39,27 @@ public class COMTimeZone
      * This function is used for getting all the time zones defined by Java. 
      */
     
-    public static String[] getTimeZone(){
+    public static Timezone[] getTimeZone(){
         String[] avaIds = TimeZone.getAvailableIDs();
-        String[] TIMEZONE = new String[avaIds.length];
+        Timezone[] TIMEZONE = new Timezone[avaIds.length];
         
         for (int i = 0; i < avaIds.length; i++) {
             double offset = (TimeZone.getTimeZone(avaIds[i]).getRawOffset());
             double offset_proper = offset / (3600 * 1000);
             double offset_minute = (offset_proper - (int)offset_proper) > 0 ? (offset_proper - (int)offset_proper) : - ((offset_proper - (int)offset_proper));
+            Timezone timezone = new Timezone();
             if(offset != 0){
-                TIMEZONE[i] = "(GMT" + timeOffsetIsPositiveorNot(offset_proper) + pad( timeOffSetPositive((int)offset_proper), 2 ) + ":" + pad((int)(offset_minute * 60), 2) + ") " + avaIds[i];
+                timezone.setLabel("(GMT" + timeOffsetIsPositiveorNot(offset_proper) + pad( timeOffSetPositive((int)offset_proper), 2 ) + ":" + pad((int)(offset_minute * 60), 2) + ") " + avaIds[i]);
                 }else{
-                    TIMEZONE[i] = "(GMT) " + avaIds[i];
+                    timezone.setLabel("(GMT) " + avaIds[i]);
                 } 
+            timezone.setId(avaIds[i]);
+            TIMEZONE[i] = timezone;
         }
         return TIMEZONE;
     }
     
-    public final static String[] TIMEZONES = getTimeZone();
+
+    
 
 }
