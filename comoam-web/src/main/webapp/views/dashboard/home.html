@@ -15,7 +15,7 @@
 				  <span class="glyphicon glyphicon-arrow-up"></span> upgrade
 				</a>
 			</li>
-			<li ng-click="open()" class="listoperations">
+			<li ng-click="open('delete')" class="listoperations">
 				<a>
 				  <span class="glyphicon glyphicon-remove"></span> delete
 				</a>
@@ -30,9 +30,13 @@
 				  <span class="glyphicon glyphicon-floppy-open"></span> restore
 				</a>
 			</li>
+			<li ng-click="open('details')" class="listoperations">
+				<a>
+				  <span class="glyphicon glyphicon-info-sign" ></span> details
+				</a>
+			</li>
 		</ul>
 	</div>
-	{{$scope.comstackNum;}}
    	<canvas id="canvas" network-topo width="1000" height="2500" style="background-color:#F2F2F2"></canvas>
 	</div>
     <!-- /.row -->
