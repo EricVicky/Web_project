@@ -111,7 +111,7 @@
 	"DEPLOY":"Deploy",
     "SERVER": "Server",
 	"RELEASE": "Release",
-	"USERNAME": "User Name",
+	"USER_NAME": "User Name",
 	"PASSWORD": "Password",
 	"REMEM_TEXT": "Remember me",
 	"LOGIN": "Log in",
