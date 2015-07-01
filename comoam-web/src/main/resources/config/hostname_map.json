@@ -14,7 +14,7 @@
 		"db": "{{ deployment_prefix }}M002DB01"
 	},
 	"QOSAC":{
-		"ovm": "{{ deployment_prefix }}M001OOSAC01"
+		"ovm": "{{ deployment_prefix }}M001QOSAC01"
 	},
     "ATC":{
         "ovm": "{{ deployment_prefix }}M001ATC01"
