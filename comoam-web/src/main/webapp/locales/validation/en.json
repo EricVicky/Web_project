@@ -193,5 +193,9 @@
     "INPUT19":                          "Date US SHORT (mm/dd/yy) -- between the dates 12/01/99 and 12/31/15",
     "SAVE":                             "Save",
     "SELECT1":                          "Required (select) -- validation with (blur) EVENT",
-    "SHOW_VALIDATION_SUMMARY":          "Show Validation Summary"
+    "SHOW_VALIDATION_SUMMARY":          "Show Validation Summary",
+    "OMCCN_SUPPORT_3GPP":				"OMCCN Support 3GPP",
+    "OMCCN_SUPPORT_SNMP_N_ITF":			"OMCCN Support SNMP N ITF",
+    "OMCCN_SUPPORT_GSST":				"OMCCN Support GSST",
+    "OMCCN_SUPPORT_NETRA":				"OMCCN Support NETRA"
 }
