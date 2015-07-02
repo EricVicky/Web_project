@@ -97,7 +97,7 @@ public class HostService {
 			if (file.contains("qcow2")) {
 				images.add(file);
 			}
-		Collections.sort(images, new IMGComparator());
+
 		}
 		return images;
 	}
@@ -130,15 +130,15 @@ public class HostService {
 	}
 	
 	public class IMGComparator implements Comparator<String> {
-		Pattern IMG_KEY_WORD = Pattern.compile("COM.*D\\d+.*");
+//		Pattern IMG_KEY_WORD = Pattern.compile("COM.*D\\d+.*");
 		@Override
 		public int compare(String img1, String img2) {
-			if(! IMG_KEY_WORD.matcher(img1).find()){
+/*			if(! IMG_KEY_WORD.matcher(img1).find()){
 				return 1;
 			}
 			if(! IMG_KEY_WORD.matcher(img2).find()){
 				return -1;
-			}
+			}*/
 			return img1.compareTo(img2);
 		}
 
