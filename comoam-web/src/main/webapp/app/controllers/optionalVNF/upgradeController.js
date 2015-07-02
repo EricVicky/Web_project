@@ -80,7 +80,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         
     $scope.doUpgrade = function (){
         KVMService.upgradeOVM($scope.installConfig).then( function(){
-        monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
+        monitorService.monitorKVMOVMUpgrade($scope.installConfig.active_host_ip);
          	$state.go("dashboard.monitor");
     	});
     };

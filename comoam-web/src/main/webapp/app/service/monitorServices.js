@@ -20,7 +20,8 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_OVM" :{
-				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
+				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Finished"]
 			}
 	};
 	
@@ -131,6 +132,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMOVMInstall: function(ch) {
 			environment = "KVM_OVM";
 			action = "install";
+			channel = ch;
+		},
+		monitorKVMOVMUpgrade: function(ch) {
+			environment = "KVM_OVM";
+			action = "upgrade";
 			channel = ch;
 		},
 		getChannel : function (){
