@@ -41,14 +41,16 @@ public class Ansibleworkspace
     private static final Logger log = LoggerFactory.getLogger(Ansibleworkspace.class);
     public final static String        VAR_FILE_NAME   = "group_vars/all";
     public final static String        HOSTS_FILE_NAME = "inventory/hosts";
-    private Environment env;
+    private COMConfig config;
     public String getWorkingdir()
     {
         if (this.workingDir == null)
         {
             this.workingDir = workDirRoot.concat(
-                    new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS")
-                            .format(new Date())).concat(File.separator);
+                    new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+                            .format(new Date())).concat("_")
+                            .concat(config.getStackName())
+                            .concat(File.separator);
 
         }
         return this.workingDir;
@@ -57,7 +59,7 @@ public class Ansibleworkspace
     public String getRunDir( ){
         return this.getWorkingdir().concat(Playbook.PLAYBOOK_DIR)
                 .concat(File.separator)
-                .concat(env.name().toLowerCase())
+                .concat(config.getEnvironment().name().toLowerCase())
                 .concat(File.separator);
     }
 
@@ -87,7 +89,7 @@ public class Ansibleworkspace
     }
     
     public void init(COMConfig config){
-        this.env = config.getEnvironment();
+        this.config = config;
         log.info("Write var file to working directory...");
         try
         {
