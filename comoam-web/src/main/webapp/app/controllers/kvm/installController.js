@@ -5,8 +5,8 @@ angular.module('kvm', [ 'ui.router',
                         'ghiscoding.validation',
                         'monitor',
                         'dashboard',
-                        'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
-           $state,  $dialogs, monitorService, $modal) {
+                        'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
+           $state,  $dialogs, monitorService, timezoneService, $modal) {
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
@@ -103,7 +103,7 @@ angular.module('kvm', [ 'ui.router',
             				$scope.comTypeStore = data.COMType;
             			 	$scope.installConfig.comType = KVMService.VNFType;
             			});
-            KVMService.getTimezoneStore().then( function(data) {
+            timezoneService.timezonelist().then( function(data) {
             				$scope.timezoneStore = data;
             			});
             KVMService.hostips().then(function(data) {
