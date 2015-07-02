@@ -42,6 +42,7 @@ public class Ansibleworkspace
     public final static String        VAR_FILE_NAME   = "group_vars/all";
     public final static String        HOSTS_FILE_NAME = "inventory/hosts";
     private COMConfig config;
+    private Action action;
     public String getWorkingdir()
     {
         if (this.workingDir == null)
@@ -50,6 +51,7 @@ public class Ansibleworkspace
                     new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
                             .format(new Date())).concat("_")
                             .concat(config.getStackName())
+                            .concat("_").concat(action.name())
                             .concat(File.separator);
 
         }
@@ -88,8 +90,9 @@ public class Ansibleworkspace
                 this.logFileName));
     }
     
-    public void init(COMConfig config){
+    public void init(COMConfig config, Action action){
         this.config = config;
+        this.action = action;
         log.info("Write var file to working directory...");
         try
         {

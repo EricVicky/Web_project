@@ -22,7 +22,7 @@ public class MakeCall implements AnsibleCall
     @Override
     public void  prepare(Ansibleworkspace space)
     {
-        space.init(config);
+        space.init(config, action);
     }
     
     @Override

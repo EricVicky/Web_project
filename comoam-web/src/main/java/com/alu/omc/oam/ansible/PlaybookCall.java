@@ -35,7 +35,7 @@ public class PlaybookCall implements AnsibleCall
     {
         try
         {
-            space.init(config);
+            space.init(config, action);
         }
         catch (WorkspaceException e)
         {
