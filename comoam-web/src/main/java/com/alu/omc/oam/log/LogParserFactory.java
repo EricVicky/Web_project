@@ -178,7 +178,7 @@ public class LogParserFactory
     private ILogParser kvmqosacInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("localhost", "Finished");
-        dict.put("post\\s\\script", "Post Configuration");
+        dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
         dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
@@ -188,9 +188,9 @@ public class LogParserFactory
     private ILogParser kvmovmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[prepare","Prepare Virtual Machines");
-        dict.put("TASK\\:\\s\\[hpsim", "Data Backup");
-        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Start");
+        dict.put("wait_for_server_start","Start Virtual Machines");
+        dict.put("Auto\\sinstall\\scom\\son\\skvm", "Data Backup");
+        dict.put("TASK\\:\\s\\[hpsim", "Start");
         return new LogParser(dict);
     }
     

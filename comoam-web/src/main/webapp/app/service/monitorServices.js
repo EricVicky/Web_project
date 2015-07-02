@@ -21,7 +21,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 			},
 			"KVM_OVM" :{
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Finished"]
+				"upgrade":["Start","Data Backup","Start Virtual Machines","Finished"]
+			},
+			"KVM_QOSAC":{
+				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"]
 			}
 	};
 	
@@ -137,6 +141,16 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMOVMUpgrade: function(ch) {
 			environment = "KVM_OVM";
 			action = "upgrade";
+			channel = ch;
+		},
+		monitorKVMQOSACUpgrade: function(ch) {
+			environment = "KVM_QOSAC";
+			action = "upgrade";
+			channel = ch;
+		},
+		monitorKVMQOSACInstall:function(ch) {
+			environment = "KVM_QOSAC";
+			action = "install";
 			channel = ch;
 		},
 		getChannel : function (){
