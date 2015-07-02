@@ -35,6 +35,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.QOSAC), kvmqosacInstallParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.HPSIM), kvmovmUpgradeParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
     }
     
@@ -186,12 +187,21 @@ public class LogParserFactory
 
     private ILogParser kvmovmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[prepare","Prepare Virtual Machines");
+        dict.put("TASK\\:\\s\\[hpsim", "Data Backup");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Start");
+        return new LogParser(dict);
+    }
+    
+    private ILogParser kvmovmDeleteParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
         dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
         dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
-        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
-        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
+        dict.put("PLAY\\s\\[backup\\sHPSIM\\sdata\\]", "Data Backup");
+        dict.put("\\/usr\\/bin\\/", "Start");
         return new LogParser(dict);
     }
 
