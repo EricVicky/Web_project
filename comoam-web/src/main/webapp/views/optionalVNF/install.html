@@ -48,7 +48,7 @@
                                         <label class="control-label">Timezone</label> <select
                                             name="time_zone" ng-model="installConfig.timezone"
                                             class="form-control"
-                                            ng-options="t.Time as t.Time for t in timezoneStore"
+                                            ng-options="t.id as t.label for t in timezoneStore"
                                             title="Timezone" validation="required">
                                             <option value="">--Please Select--</option>
                                         </select>

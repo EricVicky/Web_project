@@ -41,50 +41,53 @@ public class HostService {
 			images.add("COM_5_0_0_2.D202.QoSAC.qcow2");
 			images.add("COM_5_0_0_2.D192.OAM.qcow2");
 			images.add("COM_5_0_0_2.D192.DB.qcow2");
+			images.add("QoSAC.qcow2");
 			images.add("COM_5_0_0_2.D198.OAM.qcow2");
 			images.add("COM_5_0_0_2.D198.DB.qcow2");
-			images.add("QoSAC.qcow2");
+			images.add("HPSAM.qcow2");
 			images.add("COM_5_0_0_2.D202.OAM.qcow2");
 			images.add("COM_5_0_0_2.D202.DB.qcow2");
 			images.add("COM_5_0_0_2.D192.QoSAC.qcow2");
 			images.add("COM_5_0_0_2.D198.QoSAC.qcow2");
 			Collections.sort(images, new IMGComparator());
 			return images;
-		}
-		if (Host.isLocalHost(host)) {
-			return getLocalImages(dir);
-		}
-
-		String directory = dir;
-		String privateKey = "/root/.ssh/id_rsa";
-
-		java.util.Properties config = new java.util.Properties();
-		config.put("StrictHostKeyChecking", "no");
-
-		JSch ssh = new JSch();
-		ssh.addIdentity(privateKey);
-		Session session = ssh.getSession(login, host, 22);
-		session.setConfig(config);
-		session.connect();
-		Channel channel = session.openChannel("sftp");
-		channel.connect();
-
-		ChannelSftp sftp = (ChannelSftp) channel;
-		sftp.cd(directory);
-		Vector<ChannelSftp.LsEntry> files = sftp.ls("*");
-		System.out
+		}else{
+			if (Host.isLocalHost(host)) {
+				images =  getLocalImages(dir);
+			}else{
+				String directory = dir;
+				String privateKey = "/root/.ssh/id_rsa";
+				
+				java.util.Properties config = new java.util.Properties();
+				config.put("StrictHostKeyChecking", "no");
+				
+				JSch ssh = new JSch();
+				ssh.addIdentity(privateKey);
+				Session session = ssh.getSession(login, host, 22);
+				session.setConfig(config);
+				session.connect();
+				Channel channel = session.openChannel("sftp");
+				channel.connect();
+				
+				ChannelSftp sftp = (ChannelSftp) channel;
+				sftp.cd(directory);
+				Vector<ChannelSftp.LsEntry> files = sftp.ls("*");
+				System.out
 				.printf("Found %d files in dir %s%n", files.size(), directory);
-
-		for (ChannelSftp.LsEntry file : files) {
-			if (file.getAttrs().isDir()) {
-				continue;
+				
+				for (ChannelSftp.LsEntry file : files) {
+					if (file.getAttrs().isDir()) {
+						continue;
+					}
+					log.info(file.getFilename());
+					images.add(file.getFilename());
+				}
+				
+				channel.disconnect();
+				session.disconnect();
 			}
-			log.info(file.getFilename());
-			images.add(file.getFilename());
+			
 		}
-
-		channel.disconnect();
-		session.disconnect();
 		Collections.sort(images, new IMGComparator());
 		return images;
 	}
@@ -130,15 +133,15 @@ public class HostService {
 	}
 	
 	public class IMGComparator implements Comparator<String> {
-		Pattern IMG_KEY_WORD = Pattern.compile("COM.*D\\d+.*");
+//		Pattern IMG_KEY_WORD = Pattern.compile("COM.*D\\d+.*");
 		@Override
 		public int compare(String img1, String img2) {
-			if(! IMG_KEY_WORD.matcher(img1).find()){
+/*			if(! IMG_KEY_WORD.matcher(img1).find()){
 				return 1;
 			}
 			if(! IMG_KEY_WORD.matcher(img2).find()){
 				return -1;
-			}
+			}*/
 			return img1.compareTo(img2);
 		}
 
