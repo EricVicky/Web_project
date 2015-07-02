@@ -36,12 +36,34 @@ public class AnsibleDelegator implements ApplicationContextAware
     private LogParserFactory logParserFactory;
 
 
-    public void execute(Action action, COMConfig config){
-        PlaybookCall playbookCall = new PlaybookCall(config, action);
+    public void execute(final Action action, final COMConfig config){
+        final PlaybookCall playbookCall = new PlaybookCall(config, action);
+        delayInvoke(action, config, playbookCall);
+    }
+    private void delayInvoke(final Action action, final COMConfig config,
+            final PlaybookCall playbookCall)
+    {
         try
         {
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
-            ansibleInvoker.invoke(playbookCall, getHandler(action, config));
+            new Thread(new Runnable(){
+
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        Thread.currentThread().sleep(1500);
+                        ansibleInvoker.invoke(playbookCall, getHandler(action, config));
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    
+                }
+                
+            }).start();
         }
         catch (AnsibleException e)
         {
@@ -66,7 +88,7 @@ public class AnsibleDelegator implements ApplicationContextAware
                    providerNetwork.setV6_prefix(NetworkUtil.getNetWorkPrefix(v6subnet.getCidr()));
                }
            }
-           ansibleInvoker.invoke(playbookCall, getHandler(action, config));
+           delayInvoke(action, config, playbookCall);
         }
         catch (AnsibleException e)
         {
@@ -82,6 +104,11 @@ public class AnsibleDelegator implements ApplicationContextAware
       handler.setConfig(config);
       handler.setLogParser(logParserFactory.getLogParser(action, config));
       return handler;
+    }
+    
+    
+    private void deplayInvoke(){
+        
     }
 
 

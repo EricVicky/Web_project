@@ -64,10 +64,10 @@ public class LogParserFactory
     
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK:\\s\\[vnf\\_destroy\\_vms\\s\\|\\sundefine\\soam\\svirtual\\smachine", "Undefine Virtual Machine");
-        dict.put("TASK:\\s\\[vnf\\_destroy\\_vms\\s\\|\\sdestroy\\soam\\svirtual\\smachine", "Destroy Virtual Machine");
-        dict.put("PLAY\\s\\[destroy", "Start");
+        dict.put("localhost", "Finished");
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sundefine\\svirtual\\smachine\\]", "Undefine Virtual Machine");
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sdestroy\\svirtual\\smachine\\]", "Destroy Virtual Machine");
+        dict.put("PLAY\\s\\[destroy\\sall\\svirtual\\smachines\\]", "Start");
         return new LogParser(dict);
 	}
     
@@ -109,7 +109,8 @@ public class LogParserFactory
     
     private ILogParser osInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("Reboot\\sserver", "Start COM");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("TASK\\:\\s\\[start\\sall\\svms\\]", "Start COM");
         dict.put("cloud\\_init\\s\\|\\scloud\\sinit\\send", "Cloud Init");
         dict.put("deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack", "check Presence of Heat stack");
         dict.put("stack\\_templates\\s\\|\\supdate\\sALU\\-1360\\-COM\\.hot\\.yaml\\sdocument", "Generate Heat Templates");

@@ -1,33 +1,54 @@
 -------Call Ansible......
-2015-05-19 19:48:45,583 p=9049 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+2015-07-01 08:52:40,422 p=28818 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
 timing vulnerabilities when used with pycrypto. If possible, you should update
 it (i.e. yum update gmp).
 
-2015-05-19 19:48:45,715 p=9049 u=root |
-2015-05-19 19:48:45,715 p=9049 u=root |  /usr/bin/ansible-playbook -i ../../inventory/hosts destroy.yml
-2015-05-19 19:48:45,715 p=9049 u=root |
-2015-05-19 19:48:45,797 p=9049 u=root |  PLAY [destroy all virtual machines] *******************************************
-2015-05-19 19:48:45,798 p=9049 u=root |  TASK: [vnf_destroy_vms | destroy oam virtual machine] *************************
-2015-05-19 19:48:49,676 p=9049 u=root |  changed: [135.252.138.138]
-2015-05-19 19:48:49,677 p=9049 u=root |  TASK: [vnf_destroy_vms | destroy cm virtual machine] **************************
-2015-05-19 19:48:51,751 p=9049 u=root |  changed: [135.252.138.138]
-2015-05-19 19:48:51,753 p=9049 u=root |  TASK: [vnf_destroy_vms | destroy db virtual machine] **************************
-2015-05-19 19:48:54,192 p=9049 u=root |  changed: [135.252.138.138]
-2015-05-19 19:48:54,194 p=9049 u=root |  TASK: [vnf_destroy_vms | debug msg="All VMs have been destroyed."] ************
-2015-05-19 19:48:54,237 p=9049 u=root |  ok: [135.252.138.138] => {
+2015-07-01 08:52:40,575 p=28818 u=root |
+2015-07-01 08:52:40,575 p=28818 u=root |  /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts destroy.yml
+2015-07-01 08:52:40,575 p=28818 u=root |
+2015-07-01 08:52:40,683 p=28818 u=root |  PLAY [destroy all virtual machines] *******************************************
+2015-07-01 08:52:40,684 p=28818 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ******************************
+2015-07-01 08:52:44,078 p=28818 u=root |  changed: [localhost]
+2015-07-01 08:52:44,079 p=28818 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ******************************
+2015-07-01 08:52:44,090 p=28818 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ******************************
+2015-07-01 08:52:46,422 p=28818 u=root |  changed: [localhost]
+2015-07-01 08:52:46,423 p=28818 u=root |  TASK: [vnf_delete_vms | destroy virtual machine] ******************************
+2015-07-01 08:52:46,434 p=28818 u=root |  TASK: [vnf_delete_vms | debug msg="All VMs have been destroyed."] *************
+2015-07-01 08:52:46,436 p=28818 u=root |  ok: [localhost] => {
     "msg": "All VMs have been destroyed."
 }
-2015-05-19 19:48:54,237 p=9049 u=root |  TASK: [vnf_destroy_vms | undefine oam virtual machine] ************************
-2015-05-19 19:48:54,917 p=9049 u=root |  ok: [135.252.138.138]
-2015-05-19 19:48:54,918 p=9049 u=root |  TASK: [vnf_destroy_vms | undefine cm virtual machine] *************************
-2015-05-19 19:48:56,580 p=9049 u=root |  ok: [135.252.138.138]
-2015-05-19 19:48:56,581 p=9049 u=root |  TASK: [vnf_destroy_vms | undefine db virtual machine] *************************
-2015-05-19 19:48:57,235 p=9049 u=root |  ok: [135.252.138.138]
-2015-05-19 19:48:57,237 p=9049 u=root |  TASK: [vnf_destroy_vms | debug msg="All VMs have been deleted."] **************
-2015-05-19 19:48:57,283 p=9049 u=root |  ok: [135.252.138.138] => {
+2015-07-01 08:52:46,436 p=28818 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] *****************************
+2015-07-01 08:52:46,616 p=28818 u=root |  ok: [localhost]
+2015-07-01 08:52:46,617 p=28818 u=root |  TASK: [vnf_delete_vms | query virtual machine status] *************************
+2015-07-01 08:52:46,791 p=28818 u=root |  failed: [localhost] => {"failed": true}
+2015-07-01 08:52:46,791 p=28818 u=root |  msg: virtual machine ibm31M001OAM01 not found
+2015-07-01 08:52:46,791 p=28818 u=root |  ...ignoring
+2015-07-01 08:52:46,792 p=28818 u=root |  TASK: [vnf_delete_vms | make sure undefine virtual machine] *******************
+2015-07-01 08:52:46,813 p=28818 u=root |  ok: [localhost]
+2015-07-01 08:52:46,813 p=28818 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] *****************************
+2015-07-01 08:52:46,821 p=28818 u=root |  TASK: [vnf_delete_vms | query virtual machine status] *************************
+2015-07-01 08:52:46,830 p=28818 u=root |  TASK: [vnf_delete_vms | make sure undefine virtual machine] *******************
+2015-07-01 08:52:46,838 p=28818 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] *****************************
+2015-07-01 08:52:47,011 p=28818 u=root |  ok: [localhost]
+2015-07-01 08:52:47,012 p=28818 u=root |  TASK: [vnf_delete_vms | query virtual machine status] *************************
+2015-07-01 08:52:48,189 p=28818 u=root |  failed: [localhost] => {"failed": true}
+2015-07-01 08:52:48,189 p=28818 u=root |  msg: virtual machine ibm31M002DB01 not found
+2015-07-01 08:52:48,189 p=28818 u=root |  ...ignoring
+2015-07-01 08:52:48,190 p=28818 u=root |  TASK: [vnf_delete_vms | make sure undefine virtual machine] *******************
+2015-07-01 08:52:48,204 p=28818 u=root |  ok: [localhost]
+2015-07-01 08:52:48,204 p=28818 u=root |  TASK: [vnf_delete_vms | undefine virtual machine] *****************************
+2015-07-01 08:52:48,214 p=28818 u=root |  TASK: [vnf_delete_vms | query virtual machine status] *************************
+2015-07-01 08:52:48,224 p=28818 u=root |  TASK: [vnf_delete_vms | make sure undefine virtual machine] *******************
+2015-07-01 08:52:48,233 p=28818 u=root |  TASK: [vnf_delete_vms | debug msg="All VMs have been deleted."] ***************
+2015-07-01 08:52:48,234 p=28818 u=root |  ok: [localhost] => {
     "msg": "All VMs have been deleted."
 }
-2015-05-19 19:48:57,284 p=9049 u=root |  TASK: [vnf_destroy_vms | delete all virtual machine files and directories] ****
-2015-05-19 19:49:00,712 p=9049 u=root |  changed: [135.252.138.138]
-2015-05-19 19:49:00,713 p=9049 u=root |  PLAY RECAP ********************************************************************
-2015-05-19 19:49:00,714 p=9049 u=root |  135.252.138.138            : ok=9    changed=4    unreachable=0    failed=0
+2015-07-01 08:52:48,234 p=28818 u=root |  TASK: [vnf_delete_vmfiles | delete virtual machine files] *********************
+2015-07-01 08:52:48,873 p=28818 u=root |  changed: [localhost]
+2015-07-01 08:52:48,874 p=28818 u=root |  TASK: [vnf_delete_vmfiles | delete virtual machine files] *********************
+2015-07-01 08:52:48,884 p=28818 u=root |  TASK: [vnf_delete_vmfiles | delete virtual machine files] *********************
+2015-07-01 08:52:50,165 p=28818 u=root |  changed: [localhost]
+2015-07-01 08:52:50,166 p=28818 u=root |  TASK: [vnf_delete_vmfiles | delete virtual machine files] *********************
+2015-07-01 08:52:50,178 p=28818 u=root |  PLAY RECAP ********************************************************************
+2015-07-01 08:52:50,178 p=28818 u=root |  localhost                  : ok=12   changed=4    unreachable=0    failed=0
+    
