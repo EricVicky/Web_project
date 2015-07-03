@@ -5,7 +5,8 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 				osPassword : "",
 				osTenant   : "",
 				authURL    : "",
-				osDomainName :""
+				osDomainName :"",
+				osRegion:""
 		};
 		$scope.submit = function(){
 			OSService.updateOSCred($scope.crendential).then(function (data){

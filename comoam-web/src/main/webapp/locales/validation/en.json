@@ -82,6 +82,7 @@
 	"CANCEL":"Cancel",
 	"TENANT_NAME":"Tenant Name",
 	"AUTHURL":"authURL",
+	"REGION":"Region",
 	"SUBMIT":"Submit",
 	"NETWORK_CONFIG":"Network Config",
 	"VNFC_CONFIG":"VNFc Config",
