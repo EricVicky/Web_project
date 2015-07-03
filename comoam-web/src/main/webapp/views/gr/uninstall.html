@@ -11,7 +11,7 @@
 										Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab2" data-toggle="tab"> <span
-									class="badge">2</span> <span translate="DEPLOY">Deploy</span>
+									class="badge">2</span> <span translate="DEPLOY">Uninstall</span>
 							</a></li>
 						</ul>
 						<div class="modal-body col-md-12">
@@ -105,6 +105,8 @@
 															</tr>
 														</tbody>
 													</table>
+													<label class="control-label" >Force to uninstall:</label>
+													<input type="checkbox" name="force" ng-model="gr_config.force" ng-click="changeForce()" />
 												</div>
 											</div>
 											<div class="panel-body"
@@ -188,6 +190,8 @@
 															</tr>
 														</tbody>
 													</table>
+													<label class="control-label" >Force to uninstall</label>
+													<input type="checkbox" name="force" ng-model="gr_config.force" ng-click="changeForce()" />
 												</div>
 											</div>
 									</div>

@@ -58,13 +58,6 @@ angular.module('comoamApp')
 		    	  }
 		      }
 		  }); 
-		  
-	
-//	      modalInstance.result.then(function (selectedItem) {
-//	        $scope.selectedIns = selectedItem;
-//	      }, function () {
-//	        $log.info('Modal dismissed at: ' + new Date());
-//	      });
 	  }
   })
   .controller('deleteComController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){

@@ -54,7 +54,7 @@ angular.module('gr', [ 'ui.router',
     	 }
     	 
 }).controller('grUnInstallController', function($scope, $q, $timeout, $log, 
-             $state, GRService,monitorService) {
+             $state, GRService,monitorService, $modal) {
 	GRService.getComInstance().then(function( comstacks ){
 		 if(comstacks.length > 0){
 		    var instances = new Array();
@@ -72,7 +72,34 @@ angular.module('gr', [ 'ui.router',
          	$state.go("dashboard.monitor");
 		});
 	 }
+	$scope.changeForce = function(){
+		if($scope.gr_config.force){
+		      var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/gr/forceConfirm.html',
+		      controller: 'forceController',
+		      size: "sm",
+		      backdrop: true
+		    });	
+		    modalInstance.result.then(function () {
+		       $log.info("force confirmed!"); 
+		    }, function () {
+		    	$scope.gr_config.force = false;
+		    });	
+		}
+	}
+})
+.controller('forceController', function($scope, $modalInstance){
+
+	$scope.ok = function(){
+		$modalInstance.close();
+	};
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
 });
+;
+
 
 
 
