@@ -16,6 +16,7 @@ public class OpenstackConfig implements Serializable {
     private String osTenant;
     private String osDomainName;
     private String authURL;
+    private String osRegion;
     private int identityVersion;
     private double clientReAuthTimeRatio = 0.75;
     private final int VERSION_3 = 3;
@@ -39,11 +40,18 @@ public class OpenstackConfig implements Serializable {
     }
 
     // Getter and Setter methods
+    
     public String getOsUsername() {
         return osUsername;
     }
 
-    public void setOsUsername(String osUsername) {
+	public String getOsRegion() {
+		return osRegion;
+	}
+	public void setOsRegion(String osRegion) {
+		this.osRegion = osRegion;
+	}
+	public void setOsUsername(String osUsername) {
         this.osUsername = osUsername;
     }
 
@@ -117,6 +125,7 @@ public class OpenstackConfig implements Serializable {
 	   vars.append("export OS_TENANT_NAME=\"").append(this.getOsTenant()).append("\"\n");
 	   vars.append("export OS_USERNAME=\"").append(this.osUsername).append("\"\n");
 	   vars.append("export OS_PASSWORD=\"").append(this.getOsPassword()).append("\"\n");
+	   vars.append("export OS_REGION_NAME=\"").append(this.osRegion).append("\"\n");
 	   return vars.toString();
 	   
 	}
@@ -127,6 +136,7 @@ public class OpenstackConfig implements Serializable {
 	   envs.put("OS_TENANT_NAME", this.getOsTenant());
 	   envs.put("OS_USERNAME", this.osUsername);
 	   envs.put("OS_PASSWORD",this.getOsPassword());
+	   envs.put("OS_REGION_NAME", this.osRegion);
 	   return envs;
 	   
 	}
