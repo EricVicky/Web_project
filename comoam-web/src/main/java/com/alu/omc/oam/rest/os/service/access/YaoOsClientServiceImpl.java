@@ -55,22 +55,33 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
 
     // V2
     private OSClient authenticateV2(OpenstackConfig osConfig) {
-        return OSFactory
+        OSClient os=  OSFactory
                 .builder()
                 .endpoint(osConfig.getAuthURL())
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
                 .tenantName(osConfig.getOsTenant()).perspective(Facing.PUBLIC)
                 .authenticate();
+        setRegion(os, osConfig);
+        return os;
     }
 
     // V3
     private OSClient authenticateV3(OpenstackConfig osConfig) {
-        return OSFactory
+        OSClient os=  OSFactory
                 .builderV3()
                 .endpoint(osConfig.getAuthURL())
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
                 .domainName(osConfig.getOsDomainName())
                 .perspective(Facing.PUBLIC).authenticate();
+        setRegion(os, osConfig);
+        return os;
+    }
+    
+    private void setRegion(OSClient os, OpenstackConfig osConfig){
+     if(osConfig.getOsRegion() != null && osConfig.getOsRegion() != ""){
+            os.useRegion(osConfig.getOsRegion());
+        }
+        
     }
 
     @Override

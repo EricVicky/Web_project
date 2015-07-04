@@ -18,15 +18,15 @@ public class GRUnInstallConfig<T extends COMConfig> extends COMConfig implements
      */
 private static final long serialVersionUID = 3890963920968307212L;
 private T comConfig;
-private boolean force = false;
+private boolean forced= false;
 
-public boolean getForce()
+public boolean getForced()
 {
-    return force;
+    return forced;
 }
-public void setForce(boolean force)
+public void setForced(boolean forced)
 {
-    this.force = force;
+    this.forced = forced;
 }
 public T getComConfig() {
 	return comConfig;
@@ -46,7 +46,7 @@ public Inventory getInventory()
 @JsonIgnore 
 public String getVars()
 {
-  return "force: ".concat(String.valueOf(this.getForce())); 
+  return "force: ".concat(String.valueOf(this.getForced())); 
 }
 
 

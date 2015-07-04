@@ -73,7 +73,7 @@ angular.module('gr', [ 'ui.router',
 		});
 	 }
 	$scope.changeForce = function(){
-		if($scope.gr_config.force){
+		if($scope.gr_config.forced){
 		      var modalInstance = $modal.open({
 		      animation: $scope.animationsEnabled,
 		      templateUrl: 'views/gr/forceConfirm.html',
@@ -84,7 +84,7 @@ angular.module('gr', [ 'ui.router',
 		    modalInstance.result.then(function () {
 		       $log.info("force confirmed!"); 
 		    }, function () {
-		    	$scope.gr_config.force = false;
+		    	$scope.gr_config.forced = false;
 		    });	
 		}
 	}
