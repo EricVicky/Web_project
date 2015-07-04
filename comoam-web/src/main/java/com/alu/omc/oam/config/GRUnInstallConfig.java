@@ -46,7 +46,7 @@ public Inventory getInventory()
 @JsonIgnore 
 public String getVars()
 {
-  return "force: ".concat(String.valueOf(this.getForced())); 
+  return "forced: ".concat(String.valueOf(this.getForced())); 
 }
 
 
