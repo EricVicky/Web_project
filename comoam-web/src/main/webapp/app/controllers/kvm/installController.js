@@ -20,9 +20,9 @@ angular.module('kvm', [ 'ui.router',
             	$scope.export=!$scope.export;
             };
             $scope.installConfig.app_install_options = {
-					BACKUP_SERVER_DISK_SPACE:'20000',
+					BACKUP_SERVER_DISK_SPACE:'2000',
 					CALL_TRACE_DISK_SPACE:'1000',
-					CODE_SERVER_DISK_SPACE:'20000',
+					CODE_SERVER_DISK_SPACE:'2000',
 					OMCCN_SUPPORT_WEBSSO_SANE:'false',
 					NTP_SERVER:'135.251.111.73',
 					SEC_UNIX_ENABLE:'NO',
