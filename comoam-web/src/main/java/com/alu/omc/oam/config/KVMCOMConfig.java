@@ -7,12 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.yaml.snakeyaml.Yaml;
-
 import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.kvm.model.Host;
-import com.alu.omc.oam.util.YamlFormatterUtil;
+import com.alu.omc.oam.util.Json2Object;
+import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializable{
@@ -23,8 +22,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
      */
     private static final long  serialVersionUID       = -3535916139459672300L; 
     private COMType            comType;
-	private Map<String, Object> vm_config;
-	private Map<String, String> app_install_options;
+	private Map<String, VMConfig> vm_config;
 
 	private String timezone;
 	private String active_host_ip;
@@ -34,13 +32,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	private String db_image;
 	private String vm_img_dir;
 	
-	public Map<String, String> getApp_install_options() {
-		return app_install_options;
-	}
-	
-	public void setApp_install_options(Map<String, String> app_install_options) {
-		this.app_install_options = app_install_options;
-	}
 	public String getActive_host_ip() {
 		return active_host_ip;
 	}
@@ -81,9 +72,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 		this.timezone = timezone;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
     public COMType getComType()
     {
@@ -95,12 +83,12 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
         this.comType = comType;
     }
     
-    public Map<String, Object> getVm_config()
+    public Map<String, VMConfig> getVm_config()
     {
         return vm_config;
     }
 
-    public void setVm_config(Map<String, Object> vm_config)
+    public void setVm_config(Map<String, VMConfig> vm_config)
     {
         this.vm_config = vm_config;
     }
@@ -119,11 +107,10 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	    while(it.hasNext()){
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
-            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        String ipAddress = vmcfg.get("ip_address");
+            VMConfig vmcfg = vm_config.get(name);
 	        Group g = new Group(name);
 	        allVM.add(g);
-	        g.add(new Host(ipAddress));
+	        g.add(new Host(vmcfg.getNic().get(0).getIpv4().getIpaddress()));
 	        inv.addGroup(g);
 	    }
 		return inv;
@@ -136,13 +123,12 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	    while(it.hasNext()){
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
-            Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
+            VMConfig vmcfg = vm_config.get(name);
 	        VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
-	        InstallOptions.add(vmcfg, comType, name);
-	        vmcfg.put("imgname", this.getVMImageName(name));
+	        vmcfg.setImgname(this.getVMImageName(name));
 	    }
-		Yaml yaml = new Yaml();
-        return YamlFormatterUtil.format(yaml.dump(this));	
+	   String json = Json2Object.object2Json(this);
+       return JsonYamlConverter.convertJson2Yaml(json);
 	}
 	
 	protected String getHostName(){
@@ -207,7 +193,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	        nic.setIpv4(cfg);
 	        IFCfg v6cfg = new IFCfg();
 	        v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
-	        nic.addIpv6(v6cfg);
+	        nic.setIpv6(v6cfg);
 	        List<NIC> nics = new ArrayList<NIC>();
 	        nics.add(nic);
 	        vmnics.put(vm, nics);

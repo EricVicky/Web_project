@@ -38,6 +38,9 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+    	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+    	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
     };
     
     $scope.setDefaultInstace = function(){
@@ -59,7 +62,6 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
    
-    
 	$scope.doUpgrade = function (){
 		KVMService.upgrade($scope.installConfig).then( function(){
 			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
