@@ -39,15 +39,20 @@ angular.module('kvm', [ 'ui.router',
             		"cm" : { "nic": []},
             		"db" : { "nic": []}
             }
+            
             $scope.nics = [ "eth0", "eth1", "eth2"];
             $scope.ntoptions  = [ {"label":"Simple", "mode": 1}, 
     	                             {"label":"Traffic Separation", "mode": 2 },
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
             $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
+        	
             $scope.Backup_Server_Addr = function(){
             	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
                 $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
+                $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+            	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+            	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
             }
             
 			$scope.doDeploy = function (){

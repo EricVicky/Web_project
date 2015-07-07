@@ -60,6 +60,8 @@
 	"CM_VM":"CM VM",
 	"IPV4_ADDRESS":"IPv4 Address",
 	"IPV6_ADDRESS":"IPv6 Address(optional)",
+	"IPV4":"IPv4:",
+	"IPV6":"IPv6:",
 	"FLAVOR":"Flavor",
 	"PLEASE_SELECT":"--Please Select--",
 	"BACKUP_SERVER_DISK_SPACE":"Backup Server Disk Space",
