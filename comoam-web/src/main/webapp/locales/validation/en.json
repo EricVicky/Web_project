@@ -78,6 +78,7 @@
 	"SOFTWARE_SERVER_IS_LOCAL":"Software Server is Local?",
 	"SOFTWARE_SERVER_ADDRESS":"Software Server Address",
 	"BACKUP_SERVER_ADDRESS":"Backup Server Address",
+	"INSTALL_ETHEREAL":"Install Ethereal",
 	"YES":"Yes",
 	"ARE_YOU_SURE_YOU_WANT_TO_DESTROY":"Are you sure you want to destroy:",
 	"DESTROY":"Destroy",

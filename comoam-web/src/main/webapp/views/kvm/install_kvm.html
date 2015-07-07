@@ -123,12 +123,12 @@
 												ng-init="installConfig.vm_config.oam.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress" >
 													<label>IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress" >
 													<label>IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress">
@@ -155,12 +155,12 @@
 												ng-init="installConfig.vm_config.db.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv4.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv4.ipaddress" >
 													<label>IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv6.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv6.ipaddress" >
 													<label>IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv6.ipaddress">
@@ -187,12 +187,12 @@
 												ng-init="installConfig.vm_config.cm.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress" >
 													<label>IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress!=null" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress" >
 													<label>IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress">

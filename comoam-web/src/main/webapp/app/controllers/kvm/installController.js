@@ -36,7 +36,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
-
+					INSTALL_ETHEREAL:'NO'
 			};
             
             $scope.installConfig.vm_config = {
@@ -181,7 +181,7 @@ angular.module('kvm', [ 'ui.router',
     $scope.ok = function(){
     	$scope.alert=true;
     	if($scope.nic.ipv4!=null){
-    		if(!$scope.nic.ipv4.ipaddress||!$scope.nic.ipv4.gateway||!$scope.nic.ipv4.prefix||!$scope.nic.bridge){
+    		if(!$scope.nic.ipv4.ipaddress||!$scope.nic.ipv4.prefix||!$scope.nic.bridge){
     			return;
         	}else{
         		$scope.alert=false;
@@ -190,15 +190,12 @@ angular.module('kvm', [ 'ui.router',
     	}
 	};
 	
-	if(nic!=null){
-		$scope.nic = nic;
-	}
-	
+	$scope.nic = nic;
 	$scope.oneAtATime = true;
 	$scope.vm = vm;
 	  
 	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
+		$modalInstance.dismiss($scope.nic);
     };
 });
 
