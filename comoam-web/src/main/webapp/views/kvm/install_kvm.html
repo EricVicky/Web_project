@@ -114,120 +114,98 @@
 									</div>
 									<fieldset ng-init="installConfig.vm_config.oam.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-										<legend translate="OAM_VM">OAM VM</legend>
-
-										<div class="row" >
-										<div class="form-group col-md-2"> <label class="control-label" translate="NETWORK_PREFIX">Network Prefix(IPv4)</label></div>
-										<div class="form-group col-md-3"> <label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label></div>
-										<div class="form-group col-md-2"> <label class="control-label" translate="NETWORK_PREFIX_IPV6">Network Prefix(IPv6)</label></div>
-										<div class="form-group col-md-3"> <label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label></div>
-										<div class="form-group col-md-2"> <label class="control-label" translate="BRIDGE">Bridge</label></div>
+										<legend>OAM VM</legend>
+										<div class="row" name="{{nic}}"
+											ng-if="networktraffic > $index " ng-repeat="nic in nics">
+											<div class="form-group col-md-1">
+												<strong class="control-label"> {{nic}}</strong>
+												<input class="form-control"  type="hidden" ng-model="installConfig.vm_config.oam.nic[$index].name"
+												ng-init="installConfig.vm_config.oam.nic[$index].name=nic"/>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress!=null" >
+													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="oam_ipv4_ipaddress" type="text" validation="required" 
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress">
+												</div>
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress!=null" >
+													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="oam_ipv6_ipaddress" type="text"
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress">
+												</div>
+												<div class="col-md-1">
+													<div class="input-group">
+														<a class="btn btn-default" ng-click="nicConfig($index,'oam')">Config</a>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="row" name="{{nic}}" ng-if="networktraffic > $index  " ng-repeat="nic in nics">
-											<input value="{{ nic }}" hidden  ng-model="installConfig.vm_config.oam.nic[$index].name"/>
-										<div class="form-group col-md-2">
-											<input name="netmask" class="form-control" type="text" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.prefix" placeholder="network prefix"
-												title="network prefix" validation="integer|required" />
-										</div>
-										<div class="form-group col-md-3">
-											 <input name="oam_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-2">
-											<input name="prefix" class="form-control" type="text" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.prefix" placeholder="IPv6 network prefix"
-												title="prefix" validation="integer" />
-										</div>
-										<div class="form-group col-md-3">
-											 <input name="oam_v6_ip_addr" class="form-control" type="text" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress" placeholder="Please Insert IP"
-												title="IP Address"  />
-										</div>
-										<div class="form-group col-md-2">
-											 <input name="oam_bridge" class="form-control" type="text" ng-model="installConfig.vm_config.oam.nic[$index].bridge" placeholder="Please Insert IP"
-												title="bridge"  />
-										</div>
+										<div class="col-md-5">
+											<span class="validation text-danger" ng-show="tab3.oam_ipv4_ipaddress.$error.validation"><label>Please Config ALL OAM VM!</label></span>
 										</div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.db.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-									  <legend translate="DB_VM">DB VM</legend>
-									  <div class="row" name="{{nic}}" ng-if="networktraffic > $index " ng-repeat="nic in nics">
-										<div class="form-group col-md-3">
-											<label class="control-label"> {{nic}}</label>										
+										<legend>DB VM</legend>
+										<div class="row" name="{{nic}}"
+											ng-if="networktraffic > $index " ng-repeat="nic in nics">
+											<div class="form-group col-md-1">
+												<strong class="control-label"> {{nic}}</strong>
+												<input class="form-control" type="hidden" ng-model="installConfig.vm_config.db.nic[$index].name"
+												ng-init="installConfig.vm_config.db.nic[$index].name=nic"/>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv4.ipaddress!=null" >
+													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="db_ipv4_ipaddress" type="text" validation="required" 
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv4.ipaddress">
+												</div>
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv6.ipaddress!=null" >
+													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="db_ipv6_ipaddress" type="text"
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv6.ipaddress">
+												</div>
+												<div class="col-md-1">
+													<div class="input-group">
+														<a class="btn btn-default" ng-click="nicConfig($index,'db')">Config</a>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="form-group col-md-9">
-										    <div class="row">
-										          <div class="form-group col-md-3">IPv4</div>
-										          <div class="form-group col-md-9">
-										              <div class="row">
-										                 <div class="form-group col-md-4">
-											                <input name="db_netmask" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv4.prefix" placeholder="network prefix"
-												              title="network prefix" validation="integer|required" />
-										                 </div>
-										                 <div class="form-group col-md-4">
-											                <input name="db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv4.ipaddress" placeholder="Please Insert IP"
-												              title="IP Address" validation="ipv4|required" />
-										                 </div>
-										                 <div class="form-group col-md-4">
-											                <input name="db_gateway" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv4.gateway" placeholder="Please Insert IP"
-												              title="Gateway" validation="ipv4|required" />
-										                 </div>
-										              </div> 
-										          </div>
-										    </div>
-										    <div class="row">
-										          <div class="form-group col-md-3">IPv6</div>
-										          <div class="form-group col-md-9">
-										              <div class="row">
-										                 <div class="form-group col-md-4">
-											                <input name="v6_db_netmask" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv6.prefix" placeholder="network prefix"
-												              title="network prefix" validation="integer|required" />
-										                 </div>
-										                 <div class="form-group col-md-4">
-											                <input name="v6_db_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv6.ipaddress" placeholder="Please Insert IP"
-												              title="IP Address" validation="ipv4|required" />
-										                 </div>
-										                 <div class="form-group col-md-4">
-											                <input name="v6_db_gateway" class="form-control" type="text" ng-model="installConfig.vm_config.db.nic[$index].ipv6.gateway" placeholder="Please Insert IP"
-												              title="Gateway" validation="ipv4|required" />
-										                 </div>
-										              </div> 
-										          </div>
-										    </div>
+										<div class="col-md-5">
+											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress.$error.validation"><label>Please Config ALL DB VM!</label></span>
 										</div>
-									   </div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.cm.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-										<legend translate="CM_VM">CM VM</legend>
-										
-										<div class="row" >
-										<div class="form-group col-md-2"> <label class="control-label" translate="NETWORK_PREFIX">Network Prefix(IPv4)</label></div>
-										<div class="form-group col-md-3"> <label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label></div>
-										<div class="form-group col-md-2"> <label class="control-label" translate="NETWORK_PREFIX_IPV6">Network Prefix(IPv6)</label></div>
-										<div class="form-group col-md-3"> <label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label></div>
-										<div class="form-group col-md-2"> <label class="control-label" translate="BRIDGE">Bridge</label></div>
+										<legend>CM VM</legend>
+										<div class="row" name="{{nic}}"
+											ng-if="networktraffic > $index " ng-repeat="nic in nics">
+											<div class="form-group col-md-1">
+												<strong class="control-label"> {{nic}}</strong>
+												<input class="form-control" type="hidden" ng-model="installConfig.vm_config.cm.nic[$index].name"
+												ng-init="installConfig.vm_config.cm.nic[$index].name=nic"/>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress!=null" >
+													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="cm_ipv4_ipaddress" type="text" validation="required" 
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress">
+												</div>
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress!=null" >
+													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<input align="center" name="cm_ipv6_ipaddress" type="text"
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress">
+												</div>
+												<div class="col-md-1">
+													<div class="input-group">
+														<a class="btn btn-default" ng-click="nicConfig($index,'cm')">Config</a>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="row" name="{{nic}}" ng-if="networktraffic > $index " ng-repeat="nic in nics">
-										<div class="form-group col-md-2">
-											<input name="cm_netmask" class="form-control" type="text" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.prefix" placeholder="network prefix"
-												title="network prefix" validation="integer|required" />
-										</div>
-										<div class="form-group col-md-3">
-											 <input name="cm_ip_address" class="form-control" type="text" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress" placeholder="Please Insert IP"
-												title="IP Address" validation="ipv4|required" />
-										</div>
-										<div class="form-group col-md-2">
-											<input name="cm_prefix" class="form-control" type="text" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.prefix" placeholder="IPv6 network prefix"
-												title="prefix" validation="integer" />
-										</div>
-										<div class="form-group col-md-3">
-											 <input name="cm_v6_ip_addr" class="form-control" type="text" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress" placeholder="Please Insert IP"
-												title="IP Address"  />
-										</div>
-										<div class="form-group col-md-2">
-											 <input name="cm_bridge" class="form-control" type="text" ng-model="installConfig.vm_config.cm.nic[$index].bridge" placeholder="Please Insert IP"
-												title="bridge"  />
-										</div>
+										<div class="col-md-5">
+											<span class="validation text-danger" ng-show="tab3.cm_ipv4_ipaddress.$error.validation"><label>Please Config ALL CM VM!</label></span>
 										</div>
 									</fieldset>
 								</form>

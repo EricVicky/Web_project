@@ -5,7 +5,7 @@ angular.module('kvm', [ 'ui.router',
                         'ghiscoding.validation',
                         'monitor',
                         'dashboard',
-                        'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
+                        'ngResource']).controller('kvmctr', function($scope, $log, KVMService,
            $state,  $dialogs, monitorService, $modal) {
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
@@ -48,12 +48,35 @@ angular.module('kvm', [ 'ui.router',
             $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
         	
             $scope.Backup_Server_Addr = function(){
-            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
-                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
-                $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
-            	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-            	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
-            }
+            	if($scope.installConfig.vm_config.oam.nic[0]!=null&&$scope.installConfig.vm_config.oam.nic[0].ipv4!=null){
+            		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
+                    $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
+                    $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+                	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+                	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+            	}
+            };
+
+            $scope.nicConfig = function(index, vm){
+            	var modalInstance = $modal.open({
+            	      animation: true,
+            	      templateUrl: 'views/kvm/nicConfig.html',
+            	      controller: 'nicctr',
+            	      resolve: {
+         		         nic: function () {
+         		        	 if($scope.installConfig.vm_config!=null){
+         		        		return $scope.installConfig.vm_config[vm].nic[index];
+         		        	 }
+         		         },
+            			 vm: function() {
+            				 return vm;
+            			 }
+         		      }
+            	});
+            	modalInstance.result.then(function (nic) {
+            		$scope.installConfig.vm_config[vm].nic[index] = nic;
+            	});
+            };
             
 			$scope.doDeploy = function (){
 				$log.info($scope.installConfig);
@@ -115,7 +138,6 @@ angular.module('kvm', [ 'ui.router',
 
 	  $scope.animationsEnabled = true;
 	  $scope.NFVTypes = ["FCAPS", "CM", "OAM"];
-
 	  $scope.open = function (size) {
 
 		  var modalInstance = $modal.open({
@@ -146,6 +168,30 @@ angular.module('kvm', [ 'ui.router',
 	$scope.ok = function(){
 		$modalInstance.close($scope.NFV);
 	};
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
+})
+.controller('nicctr', function($scope, $modalInstance,nic,vm){
+    $scope.ok = function(){
+    	$scope.alert=true;
+    	if($scope.nic.ipv4!=null){
+    		if(!$scope.nic.ipv4.ipaddress||!$scope.nic.ipv4.gateway||!$scope.nic.ipv4.prefix||!$scope.nic.bridge){
+    			return;
+        	}else{
+        		$scope.alert=false;
+        		$modalInstance.close($scope.nic);
+        	}
+    	}
+	};
+	
+	if(nic!=null){
+		$scope.nic = nic;
+	}
+	
+	$scope.oneAtATime = true;
+	$scope.vm = vm;
+	  
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
     };
