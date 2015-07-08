@@ -53,9 +53,9 @@ angular.module('kvm', [ 'ui.router',
             $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
         	
             $scope.Backup_Server_Addr = function(){
-            	if($scope.installConfig.vm_config.oam.nic[0]!=null&&$scope.installConfig.vm_config.oam.nic[0].ipv4!=null){
-            		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
-                    $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
+            	if($scope.installConfig.vm_config.oam.nic[0]!=null&&$scope.installConfig.vm_config.oam.nic[0].ip_v4!=null){
+            		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
+                    $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
                     $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
                 	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
                 	if($scope.installConfig.comType != "OAM"){
@@ -190,8 +190,8 @@ angular.module('kvm', [ 'ui.router',
 .controller('nicctr', function($scope, $modalInstance,config,vm){
     $scope.ok = function(){
     	$scope.alert=true;
-    	if($scope.nic.ipv4!=null){
-    		if(!$scope.nic.ipv4.ipaddress||!$scope.nic.ipv4.prefix||!$scope.nic.bridge){
+    	if($scope.nic.ip_v4!=null){
+    		if(!$scope.nic.ip_v4.ipaddress||!$scope.nic.ip_v4.prefix||!$scope.nic.bridge){
     			return;
         	}else{
         		$scope.alert=false;
@@ -203,7 +203,7 @@ angular.module('kvm', [ 'ui.router',
 	$scope.nic = config;
 	$scope.oneAtATime = true;
 	$scope.vm = vm;
-	if($scope.nic.ipv6){
+	if($scope.nic.ip_v6){
 		$scope.open = !status.open;
 	}else{
 		$scope.open = status.open; 

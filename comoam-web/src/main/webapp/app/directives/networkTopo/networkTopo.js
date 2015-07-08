@@ -185,8 +185,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											var networkTopoX = 550;					//distance between topology and network on direction X
 											for(var numberofNetwork=0;numberofNetwork<this.Networks.length;numberofNetwork++){
 												for(var indexofNic = 0;indexofNic<instances[comStacksNum].vm_config[vnfcNum].nic.length;indexofNic++){
-	                        						if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv4.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv4.netmask) == this.Networks[numberofNetwork] 
-	                        							|| this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv6.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv6.netmask == this.Networks[numberofNetwork]){
+	                        						if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v4.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v4.netmask) == this.Networks[numberofNetwork] 
+	                        							|| this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v6.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v6.netmask == this.Networks[numberofNetwork]){
 	            										lineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofNetwork;
 	            										linePortColor = commoncolor[numberofNetwork];
 	            									}
@@ -215,7 +215,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 												var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + 50,
 	                        							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + (portHeight + portInterval) * indexofNIC + 3);
 	        									var vnfcportIpText = new PointText(vnfcportIpPoint);
-	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ipv4.ipaddress + "/" + this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ipv4.prefix;
+	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ip_v4.ipaddress + "/" + this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ip_v4.prefix;
 	        									vnfcportIpText.fillColor = linePortColor;
 	        									vnfcportIpText.fontSize = '15px';
 	        									
@@ -440,8 +440,8 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var providerNetworkAddress = '';
             					if(instances[comstack].environment == "KVM"){
             						for(var indexofNic = 0;indexofNic<instances[comstack].vm_config[vnfc].nic.length;indexofNic++){
-            							ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ipv4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ipv4.netmask);
-            							ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ipv6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ipv6.netmask);
+            							ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.netmask);
+            							ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.netmask);
                 						if(!networks[ipv4NetworkAddress] || !networks[ipv6NetworkAddress]){
                     						networks[ipv4NetworkAddress] = ipv4NetworkAddress;
                     						networks[ipv6NetworkAddress] = ipv6NetworkAddress;
