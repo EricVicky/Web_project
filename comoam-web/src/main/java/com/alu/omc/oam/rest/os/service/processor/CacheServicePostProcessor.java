@@ -7,13 +7,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
-import com.alu.omc.oam.conf.interceptor.intf.UnLogable;
 import com.alu.omc.oam.rest.os.service.CinderService;
 import com.alu.omc.oam.rest.os.service.ComputeService;
 import com.alu.omc.oam.rest.os.service.access.YaoOsClientService;
 
 //@Component
-public class CacheServicePostProcessor implements BeanPostProcessor, UnLogable {
+public class CacheServicePostProcessor implements BeanPostProcessor {
 
 //	@Resource
 	private YaoOsClientService yaoOsClientService;
