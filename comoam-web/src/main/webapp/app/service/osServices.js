@@ -58,6 +58,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var subnetRes = $resource(restUrl + "nfv/os/neutron/" + networkId + "/subnet/v6/list/names");
 			return subnetRes.query().$promise;
 		},
+		getcinderzones: function (){
+			var cinderRes = $resource(restUrl + "nfv/os/cinder/zone/list");
+			return cinderRes.query().$promise;
+		},
 		getImages: function(){
 			var imgRes = $resource(restUrl + "nfv/os/glance/image/list");
 			return imgRes.query().$promise;

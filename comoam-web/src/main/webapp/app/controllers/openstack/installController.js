@@ -17,7 +17,7 @@ angular.module('os', [ 'ui.router',
             $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" },{"name": "icehouse", "version": "2013-05-23"}];
             $scope.config_drive = [ 'True', 'False' ];
             $scope.private_network = [ 'True', 'False'];
-            $scope.blockAvailZoneStore = ['Nova', 'nova'];
+            //$scope.blockAvailZoneStore = ['Nova', 'nova'];
             $scope.installConfig ={};
             
             $scope.changeComType = function(){
@@ -82,6 +82,9 @@ angular.module('os', [ 'ui.router',
 			});
             OSService.getComputeAvailZoneStore().then(function(data) {
             	$scope.computeAvailZoneStore = data;
+			});
+            OSService.getcinderzones().then(function(data) {
+            	$scope.blockAvailZoneStore = data;
 			});
             OSService.getImages().then(function(data){
             	$scope.oam_cm_images = data;

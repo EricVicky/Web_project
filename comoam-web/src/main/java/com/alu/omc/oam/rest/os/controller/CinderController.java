@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.openstack4j.api.OSClient;
+import org.openstack4j.openstack.storage.block.domain.ExtAvailabilityZone;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,5 +39,17 @@ public class CinderController {
 			return cinderService.getAllVolumes(client);
 		else
 			return Collections.<YaoVolume>emptyList();
+	}
+	
+	@RequestMapping("/zone/list")
+	public List<ExtAvailabilityZone> getAllZones()
+	{
+	    OSClient client = yaoOsClientService.getOsClient();
+		if(client != null){
+		    System.out.println(cinderService.getAvaliabilityZoneList(client));
+			return cinderService.getAvaliabilityZoneList(client);
+		}
+		else
+			return Collections.<ExtAvailabilityZone>emptyList();
 	}
 }

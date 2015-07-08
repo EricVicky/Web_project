@@ -58,7 +58,9 @@ angular.module('kvm', [ 'ui.router',
                     $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ipv4.ipaddress;
                     $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
                 	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-                	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+                	if($scope.installConfig.comType != "OAM"){
+                		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;                		
+                	}
             	}
             };
 
@@ -87,6 +89,12 @@ angular.module('kvm', [ 'ui.router',
             
 			$scope.doDeploy = function (){
 				$log.info($scope.installConfig);
+				var vm_config = $scope.installConfig.vm_config;
+				for(var vm in vm_config){
+					if(vm_config[vm].nic.length == 0){
+						delete vm_config[vm];
+					}
+				}
             	KVMService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
          			$state.go("dashboard.monitor");
