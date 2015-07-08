@@ -106,6 +106,12 @@
 			<artifactId>openstack4j</artifactId>
 			<version>2.0.4-COM</version>
 			<classifier>withdeps</classifier>
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.pacesys</groupId>
+					<artifactId>openstack4j-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
