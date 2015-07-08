@@ -123,15 +123,15 @@
 												ng-init="installConfig.vm_config.oam.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv4_ipaddress" type="text" validation="required" 
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ip_v4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ip_v6.ipaddress" >
 													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv6_ipaddress" type="text"
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ip_v6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
@@ -155,15 +155,15 @@
 												ng-init="installConfig.vm_config.db.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv4.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv4_ipaddress" type="text" validation="required" 
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv4.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ip_v4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv6.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ip_v6.ipaddress" >
 													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv6_ipaddress" type="text"
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv6.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ip_v6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
@@ -187,15 +187,15 @@
 												ng-init="installConfig.vm_config.cm.nic[$index].name=nic"/>
 											</div>
 											<div class="row form-group">
-												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv4_ipaddress" type="text" validation="required" 
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ip_v4.ipaddress">
 												</div>
-												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress" >
+												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ip_v6.ipaddress" >
 													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv6_ipaddress" type="text"
-													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress">
+													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ip_v6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
@@ -245,13 +245,13 @@
 																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 																<td rowspan="2" width="10%" align="center" style="vertical-align: middle">{{installConfig.vm_config.oam.nic[0].bridge}}</td>
 																<td width="10%" translate="IPV4">IPv4</td>
-																<td>ip:{{installConfig.vm_config.oam.nic[0].ipv4.ipaddress}}/{{installConfig.vm_config.oam.nic[0].ipv4.prefix}} gateway:{{installConfig.vm_config.oam.nic[0].ipv4.gateway}}</td>
+																<td>ip:{{installConfig.vm_config.oam.nic[0].ip_v4.ipaddress}}/{{installConfig.vm_config.oam.nic[0].ip_v4.prefix}} gateway:{{installConfig.vm_config.oam.nic[0].ip_v4.gateway}}</td>
 															</div>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.oam.nic[0].ipv6.ipaddress}}/{{installConfig.vm_config.oam.nic[0].ipv6.prefix}} gateway:{{installConfig.vm_config.oam.nic[0].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.oam.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.oam.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.oam.nic[0].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.oam.nic[1]">
 															<td rowspan="2" width="15%" align="center"
@@ -259,11 +259,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.oam.nic[1].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.oam.nic[1].ipv4.ipaddress}}/{{installConfig.vm_config.oam.nic[1].ipv4.prefix}} gateway:{{installConfig.vm_config.oam.nic[1].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.oam.nic[1].ip_v4.ipaddress}}/{{installConfig.vm_config.oam.nic[1].ip_v4.prefix}} gateway:{{installConfig.vm_config.oam.nic[1].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.oam.nic[1]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.oam.nic[1].ipv6.ipaddress}}/{{installConfig.vm_config.oam.nic[1].ipv6.prefix}} gateway:{{installConfig.vm_config.oam.nic[1].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.oam.nic[1].ip_v6.ipaddress}}/{{installConfig.vm_config.oam.nic[1].ip_v6.prefix}} gateway:{{installConfig.vm_config.oam.nic[1].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.oam.nic[2]">
 															<td rowspan="2" width="15%" align="center"
@@ -271,11 +271,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.oam.nic[2].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.oam.nic[2].ipv4.ipaddress}}/{{installConfig.vm_config.oam.nic[2].ipv4.prefix}} gateway:{{installConfig.vm_config.oam.nic[2].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.oam.nic[2].ip_v4.ipaddress}}/{{installConfig.vm_config.oam.nic[2].ip_v4.prefix}} gateway:{{installConfig.vm_config.oam.nic[2].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.oam.nic[2]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.oam.nic[2].ipv6.ipaddress}}/{{installConfig.vm_config.oam.nic[2].ipv6.prefix}} gateway:{{installConfig.vm_config.oam.nic[2].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.oam.nic[2].ip_v6.ipaddress}}/{{installConfig.vm_config.oam.nic[2].ip_v6.prefix}} gateway:{{installConfig.vm_config.oam.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -297,13 +297,13 @@
 																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 																<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.db.nic[0].bridge}}</td>
 																<td width="10%" translate="IPV4">IPv4</td>
-																<td>ip:{{installConfig.vm_config.db.nic[0].ipv4.ipaddress}}/{{installConfig.vm_config.db.nic[0].ipv4.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ipv4.gateway}}</td>
+																<td>ip:{{installConfig.vm_config.db.nic[0].ip_v4.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v4.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v4.gateway}}</td>
 															</div>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.db.nic[0].ipv6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ipv6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ipv6.prefix}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v6.prefix}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[1]">
 															<td rowspan="2" width="15%" align="center"
@@ -311,11 +311,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.db.nic[1].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.db.nic[1].ipv4.ipaddress}}/{{installConfig.vm_config.db.nic[1].ipv4.prefix}} gateway:{{installConfig.vm_config.db.nic[1].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[1].ip_v4.ipaddress}}/{{installConfig.vm_config.db.nic[1].ip_v4.prefix}} gateway:{{installConfig.vm_config.db.nic[1].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[1]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.db.nic[1].ipv6.ipaddress}}/{{installConfig.vm_config.db.nic[1].ipv6.prefix}} gateway:{{installConfig.vm_config.db.nic[1].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[1].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[1].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[1].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[2]">
 															<td rowspan="2" width="15%" align="center"
@@ -323,11 +323,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.db.nic[2].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.db.nic[2].ipv4.ipaddress}}/{{installConfig.vm_config.db.nic[2].ipv4.prefix}} gateway:{{installConfig.vm_config.db.nic[2].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[2].ip_v4.ipaddress}}/{{installConfig.vm_config.db.nic[2].ip_v4.prefix}} gateway:{{installConfig.vm_config.db.nic[2].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[2]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.db.nic[2].ipv6.ipaddress}}/{{installConfig.vm_config.db.nic[2].ipv6.prefix}} gateway:{{installConfig.vm_config.db.nic[2].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[2].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[2].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
@@ -349,13 +349,13 @@
 																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 																<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.cm.nic[0].bridge}}</td>
 																<td width="10%" translate="IPV4">IPv4</td>
-																<td>ip:{{installConfig.vm_config.cm.nic[0].ipv4.ipaddress}}/{{installConfig.vm_config.cm.nic[0].ipv4.prefix}} gateway:{{installConfig.vm_config.cm.nic[0].ipv4.gateway}}</td>
+																<td>ip:{{installConfig.vm_config.cm.nic[0].ip_v4.ipaddress}}/{{installConfig.vm_config.cm.nic[0].ip_v4.prefix}} gateway:{{installConfig.vm_config.cm.nic[0].ip_v4.gateway}}</td>
 															</div>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.cm.nic[0].ipv6.ipaddress}}/{{installConfig.vm_config.cm.nic[0].ipv6.prefix}} gateway:{{installConfig.vm_config.cm.nic[0].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.cm.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.cm.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.cm.nic[0].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.cm.nic[1]">
 															<td rowspan="2" width="15%" align="center"
@@ -363,11 +363,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.cm.nic[1].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.cm.nic[1].ipv4.ipaddress}}/{{installConfig.vm_config.cm.nic[1].ipv4.prefix}} gateway:{{installConfig.vm_config.cm.nic[1].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.cm.nic[1].ip_v4.ipaddress}}/{{installConfig.vm_config.cm.nic[1].ip_v4.prefix}} gateway:{{installConfig.vm_config.cm.nic[1].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.cm.nic[1]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.cm.nic[1].ipv6.ipaddress}}/{{installConfig.vm_config.cm.nic[1].ipv6.prefix}} gateway:{{installConfig.vm_config.cm.nic[1].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.cm.nic[1].ip_v6.ipaddress}}/{{installConfig.vm_config.cm.nic[1].ip_v6.prefix}} gateway:{{installConfig.vm_config.cm.nic[1].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.cm.nic[2]">
 															<td rowspan="2" width="15%" align="center"
@@ -375,11 +375,11 @@
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
 															<td rowspan="2" align="center" style="vertical-align: middle">{{installConfig.vm_config.cm.nic[2].bridge}}</td>
 															<td width="10%" translate="IPV4">IPv4</td>
-															<td>ip:{{installConfig.vm_config.cm.nic[2].ipv4.ipaddress}}/{{installConfig.vm_config.cm.nic[2].ipv4.prefix}} gateway:{{installConfig.vm_config.cm.nic[2].ipv4.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.cm.nic[2].ip_v4.ipaddress}}/{{installConfig.vm_config.cm.nic[2].ip_v4.prefix}} gateway:{{installConfig.vm_config.cm.nic[2].ip_v4.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.cm.nic[2]">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.cm.nic[2].ipv6.ipaddress}}/{{installConfig.vm_config.cm.nic[2].ipv6.prefix}} gateway:{{installConfig.vm_config.cm.nic[2].ipv6.gateway}}</td>
+															<td>ip:{{installConfig.vm_config.cm.nic[2].ip_v6.ipaddress}}/{{installConfig.vm_config.cm.nic[2].ip_v6.prefix}} gateway:{{installConfig.vm_config.cm.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">

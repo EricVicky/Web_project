@@ -13,31 +13,31 @@ public NIC()
     }
 private String name;
 private String bridge;
-private IFCfg ipv4;
-private IFCfg  ipv6 ;
+private IFCfg ip_v4;
+private IFCfg  ip_v6 ;
 public String getName()
 {
     return name;
 }
-public void setIpv6(IFCfg ipv6)
+public void setIp_v6(IFCfg ipv6)
 {
-    this.ipv6 = ipv6;
+    this.ip_v6 = ipv6;
 }
 public void setName(String name)
 {
     this.name = name;
 }
-public IFCfg getIpv4()
+public IFCfg getIp_v4()
 {
-    return ipv4;
+    return ip_v4;
 }
-public void setIpv4(IFCfg ipv4)
+public void setIp_v4(IFCfg ipv4)
 {
-    this.ipv4 = ipv4;
+    this.ip_v4 = ipv4;
 }
-public IFCfg getIpv6()
+public IFCfg getIp_v6()
 {
-    return ipv6;
+    return ip_v6;
 }
 public String getBridge()
 {

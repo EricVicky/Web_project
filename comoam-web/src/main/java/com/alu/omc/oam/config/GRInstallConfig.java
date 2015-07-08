@@ -157,40 +157,40 @@ public class GRIP implements Serializable{
     }
     
     private void simpleGR(NIC actnic, NIC stbnic, boolean isIPv4 ){
-        this.pri_ip = isIPv4?actnic.getIpv4().getIpaddress():actnic.getIpv6().getIpaddress();
-        this.sec_ip = isIPv4?stbnic.getIpv4().getIpaddress():stbnic.getIpv6().getIpaddress();
+        this.pri_ip = isIPv4?actnic.getIp_v4().getIpaddress():actnic.getIp_v6().getIpaddress();
+        this.sec_ip = isIPv4?stbnic.getIp_v4().getIpaddress():stbnic.getIp_v6().getIpaddress();
     }
     
     private void sepGR(List<NIC> actNics, List<NIC> stbNics, boolean isIPv4, boolean installActive){
         if(installActive){
-            this.pri_ip = isIPv4?actNics.get(0).getIpv4().ipaddress: 
-                actNics.get(0).getIpv6().getIpaddress();
-            this.sec_ip = isIPv4?stbNics.get(1).getIpv4().ipaddress: 
-                stbNics.get(1).getIpv6().getIpaddress();
+            this.pri_ip = isIPv4?actNics.get(0).getIp_v4().ipaddress: 
+                actNics.get(0).getIp_v6().getIpaddress();
+            this.sec_ip = isIPv4?stbNics.get(1).getIp_v4().ipaddress: 
+                stbNics.get(1).getIp_v6().getIpaddress();
         }else{
-            this.pri_ip = isIPv4?actNics.get(1).getIpv4().ipaddress: 
-                actNics.get(1).getIpv6().getIpaddress();
-            this.sec_ip = isIPv4?stbNics.get(0).getIpv4().ipaddress: 
-                stbNics.get(0).getIpv6().getIpaddress();
+            this.pri_ip = isIPv4?actNics.get(1).getIp_v4().ipaddress: 
+                actNics.get(1).getIp_v6().getIpaddress();
+            this.sec_ip = isIPv4?stbNics.get(0).getIp_v4().ipaddress: 
+                stbNics.get(0).getIp_v6().getIpaddress();
             
         }       
     }
     
     private void redGR(List<NIC> actNics, List<NIC> stbNics, boolean isIPv4, boolean installActive){
         if(installActive){
-            this.pri_ip = isIPv4?actNics.get(0).getIpv4().ipaddress: 
-                actNics.get(0).getIpv6().getIpaddress();
-            this.sec_ip = isIPv4?stbNics.get(1).getIpv4().ipaddress: 
-                stbNics.get(1).getIpv6().getIpaddress();
-            this.red_ip = isIPv4?actNics.get(2).getIpv4().ipaddress: 
-                actNics.get(2).getIpv6().getIpaddress();
+            this.pri_ip = isIPv4?actNics.get(0).getIp_v4().ipaddress: 
+                actNics.get(0).getIp_v6().getIpaddress();
+            this.sec_ip = isIPv4?stbNics.get(1).getIp_v4().ipaddress: 
+                stbNics.get(1).getIp_v6().getIpaddress();
+            this.red_ip = isIPv4?actNics.get(2).getIp_v4().ipaddress: 
+                actNics.get(2).getIp_v6().getIpaddress();
         }else{
-            this.pri_ip = isIPv4?actNics.get(1).getIpv4().ipaddress: 
-                actNics.get(1).getIpv6().getIpaddress();
-            this.sec_ip = isIPv4?stbNics.get(0).getIpv4().ipaddress: 
-                stbNics.get(0).getIpv6().getIpaddress();
-            this.red_ip = isIPv4?stbNics.get(2).getIpv4().ipaddress: 
-                stbNics.get(2).getIpv6().getIpaddress();
+            this.pri_ip = isIPv4?actNics.get(1).getIp_v4().ipaddress: 
+                actNics.get(1).getIp_v6().getIpaddress();
+            this.sec_ip = isIPv4?stbNics.get(0).getIp_v4().ipaddress: 
+                stbNics.get(0).getIp_v6().getIpaddress();
+            this.red_ip = isIPv4?stbNics.get(2).getIp_v4().ipaddress: 
+                stbNics.get(2).getIp_v6().getIpaddress();
             
         } 
     }
