@@ -63,27 +63,26 @@ angular.module('kvm', [ 'ui.router',
                 	}
             	}
             };
-
             $scope.nicConfig = function(index, vm){
             	var modalInstance = $modal.open({
             	      animation: true,
+            	      backdrop:'static',
             	      templateUrl: 'views/kvm/nicConfig.html',
             	      controller: 'nicctr',
             	      resolve: {
          		         config: function () {
          		        	 if($scope.installConfig.vm_config!=null){
-         		        		return $scope.installConfig.vm_config[vm].nic[index];
+         		        		return angular.copy($scope.installConfig.vm_config[vm].nic[index]);
          		        	 }
          		         },
             			 vm: function() {
             				 return vm;
             			 }
-         		      }
+         		      },
             	});
             	modalInstance.result.then(function (item) {
             		$scope.installConfig.vm_config[vm].nic[index] = item;
             	}, function () {
-      		      $log.info('Modal dismissed at: ' + new Date());
     		    });
             };
             
@@ -199,7 +198,6 @@ angular.module('kvm', [ 'ui.router',
         	}
     	}
 	};
-	
 	$scope.nic = config;
 	$scope.oneAtATime = true;
 	$scope.vm = vm;

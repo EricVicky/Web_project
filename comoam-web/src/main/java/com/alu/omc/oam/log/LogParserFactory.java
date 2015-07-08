@@ -110,12 +110,12 @@ public class LogParserFactory
     private ILogParser osInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("TASK\\:\\s\\[start\\sall\\svms\\]", "Start COM");
-        dict.put("cloud\\_init\\s\\|\\scloud\\sinit\\send", "Cloud Init");
-        dict.put("deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack", "check Presence of Heat stack");
-        dict.put("stack\\_templates\\s\\|\\supdate\\sALU\\-1360\\-COM\\.hot\\.yaml\\sdocument", "Generate Heat Templates");
-        dict.put("os\\_common\\s\\|\\svaliadtion\\skey", "valiadtion key");
-        dict.put("os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials", "Start");
+        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Start COM");
+        dict.put("TASK\\:\\s\\[cloud\\_init\\s\\|\\scloud\\sinit\\send\\]", "Cloud Init");
+        dict.put("TASK\\:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\]", "Check Presence of Heat Stack");
+        dict.put("TASK\\:\\s\\[stack\\_templates\\s\\|\\sRunning\\swith\\sthe\\sfollowing\\soptions\\]", "Generate Heat Templates");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\svaliadtion\\skey\\]", "Valiadtion Key");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
         return new LogParser(dict);
     }
 
