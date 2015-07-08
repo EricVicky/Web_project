@@ -35,11 +35,15 @@ public class VNFHostName
 
     }
     
+    public static void add(VMConfig vm_config, COMType comType, String vm, String deployment_prefix){
+        vm_config.setHostname(get(comType, vm));
+    }
+    
     public static void add(Map vm_config, COMType comType, String vm, String deployment_prefix){
         if( !vm_config.containsKey(HOSTNAME_KEY)){
             vm_config.put(HOSTNAME_KEY, get(comType, vm));
         }
-    }
+    } 
     
     public static void main(String[] args) {
     	VNFHostName.get(COMType.FCAPS, "oam");

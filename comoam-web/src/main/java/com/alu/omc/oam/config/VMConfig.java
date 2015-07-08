@@ -1,9 +1,11 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.alu.omc.oam.kvm.model.KvmFlavor;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
  public class VMConfig implements Serializable
     {
@@ -12,62 +14,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
           * @Fields serialVersionUID :
           */
         private static final long serialVersionUID = 1L;
-         String                    provider_ip_address;
-         String                    private_ip_address;
-         String                    flavor;
-        String                    image;
-        int                       com_data_vol_size;
-        
-        @JsonProperty 
-        public String getProvider_ip_address()
+        String hostname;
+        public String getHostname()
         {
-            return provider_ip_address;
+            return hostname;
         }
 
-        public void setProvider_ip_address(String provider_ip_address)
+        public void setHostname(String hostname)
         {
-            this.provider_ip_address = provider_ip_address;
-        }
-        @JsonProperty  
-        public String getPrivate_ip_address()
-        {
-            return private_ip_address;
+            this.hostname = hostname;
         }
 
-        public void setPrivate_ip_address(String private_ip_address)
+
+        ArrayList<NIC> nic = new ArrayList<NIC>();
+        String imgname;
+        KvmFlavor flavor;
+
+        public String getImgname()
         {
-            this.private_ip_address = private_ip_address;
+            return imgname;
         }
-        @JsonProperty 
-        public String getFlavor()
+
+        public void setImgname(String imgname)
+        {
+            this.imgname = imgname;
+        }
+
+        public KvmFlavor getFlavor()
         {
             return flavor;
         }
 
-        public void setFlavor(String flavor)
+        public void setFlavor(KvmFlavor flavor)
         {
             this.flavor = flavor;
         }
-         @JsonProperty 
-        public String getImage()
+
+        public List<NIC> getNic()
         {
-            return image;
+            return nic;
         }
 
-        public void setImage(String image)
+        public void setNic(ArrayList<NIC> nic)
         {
-            this.image = image;
-        }
-         @JsonProperty 
-        public int getCom_data_vol_size()
-        {
-            return com_data_vol_size;
+            this.nic = nic;
         }
 
-        public void setCom_data_vol_size(int com_data_vol_size)
-        {
-            this.com_data_vol_size = com_data_vol_size;
-        }
+
         @JsonCreator
         public VMConfig()
         {

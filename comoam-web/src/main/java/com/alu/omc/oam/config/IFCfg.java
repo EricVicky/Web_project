@@ -1,11 +1,26 @@
 package com.alu.omc.oam.config;
 
+import java.io.Serializable;
 
-public class IFCfg{
+
+public class IFCfg implements  Serializable{
+    private static final long serialVersionUID = -3992753855191713246L;
+    public IFCfg()
+    {
+    }
     String netmask;
     String gateway;
     String ipaddress;
     String network;
+    String prefix;
+    public String getPrefix()
+    {
+        return prefix;
+    }
+    public void setPrefix(String prefix)
+    {
+        this.prefix = prefix;
+    }
     public String getNetmask()
     {
         return netmask;

@@ -10,6 +10,9 @@ angular.module('backup_restore', ['ui.router',
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+        	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+        	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
     	}
     }
     
