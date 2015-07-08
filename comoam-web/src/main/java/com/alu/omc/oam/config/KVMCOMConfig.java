@@ -110,7 +110,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
             VMConfig vmcfg = vm_config.get(name);
 	        Group g = new Group(name);
 	        allVM.add(g);
-	        g.add(new Host(vmcfg.getNic().get(0).getIpv4().getIpaddress()));
+	        g.add(new Host(vmcfg.getNic().get(0).getIp_v4().getIpaddress()));
 	        inv.addGroup(g);
 	    }
 		return inv;
@@ -190,10 +190,10 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	        Map<String, Object> config = (Map<String, Object>)vm_config.get(vm);
 	        IFCfg cfg = new IFCfg();
 	        cfg.setIpaddress((String)config.get("ip_address"));
-	        nic.setIpv4(cfg);
+	        nic.setIp_v4(cfg);
 	        IFCfg v6cfg = new IFCfg();
 	        v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
-	        nic.setIpv6(v6cfg);
+	        nic.setIp_v6(v6cfg);
 	        List<NIC> nics = new ArrayList<NIC>();
 	        nics.add(nic);
 	        vmnics.put(vm, nics);

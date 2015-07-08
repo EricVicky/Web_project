@@ -516,16 +516,16 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	        NIC eth0 = new NIC();
 	        IFCfg eth0cfg = new IFCfg();
 	        eth0cfg.setIpaddress((String)config.get("provider_ip_address"));
-	        eth0.setIpv4(eth0cfg);
+	        eth0.setIp_v4(eth0cfg);
 	        IFCfg v6cfg = new IFCfg();
 		    v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
-	        eth0.setIpv6(v6cfg);        nics.add(eth0);
+	        eth0.setIp_v6(v6cfg);        nics.add(eth0);
 	        NIC eth1 = new NIC();
 	        IFCfg eth1cfg = new IFCfg();
 	        eth1cfg.setIpaddress((String)config.get("private_ip_address"));
 	        v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
-	        eth0.setIpv6(v6cfg);
-	        eth1.setIpv4(eth1cfg);
+	        eth0.setIp_v6(v6cfg);
+	        eth1.setIp_v4(eth1cfg);
 	        nics.add(eth1);
 	        vmnics.put(vm, nics);
 	    }
