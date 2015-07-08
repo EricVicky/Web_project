@@ -60,8 +60,11 @@
 	"CM_VM":"CM VM",
 	"IPV4_ADDRESS":"IPv4 Address",
 	"IPV6_ADDRESS":"IPv6 Address(optional)",
+	"IPV4_ADDRESS:":"IPv4 Address:",
+	"IPV6_ADDRESS:":"IPv6 Address:",
 	"IPV4":"IPv4:",
 	"IPV6":"IPv6:",
+	"IPV6(OP)":"IPv6(Optional)",
 	"FLAVOR":"Flavor",
 	"PLEASE_SELECT":"--Please Select--",
 	"BACKUP_SERVER_DISK_SPACE":"Backup Server Disk Space",
@@ -202,5 +205,15 @@
     "OMCCN_SUPPORT_3GPP":				"Support 3GPP Corba Interface for Alarm",
     "OMCCN_SUPPORT_SNMP_N_ITF":			"Support SNMP Northbound Interface",
     "OMCCN_SUPPORT_GSST":				"Support GSST NE",
-    "OMCCN_SUPPORT_NETRA":				"Support NETRA Management"
+    "OMCCN_SUPPORT_NETRA":				"Support NETRA Management",
+    "NETWORK_TRAFFIC":"Network Traffic",
+    "CONFIG":"Config",
+    "PLEASE_CONFIG_ALL_OAM_VM":"Please Config ALL OAM VM!",
+    "PLEASE_CONFIG_ALL_DB_VM":"Please Config ALL DB VM!",
+    "PLEASE_CONFIG_ALL_CM_VM":"Please Config ALL CM VM!",
+    "BRIDGE":"Bridge",
+    "NETWORK_PRE":"Network Prefix",
+    "IP_ADDRESS":"IP Address",
+    "NETWORK_GAT":"Network Gateway",
+    "PLEASE_CONFIG_B_AND_A":"Please Config Birdge and All IPV4 Items!"
 }

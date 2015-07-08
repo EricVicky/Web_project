@@ -68,7 +68,7 @@ angular.module('kvm', [ 'ui.router',
             	      templateUrl: 'views/kvm/nicConfig.html',
             	      controller: 'nicctr',
             	      resolve: {
-         		         nic: function () {
+         		         config: function () {
          		        	 if($scope.installConfig.vm_config!=null){
          		        		return $scope.installConfig.vm_config[vm].nic[index];
          		        	 }
@@ -78,9 +78,11 @@ angular.module('kvm', [ 'ui.router',
             			 }
          		      }
             	});
-            	modalInstance.result.then(function (nic) {
-            		$scope.installConfig.vm_config[vm].nic[index] = nic;
-            	});
+            	modalInstance.result.then(function (item) {
+            		$scope.installConfig.vm_config[vm].nic[index] = item;
+            	}, function () {
+      		      $log.info('Modal dismissed at: ' + new Date());
+    		    });
             };
             
 			$scope.doDeploy = function (){
@@ -177,7 +179,7 @@ angular.module('kvm', [ 'ui.router',
 		$modalInstance.dismiss('cancel');
     };
 })
-.controller('nicctr', function($scope, $modalInstance,nic,vm){
+.controller('nicctr', function($scope, $modalInstance,config,vm){
     $scope.ok = function(){
     	$scope.alert=true;
     	if($scope.nic.ipv4!=null){
@@ -190,12 +192,17 @@ angular.module('kvm', [ 'ui.router',
     	}
 	};
 	
-	$scope.nic = nic;
+	$scope.nic = config;
 	$scope.oneAtATime = true;
 	$scope.vm = vm;
-	  
+	if($scope.nic.ipv6){
+		$scope.open = !status.open;
+	}else{
+		$scope.open = status.open; 
+	}
+	
 	$scope.cancel = function () {
-		$modalInstance.dismiss($scope.nic);
+		$modalInstance.dismiss('cancel');
     };
 });
 

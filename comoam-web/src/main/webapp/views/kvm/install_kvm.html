@@ -93,7 +93,7 @@
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit="Backup_Server_Addr()" rc-step>
 								    <div class="row">
 									<div class="form-group col-md-4">
-											<label class="control-label">Network Traffic</label> <select
+											<label class="control-label" translate="NETWORK_TRAFFIC">Network Traffic</label> <select
 												name="networktraffic" 
 												ng-model="networktraffic"
 												class="form-control" 
@@ -114,7 +114,7 @@
 									</div>
 									<fieldset ng-init="installConfig.vm_config.oam.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-										<legend>OAM VM</legend>
+										<legend translate="OAM_VM">OAM VM</legend>
 										<div class="row" name="{{nic}}"
 											ng-if="networktraffic > $index " ng-repeat="nic in nics">
 											<div class="form-group col-md-1">
@@ -124,29 +124,29 @@
 											</div>
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress" >
-													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress" >
-													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="oam_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.oam.nic[$index].ipv6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
-														<a class="btn btn-default" ng-click="nicConfig($index,'oam')">Config</a>
+														<a class="btn btn-default" ng-click="nicConfig($index,'oam')" translate="CONFIG">Config</a>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.oam_ipv4_ipaddress.$error.validation"><label>Please Config ALL OAM VM!</label></span>
+											<span class="validation text-danger" ng-show="tab3.oam_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_OAM_VM">Please Config ALL OAM VM!</label></span>
 										</div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.db.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-										<legend>DB VM</legend>
+										<legend translate="DB_VM">DB VM</legend>
 										<div class="row" name="{{nic}}"
 											ng-if="networktraffic > $index " ng-repeat="nic in nics">
 											<div class="form-group col-md-1">
@@ -156,29 +156,29 @@
 											</div>
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv4.ipaddress" >
-													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ipv6.ipaddress" >
-													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="db_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.db.nic[$index].ipv6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
-														<a class="btn btn-default" ng-click="nicConfig($index,'db')">Config</a>
+														<a class="btn btn-default" ng-click="nicConfig($index,'db')" translate="CONFIG">Config</a>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress.$error.validation"><label>Please Config ALL DB VM!</label></span>
+											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_DB_VM">Please Config ALL DB VM!</label></span>
 										</div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.cm.nic = []"
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-										<legend>CM VM</legend>
+										<legend translate="CM_VM">CM VM</legend>
 										<div class="row" name="{{nic}}"
 											ng-if="networktraffic > $index " ng-repeat="nic in nics">
 											<div class="form-group col-md-1">
@@ -188,24 +188,24 @@
 											</div>
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress" >
-													<label>IPV4 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv4_ipaddress" type="text" validation="required" 
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress" >
-													<label>IPV6 Address:&nbsp;&nbsp;</label>
+													<label translate="IPV6_ADDRESS:">IPV6 Address:&nbsp;&nbsp;</label>
 													<input align="center" name="cm_ipv6_ipaddress" type="text"
 													readonly style="border-width:0px;width:100px" ng-model="installConfig.vm_config.cm.nic[$index].ipv6.ipaddress">
 												</div>
 												<div class="col-md-1">
 													<div class="input-group">
-														<a class="btn btn-default" ng-click="nicConfig($index,'cm')">Config</a>
+														<a class="btn btn-default" ng-click="nicConfig($index,'cm')" translate="CONFIG">Config</a>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.cm_ipv4_ipaddress.$error.validation"><label>Please Config ALL CM VM!</label></span>
+											<span class="validation text-danger" ng-show="tab3.cm_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_CM_VM">Please Config ALL CM VM!</label></span>
 										</div>
 									</fieldset>
 								</form>
