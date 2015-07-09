@@ -50,6 +50,15 @@ angular.module('kvm', [ 'ui.router',
             $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
         	
             $scope.Backup_Server_Addr = function(){
+            	var vm_config = $scope.installConfig.vm_config;
+            	for(var vm in vm_config){
+            		for(var indexofNic=0;indexofNic<vm_config[vm].nic.length;indexofNic++){
+            			if(!vm_config[vm].nic[indexofNic].bridge){
+            				delete vm_config[vm].nic[indexofNic];
+            				vm_config[vm].nic.length--;
+            			}
+            		}
+            	}
             	if($scope.installConfig.vm_config.oam.nic[0]!=null&&$scope.installConfig.vm_config.oam.nic[0].ip_v4!=null){
             		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
                     $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
