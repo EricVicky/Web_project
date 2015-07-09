@@ -40,7 +40,7 @@ angular.module('kvm', [ 'ui.router',
             		"oam": { "nic": []},
             		"cm" : { "nic": []},
             		"db" : { "nic": []}
-            }
+            };
             
             $scope.nics = [ "eth0", "eth1", "eth2"];
             $scope.ntoptions  = [ {"label":"Simple", "mode": 1}, 
@@ -101,7 +101,7 @@ angular.module('kvm', [ 'ui.router',
 						delete vm_config[vm];
 					}
 				}
-            }
+            };
             
             $scope.loadimglist = function(host, dir){
             	KVMService.imagelist( { "host":host, "dir":dir}).then(
@@ -131,7 +131,7 @@ angular.module('kvm', [ 'ui.router',
             						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
             					}
             					$state.go('dashboard.monitor');
-            				})
+            				});
             			}
             		}else{
             			$scope.doDeploy();

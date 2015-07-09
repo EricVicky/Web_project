@@ -1,5 +1,5 @@
 angular.module('os').controller('credentialsController', function($scope, $q, $timeout, $log, OSService,
-		$state,validationService) {
+		$state,validationService,$modal) {
 		$scope.crendential = {
 				osUsername : "",
 				osPassword : "",
@@ -12,9 +12,17 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 			OSService.updateOSCred($scope.crendential).then(function (data){
 				$log.info(data);
 			});
-			alert("Success!Openstack_config has been deployed!");
+			var modalInstance = $modal.open({
+      	      animation: true,
+      	      templateUrl: 'views/os/confirm.html',
+      	      controller: 'confirm',
+			});
 		};
 		OSService.getUpdateOSCred().then(function(data) {
 			$scope.crendential = data;
 		});
-} );
+} ).controller('confirm', function($scope, $modalInstance){
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
+});;
