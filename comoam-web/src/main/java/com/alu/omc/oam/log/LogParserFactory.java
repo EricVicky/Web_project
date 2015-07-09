@@ -64,7 +64,7 @@ public class LogParserFactory
     
     private ILogParser kvmDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
+        dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sundefine\\svirtual\\smachine\\]", "Undefine Virtual Machine");
         dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sdestroy\\svirtual\\smachine\\]", "Destroy Virtual Machine");
         dict.put("PLAY\\s\\[destroy\\sall\\svirtual\\smachines\\]", "Start");
