@@ -59,6 +59,7 @@ else
         echo "Tomcat keystore file already exists, will not be created again.";
 fi
 
+./migration-0.7-8.py
 
 /opt/PlexView/ELCM/server/bin/startup.sh
 bootrc=$(grep ELCM /etc/rc.local)
