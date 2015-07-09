@@ -29,8 +29,19 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 
 	private String deployment_prefix;
 	private String oam_cm_image;
-	private String db_image;
+	public Map<String, String> getApp_install_options()
+    {
+        return app_install_options;
+    }
+
+    public void setApp_install_options(Map<String, String> app_install_options)
+    {
+        this.app_install_options = app_install_options;
+    }
+
+    private String db_image;
 	private String vm_img_dir;
+	private Map<String, String> app_install_options;
 	
 	public String getActive_host_ip() {
 		return active_host_ip;
