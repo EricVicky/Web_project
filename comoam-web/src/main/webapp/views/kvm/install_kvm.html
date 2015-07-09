@@ -37,7 +37,7 @@
 									<div class="form-group">
 										<label class="control-label" translate="COM_TYPE">COM Type</label> <select
 											name="comType" ng-model="installConfig.comType" ng-init="installConfig.comType = installConfig.comType || options[0].value"
-											class="form-control" ng-change="changeComType()"
+											class="form-control"
 											ng-options="ct.Name as ct.Name for ct in comTypeStore"
 											title="COM Type" validation="required">
 											<option value="" translate="PLEASE_SELECT">--Please Select--</option>

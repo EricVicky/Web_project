@@ -13,9 +13,6 @@ angular.module('kvm', [ 'ui.router',
 			$scope.installConfig ={
 					vm_img_dir : "/var/images"
 					};
-            $scope.changeComType = function(){
-				$scope.installConfig.vm_config = null;
-			};
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             };
@@ -88,17 +85,23 @@ angular.module('kvm', [ 'ui.router',
             
 			$scope.doDeploy = function (){
 				$log.info($scope.installConfig);
-				var vm_config = $scope.installConfig.vm_config;
-				for(var vm in vm_config){
-					if(vm_config[vm].nic.length == 0){
-						delete vm_config[vm];
-					}
-				}
+				$scope.clean_dirty();
             	KVMService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
          			$state.go("dashboard.monitor");
         		});
             };
+            $scope.clean_dirty = function(){
+            	var vm_config = $scope.installConfig.vm_config;
+				if($scope.installConfig.comType=='OAM'){
+            		delete $scope.installConfig.vm_config['cm'];
+            	}
+				for(var vm in vm_config){
+					if(vm_config[vm].nic.length == 0){
+						delete vm_config[vm];
+					}
+				}
+            }
             
             $scope.loadimglist = function(host, dir){
             	KVMService.imagelist( { "host":host, "dir":dir}).then(
@@ -201,10 +204,12 @@ angular.module('kvm', [ 'ui.router',
 	$scope.nic = config;
 	$scope.oneAtATime = true;
 	$scope.vm = vm;
-	if($scope.nic.ip_v6){
-		$scope.open = !status.open;
-	}else{
-		$scope.open = status.open; 
+	if($scope.nic){
+		if($scope.nic.ip_v6){
+			$scope.open = !status.open;
+		}else{
+			$scope.open = status.open; 
+		}
 	}
 	
 	$scope.cancel = function () {
