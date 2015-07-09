@@ -1,25 +1,52 @@
 package com.alu.omc.oam.config;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-public class NIC
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class NIC implements  Serializable
 {
-private IFCfg ipv4;
-private List<IFCfg>  ipv6 = new ArrayList<IFCfg>();
-public IFCfg getIpv4()
+    private static final long serialVersionUID = 8478498625670279338L;
+public NIC()
+    {
+ 
+    }
+private String name;
+private String bridge;
+private IFCfg ip_v4;
+private IFCfg  ip_v6 ;
+public String getName()
 {
-    return ipv4;
+    return name;
 }
-public void setIpv4(IFCfg ipv4)
+public void setIp_v6(IFCfg ipv6)
 {
-    this.ipv4 = ipv4;
+    this.ip_v6 = ipv6;
 }
-public List<IFCfg> getIpv6()
+public void setName(String name)
 {
-    return ipv6;
+    this.name = name;
 }
-public void addIpv6(IFCfg cfg){
-    ipv6.add(cfg);
+public IFCfg getIp_v4()
+{
+    return ip_v4;
+}
+public void setIp_v4(IFCfg ipv4)
+{
+    this.ip_v4 = ipv4;
+}
+public IFCfg getIp_v6()
+{
+    return ip_v6;
+}
+public String getBridge()
+{
+    return bridge;
+}
+public void setBridge(String bridge)
+{
+    this.bridge = bridge;
 }
 }

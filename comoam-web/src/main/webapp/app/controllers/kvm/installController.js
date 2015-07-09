@@ -5,24 +5,21 @@ angular.module('kvm', [ 'ui.router',
                         'ghiscoding.validation',
                         'monitor',
                         'dashboard',
-                        'ngResource']).controller('kvmctr', function($scope,  $log, KVMService,
-           $state,  $dialogs, monitorService, $modal) {
+                        'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
+           $state,  $dialogs, monitorService, timezoneService, $modal) {
 			$scope.submitComtype = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
 			$scope.installConfig ={
 					vm_img_dir : "/var/images"
 					};
-            $scope.changeComType = function(){
-				$scope.installConfig.vm_config = null;
-			};
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             };
             $scope.installConfig.app_install_options = {
-					BACKUP_SERVER_DISK_SPACE:'20000',
+					BACKUP_SERVER_DISK_SPACE:'2000',
 					CALL_TRACE_DISK_SPACE:'1000',
-					CODE_SERVER_DISK_SPACE:'20000',
+					CODE_SERVER_DISK_SPACE:'2000',
 					OMCCN_SUPPORT_WEBSSO_SANE:'false',
 					NTP_SERVER:'135.251.111.73',
 					SEC_UNIX_ENABLE:'NO',
@@ -32,36 +29,87 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SP_HVP:'NO',
 					BACKUP_SERVER_IS_LOCAL:'YES',
 					SOFTWARE_SERVER_IS_LOCAL:'YES',
+					OMCCN_SUPPORT_3GPP:'true',
+					OMCCN_SUPPORT_SNMP_N_ITF:'true',
+					OMCCN_SUPPORT_GSST:'false',
+					OMCCN_SUPPORT_NETRA:'false',
+					INSTALL_ETHEREAL:'NO'
 			};
+            
+            $scope.installConfig.vm_config = {
+            		"oam": { "nic": []},
+            		"cm" : { "nic": []},
+            		"db" : { "nic": []}
+            };
+            
+            $scope.nics = [ "eth0", "eth1", "eth2"];
+            $scope.ntoptions  = [ {"label":"Simple", "mode": 1}, 
+    	                             {"label":"Traffic Separation", "mode": 2 },
+    	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
+            $scope.networktraffic = 1;
+            $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
+        	
             $scope.Backup_Server_Addr = function(){
-            	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
-                $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.ip_address;
-            }
+            	var vm_config = $scope.installConfig.vm_config;
+            	for(var vm in vm_config){
+            		for(var indexofNic=0;indexofNic<vm_config[vm].nic.length;indexofNic++){
+            			if(!vm_config[vm].nic[indexofNic].bridge){
+            				delete vm_config[vm].nic[indexofNic];
+            				vm_config[vm].nic.length--;
+            			}
+            		}
+            	}
+            	if($scope.installConfig.vm_config.oam.nic[0]!=null&&$scope.installConfig.vm_config.oam.nic[0].ip_v4!=null){
+            		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
+                    $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.nic[0].ip_v4.ipaddress;
+                    $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+                	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+                	if($scope.installConfig.comType != "OAM"){
+                		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;                		
+                	}
+            	}
+            };
+            $scope.nicConfig = function(index, vm){
+            	var modalInstance = $modal.open({
+            	      animation: true,
+            	      backdrop:'static',
+            	      templateUrl: 'views/kvm/nicConfig.html',
+            	      controller: 'nicctr',
+            	      resolve: {
+         		         config: function () {
+         		        	 if($scope.installConfig.vm_config!=null){
+         		        		return angular.copy($scope.installConfig.vm_config[vm].nic[index]);
+         		        	 }
+         		         },
+            			 vm: function() {
+            				 return vm;
+            			 }
+         		      },
+            	});
+            	modalInstance.result.then(function (item) {
+            		$scope.installConfig.vm_config[vm].nic[index] = item;
+            	}, function () {
+    		    });
+            };
             
 			$scope.doDeploy = function (){
-				$scope.installConfig.vm_config.oam.netmask = $scope.installConfig.netmask;
-				$scope.installConfig.vm_config.oam.gateway = $scope.installConfig.gateway;
-				$scope.installConfig.vm_config.oam.v6_gateway = $scope.installConfig.v6_gateway;
-				$scope.installConfig.vm_config.oam.v6_prefix= $scope.installConfig.v6_prefix;
-				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='OAM' || $scope.installConfig.comType=='CM'){
-					$scope.installConfig.vm_config.db.netmask = $scope.installConfig.netmask;
-					$scope.installConfig.vm_config.db.gateway = $scope.installConfig.gateway;
-					$scope.installConfig.vm_config.db.v6_gateway = $scope.installConfig.v6_gateway;
-					$scope.installConfig.vm_config.db.v6_prefix= $scope.installConfig.v6_prefix;
-				
-				}
-				if($scope.installConfig.comType=='FCAPS' || $scope.installConfig.comType=='CM'){
-					$scope.installConfig.vm_config.cm.netmask = $scope.installConfig.netmask;
-					$scope.installConfig.vm_config.cm.gateway = $scope.installConfig.gateway;
-					$scope.installConfig.vm_config.cm.v6_gateway = $scope.installConfig.v6_gateway;
-					$scope.installConfig.vm_config.cm.v6_prefix= $scope.installConfig.v6_prefix;
-				}
-				$scope.installConfig.netmask = null;
-				$scope.installConfig.gateway = null;
+				$log.info($scope.installConfig);
+				$scope.clean_dirty();
             	KVMService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
          			$state.go("dashboard.monitor");
         		});
+            };
+            $scope.clean_dirty = function(){
+            	var vm_config = $scope.installConfig.vm_config;
+				if($scope.installConfig.comType=='OAM'){
+            		delete $scope.installConfig.vm_config['cm'];
+            	}
+				for(var vm in vm_config){
+					if(vm_config[vm].nic.length == 0){
+						delete vm_config[vm];
+					}
+				}
             };
             
             $scope.loadimglist = function(host, dir){
@@ -72,6 +120,15 @@ angular.module('kvm', [ 'ui.router',
             			});   
             };
             $scope.deploy = function(){
+            	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
+            	for(var name in vms_flavor){
+            		var vm_flavor = vms_flavor[name];
+            		for(var index in vm_flavor){
+            			if(vm_flavor[index].label.indexOf($scope.flavor) != -1){
+            				$scope.installConfig.vm_config[name].flavor = vm_flavor[index];
+            			}
+            		}
+            	}
             	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
             		if(response.succeed == true){
             			locked = true;
@@ -83,7 +140,7 @@ angular.module('kvm', [ 'ui.router',
             						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
             					}
             					$state.go('dashboard.monitor');
-            				})
+            				});
             			}
             		}else{
             			$scope.doDeploy();
@@ -98,7 +155,7 @@ angular.module('kvm', [ 'ui.router',
             				$scope.comTypeStore = data.COMType;
             			 	$scope.installConfig.comType = KVMService.VNFType;
             			});
-            KVMService.getTimezoneStore().then( function(data) {
+            timezoneService.timezonelist().then( function(data) {
             				$scope.timezoneStore = data;
             			});
             KVMService.hostips().then(function(data) {
@@ -107,7 +164,6 @@ angular.module('kvm', [ 'ui.router',
 
 	  $scope.animationsEnabled = true;
 	  $scope.NFVTypes = ["FCAPS", "CM", "OAM"];
-
 	  $scope.open = function (size) {
 
 		  var modalInstance = $modal.open({
@@ -138,6 +194,33 @@ angular.module('kvm', [ 'ui.router',
 	$scope.ok = function(){
 		$modalInstance.close($scope.NFV);
 	};
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
+})
+.controller('nicctr', function($scope, $modalInstance,config,vm){
+    $scope.ok = function(){
+    	$scope.alert=true;
+    	if($scope.nic.ip_v4!=null){
+    		if(!$scope.nic.ip_v4.ipaddress||!$scope.nic.ip_v4.prefix||!$scope.nic.bridge){
+    			return;
+        	}else{
+        		$scope.alert=false;
+        		$modalInstance.close($scope.nic);
+        	}
+    	}
+	};
+	$scope.nic = config;
+	$scope.oneAtATime = true;
+	$scope.vm = vm;
+	if($scope.nic){
+		if($scope.nic.ip_v6){
+			$scope.open = !status.open;
+		}else{
+			$scope.open = status.open; 
+		}
+	}
+	
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
     };

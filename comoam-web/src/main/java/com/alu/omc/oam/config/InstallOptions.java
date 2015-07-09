@@ -36,7 +36,7 @@ public class InstallOptions
     }
     
     public static void add(Map vm_config, COMType comType, String vm ){
-        vm_config.put(INSTALL_OPTION_KEY, get(comType, vm));
+        //vm_config.put(INSTALL_OPTION_KEY, get(comType, vm));
     }
      
 

@@ -20,8 +20,7 @@ public class ActionKey
     }
     @Override
     public int hashCode(){
-        return new String(this.action.toString().concat("-")
-                .concat(this.env.toString())).hashCode();
+        return this.toString().hashCode();
     }
     
     public boolean equals(Object obj) {
@@ -30,7 +29,8 @@ public class ActionKey
         }
         if (obj instanceof ActionKey) {
             ActionKey ak = (ActionKey)obj;
-            if(ak.action.equals(this.action) && ak.env.equals(this.env)){
+            if(ak.action.equals(this.action) && ak.env.equals(this.env) 
+            		&& ak.toString().equals(this.toString())){
                 return true;
             }
         } 

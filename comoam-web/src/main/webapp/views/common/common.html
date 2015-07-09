@@ -41,7 +41,7 @@
 		</select>
 </div>
 <div class="form-group">
-    <label class="control-label" translate="OMCCN_SUPPORT_COM_GR">OMCCN Support COM GR</label> <select
+    <label class="control-label" translate="OMCCN_SUPPORT_COM_GR">Support COM GR</label> <select
         name="OMCCN_SUPPORT_COM_GR " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_COM_GR"
         title="OMCCN SUPPORT COM GR" validation="required">
@@ -50,7 +50,7 @@
         </select>
 </div>
 <div class="form-group" ng-if="installConfig.comType=='OAM'">
-    <label class="control-label" translate="OMCCN_SUPPORT_SP_FM">OMCCN Support SP FM</label> <select
+    <label class="control-label" translate="OMCCN_SUPPORT_SP_FM">Support Fault Management</label> <select
         name="OMCCN_SUPPORT_SP_FM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_FM"
         title="OMCCN Support SP FM" validation="required">
@@ -59,7 +59,7 @@
         </select>
 </div>
 <div class="form-group" ng-if="installConfig.comType=='OAM'">
-    <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">OMCCN Support SP PM</label> <select
+    <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">Support Performance Management</label> <select
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"
         title="OMCCN Support SP PM" validation="required">
@@ -77,7 +77,7 @@
         </select>
 </div>
 <div class="form-group">
-    <label class="control-label" translate="BACKUP_SERVER_IS_LOCAL">Backup Server is Local</label> <select
+    <label class="control-label" translate="BACKUP_SERVER_IS_LOCAL">Backup Server is Local?</label> <select
         name="BACKUP_SERVER_IS_LOCAL" class="form-control" type="text"
         ng-model="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL"
         title="BACKUP SERVER IS LOCAL" validation="required">
@@ -86,7 +86,7 @@
         </select>
 </div>
 <div class="form-group">
-    <label class="control-label" translate="SOFTWARE_SERVER_IS_LOCAL">Software Server is Local</label> <select
+    <label class="control-label" translate="SOFTWARE_SERVER_IS_LOCAL">Software Server is Local?</label> <select
         name="SOFTWARE_SERVER_IS_LOCAL" class="form-control" type="text"
         ng-model="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL"
         title="SOFTWARE SERVER IS LOCAL" validation="required">
@@ -105,4 +105,49 @@
         name="BACKUP_SERVER_ADDRESS" class="form-control" type="text"
         ng-model="installConfig.app_install_options.BACKUP_SERVER_ADDRESS"
         title="BACKUP SERVER ADDRESS" validation="required" />
+</div>
+<div class="form-group">
+	<label class="control-label" translate="OMCCN_SUPPORT_3GPP">Support 3GPP Corba Interface for Alarm</label> <select
+		name="OMCCN_SUPPORT_3GPP" class="form-control" type="text"
+		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_3GPP"
+		title="OMCCN SUPPORT 3GPP" validation="required">
+		<option value="true" translate="true">true</option>
+		<option value="false" translate="false">false</option>
+		</select>
+</div>
+<div class="form-group">
+	<label class="control-label" translate="OMCCN_SUPPORT_SNMP_N_ITF">Support SNMP Northbound Interface</label> <select
+		name="OMCCN_SUPPORT_SNMP_N_ITF" class="form-control" type="text"
+		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SNMP_N_ITF"
+		title="OMCCN SUPPORT SNMP N ITF" validation="required">
+		<option value="true" translate="true">true</option>
+		<option value="false" translate="false">false</option>
+		</select>
+</div>
+<div class="form-group">
+	<label class="control-label" translate="OMCCN_SUPPORT_GSST">Support GSST NE</label> <select
+		name="OMCCN_SUPPORT_GSST" class="form-control" type="text"
+		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_GSST"
+		title="OMCCN_SUPPORT_GSST" validation="required">
+		<option value="true" translate="true">true</option>
+		<option value="false" translate="false">false</option>
+		</select>
+</div>
+<div class="form-group">
+	<label class="control-label" translate="OMCCN_SUPPORT_NETRA">Support NETRA Management</label> <select
+		name="OMCCN_SUPPORT_NETRA" class="form-control" type="text"
+		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_NETRA"
+		title="OMCCN SUPPORT NETRA" validation="required">
+		<option value="true" translate="true">true</option>
+		<option value="false" translate="false">false</option>
+		</select>
+</div>
+<div class="form-group">
+	<label class="control-label" translate="INSTALL_ETHEREAL">Install Ethereal</label> <select
+		name="INSTALL_ETHEREAL" class="form-control" type="text"
+		ng-model="installConfig.app_install_options.INSTALL_ETHEREAL"
+		title=""INSTALL ETHEREAL"" validation="required">
+		<option value="YES" translate="YES">Yes</option>
+        <option value="NO" translate="NO">No</option>
+		</select>
 </div>

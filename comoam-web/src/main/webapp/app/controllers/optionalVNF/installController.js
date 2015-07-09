@@ -1,4 +1,4 @@
-angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, $state){
+angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
                         	
     $scope.installConfig ={
     		"vm_config":{
@@ -31,9 +31,9 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 		$scope.hostIPs = data;
 	});
 
-    KVMService.getTimezoneStore().then( function(data) {
-    	$scope.timezoneStore = data;
-    });
+    timezoneService.timezonelist().then( function(data) {
+		$scope.timezoneStore = data;
+	});
     
     KVMService.getComTypeStore().then(function(data){
 		$scope.comTypeStore = data.OVMType;
@@ -61,8 +61,13 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     
     $scope.doDeploy = function (){
     	KVMService.deployOVM($scope.installConfig).then( function(){
-    		monitorService.monitorKVMOVMInstall($scope.installConfig.active_host_ip);
- 			$state.go("dashboard.monitor");
+ 			if($scope.installConfig.environment == "QOSAC"){
+        		monitorService.monitorKVMQOSACInstall($scope.installConfig.active_host_ip);
+             	$state.go("dashboard.monitor");
+        	}else{
+        		monitorService.monitorKVMOVMInstall($scope.installConfig.active_host_ip);
+     			$state.go("dashboard.monitor");
+        	}
 		});
     };
     

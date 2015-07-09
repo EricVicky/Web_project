@@ -10,6 +10,7 @@ import org.openstack4j.model.compute.Server;
 import org.openstack4j.model.storage.block.Volume;
 import org.openstack4j.model.storage.block.VolumeAttachment;
 import org.openstack4j.openstack.storage.block.domain.CinderVolume;
+import org.openstack4j.openstack.storage.block.domain.ExtAvailabilityZone;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,12 @@ public class CinderService
 		}
 		return yaoVolumeList;
 	}
+	
+	public List<ExtAvailabilityZone> getAvaliabilityZoneList(OSClient client)
+	{
+		return (List<ExtAvailabilityZone>)client.blockStorage().zones().list();
+	}
+	
 	
 	private YaoVolume assembleVolume(Volume volume)
 	{

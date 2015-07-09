@@ -45,42 +45,19 @@ angular.module('comoamApp')
 	  } 
 	  $scope.animationsEnabled = true;
 
-	  $scope.open = function (size) {
-
-		  if($scope.selectedIns.environment == "KVM"){
-			  var modalInstance = $modal.open({
-			      animation: $scope.animationsEnabled,
-			      templateUrl: 'views/common/deleteKVMInsModal.html',
-			      controller: 'deleteComController',
-			      size: size,
-			      backdrop: true,
-			      resolve: {
-			    	  selectedIns: function () {
-			    		  return $scope.selectedIns;
-			    	  }
-			      }
-			  });  
-		  }else {
-			  var modalInstance = $modal.open({
-			      animation: $scope.animationsEnabled,
-			      templateUrl: 'views/common/deleteOSInsModal.html',
-			      controller: 'deleteComController',
-			      size: size,
-			      backdrop: true,
-			      resolve: {
-			    	  selectedIns: function () {
-			    		  return $scope.selectedIns;
-			    	  }
-			      }
-			  });
-		  }
-		  
-	
-	      modalInstance.result.then(function (selectedItem) {
-	        $scope.selectedIns = selectedItem;
-	      }, function () {
-	        $log.info('Modal dismissed at: ' + new Date());
-	      });
+	  $scope.open = function (action) {
+		  var selectedInsModal = action + $scope.selectedIns.environment + 'InsModal';
+		  var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/common/' + selectedInsModal + '.html',
+		      controller: 'deleteComController',
+		      backdrop: true,
+		      resolve: {
+		    	  selectedIns: function () {
+		    		  return $scope.selectedIns;
+		    	  }
+		      }
+		  }); 
 	  }
   })
   .controller('deleteComController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){

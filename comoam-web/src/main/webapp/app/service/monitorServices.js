@@ -13,14 +13,19 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"Openstack" :{
-				"install" : ["Start", "valiadtion key", "Generate Heat Templates",  "check Presence of Heat stack", "Cloud Init",  "Start COM", "Finished"],
+				"install" : ["Start", "Valiadtion Key", "Generate Heat Templates",  "Check Presence of Heat Stack", "Cloud Init",  "Start COM", "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
 				 "restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_OVM" :{
-				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
+				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"upgrade":["Start","Data Backup","Start Virtual Machines","Finished"]
+			},
+			"KVM_QOSAC":{
+				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"]
 			}
 	};
 	
@@ -130,6 +135,21 @@ angular.module('monitor').factory('monitorService', function($log) {
 		},
 		monitorKVMOVMInstall: function(ch) {
 			environment = "KVM_OVM";
+			action = "install";
+			channel = ch;
+		},
+		monitorKVMOVMUpgrade: function(ch) {
+			environment = "KVM_OVM";
+			action = "upgrade";
+			channel = ch;
+		},
+		monitorKVMQOSACUpgrade: function(ch) {
+			environment = "KVM_QOSAC";
+			action = "upgrade";
+			channel = ch;
+		},
+		monitorKVMQOSACInstall:function(ch) {
+			environment = "KVM_QOSAC";
 			action = "install";
 			channel = ch;
 		},

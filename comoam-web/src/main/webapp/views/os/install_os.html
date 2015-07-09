@@ -39,7 +39,7 @@
 													<label class="control-label" translate="TIMEZONE">Timezone</label> <select
 														name="time_zone" ng-model="installConfig.timezone"
 														class="form-control"
-														ng-options="t.Time as t.Time for t in timezoneStore"
+														ng-options="t.id as t.label for t in timezoneStore"
 														title="Timezone" validation="required">
 													</select>
 												</div>
@@ -70,15 +70,6 @@
 														class="form-control"
 														ng-options="sn.id as sn.name for sn in v6subnets"
 														title="Sub Network" >
-													</select>
-												</div>
-												<div class="form-group">
-													<label class="control-label" translate="PRIVATE_NETWORK">Private Network</label> <select
-														name="private_network"
-														ng-model="installConfig.enable_private_network"
-														class="form-control"
-														ng-options="pn for pn in private_network"
-														title="Private Network" validation="required">
 													</select>
 												</div>
 												</fieldset>
@@ -209,7 +200,7 @@
 														</div>
 														<div class="form-group col-md-6">
 															<label class="control-label" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</label> 
-															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="zone for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
+															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneName" class="form-control" ng-options="zone.zoneName as zone.zoneName for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
 														</div>
 													</fieldset>
 													<fieldset>
@@ -259,7 +250,7 @@
 														</tr>
 														<tr align="center">
 															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
-															<td>{{installConfig.block_storage_avail_zone.zoneA}}</td>
+															<td>{{installConfig.block_storage_avail_zone.zoneName}}</td>
 														</tr>
 														
 														<tr align="center">
