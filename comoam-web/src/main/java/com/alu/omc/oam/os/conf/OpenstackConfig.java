@@ -24,22 +24,20 @@ public class OpenstackConfig implements Serializable {
 
     public OpenstackConfig(String authURL, String osUsername,
             String osPassword, String osTenantOrDomainName) {
-        if (authURL.endsWith("v2.0")) {
-            setOsTenant(osTenantOrDomainName);
-            setIdentityVersion(2);
-        } else if (authURL.endsWith("v3.0")) {
-            setOsDomainName(osTenantOrDomainName);
-            setIdentityVersion(3);
-        }
         this.osPassword = osPassword;
         this.osUsername = osUsername;
         this.authURL = authURL;
+        if (this.isVersion2()) {
+            setOsTenant(osTenantOrDomainName);
+            setIdentityVersion(2);
+        } else if (this.isVersion3()) {
+            setOsDomainName(osTenantOrDomainName);
+            setIdentityVersion(3);
+        }
     }
     public OpenstackConfig (){
         
     }
-
-    // Getter and Setter methods
     
     public String getOsUsername() {
         return osUsername;
@@ -116,8 +114,15 @@ public class OpenstackConfig implements Serializable {
     
 	@JsonIgnore 
     public boolean isVersion2(){
-        return authURL.endsWith("v2.0");
+        return authURL.contains("v2.0");
     }
+	
+	
+	@JsonIgnore 
+    public boolean isVersion3(){
+        return authURL.contains("v3.0");
+    }
+	
 	
 	public String asExportEnvironment(){
 	   StringBuffer vars = new StringBuffer();
@@ -127,7 +132,6 @@ public class OpenstackConfig implements Serializable {
 	   vars.append("export OS_PASSWORD=\"").append(this.getOsPassword()).append("\"\n");
 	   vars.append("export OS_REGION_NAME=\"").append(this.osRegion).append("\"\n");
 	   return vars.toString();
-	   
 	}
 	
 	public Map<String, String> asEnvironmentMap(){
@@ -138,6 +142,5 @@ public class OpenstackConfig implements Serializable {
 	   envs.put("OS_PASSWORD",this.getOsPassword());
 	   envs.put("OS_REGION_NAME", this.osRegion);
 	   return envs;
-	   
 	}
 }
