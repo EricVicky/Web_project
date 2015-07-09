@@ -439,7 +439,12 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var providerNetworkAddress = '';
             					if(instances[comstack].environment == "KVM"){
             						for(var indexofNic = 0;indexofNic<instances[comstack].vm_config[vnfc].nic.length;indexofNic++){
-            							ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.prefix);
+            							if(instances[comstack].vm_config[vnfc].ip_address){
+            								ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].ip_address,instances[comstack].vm_config[vnfc].netmask);
+            							}else{
+            								ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.prefix);
+            							}
+            							
             							//ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.prefix);
                 						if(!networks[ipv4NetworkAddress]){
                     						networks[ipv4NetworkAddress] = ipv4NetworkAddress;
