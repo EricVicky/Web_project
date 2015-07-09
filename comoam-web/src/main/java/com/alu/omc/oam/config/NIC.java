@@ -1,9 +1,11 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class NIC implements  Serializable
 {
     private static final long serialVersionUID = 8478498625670279338L;
