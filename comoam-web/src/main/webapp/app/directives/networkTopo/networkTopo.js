@@ -72,15 +72,6 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum].strokeColor='#8B8B83';
                 					comStackPath[comStacksNum].fillColor = comColor;
                 					
-//                					comStackPath[comStacksNum].attach('mousemove' , function(){
-//                						indexOfcomStack = comStackPath.indexOf(this);
-//                						$("#menu").css({"top":canvasTop + comStackTopoY + (comStackHeight + comStackInterval) * indexOfcomStack + comStackMenuY, left:comStackTopoX + comStackWidth + canvasLeft - comStackMenuX, "position": "absolute"});
-//                						$("#menu").show();
-//                						$scope.selectedIns = instances[comStackPath.indexOf(this)];
-//                						$scope.selectedInsNum = comStackPath.indexOf(this);
-//                						
-//                						comStackPath[comStackPath.indexOf(this)].opacity = 0.6;
-//									});
                 					comStackPath[comStacksNum].attach('mouseleave' , function(){
                 						comStackPath[comStackPath.indexOf(this)].opacity = 1;
 									});
@@ -113,14 +104,6 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     									hostPath[comStacksNum].strokeColor= 'white';
     	            					hostPath[comStacksNum].fillColor=hostColor;
     	            					
-//    	            					hostPath[comStacksNum].attach('mousemove' , function(){
-//                    						indexOfcomStack = comStackPath.indexOf(this);
-//                    						comStackPath[hostPath.indexOf(this)].opacity = 0.6;
-//    									});
-//    	            					hostPath[comStacksNum].attach('mouseleave' , function(){
-//                    						comStackPath[hostPath.indexOf(this)].opacity = 1;
-//    									});
-    									
     	            					//draw host name
     	            					var hostNamePoint = new Point(this.networkTopologyStartX + comStackTopoX + hostCOMStackX,
     	            							this.networkTopologyStartY + comStackTopoY + hostCOMStackY + (comStackHeight + comStackInterval) * comStacksNum + hostHeight / 2 + 4);
@@ -132,13 +115,6 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     									hostNameText[comStacksNum].rotate(90);
     									hostNameText[comStacksNum].position.x += 17;
     	            					
-//    									hostNameText[comStacksNum].attach('mousemove' , function(){
-//                    						indexOfcomStack = comStackPath.indexOf(this);
-//                    						comStackPath[hostNameText.indexOf(this)].opacity = 0.6;
-//    									});
-//    									hostNameText[comStacksNum].attach('mouseleave' , function(){
-//                    						comStackPath[hostNameText.indexOf(this)].opacity = 1;
-//    									});
     									
     	            					//draw vnfcs
     	            					var vnfcCounts = 0;
@@ -410,26 +386,6 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					}
             				}
             			}
-//            		var comStacks = [];
-//            		var vnfcs = [];
-//            		var networks = {};
-//            		for(var instanceNumber=0;instanceNumber<instances.length;instanceNumber++){
-//            			comStacks[instanceNumber] = new COMStack(instances[instanceNumber].comType,
-//									            					instances[instanceNumber].deployment_prefix,
-//									            					instances[instanceNumber].active_host_ip);
-//            			for(var vnfcNumber in instances[instanceNumber].vm_config){
-//            				vnfcs[vnfcNumber] = new VNFC(vnfcNumber, 
-//						            						instances[instanceNumber].vm_config[vnfcNumber].flavor.memory, 
-//						            						instances[instanceNumber].vm_config[vnfcNumber].flavor.vCpu);
-//            				var port = new Port(instances[instanceNumber].vm_config[vnfcNumber].ip_address, instances[instanceNumber].vm_config[vnfcNumber].gateway);
-//            				vnfcs[vnfcNumber].addPort(port);
-//            				comStacks[instanceNumber].addVNFC(vnfcs[vnfcNumber]);
-//            				if(!instances[instanceNumber].vm_config[vnfcNumber].gateway){
-//            					var network = new Network(instances[instanceNumber].vm_config[vnfcNumber].gateway);
-//            					networks[instances[instanceNumber].vm_config[vnfcNumber].gateway] = network;
-//            				}
-//            			}
-//            		}
             		var networks = {};
             		(function(){
             			for(var comstack in instances){
@@ -438,18 +394,18 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var ipv6NetworkAddress = '';
             					var providerNetworkAddress = '';
             					if(instances[comstack].environment == "KVM"){
-            						for(var indexofNic = 0;indexofNic<instances[comstack].vm_config[vnfc].nic.length;indexofNic++){
-            							if(instances[comstack].vm_config[vnfc].ip_address){
+            						if(instances[comstack].vm_config[vnfc].ip_address){// for optional vm: qosac, hpsim
             								ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].ip_address,instances[comstack].vm_config[vnfc].netmask);
-            							}else{
+            								if(!networks[ipv4NetworkAddress]){
+                    					    	networks[ipv4NetworkAddress] = ipv4NetworkAddress;
+            								}
+            						}else{
+            							for(var indexofNic = 0;indexofNic<instances[comstack].vm_config[vnfc].nic.length;indexofNic++){
             								ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.prefix);
+            								if(!networks[ipv4NetworkAddress]){
+                    					    	networks[ipv4NetworkAddress] = ipv4NetworkAddress;
+            								}
             							}
-            							
-            							//ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.prefix);
-                						if(!networks[ipv4NetworkAddress]){
-                    						networks[ipv4NetworkAddress] = ipv4NetworkAddress;
-//                    						networks[ipv6NetworkAddress] = ipv6NetworkAddress;
-                    					}
             						}
             					}else {
             						networkAddress = instances[comstack].com_private_network.cidr;
