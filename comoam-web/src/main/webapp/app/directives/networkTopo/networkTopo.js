@@ -185,8 +185,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 											var networkTopoX = 550;					//distance between topology and network on direction X
 											for(var numberofNetwork=0;numberofNetwork<this.Networks.length;numberofNetwork++){
 												for(var indexofNic = 0;indexofNic<instances[comStacksNum].vm_config[vnfcNum].nic.length;indexofNic++){
-	                        						if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv4.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv4.netmask) == this.Networks[numberofNetwork] 
-	                        							|| this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv6.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ipv6.netmask == this.Networks[numberofNetwork]){
+	                        						if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v4.ipaddress , this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[indexofNic].ip_v4.prefix) == this.Networks[numberofNetwork]){
 	            										lineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofNetwork;
 	            										linePortColor = commoncolor[numberofNetwork];
 	            									}
@@ -215,7 +214,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 												var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + 50,
 	                        							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + (portHeight + portInterval) * indexofNIC + 3);
 	        									var vnfcportIpText = new PointText(vnfcportIpPoint);
-	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ipv4.ipaddress + "/" + this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ipv4.prefix;
+	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ip_v4.ipaddress + "/" + this.COMStacks[comStacksNum].vm_config[vnfcNum].nic[nicNum].ip_v4.prefix;
 	        									vnfcportIpText.fillColor = linePortColor;
 	        									vnfcportIpText.fontSize = '15px';
 	        									
@@ -285,7 +284,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             									}
             								}
 											for(var numberofProNetwork=0;numberofProNetwork<this.Networks.length;numberofProNetwork++){
-            									if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.netmask) == this.Networks[numberofProNetwork] ){
+            									if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.prefix) == this.Networks[numberofProNetwork] ){
             										providerLineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofProNetwork;
             										proLinePortColor = commoncolor[numberofProNetwork];
             									}
@@ -440,11 +439,11 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var providerNetworkAddress = '';
             					if(instances[comstack].environment == "KVM"){
             						for(var indexofNic = 0;indexofNic<instances[comstack].vm_config[vnfc].nic.length;indexofNic++){
-            							ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ipv4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ipv4.netmask);
-            							ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ipv6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ipv6.netmask);
-                						if(!networks[ipv4NetworkAddress] || !networks[ipv6NetworkAddress]){
+            							ipv4NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v4.prefix);
+            							ipv6NetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.ipaddress,instances[comstack].vm_config[vnfc].nic[indexofNic].ip_v6.prefix);
+                						if(!networks[ipv4NetworkAddress]){
                     						networks[ipv4NetworkAddress] = ipv4NetworkAddress;
-                    						networks[ipv6NetworkAddress] = ipv6NetworkAddress;
+//                    						networks[ipv6NetworkAddress] = ipv6NetworkAddress;
                     					}
             						}
             					}else {
@@ -523,10 +522,11 @@ function NetworkTopology(networkTopologyStartX,networkTopologyStartY){
 	}
 }
 
-function getNetworkAddress (ipAddress , netmask) {
+function getNetworkAddress (ipAddress , prefix) {
 	var ipAddressArr = [];
 	var netmaskArr = [];
 	var networkAddress = [];
+	var netmask = getNetmask(prefix);
 	ipAddressArr = ipAddress.split(".");
 	netmaskArr = netmask.split(".");
 	for(var i=0;i<ipAddressArr.length;i++){
@@ -535,6 +535,28 @@ function getNetworkAddress (ipAddress , netmask) {
 	return networkAddress.join(".");
 }
 
+function getNetmask(prefix){
+	var quotient = prefix / 4;
+	var remainder = prefix % 4;
+	var not255 = '';
+	not255 = Math.pow(2, 8-remainder);
+	var netmask = '';
+	switch(quotient){
+	case 0:
+		netmask = not255 + ".0.0.0";
+		break;
+	case 1:
+		netmask = "255." + not255 + ".0.0";
+		break;
+	case 2:
+		netmask = "255.255." + not255 + ".0";
+		break;
+	case 3:
+		netmask = "255.255.255." + not255;
+		break;
+	}
+	return netmask;
+}
 function getRandomColor(){ 
 	return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); 
 } 
