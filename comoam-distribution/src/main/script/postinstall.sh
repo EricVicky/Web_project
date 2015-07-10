@@ -58,13 +58,14 @@ then
 else
         echo "Tomcat keystore file already exists, will not be created again.";
 fi
-
-/opt/PlexView/ELCM/script/migration-0.7-8.py
+if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]
+    /opt/PlexView/ELCM/script/migration-0.7-8.py
+fi
 
 /opt/PlexView/ELCM/server/bin/startup.sh
-bootrc=$(grep ELCM /etc/rc.local)
+bootrc=$(grep ELCM /etc/rc.d/rc.local)
 if [ -z "$bootrc" ]; then
-    echo "/opt/PlexView/ELCM/server/bin/startup.sh" >>/etc/rc.local
+    echo "/opt/PlexView/ELCM/server/bin/startup.sh" >>/etc/rc.d/rc.local
 fi
 if [ ! -f ~/.ssh/id_rsa ]; then
     echo "generate ssh key"
