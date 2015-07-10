@@ -170,6 +170,7 @@
 											    <exclude>webapps/host-manager/**</exclude>
 											    <exclude>webapps/manager/**</exclude>
 											    <exclude>webapps/ROOT/**</exclude>
+											    <exclude>bin/catalina.sh</exclude>
 											</excludes>
 											<noDefaultExcludes>true</noDefaultExcludes>
 										</source>
@@ -192,6 +193,16 @@
 									<sources>
 										<source>
 											<location>src/main/config/tomcat/conf</location>
+										</source>
+									</sources>
+								</mapping>
+								<mapping>
+									<directory>/opt/PlexView/ELCM/server/bin</directory>
+									<username>root</username>
+									<groupname>root</groupname>
+									<sources>
+										<source>
+											<location>src/main/config/tomcat/bin</location>
 										</source>
 									</sources>
 								</mapping>
