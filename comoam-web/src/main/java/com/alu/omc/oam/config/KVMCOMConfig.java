@@ -197,17 +197,8 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
         Iterator<String> it = vm_config.keySet().iterator(); 
 	    while(it.hasNext()){
 	        String vm = it.next();
-	        NIC nic = new NIC();
-	        Map<String, Object> config = (Map<String, Object>)vm_config.get(vm);
-	        IFCfg cfg = new IFCfg();
-	        cfg.setIpaddress((String)config.get("ip_address"));
-	        nic.setIp_v4(cfg);
-	        IFCfg v6cfg = new IFCfg();
-	        v6cfg.setIpaddress((String)config.get("v6_ip_addr"));
-	        nic.setIp_v6(v6cfg);
-	        List<NIC> nics = new ArrayList<NIC>();
-	        nics.add(nic);
-	        vmnics.put(vm, nics);
+	        VMConfig  config = vm_config.get(vm);
+	        vmnics.put(vm, config.getNic());
 	    }
         return vmnics;
     }

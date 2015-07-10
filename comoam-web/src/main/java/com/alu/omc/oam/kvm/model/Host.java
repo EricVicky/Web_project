@@ -76,9 +76,7 @@ import com.alu.omc.oam.ansible.Entity;
             if(isLocalHost(this.ip_address)){
                 return localHost();
             }else{
-                return StringUtils.join(new String[] { this.ip_address,
-                    "ansible_ssh_user=".concat(this.user),
-                    "ansible_ssh_pass=".concat(this.password).concat("\n") }, " ");
+                return StringUtils.join(new String[] { this.ip_address }, " ");
             }
         }
         
