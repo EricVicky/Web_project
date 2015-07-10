@@ -58,7 +58,7 @@ then
 else
         echo "Tomcat keystore file already exists, will not be created again.";
 fi
-if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]
+if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]; then
     /opt/PlexView/ELCM/script/migration-0.7-8.py
 fi
 
