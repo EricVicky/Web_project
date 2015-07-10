@@ -75,6 +75,14 @@ angular.module('comoamApp')
 		  }  
 	  }
 	 $scope.selectedIns = selectedIns;
+	 if($scope.selectedIns.comType=='FCAPS'||$scope.selectedIns.comType=='OAM'||$scope.selectedIns.comType=='CM'){
+		 $scope.oamRowspan = $scope.selectedIns.vm_config.oam.nic.length * 2 + 2;
+	 	 $scope.dbRowspan = $scope.selectedIns.vm_config.db.nic.length * 2 + 2;
+	 	 if($scope.selectedIns.comType != "OAM"){
+	 		 $scope.cmRowspan = $scope.selectedIns.vm_config.cm.nic.length * 2 + 2;                		
+	 	 }
+	 }
+	 
 	 $scope.ok = function(){
 		 $scope.deletecom();
 		 $modalInstance.close($scope.selectedIns);
