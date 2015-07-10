@@ -124,7 +124,7 @@
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
-													<input align="center" name="oam_ipv4_ipaddress" type="text" validation="required" 
+													<input align="center" name="oam_ipv4_ipaddress{{$index}}" type="text" validation="required" 
 													readonly style="border-width:0px;width:120px" ng-model="installConfig.vm_config.oam.nic[$index].ip_v4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.oam.nic[$index].ip_v6.ipaddress" >
@@ -138,9 +138,9 @@
 													</div>
 												</div>
 											</div>
-										</div>
 										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.oam_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_OAM_VM">Please Config ALL OAM VM!</label></span>
+											<span class="validation text-danger" ng-show="tab3.oam_ipv4_ipaddress{{$index}}.$error.validation"><label translate="PLEASE_CONFIG_ALL_OAM_VM">Please Config OAM VM!</label></span>
+										</div>
 										</div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.db.nic = []"
@@ -156,7 +156,7 @@
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
-													<input align="center" name="db_ipv4_ipaddress" type="text" validation="required" 
+													<input align="center" name="db_ipv4_ipaddress{{$index}}" type="text" validation="required" 
 													readonly style="border-width:0px;width:120px" ng-model="installConfig.vm_config.db.nic[$index].ip_v4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.db.nic[$index].ip_v6.ipaddress" >
@@ -170,9 +170,9 @@
 													</div>
 												</div>
 											</div>
+											<div class="col-md-5">
+											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress{{$index}}.$error.validation"><label translate="PLEASE_CONFIG_ALL_OAM_VM">Please Config DB VM!</label></span>
 										</div>
-										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_DB_VM">Please Config ALL DB VM!</label></span>
 										</div>
 									</fieldset>
 									<fieldset ng-init="installConfig.vm_config.cm.nic = []"
@@ -188,7 +188,7 @@
 											<div class="row form-group">
 												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ip_v4.ipaddress" >
 													<label translate="IPV4_ADDRESS:">IPV4 Address:&nbsp;&nbsp;</label>
-													<input align="center" name="cm_ipv4_ipaddress" type="text" validation="required" 
+													<input align="center" name="cm_ipv4_ipaddress{{$index}}" type="text" validation="required" 
 													readonly style="border-width:0px;width:120px" ng-model="installConfig.vm_config.cm.nic[$index].ip_v4.ipaddress">
 												</div>
 												<div class="col-md-4" ng-show="installConfig.vm_config.cm.nic[$index].ip_v6.ipaddress" >
@@ -202,9 +202,9 @@
 													</div>
 												</div>
 											</div>
+											<div class="col-md-5">
+											<span class="validation text-danger" ng-show="tab3.cm_ipv4_ipaddress{{$index}}.$error.validation"><label translate="PLEASE_CONFIG_ALL_OAM_VM">Please Config CM VM!</label></span>
 										</div>
-										<div class="col-md-5">
-											<span class="validation text-danger" ng-show="tab3.cm_ipv4_ipaddress.$error.validation"><label translate="PLEASE_CONFIG_ALL_CM_VM">Please Config ALL CM VM!</label></span>
 										</div>
 									</fieldset>
 								</form>
