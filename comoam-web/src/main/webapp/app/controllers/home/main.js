@@ -12,9 +12,7 @@ angular.module('comoamApp')
 	  $scope.goupgraqde = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  if($scope.selectedIns.environment == "KVM"){
-			  if ($scope.selectedIns.comType == "QOSAC"
-					|| $scope.selectedIns.comType == "ATC"
-					|| $scope.selectedIns.comType == "HPSIM") {
+			  if ($scope.selectedIns.comType == "QOSAC" || $scope.selectedIns.comType == "HPSIM") {
 				  $state.go("dashboard.kvmovmupgrade");
 			  }else{
 				  $state.go("dashboard.kvmupgrade");	
@@ -64,7 +62,7 @@ angular.module('comoamApp')
 	  $scope.deletecom = function(){
 		  if($scope.selectedIns.environment == "KVM"){
 			  KVMService.deletecom($scope.selectedIns).then( function(){
-				  monitorService.monitorKVMDelete($scope.selectedIns.active_host_ip);
+				  monitorService.monitorKVMDelete($scope.selectedIns.active_host_ip,$scope.selectedIns.comType);
 	       		  $state.go("dashboard.monitor");
 			  });
 		  }else{

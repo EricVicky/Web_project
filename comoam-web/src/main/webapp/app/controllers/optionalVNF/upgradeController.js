@@ -80,7 +80,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         
     $scope.doUpgrade = function (){
         KVMService.upgradeOVM($scope.installConfig).then( function(){
-        	if($scope.installConfig.comType == "QoSAC"){
+        	if($scope.installConfig.comType == "QOSAC"){
         		monitorService.monitorKVMQOSACUpgrade($scope.installConfig.active_host_ip);
              	$state.go("dashboard.monitor");
         	}else{

@@ -21,11 +21,18 @@ angular.module('monitor').factory('monitorService', function($log) {
 			},
 			"KVM_OVM" :{
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade":["Start","Data Backup","Start Virtual Machines","Finished"]
+				"upgrade":["Start","Data Backup","Start Virtual Machines","Finished"],
+				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
 			},
 			"KVM_QOSAC":{
 				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"]
+				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
+				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
+			},
+			"KVM_ARS":{
+				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
+				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
 			}
 	};
 	
@@ -88,8 +95,14 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "restore";
 			channel = ch;
 		},
-		monitorKVMDelete: function(ch) {
-			environment = "KVM";
+		monitorKVMDelete: function(ch,comType) {
+			if(comType=='FCAPS'||comType=='CM'||comType=='OAM'){
+				environment = "KVM";
+			}else if(comType=='QOSAC'||comType=='ARS'){
+				environment = "KVM"+"_"+comType;
+			}else{
+				environment = "KVM_OVM";
+			}
 			action = "delete";
 			channel = ch;
 		},
@@ -151,6 +164,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMQOSACInstall:function(ch) {
 			environment = "KVM_QOSAC";
 			action = "install";
+			channel = ch;
+		},
+		monitorKVMQOSACDelete: function(ch) {
+			environment = "KVM_QOSAC";
+			action = "delete";
 			channel = ch;
 		},
 		getChannel : function (){
