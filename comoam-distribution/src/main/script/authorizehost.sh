@@ -11,10 +11,19 @@ if [ "${real_exec_user}" != "${runner}" ]; then
 fi
 
 
-/bin/echo "Please input hostname"
+/bin/echo "Please input hostname:"
 read host
-/bin/echo "Please input IP address"
+if [ -z $host ]; then
+    echo "host name requried!"
+    exit 1
+fi
+/bin/echo "Please input IP address:"
 read IP
+
+if [ -z $IP ]; then
+    echo "host IP required!"
+    exit 1
+fi
 
 export host_IP=$IP
 ansible-playbook -i host  --ask-pass ../ELCM-playbook/playbooks/kvm/authhost.yml

@@ -12,7 +12,9 @@ angular.module('gr', [ 'ui.router',
     		 if(comstacks.length > 0){
     		    var instances = new Array();
     		    for(var i=0; i < comstacks.length; i++){
-    		    	instances.push(JSON3.parse(comstacks[i].comConfig));
+    		    	if(comstacks[i].comType == 'OAM'||comstacks[i].comType == 'FCAPS'||comstacks[i].comType == 'CM'){
+    		    		instances.push(JSON3.parse(comstacks[i].comConfig));
+    		    	}
     		    }
     		    $scope.COMStack = comstacks;
     		    $scope.instances = instances;
@@ -150,7 +152,9 @@ angular.module('gr', [ 'ui.router',
 	$scope.translateSelectedGR = function(){
 			$scope.priOAMRowspan = $scope.gr_config.comConfig.vm_config.oam.nic.length * 2;
 			$scope.priDBRowspan = $scope.gr_config.comConfig.vm_config.db.nic.length * 2;
-			$scope.priCMRowspan = $scope.gr_config.comConfig.vm_config.cm.nic.length * 2;
+			if($scope.gr_config.comConfig.comType != "OAM"){
+				$scope.priCMRowspan = $scope.gr_config.comConfig.vm_config.cm.nic.length * 2;
+			}
 	}
 	$scope.changeForce = function(){
 		if($scope.gr_config.forced){

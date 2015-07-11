@@ -40,15 +40,11 @@
 														class="table table-striped table-bordered table-hover"
 														id="dataTables-example">
 														<tbody>
-														<tr align="center">
-															<td colspan="4" translate="GR_STATUS">GR Status</td>
-															<td colspan="2">{{installedPriGR}}</td>
-														</tr>
-														<tr align="center">
+														<tr align="center" ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
 															<td colspan="4" translate="COM_TYPE">COM Type</td>
 															<td colspan="2">{{gr_config.comConfig.comType}}</td>
 														</tr>
-														<tr align="center">
+														<tr align="center" ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
 															<td colspan="4" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 															<td colspan="2">{{gr_config.comConfig.deployment_prefix}}</td>
 														</tr>

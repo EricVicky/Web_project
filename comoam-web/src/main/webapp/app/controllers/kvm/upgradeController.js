@@ -13,7 +13,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 			CODE_SERVER_DISK_SPACE:'2000',
 			OMCCN_SUPPORT_WEBSSO_SANE:'false',
 			NTP_SERVER:'135.251.111.73',
-			SEC_UNIX_ENABLE:'NO',
+			SEC_UNIX_ENABLE:'YES',
 			OMCCN_SUPPORT_COM_GR:'false',
 			OMCCN_SUPPORT_SP_FM:'YES',
 			OMCCN_SUPPORT_SP_PM:'YES',
@@ -24,14 +24,17 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 			OMCCN_SUPPORT_SNMP_N_ITF:'true',
 			OMCCN_SUPPORT_GSST:'false',
 			OMCCN_SUPPORT_NETRA:'false',
+			INSTALL_ETHEREAL:'NO'
 
 	};
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
-        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    		$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
         	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
         	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-        	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+        	if($scope.installConfig.comType != "OAM"){
+        		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+        	}
         	//set default value if not set
         	for(var attr in default_app_install_options){
         		if(!$scope.installConfig.app_install_options[attr]){
@@ -73,8 +76,10 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 		$scope.comInstance = data;
 		$scope.kvmcomInstance = [];
 		for(var ci=0;ci<$scope.comInstance.length;ci++){
-			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  "KVM"){
-				$scope.kvmcomInstance.push($scope.comInstance[ci]);
+			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  'KVM'){
+				if($scope.comInstance[ci].comType == 'OAM'||$scope.comInstance[ci].comType == 'FCAPS'||$scope.comInstance[ci].comType == 'CM'){
+					$scope.kvmcomInstance.push($scope.comInstance[ci]);
+				}
 			}
 		}
 		$scope.setDefaultInstace();

@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.alu.omc.oam.kvm.model.KvmFlavor;
 import com.fasterxml.jackson.annotation.JsonCreator;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+@JsonInclude(Include.NON_NULL)
  public class VMConfig implements Serializable
     {
       
