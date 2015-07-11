@@ -20,7 +20,7 @@
 						<div class="modal-body col-md-12">
 							<div class="tab-content">
 								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
-									name="tab1" rc-submit="" rc-step>
+									name="tab1" rc-submit="getMinTraffic()" rc-step>
 									<div class="col-md-6">
 											<label class="control-label" translate="PRIMARY_VNF">Primary VNF</label> <select
 												name="pri" ng-model="gr_config.pri" class="form-control"
@@ -495,18 +495,77 @@
 									<div class="form-group">
 										<label class="control-label" translate="GR_TRAFFIC">GR Traffic</label> <select
 											name="gr_traffic" class="form-control"
-											ng-model="gr_config.gr_traffic" title="GR Traffic"
+											ng-model="gr_config.gr_traffic" title="GR Traffic" ng-change="gr_ip_changed()"
 											ng-options=" t.value as t.label for t in gr_traffic_types "
 											validation="required"><option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
-									</div>
+									</div>	
 									<div class="form-group">
 										<label class="control-label" translate="IP_TYPE">IP Type</label> <select
-											name="gr_traffic" class="form-control"
-											ng-model="gr_config.gr_ip_type" title="GR Traffic"
+											name="gr_ip_type" class="form-control"
+											ng-model="gr_config.gr_ip_type" title="GR Traffic" ng-change="gr_ip_changed()"
 											ng-options=" im for im in ip_types " validation="required">
 											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
+									</div>
+									<div class="col-md-5">
+										<span class="validation text-danger" ng-show="invalideIP">
+											<label translate="INVALIDE_IP_CONFIG_FOR_GR">Invalide IP Config For GR!</label>
+										</span>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<label class="control-label" translate="PRIMARY_VNF">Primary VNF:</label> 
+											<label class="control-label">{{gr_config.pri.deployment_prefix}}</label>
+											<table class="table table-striped table-bordered table-hover" id="dataTables-grPri">
+												<tbody>
+													<div ng-if="gr_IP.pri.oam">
+														<tr align="center" ng-repeat="ip in gr_IP.pri.oam track by $index">
+															<td>OAM</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+													<div ng-if="gr_IP.pri.db">
+														<tr align="center" ng-repeat="ip in gr_IP.pri.db track by $index">
+															<td>DB</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+													<div ng-if="gr_IP.pri.cm">
+														<tr align="center" ng-repeat="ip in gr_IP.pri.cm track by $index">
+															<td>CM</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+												</tbody>
+											</table>
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" translate="SECONDARY_VNF">Secondary VNF</label>
+											<label class="control-label">{{gr_config.sec.deployment_prefix}}</label> 
+											<table class="table table-striped table-bordered table-hover" id="dataTables-grPri">
+												<tbody>
+													<div ng-if="gr_IP.sec.oam">
+														<tr align="center" ng-repeat="ip in gr_IP.sec.oam track by $index">
+															<td>OAM</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+													<div ng-if="gr_IP.pri.db">
+														<tr align="center" ng-repeat="ip in gr_IP.sec.db track by $index">
+															<td>DB</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+													<div ng-if="gr_IP.pri.cm">
+														<tr align="center" ng-repeat="ip in gr_IP.sec.cm track by $index">
+															<td>CM</td>
+															<td>{{ip}}</td>
+														</tr>
+													</div>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
@@ -553,7 +612,7 @@
 										ng-click="rc.grInstallWizard.backward()"
 										ng-show="rc.grInstallWizard.currentIndex > rc.grInstallWizard.firstIndex" translate="BACK">Back</a>
 									<a class="btn btn-primary"
-										ng-click="rc.grInstallWizard.forward()"
+										ng-click="rc.grInstallWizard.forward()" ng-disabled="invalideIP"
 										ng-show="rc.grInstallWizard.currentIndex < rc.grInstallWizard.navigationLength" translate="CONTINUE">Continue</a>
 									<a class="btn btn-primary" ng-click="installGR()"
 										ng-show="rc.grInstallWizard.currentIndex == rc.grInstallWizard.navigationLength" translate="INSTALL">Install</a>

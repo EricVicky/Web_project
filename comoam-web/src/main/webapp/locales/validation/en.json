@@ -215,5 +215,6 @@
     "NETWORK_PRE":"Network Prefix",
     "IP_ADDRESS":"IP Address",
     "NETWORK_GAT":"Network Gateway",
+    "INVALIDE_IP_CONFIG_FOR_GR":"Invalide IP Config For GR",
     "PLEASE_CONFIG_B_AND_A":"Please Config Birdge and All IPV4 Items!"
 }

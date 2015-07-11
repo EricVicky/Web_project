@@ -233,7 +233,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
 												var vnfcportIpPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX + vnfcWidth + 50,
 	                        							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j + 3);
 	        									var vnfcportIpText = new PointText(vnfcportIpPoint);
-	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].ip_address;
+	        									vnfcportIpText.content = this.COMStacks[comStacksNum].vm_config[vnfcNum].ip_address + "/" + getPrefix(this.COMStacks[comStacksNum].vm_config[vnfcNum].netmask);
 	        									vnfcportIpText.fillColor = linePortColor;
 	        									vnfcportIpText.fontSize = '15px';
 	        									
@@ -568,6 +568,33 @@ function getNetmask(prefix){
 		break;
 	}
 	return netmask;
+}
+function getPrefix(netmask){
+	var netmaskArr = [];
+	netmaskArr = netmask.split(".");
+	var not255 = '';
+	var all255Num = 0;
+	var not255BinRev = [];
+	var all1Numofnot255 = 0;
+	var prefix = 0;
+	for(var indexofNetmaskArr=0;indexofNetmaskArr<netmaskArr.length;indexofNetmaskArr++){
+		if(netmaskArr[indexofNetmaskArr] != "255"){
+			not255 = netmaskArr[indexofNetmaskArr];
+			all255Num = parseInt(indexofNetmaskArr);
+			break;
+		}
+	}
+	var not255Bin = parseInt(not255,10).toString(2);
+	not255BinRev = not255Bin.split("").reverse();
+	for(var indexofBinRev=0;indexofBinRev<not255BinRev.length;indexofBinRev++){
+		if(not255BinRev[indexofBinRev] != "0"){
+			all1Numofnot255 = 8 - indexofBinRev;
+			break;
+		}
+	}
+	prefix = all255Num * 8 + all1Numofnot255;
+	return prefix;
+	
 }
 function getRandomColor(){ 
 	return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); 

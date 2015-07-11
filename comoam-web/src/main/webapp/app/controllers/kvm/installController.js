@@ -53,7 +53,7 @@ angular.module('kvm', [ 'ui.router',
             	var vm_config = $scope.installConfig.vm_config;
             	for(var vm in vm_config){
             		for(var indexofNic=0;indexofNic<vm_config[vm].nic.length;indexofNic++){
-            			if(!vm_config[vm].nic[indexofNic].bridge){
+            			if( !vm_config[vm].nic[indexofNic] || !vm_config[vm].nic[indexofNic].bridge){
             				delete vm_config[vm].nic[indexofNic];
             				vm_config[vm].nic.length--;
             			}
