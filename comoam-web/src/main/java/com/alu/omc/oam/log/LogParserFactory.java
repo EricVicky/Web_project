@@ -33,7 +33,10 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.HPSIM), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.ATC), kvmovmDeleteParser());
+        parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.ATC), kvmovmUpgradeParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.QOSAC), kvmqosacInstallParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.QOSAC), kvmQosacDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.HPSIM), kvmovmUpgradeParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
@@ -196,15 +199,22 @@ public class LogParserFactory
     
     private ILogParser kvmovmDeleteParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
-        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
-        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
-        dict.put("PLAY\\s\\[backup\\sHPSIM\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vmfiles\\s\\|\\sdelete\\svirtual\\smachine\\sfiles\\]", "Delete Virtual Machine Files");     
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sundefine\\svirtual\\smachine\\]","Undefine Virtual Machines");
+        dict.put("PLAY\\s\\[destroy\\sall\\svirtual\\smachines\\]", "Destroy Virtual Machines");
         dict.put("\\/usr\\/bin\\/", "Start");
         return new LogParser(dict);
     }
-
+    private ILogParser kvmQosacDeleteParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vmfiles\\s\\|\\sdelete\\svirtual\\smachine\\sfiles\\]", "Delete Virtual Machine Files");     
+        dict.put("TASK\\:\\s\\[vnf\\_delete\\_vms\\s\\|\\sundefine\\svirtual\\smachine\\]","Undefine Virtual Machines");
+        dict.put("PLAY\\s\\[destroy\\sall\\svirtual\\smachines\\]", "Destroy Virtual Machines");
+        dict.put("\\/usr\\/bin\\/", "Start");
+        return new LogParser(dict);
+    }
     private ILogParser kvmqosacUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");

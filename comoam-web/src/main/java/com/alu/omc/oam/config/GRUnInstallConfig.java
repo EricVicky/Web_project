@@ -38,7 +38,7 @@ public void setComConfig(T comConfig) {
 @Override
 public Inventory getInventory()
 {
-    Inventory  inv =comConfig .getInventory();
+    Inventory  inv =comConfig.getInventory();
     inv.addNooamGroup();
     return inv;
 }
@@ -46,7 +46,7 @@ public Inventory getInventory()
 @JsonIgnore 
 public String getVars()
 {
-  return "forced: ".concat(String.valueOf(this.getForced())); 
+  return "forced: ".concat("'" + String.valueOf(this.getForced()) + "'"); 
 }
 
 

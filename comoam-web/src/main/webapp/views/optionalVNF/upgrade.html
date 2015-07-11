@@ -50,7 +50,7 @@
                                                             <td>{{installConfig.deployment_prefix}}</td>
                                                         </tr>
                                                         <tr align="center">
-                                                            <td rowspan="2" width="25%" align="center"
+                                                            <td rowspan="3" width="25%" align="center"
                                                                 style="vertical-align: middle">OVM</td>
                                                             <td width="35%">IP Address</td>
                                                             <td>{{installConfig.vm_config.ovm.ip_address}}</td>
@@ -58,6 +58,10 @@
                                                         <tr align="center">
                                                             <td>Flavor</td>
                                                             <td>{{installConfig.vm_config.ovm.flavor.label}}</td>
+                                                        </tr>
+                                                        <tr align="center">
+                                                            <td>Image</td>
+                                                            <td>{{installConfig.vm_config.ovm.imgname}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -74,7 +78,7 @@
                                 <form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="control-label">OVM image</label> <select mutuexclude="db_image" form="tab2"
+                                            <label class="control-label">OVM image</label> <select  form="tab2"
                                                 name="oam_cm_image" class="form-control"
                                                 ng-model="installConfig.vm_config.ovm.imgname" title="OAM/CM image"
                                                 ng-options=" im for im in imagelist" validation="required">
@@ -106,22 +110,19 @@
                                                             <td colspan="2">Prefix of VM Instance</td>
                                                             <td>{{installConfig.deployment_prefix}}</td>
                                                         </tr>
-                                                        <tr align="center"
-                                                            ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+                                                        <tr align="center">
                                                             <td rowspan="3" width="25%" align="center"
-                                                                style="vertical-align: middle">OAM VM</td>
+                                                                style="vertical-align: middle">OVM</td>
                                                             <td width="35%">IP Address</td>
                                                             <td>{{installConfig.vm_config.ovm.ip_address}}</td>
                                                         </tr>
-                                                        <tr align="center"
-                                                            ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+                                                        <tr align="center">
                                                             <td>Flavor</td>
                                                             <td>{{installConfig.vm_config.ovm.flavor.label}}</td>
                                                         </tr>
-                                                        <tr align="center"
-                                                            ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-                                                            <td>OAM image</td>
-                                                            <td>{{$parent.oam_cm_image}}</td>
+                                                        <tr align="center">
+                                                            <td>Image</td>
+                                                            <td>{{installConfig.vm_config.ovm.imgname}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
