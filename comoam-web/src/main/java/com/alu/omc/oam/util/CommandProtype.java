@@ -53,7 +53,7 @@ public ICommandExec create(PlaybookCall playbookCall, File runDir){
     }
     if(SystemUtils.IS_OS_WINDOWS){
         return new MockCommandExec(playbookCall.asCommand(),
-                new String[]{playbookCall.getAction().name(), playbookCall.getConfig().getEnvironment().name()},
+                new String[]{playbookCall.getAction().name(), playbookCall.getConfig().getEnvironment().name(),playbookCall.getConfig().getCOMType().name()},
                             null, runDir);
     }else{
        if(playbookCall.getConfig().getEnvironment() == Environment.OPENSTACK){

@@ -3,7 +3,7 @@
 <div class="modal-body">
 	<div class="form-group">
 		<label class="control-label">Environment</label> <select name="comType"
-			ng-model="selected.EnvItem" class="form-control"
+			ng-model="selected.EnvItem" class="form-control" ng-change="changeVNF()"
 			ng-options="EnvItem as EnvItem.Name for EnvItem in EnvItems"
 			title="COM Type" validation="required">
 			<option value="">--Environment--</option>
@@ -13,7 +13,7 @@
 	<div class="form-group">
 		<label class="control-label">VNF Type</label> <select name="Environment"
 			ng-model="selected.VNFItem" class="form-control"
-			ng-options="VNFItem as VNFItem.Name for VNFItem in VNFItems.concat(OVNFItems)"
+			ng-options="VNFItem as VNFItem.Name for VNFItem in Items"
 			title="VNF Type" validation="required">
 			<option value="">--VNF Type--</option>
 		</select>
