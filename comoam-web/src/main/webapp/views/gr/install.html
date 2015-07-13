@@ -478,7 +478,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.oam.provider_ip_address}}</td>
@@ -489,13 +489,8 @@
 															<td>{{gr_config.sec.vm_config.oam.provider_v6_ip_address}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
-															<td translate="FLAVOR">Flavor</td>
-															<td>{{flavor}}</td>
-														</tr>
-														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle" translate="DB_VM">DB VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.db.provider_ip_address}}</td>
@@ -506,13 +501,8 @@
 															<td>{{gr_config.sec.vm_config.db.provider_v6_ip_address}}</td>
 														</tr>
 														<tr align="center"
-															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
-															<td translate="FLAVOR">Flavor</td>
-															<td>{{flavor}}</td>
-														</tr>
-														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="2" width="25%" align="center"
 																style="vertical-align: middle" translate="CM_VM">CM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{gr_config.sec.vm_config.cm.provider_ip_address}}</td>
@@ -521,11 +511,6 @@
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
 															<td translate="IPV6_ADDRESS">IPv6 Address</td>
 															<td>{{gr_config.sec.vm_config.cm.provider_v6_ip_address}}</td>
-														</tr>
-														<tr align="center"
-															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
-															<td translate="FLAVOR">Flavor</td>
-															<td>{{flavor}}</td>
 														</tr>
 													</tbody>
 												</table>
