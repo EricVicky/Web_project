@@ -519,7 +519,7 @@
 									</div>
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
-									<div class="form-group">
+									<div class="form-group" ng-if="gr_config.pri.environment == 'KVM' || gr_config.sec.environment == 'KVM'">
 										<label class="control-label" translate="GR_TRAFFIC">GR Traffic</label> <select
 											name="gr_traffic" class="form-control"
 											ng-model="gr_config.gr_traffic" title="GR Traffic" ng-change="gr_ip_changed()"
@@ -527,7 +527,7 @@
 											validation="required"><option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
 									</div>	
-									<div class="form-group">
+									<div class="form-group" ng-if="gr_config.pri.environment == 'KVM' || gr_config.sec.environment == 'KVM'">
 										<label class="control-label" translate="IP_TYPE">IP Type</label> <select
 											name="gr_ip_type" class="form-control"
 											ng-model="gr_config.gr_ip_type" title="GR Traffic" ng-change="gr_ip_changed()"
