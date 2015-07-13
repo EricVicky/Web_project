@@ -434,6 +434,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             					var ipv4NetworkAddress = '';
             					var ipv6NetworkAddress = '';
             					var providerNetworkAddress = '';
+            					var networkAddress = '';
             					if(instances[comstack].environment == "KVM"){
             						if(instances[comstack].vm_config[vnfc].ip_address){// for optional vm: qosac, hpsim
             								ipv4NetworkAddress = getNetworkAddress4HPSIM(instances[comstack].vm_config[vnfc].ip_address,instances[comstack].vm_config[vnfc].netmask);

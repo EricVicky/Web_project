@@ -48,6 +48,9 @@ angular.module('gr', [ 'ui.router',
  	      	 
     	 };
     	 $scope.secondarycfg = function(){
+    		 GRService.checkInstalled({"name":$scope.gr_config.sec.deployment_prefix}).then(function(data){
+    			 $scope.installedSecGR = (data.succeed == true?"Installed":"Not Installed");
+        	 });
     		 $scope.secOAMRowspan = $scope.gr_config.sec.vm_config.oam.nic.length * 2;
  	    	 $scope.secDBRowspan = $scope.gr_config.sec.vm_config.db.nic.length * 2;
  	    	 if($scope.gr_config.sec.comType != "OAM"){
