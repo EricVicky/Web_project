@@ -60,7 +60,13 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         		   break;
         		}
         }
-  
+        $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+    	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+    	if($scope.installConfig.comType != "OAM"){
+    		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+    	}
+    	
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }

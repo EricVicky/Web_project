@@ -31,9 +31,14 @@ angular.module('backup_restore', ['ui.router',
     		if(angular.equals(com_config,selectedInstance)){
     		   $scope.com_instance = $scope.comInstance[inst];
     		   $scope.installConfig = com_config;
-    		   return;
+    		   break;
     		}
         }
+        $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+     	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+     	if($scope.installConfig.comType != "OAM"){
+     		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+     	}
     }
     
     Backup_ResService.getComInstance().then( function(data) {
