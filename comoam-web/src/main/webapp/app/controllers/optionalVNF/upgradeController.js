@@ -60,33 +60,22 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 	};
 	
 	$scope.upgrade = function(){
-        KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
-		if(response.succeed == true){
-			locked = true;
-			if(window.confirm("The installation proceed on selected Host, go to monitor?")){
-				KVMService.lockedHostStatus($scope.installConfig.active_host_ip).then(function(status){
-					if(status.lastAction == 'INSTALL'){
-						monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
-					}else if(status.lastAction  =="UPGRADE"){
-						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
-					}
-					$state.go('dashboard.monitor');
-				})
-			}
-		}else{
-			$scope.doUpgrade();
-		}
-	});
-        
+		kvmservice.comstackstatus($scope.installconfig.deployment_prefix).then(function(status){
+            		var action_in_progress = 2;
+            		if(status.state == action_in_progress){
+            			if(window.confirm("some operation  proceed on selected vnf instance, go to monitor?")){
+            				monitorservice.monitor("KVM", status.lastaction, $scope.installconfig.comtype, $scope.installconfig.deployment_prefix);
+            				$state.go('dashboard.monitor');
+            			}
+            		}else{
+            			$scope.doUpgrade();
+            		}
+        });
+		
     $scope.doUpgrade = function (){
         KVMService.upgradeOVM($scope.installConfig).then( function(){
-        	if($scope.installConfig.comType == "QoSAC"){
-        		monitorService.monitorKVMQOSACUpgrade($scope.installConfig.active_host_ip);
+            	monitorservice.monitor("KVM", "UPGRADE", $scope.installconfig.comtype, $scope.installconfig.deployment_prefix);
              	$state.go("dashboard.monitor");
-        	}else{
-        		monitorService.monitorKVMOVMUpgrade($scope.installConfig.active_host_ip);
-             	$state.go("dashboard.monitor");
-        	}
     	});
     };
         

@@ -22,7 +22,7 @@ angular.module('kvm', [ 'ui.router',
 					CODE_SERVER_DISK_SPACE:'2000',
 					OMCCN_SUPPORT_WEBSSO_SANE:'false',
 					NTP_SERVER:'135.251.111.73',
-					SEC_UNIX_ENABLE:'NO',
+					SEC_UNIX_ENABLE:'YES',
 					OMCCN_SUPPORT_COM_GR:'false',
 					OMCCN_SUPPORT_SP_FM:'YES',
 					OMCCN_SUPPORT_SP_PM:'YES',
@@ -53,7 +53,7 @@ angular.module('kvm', [ 'ui.router',
             	var vm_config = $scope.installConfig.vm_config;
             	for(var vm in vm_config){
             		for(var indexofNic=0;indexofNic<vm_config[vm].nic.length;indexofNic++){
-            			if(!vm_config[vm].nic[indexofNic].bridge){
+            			if( !vm_config[vm].nic[indexofNic] || !vm_config[vm].nic[indexofNic].bridge){
             				delete vm_config[vm].nic[indexofNic];
             				vm_config[vm].nic.length--;
             			}
@@ -96,7 +96,7 @@ angular.module('kvm', [ 'ui.router',
 				$log.info($scope.installConfig);
 				$scope.clean_dirty();
             	KVMService.deploy($scope.installConfig).then( function(){
-            		monitorService.monitor("KVM", "INSTALL", $scope.installConfig.deployment_prefix);
+            		monitorService.monitor("KVM", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.deployment_prefix);
          			$state.go("dashboard.monitor");
         		});
             };
@@ -135,7 +135,7 @@ angular.module('kvm', [ 'ui.router',
             		var ACTION_IN_PROGRESS = 2;
             		if(status.state == ACTION_IN_PROGRESS){
             			if(window.confirm("some operation  proceed on selected VNF instance, go to monitor?")){
-            				monitorService.monitor("KVM", status.lastaction, $scope.installConfig.deployment_prefix);
+            				monitorService.monitor("KVM", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.deployment_prefix);
             				$state.go('dashboard.monitor');
             			}
             		}else{

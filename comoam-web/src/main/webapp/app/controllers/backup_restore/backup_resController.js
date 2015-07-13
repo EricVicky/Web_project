@@ -10,9 +10,13 @@ angular.module('backup_restore', ['ui.router',
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
         	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
-        	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-        	$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+        	 if($scope.installConfig.comType=='FCAPS'||$scope.installConfig.comType=='OAM'||$scope.installConfig.comType=='CM'){
+        		$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+             	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+             	if($scope.installConfig.comType != "OAM"){
+             		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+             	}
+        	 }
     	}
     }
     
@@ -27,9 +31,14 @@ angular.module('backup_restore', ['ui.router',
     		if(angular.equals(com_config,selectedInstance)){
     		   $scope.com_instance = $scope.comInstance[inst];
     		   $scope.installConfig = com_config;
-    		   return;
+    		   break;
     		}
         }
+        $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+     	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+     	if($scope.installConfig.comType != "OAM"){
+     		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+     	}
     }
     
     Backup_ResService.getComInstance().then( function(data) {
@@ -41,7 +50,7 @@ angular.module('backup_restore', ['ui.router',
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
     		Backup_ResService.kvmbackup($scope.backupConfig).then( function(){
-    			monitorService.monitorKVMBackup($scope.installConfig.active_host_ip);
+    			monitorService.monitorKVMBackup($scope.installConfig.deployment_prefix);
              	$state.go("dashboard.monitor");
     		});
     	}else{
@@ -55,7 +64,7 @@ angular.module('backup_restore', ['ui.router',
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
     		Backup_ResService.kvmrestore($scope.backupConfig).then( function(){
-    			monitorService.monitorKVMRestore($scope.installConfig.active_host_ip);
+    			monitorService.monitorKVMRestore($scope.installConfig.deployment_prefix);
              	$state.go("dashboard.monitor");
     		});
     	}else{

@@ -30,7 +30,7 @@ public class MockCommandExec implements ICommandExec {
     private static Logger log = LoggerFactory.getLogger(MockCommandExec.class);
 
     public MockCommandExec(String command, String[] args, String[] envp, File dir) {
-        this.fileName = args[0].toLowerCase().concat("_").concat(args[1]).toLowerCase().concat(".log");
+        this.fileName = args[0].toLowerCase().concat("_").concat(args[1]).toLowerCase().concat("_").concat(args[2]).concat(".log");
         this.workingDir = dir;
     }
 
