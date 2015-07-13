@@ -40,6 +40,8 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.QOSAC), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.HPSIM), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.ATC), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.KVM, Action.BACKUP, COMType.QOSAC), new Playbook("backup_qosac.yml") );
+        playbooks.put(key(Environment.KVM, Action.RESTORE, COMType.QOSAC), new Playbook("restore_qosac.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {
