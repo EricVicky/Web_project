@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alu.omc.oam.ansible.RunningHostLock;
+import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.ansible.validation.ValidationResult;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.Status;
-import com.alu.omc.oam.kvm.model.Host;
-import com.alu.omc.oam.kvm.model.HostStatus;
+import com.alu.omc.oam.kvm.model.StackStatus;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 
@@ -27,7 +26,7 @@ public class CheckController
     @Resource
     COMStackService cOMStackService;
     @Resource
-    RunningHostLock runningContext;
+    RunningComstackLock runningComstackLock;
 
     @RequestMapping(value="/check/ping", method=RequestMethod.POST)
     public boolean  ping(@ModelAttribute("host") String host) 
@@ -92,19 +91,17 @@ public class CheckController
     }
 
     @RequestMapping(value="/check/lockedhost", method=RequestMethod.GET)
-    public ValidationResult  checkHostLocked(@ModelAttribute("ip_address") String  ipaddress) 
+    public ValidationResult  checkHostLocked(@ModelAttribute("stackName") String  stackName) 
     {
         ValidationResult res = new ValidationResult ();
-        res.setSucceed(runningContext.isLocked(new Host(ipaddress)));
-//        res.setSucceed(false);
+        res.setSucceed(runningComstackLock.islocked(stackName));
         return res;
     }
     
     @RequestMapping(value="/check/host/status", method=RequestMethod.GET)
-    public HostStatus  checkHostStatus(@ModelAttribute("ip_address") String  ipaddress) 
+    public StackStatus  checkHostStatus(@ModelAttribute("stackName") String  stackName) 
     {
-        return runningContext.getAction(new Host(ipaddress));
-        //return Action.INSTALL;
+        return runningComstackLock.getStatus(stackName);
     }
 
 }

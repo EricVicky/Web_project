@@ -42,30 +42,29 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     
     $scope.deploy = function(){
     	
-    	KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
-    		if(response.succeed == true){
-    			locked = true;
-    			if(window.confirm("The installation proceed on selected Host, go to monitor?")){
-    				KVMService.lockedHostStatus($scope.installConfig.active_host_ip).then(function(status){
-    					if(status.lastAction == 'INSTALL'){
-    						monitorService.monitorKVMOVMInstall($scope.installConfig.active_host_ip);
-    					}
-    					$state.go('dashboard.monitor');
-    				});
-    			}
-    		}else{
-    			$scope.doDeploy();
-    		}
-    	});
+    	/*check if it is locked: prevent multiple operation on same comstack
+         * it may cause log chaos on monitor page
+        */
+        KVMService.comstackStatus($scope.installConfig.deployment_prefix).then(function(status){
+            		var ACTION_IN_PROGRESS = 2;
+            		if(status.state == ACTION_IN_PROGRESS){
+            			if(window.confirm("some operation  proceed on selected VNF instance, go to monitor?")){
+            				monitorService.monitor("KVM_OVM", status.lastaction, $scope.installConfig.deployment_prefix);
+            				$state.go('dashboard.monitor');
+            			}
+            		}else{
+            			$scope.doDeploy();
+            		}
+        });
     };
     
     $scope.doDeploy = function (){
     	KVMService.deployOVM($scope.installConfig).then( function(){
  			if($scope.installConfig.environment == "QOSAC"){
-        		monitorService.monitorKVMQOSACInstall($scope.installConfig.active_host_ip);
+        		monitorService.monitorKVMQOSACInstall($scope.installConfig.deployment_prefix);
              	$state.go("dashboard.monitor");
         	}else{
-        		monitorService.monitorKVMOVMInstall($scope.installConfig.active_host_ip);
+        		monitorService.monitorKVMOVMInstall($scope.installConfig.deployment_prefix);
      			$state.go("dashboard.monitor");
         	}
 		});

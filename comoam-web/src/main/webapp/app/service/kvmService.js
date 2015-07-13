@@ -52,9 +52,9 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var lockedHostRes = $resource(restUrl + "rest/check/lockedhost");
 			return lockedHostRes.get({"ip_address":ip_address}).$promise;
 		},
-		lockedHostStatus: function(ip_address) {
+		comstackStatus: function(comStack) {
 			var lockedHostRes = $resource(restUrl + "rest/check/host/status");
-			return lockedHostRes.get({"ip_address":ip_address}).$promise;
+			return lockedHostRes.get({"stackName":comStack}).$promise;
 		},
 		upgrade:function(config){
 			var upgradeRes = $resource(restUrl + "rest/kvm/upgrade");

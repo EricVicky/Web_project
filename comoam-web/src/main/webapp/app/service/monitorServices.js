@@ -153,6 +153,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "install";
 			channel = ch;
 		},
+		monitor: function(env, action, ch){
+			this.env = env;
+			this.action = action.toLowerCase();
+			this.chanel  = ch;
+		},
 		getChannel : function (){
 			return (topicPrefix  + channel);
 		},
