@@ -42,15 +42,20 @@ angular.module('backup_restore', ['ui.router',
     }
     
     Backup_ResService.getComInstance().then( function(data) {
-		$log.info(data);
-		$scope.comInstance = data;
+    	var comInstance = new Array();
+		for(var index in data){
+			if(data[index].comType=='FCAPS'||data[index].comType=='OAM'||data[index].comType=='CM'||data[index].comType=='QOSAC'){
+				comInstance.push(data[index]);
+			}
+		}
+		$scope.comInstance = comInstance;
 		$scope.setDefaultInstace();
     });
     $scope.backup = function(){
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
     		Backup_ResService.kvmbackup($scope.backupConfig).then( function(){
-    			monitorService.monitorKVMBackup($scope.installConfig.deployment_prefix);
+    			monitorService.monitorKVMBackup($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
              	$state.go("dashboard.monitor");
     		});
     	}else{
@@ -64,8 +69,8 @@ angular.module('backup_restore', ['ui.router',
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
     		Backup_ResService.kvmrestore($scope.backupConfig).then( function(){
-    			monitorService.monitorKVMRestore($scope.installConfig.deployment_prefix);
-             	$state.go("dashboard.monitor");
+    		monitorService.monitorKVMRestore($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
+            $state.go("dashboard.monitor");
     		});
     	}else{
     		Backup_ResService.osrestore($scope.backupConfig).then( function(){

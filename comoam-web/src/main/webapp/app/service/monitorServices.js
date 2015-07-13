@@ -27,7 +27,9 @@ angular.module('monitor').factory('monitorService', function($log) {
 			"KVM_QOSAC":{
 				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
 				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
-				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
+				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"],
+				"backup":["Start","Data Backup","Finished"],
+				"restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_ARS":{
 				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
@@ -85,12 +87,18 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "upgrade";
 			channel = ch;
 		},
-		monitorKVMBackup: function(ch) {
+		monitorKVMBackup: function(ch,comType) {
+			if(comType=='QOSAC'){
+				environment = "KVM_QOSAC";
+			}
 			environment = "KVM";
 			action = "backup";
 			channel = ch;
 		},
-		monitorKVMRestore:function(ch) {
+		monitorKVMRestore:function(ch,comType) {
+			if(comType=='QOSAC'){
+				environment = "KVM_QOSAC";
+			}
 			environment = "KVM";
 			action = "restore";
 			channel = ch;
