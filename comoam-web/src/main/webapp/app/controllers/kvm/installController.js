@@ -21,7 +21,7 @@ angular.module('kvm', [ 'ui.router',
 					CALL_TRACE_DISK_SPACE:'1000',
 					CODE_SERVER_DISK_SPACE:'2000',
 					OMCCN_SUPPORT_WEBSSO_SANE:'false',
-					NTP_SERVER:'135.251.111.73',
+					NTP_SERVER:'COM_LOCAL_CLOCK',
 					SEC_UNIX_ENABLE:'YES',
 					OMCCN_SUPPORT_COM_GR:'false',
 					OMCCN_SUPPORT_SP_FM:'YES',
@@ -53,7 +53,7 @@ angular.module('kvm', [ 'ui.router',
             	var vm_config = $scope.installConfig.vm_config;
             	for(var vm in vm_config){
             		for(var indexofNic=0;indexofNic<vm_config[vm].nic.length;indexofNic++){
-            			if( !vm_config[vm].nic[indexofNic] || !vm_config[vm].nic[indexofNic].bridge){
+            			if( vm_config[vm].nic[indexofNic] && !vm_config[vm].nic[indexofNic].bridge){
             				delete vm_config[vm].nic[indexofNic];
             				vm_config[vm].nic.length--;
             			}
