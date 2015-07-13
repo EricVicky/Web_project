@@ -44,7 +44,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     	/*check if it is locked: prevent multiple operation on same comstack
          * it may cause log chaos on monitor page
         */
-        kvmservice.comstackstatus($scope.installconfig.deployment_prefix).then(function(status){
+        KVMService.comstackStatus($scope.installconfig.deployment_prefix).then(function(status){
             		var action_in_progress = 2;
             		if(status.state == action_in_progress){
             			if(window.confirm("some operation  proceed on selected vnf instance, go to monitor?")){
