@@ -98,7 +98,7 @@ public class DefaultHandler implements IAnsibleHandler
     
     public String getFulltopic(){
        KVMCOMConfig cfg = (KVMCOMConfig)config;
-       return this.topic.concat(cfg.getHost().getIp_address());
+       return this.topic.concat(cfg.getStackName());
     }
     
     @Override

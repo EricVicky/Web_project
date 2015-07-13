@@ -10,6 +10,6 @@ import com.alu.omc.oam.config.QosacCOMConfig;
 public class DeleteKVMQOSACHandler extends DeleteKVMHandler {
 	public String getFulltopic() {
 	    QosacCOMConfig cfg = (QosacCOMConfig) config;
-		return this.topic.concat(cfg.getHost().getIp_address());
+		return this.topic.concat(cfg.getStackName());
 	}
 }

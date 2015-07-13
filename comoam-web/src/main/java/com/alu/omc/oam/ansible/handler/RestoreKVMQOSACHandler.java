@@ -45,7 +45,7 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
 
     }
     public String getFulltopic(){
-        return this.topic.concat(getKVMConfig().getHost().getIp_address());
+        return this.topic.concat(getKVMConfig().getStackName());
      }
     @Override
     public void onError()

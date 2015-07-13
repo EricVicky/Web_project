@@ -60,11 +60,11 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 	};
 	
 	$scope.upgrade = function(){
-		KVMService.comstackStatus($scope.installconfig.deployment_prefix).then(function(status){
+		KVMService.comstackStatus($scope.installConfig.deployment_prefix).then(function(status){
             		var action_in_progress = 2;
             		if(status.state == action_in_progress){
             			if(window.confirm("some operation  proceed on selected vnf instance, go to monitor?")){
-            				monitorservice.monitor("KVM", status.lastaction, $scope.installconfig.comtype, $scope.installconfig.deployment_prefix);
+            				monitorService.monitor("KVM", status.lastaction, $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
             				$state.go('dashboard.monitor');
             			}
             		}else{
@@ -74,7 +74,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 		
     $scope.doUpgrade = function (){
         KVMService.upgradeOVM($scope.installConfig).then( function(){
-            	monitorservice.monitor("KVM", "UPGRADE", $scope.installconfig.comtype, $scope.installconfig.deployment_prefix);
+            	monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
              	$state.go("dashboard.monitor");
     	});
     };

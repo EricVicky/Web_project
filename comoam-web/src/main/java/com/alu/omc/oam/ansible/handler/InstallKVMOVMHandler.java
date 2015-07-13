@@ -63,7 +63,7 @@ public abstract class InstallKVMOVMHandler implements IAnsibleHandler {
 
 	public String getFulltopic(){
 	       OVMCOMConfig cfg = (OVMCOMConfig)config;
-	       return this.topic.concat(cfg.getHost().getIp_address());
+	       return this.topic.concat(cfg.getStackName());
 	    }
 	
 	@Override

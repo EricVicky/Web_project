@@ -11,6 +11,6 @@ import com.alu.omc.oam.config.HpsimCOMConfig;
 public class DeleteKVMHPSIMHandler extends DeleteKVMHandler {
 	public String getFulltopic(){
 		HpsimCOMConfig cfg = (HpsimCOMConfig)config;
-	       return this.topic.concat(cfg.getHost().getIp_address());
+	       return this.topic.concat(cfg.getStackName());
 	}
 }
