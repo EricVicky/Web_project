@@ -1,18 +1,16 @@
 package com.alu.omc.oam.ansible.handler;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.exec.ExecuteException;
-import org.apache.commons.exec.ExecuteResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.alu.omc.oam.ansible.RunningHostLock;
+import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
@@ -30,7 +28,7 @@ public class DefaultHandler implements IAnsibleHandler
     @Resource
     WebsocketSender sender;
     @Resource
-    RunningHostLock runningContext;
+    RunningComstackLock runningComstackLock;
     String topic = "/log/tail/";
     COMConfig config;
     ILogParser logParser;
@@ -42,21 +40,21 @@ public class DefaultHandler implements IAnsibleHandler
     public void onStart()
     {
     	log.info("deployment on KVM start");
-        runningContext.lock(((KVMCOMConfig)config).getHost(), Action.INSTALL);
+        runningComstackLock.lock(((KVMCOMConfig)config).getDeployment_prefix(), Action.INSTALL);
     }
 
     @Override
     public void onError()
     {
         log.error("deployent on KVM failed");
-        runningContext.unlock(((KVMCOMConfig)config).getHost());
+        runningComstackLock.unlock(((KVMCOMConfig)config).getStackName());
     }
 
     @Override
     public void onSucceed()
     {
         log.info("deployment on KVM succeed");
-        runningContext.unlock(((KVMCOMConfig)config).getHost());
+        runningComstackLock.unlock(((KVMCOMConfig)config).getStackName());
     }
 
     @Override

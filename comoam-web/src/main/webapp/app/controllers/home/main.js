@@ -62,7 +62,7 @@ angular.module('comoamApp')
 	  $scope.deletecom = function(){
 		  if($scope.selectedIns.environment == "KVM"){
 			  KVMService.deletecom($scope.selectedIns).then( function(){
-				  monitorService.monitorKVMDelete($scope.selectedIns.active_host_ip,$scope.selectedIns.comType);
+				  monitorService.monitorKVMDelete($scope.selectedIns.deployment_prefix, $scope.selectedIns.comType);
 	       		  $state.go("dashboard.monitor");
 			  });
 		  }else{

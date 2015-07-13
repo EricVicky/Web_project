@@ -21,7 +21,7 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningContext.lock(getKVMConfig().getHost(), Action.GRINST_PRI);
+    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.GRUNINST);
     }
     
     @SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.STANDALONE);
         service.grupdate(stack);
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
         
     }
 
@@ -46,7 +46,7 @@ public class GrUnInstKVMHandler extends DefaultHandler{
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
 
     }
     public String getFulltopic(){
@@ -55,6 +55,6 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     @Override
     public void onError()
     {
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
     }
 }

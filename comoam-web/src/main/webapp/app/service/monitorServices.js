@@ -174,6 +174,16 @@ angular.module('monitor').factory('monitorService', function($log) {
 			action = "install";
 			channel = ch;
 		},
+		monitor: function(env, action, comType, ch){
+			this.environment = env;
+			this.action = action.toLowerCase();
+			this.channel  = ch;
+			if(comType == "ARS" || comType == "QOSAC"){
+				this.env = this.env + "_" + comType;
+			}else if(comType == "ATC" || comType == "HPSIM"){
+				this.env = "KVM_OVM";
+			}
+		},
 		monitorKVMQOSACDelete: function(ch) {
 			environment = "KVM_QOSAC";
 			action = "delete";

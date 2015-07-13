@@ -16,7 +16,7 @@
   </servlet-mapping>
   <session-config>    
     <session-timeout>60</session-timeout>      
-  </session-config>
+  </session-config>  
   <security-constraint>
              <web-resource-collection>
                <web-resource-name>Protected Context</web-resource-name>
@@ -25,5 +25,5 @@
              <user-data-constraint>
                  <transport-guarantee>CONFIDENTIAL</transport-guarantee>
              </user-data-constraint>
-  </security-constraint>  
+  </security-constraint>
 </web-app>

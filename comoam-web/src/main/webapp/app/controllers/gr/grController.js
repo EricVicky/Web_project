@@ -132,13 +132,13 @@ angular.module('gr', [ 'ui.router',
      		    		if($scope.COMStack[i].status == "GRINSTALLED"){
      		    			$scope.gr_config.gr_install_active = false;
      		    			GRService.install($scope.gr_config).then( function(){
-     		    				monitorService.monitorKVMGR_Sec_Install($scope.gr_config.sec.active_host_ip);
+     		    				monitorService.monitorKVMGR_Sec_Install($scope.gr_config.sec.deployment_prefix);
      		    				$state.go("dashboard.monitor");
      		    			});
      		    		}else{
      		    			$scope.gr_config.gr_install_active = true;
      		    			GRService.install($scope.gr_config).then( function(){
-     		    				monitorService.monitorKVMGR_Pri_Install($scope.gr_config.pri.active_host_ip);
+     		    				monitorService.monitorKVMGR_Pri_Install($scope.gr_config.pri.deployment_prefix);
      		    				$state.go("dashboard.monitor");
      		    			});
      		    		}
@@ -163,7 +163,7 @@ angular.module('gr', [ 'ui.router',
 	 
 	$scope.UnInstallGR = function(){
 		 GRService.uninstall($scope.gr_config).then( function(){
-			monitorService.monitorKVMGR_UnInstall($scope.gr_config.comConfig.active_host_ip);
+			monitorService.monitorKVMGR_UnInstall($scope.gr_config.comConfig.deployment_prefix);
          	$state.go("dashboard.monitor");
 		});
 	 };

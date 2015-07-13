@@ -8,7 +8,7 @@ import org.apache.commons.exec.ExecuteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alu.omc.oam.ansible.RunningHostLock;
+import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
@@ -24,7 +24,7 @@ public abstract class InstallKVMOVMHandler implements IAnsibleHandler {
     @Resource
     WebsocketSender sender;
     @Resource
-    RunningHostLock runningContext;
+    RunningComstackLock runningComstackLock;
     String topic = "/log/tail/";
     COMConfig config;
     ILogParser logParser;
@@ -46,19 +46,19 @@ public abstract class InstallKVMOVMHandler implements IAnsibleHandler {
 	@Override
 	public void onStart() {
     	log.info("deployment on KVM OVM start");
-        runningContext.lock(((OVMCOMConfig)config).getHost(), Action.INSTALL);
+        runningComstackLock.lock(((OVMCOMConfig)config).getStackName(), Action.INSTALL);
 	}
 
 	@Override
 	public void onError() {
     	log.info("deployment on KVM OVM failed");
-        runningContext.unlock(((OVMCOMConfig)config).getHost());
+        runningComstackLock.unlock(((OVMCOMConfig)config).getStackName());
 	}
 
 	@Override
 	public void onSucceed() {
     	log.info("deployment on KVM OVM succeed");
-        runningContext.unlock(((OVMCOMConfig)config).getHost());
+        runningComstackLock.unlock(((OVMCOMConfig)config).getStackName());
 	}
 
 	public String getFulltopic(){

@@ -19,7 +19,7 @@ public class UpgradeOSHandler extends DefaultHandler
     @Override
     public void onStart()
     {
-    		//runningContext.lock(((OSCOMConfig)config).getStackName(), Action.UPGRADE);
+    		//runningComstackLock.lock(((OSCOMConfig)config).getStackName(), Action.UPGRADE);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UpgradeOSHandler extends DefaultHandler
        log.info("upgrade succeed");
         COMStack stack = new COMStack(config);
         service.update(stack);
-        //runningContext.unlock(((OSCOMConfig)config).getStackName());
+        //runningComstackLock.unlock(((OSCOMConfig)config).getStackName());
         
     }
 
@@ -39,7 +39,7 @@ public class UpgradeOSHandler extends DefaultHandler
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        //runningContext.unlock(((OSCOMConfig)config).getStackName());
+        //runningComstackLock.unlock(((OSCOMConfig)config).getStackName());
 
     }
 	public String getFulltopic(){
