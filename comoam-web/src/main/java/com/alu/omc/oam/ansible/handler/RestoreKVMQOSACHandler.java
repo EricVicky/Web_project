@@ -18,7 +18,7 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningContext.lock(getKVMConfig().getHost(), Action.RESTORE);
+    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.RESTORE);
     }
     
     @SuppressWarnings("unchecked")
@@ -30,7 +30,7 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
     public void onSucceed()
     {
         log.info("restore succeed");
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
         
     }
 
@@ -41,7 +41,7 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
 
     }
     public String getFulltopic(){
@@ -50,6 +50,6 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
     @Override
     public void onError()
     {
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
     }
 }
