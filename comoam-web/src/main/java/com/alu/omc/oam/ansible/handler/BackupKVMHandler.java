@@ -18,7 +18,7 @@ public class BackupKVMHandler extends DefaultHandler {
     @Override
     public void onStart()
     {
-    	runningContext.lock(getKVMConfig().getHost(), Action.BACKUP);
+    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.BACKUP);
     }
     
     @SuppressWarnings("unchecked")
@@ -30,7 +30,7 @@ public class BackupKVMHandler extends DefaultHandler {
     public void onSucceed()
     {
         log.info("backup succeed");
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
         
     }
 
@@ -41,7 +41,7 @@ public class BackupKVMHandler extends DefaultHandler {
         	this.onSucceed();
         	sender.send(getFulltopic(), END);
         }
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
 
     }
     public String getFulltopic(){
@@ -50,7 +50,7 @@ public class BackupKVMHandler extends DefaultHandler {
     @Override
     public void onError()
     {
-        runningContext.unlock(getKVMConfig().getHost());
+        runningComstackLock.unlock(getKVMConfig().getStackName());
     }
 }
 

@@ -60,17 +60,24 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         		   break;
         		}
         }
-  
+        $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+    	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+    	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+    	if($scope.installConfig.comType != "OAM"){
+    		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+    	}
+    	
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     }
    
 	$scope.doUpgrade = function (){
 		KVMService.upgrade($scope.installConfig).then( function(){
-			monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
+            monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.deployment_prefix);
      		$state.go("dashboard.monitor");
 		});
     };
+    
     KVMService.getComInstance().then( function(data) {
 		$log.info(data);
 		$scope.comInstance = data;
@@ -85,19 +92,14 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 		$scope.setDefaultInstace();
 		
     });
+    
     $scope.upgrade = function(){
-    	            KVMService.isLockedHost($scope.installConfig.active_host_ip).then(function(response){
-            		if(response.succeed == true){
-            			locked = true;
-            			if(window.confirm("The installation proceed on selected Host, go to monitor?")){
-            				KVMService.lockedHostStatus($scope.installConfig.active_host_ip).then(function(status){
-            					if(status.lastAction == 'INSTALL'){
-            						monitorService.monitorKVMInstall($scope.installConfig.active_host_ip);
-            					}else if(status.lastAction  =="UPGRADE"){
-            						monitorService.monitorKVMUpgrade($scope.installConfig.active_host_ip);
-            					}
-            					$state.go('dashboard.monitor');
-            				})
+            	KVMService.comstackStatus($scope.installConfig.deployment_prefix).then(function(status){
+            		var ACTION_IN_PROGRESS = 2;
+            		if(status.state == ACTION_IN_PROGRESS){
+            			if(window.confirm("some operation  proceed on selected VNF instance, go to monitor?")){
+            				monitorService.monitor("KVM", status.lastaction, $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
+            				$state.go('dashboard.monitor');
             			}
             		}else{
             			$scope.doUpgrade();

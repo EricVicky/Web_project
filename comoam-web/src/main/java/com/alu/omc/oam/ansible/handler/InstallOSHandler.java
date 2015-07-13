@@ -1,6 +1,5 @@
 package com.alu.omc.oam.ansible.handler;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
@@ -11,11 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.alu.omc.oam.ansible.RunningHostLock;
-import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
-import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
 import com.alu.omc.oam.service.COMStackService;
@@ -30,7 +27,7 @@ public class InstallOSHandler implements IAnsibleHandler{
     @Resource
     WebsocketSender sender;
     @Resource
-    RunningHostLock runningContext;
+    RunningComstackLock runningComstackLock;
     String topic = "/log/tail/";
     COMConfig config;
     ILogParser logParser;

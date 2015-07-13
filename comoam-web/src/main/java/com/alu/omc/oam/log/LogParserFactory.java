@@ -40,6 +40,8 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.HPSIM), kvmovmUpgradeParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
+        parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM, COMType.QOSAC), kvmqosacBackupParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -225,5 +227,19 @@ public class LogParserFactory
         dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
     }
+    private ILogParser kvmqosacBackupParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser kvmqosacRestoreParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\screate\\slocal\\srestore\\sdirectory\\]", "Data Restore");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
 }

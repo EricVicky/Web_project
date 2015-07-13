@@ -1,0 +1,25 @@
+-------Call Ansible......
+2015-05-16 08:45:52,175 p=7122 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+timing vulnerabilities when used with pycrypto. If possible, you should update
+it (i.e. yum update gmp).
+
+2015-05-16 08:45:52,308 p=7122 u=root |   
+2015-05-16 08:45:52,309 p=7122 u=root |  /usr/bin/ansible-playbook -i ../../inventory/hosts destroy.yml
+2015-05-16 08:45:52,309 p=7122 u=root |   
+2015-05-16 08:45:52,402 p=7122 u=root |  PLAY [destroy all virtual machines] ******************************************* 
+2015-05-16 08:45:52,403 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
+2015-05-16 08:45:54,042 p=7122 u=root |  changed: [135.252.138.138]
+2015-05-16 08:45:54,042 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
+2015-05-16 08:45:54,724 p=7122 u=root |  ok: [135.252.138.138]
+2015-05-16 08:45:54,726 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
+2015-05-16 08:45:56,330 p=7122 u=root |  changed: [135.252.138.138]
+2015-05-16 08:45:56,331 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
+2015-05-16 08:45:56,991 p=7122 u=root |  ok: [135.252.138.138]
+2015-05-16 08:45:56,992 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
+2015-05-16 08:45:58,634 p=7122 u=root |  changed: [135.252.138.138]
+2015-05-16 08:45:58,636 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
+2015-05-16 08:45:59,333 p=7122 u=root |  ok: [135.252.138.138]
+2015-05-16 08:45:59,334 p=7122 u=root |  TASK: [vnf_destroy_vms | delete all virtual machine files and directories] **** 
+2015-05-16 08:46:03,516 p=7122 u=root |  changed: [135.252.138.138]
+2015-05-16 08:46:03,517 p=7122 u=root |  PLAY RECAP ******************************************************************** 
+2015-05-16 08:46:03,517 p=7122 u=root |  135.252.138.138            : ok=7    changed=4    unreachable=0    failed=0   
