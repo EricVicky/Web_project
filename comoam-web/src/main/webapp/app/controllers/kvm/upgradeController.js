@@ -78,15 +78,17 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 		});
     };
     
+    
     KVMService.getComInstance().then( function(data) {
 		$log.info(data);
 		$scope.comInstance = data;
 		$scope.kvmcomInstance = [];
 		for(var ci=0;ci<$scope.comInstance.length;ci++){
 			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  'KVM'){
-				if($scope.comInstance[ci].comType == 'OAM'||$scope.comInstance[ci].comType == 'FCAPS'||$scope.comInstance[ci].comType == 'CM'){
-					$scope.kvmcomInstance.push($scope.comInstance[ci]);
+				if(KVMService.VNFType && $scope.comInstance[ci].comType != KVMService.VNFType){
+					continue;
 				}
+				$scope.kvmcomInstance.push($scope.comInstance[ci]);
 			}
 		}
 		$scope.setDefaultInstace();

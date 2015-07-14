@@ -120,7 +120,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v6.prefix}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[1]">
 															<td rowspan="2" width="15%" align="center"
@@ -339,7 +339,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<td width="10%" translate="IPV6">IPv6</td>
-															<td>ip:{{installConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v6.prefix}}</td>
+															<td>ip:{{installConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{installConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{installConfig.vm_config.db.nic[0].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center" ng-if="installConfig.vm_config.db.nic[1]">
 															<td rowspan="2" width="15%" align="center"

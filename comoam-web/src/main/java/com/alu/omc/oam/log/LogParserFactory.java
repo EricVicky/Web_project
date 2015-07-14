@@ -150,10 +150,10 @@ public class LogParserFactory
     private ILogParser kvmUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
-        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
-        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
-        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
+        dict.put("TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\scopy\\sqcow2\\sdisk\\simage\\]", "Post Image Replacement");
+        dict.put("TASK\\:\\s\\[vnf\\_prepare\\_vms\\s\\|\\screate\\sdata\\sdirectory\\sfor\\svirtual\\smachine\\]","Prepare Virtual Machines");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\screate\\slocal\\sbackup\\sdirectory\\]", "Data Backup");
         dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
     } 
@@ -182,7 +182,7 @@ public class LogParserFactory
 
     private ILogParser kvmqosacInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
