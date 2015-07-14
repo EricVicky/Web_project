@@ -196,7 +196,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 			return stepsDict[environment][action];
 		},
 		getEndMsg: function(res){
-			return endMsg[action][res];
+			return endMsg[act][res];
 		}
 	};
 });

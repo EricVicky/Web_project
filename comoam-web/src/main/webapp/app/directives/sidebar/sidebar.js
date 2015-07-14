@@ -103,13 +103,13 @@ angular.module('comoamApp')
 	  
 	  $scope.selected = [];
 	  
-	  $scope.changeVNF = function(){
-		  if($scope.selected.EnvItem.Name == 'KVM'){
-			  $scope.Items = $scope.VNFItems.concat($scope.OVNFItems);
-		  }else{
-			  $scope.Items = $scope.VNFItems;
-		  }
-	  }
+//	  $scope.changeVNF = function(){
+//		  if($scope.selected.EnvItem.Name == 'KVM'){
+//			  $scope.Items = $scope.VNFItems.concat($scope.OVNFItems);
+//		  }else{
+//			  $scope.Items = $scope.VNFItems;
+//		  }
+//	  }
 	  
 	  $scope.ok = function(){
 		$modalInstance.close($scope.selected);
@@ -142,13 +142,13 @@ angular.module('comoamApp')
 	  
 	  $scope.selected = [];
 	  
-	  $scope.changeVNF = function(){
-		  if($scope.selected.EnvItem.Name == 'KVM'){
-			  $scope.Items = $scope.VNFItems.concat($scope.OVNFItems);
-		  }else{
-			  $scope.Items = $scope.VNFItems;
-		  }
-	  }
+//	  $scope.changeVNF = function(){
+//		  if($scope.selected.EnvItem.Name == 'KVM'){
+//			  $scope.Items = $scope.VNFItems.concat($scope.OVNFItems);
+//		  }else{
+//			  $scope.Items = $scope.VNFItems;
+//		  }
+//	  }
 	  
 	  $scope.ok = function(){
 		$modalInstance.close($scope.selected);
