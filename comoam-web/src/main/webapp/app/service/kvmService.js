@@ -70,7 +70,7 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 		},
 		deletecom:function(config){
 			var name = config.deployment_prefix;
-			var vnfType = config.comtype;
+			var vnfType = config.comType;
 			var deleteRes = $resource(restUrl + "rest/kvm/instances/"+vnfType+name);
 			return deleteRes.save(config).$promise;
 		},
