@@ -73,7 +73,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
    
 	$scope.doUpgrade = function (){
 		KVMService.upgrade($scope.installConfig).then( function(){
-            monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.deployment_prefix);
+            monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
      		$state.go("dashboard.monitor");
 		});
     };
