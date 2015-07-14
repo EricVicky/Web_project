@@ -13,7 +13,7 @@
 	<div class="form-group">
 		<label class="control-label">VNF Type</label> <select name="Environment"
 			ng-model="selected.VNFItem" class="form-control"
-			ng-options="VNFItem as VNFItem.Name for VNFItem in Items"
+			ng-options="VNFItem as VNFItem.Name for VNFItem in VNFItems.concat(OVNFItems)"
 			title="VNF Type" validation="required">
 			<option value="">--VNF Type--</option>
 		</select>
