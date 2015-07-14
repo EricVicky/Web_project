@@ -211,7 +211,7 @@
     "PLEASE_CONFIG_OAM_VM":"Please Config OAM VM!",
     "PLEASE_CONFIG_DB_VM":"Please Config DB VM!",
     "PLEASE_CONFIG_CM_VM":"Please Config CM VM!",
-    "BRIDGE":"Bridge",
+    "BRIDGE":"Bridge Name",
     "NETWORK_PRE":"Network Prefix",
     "IP_ADDRESS":"IP Address",
     "NETWORK_GAT":"Network Gateway",
