@@ -58,7 +58,7 @@ angular.module('comoamApp')
         		  OSService.VNFType = selectedItems.VNFItem.Name;
         	  }
         	  
-        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFItem.url));
+        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFItem.url), {}, {reload: true});
         	}, function () {
         	});
         };
@@ -84,8 +84,7 @@ angular.module('comoamApp')
         	  } else if(selectedItems.EnvItem.Name == 'Openstack'){
         		  OSService.VNFType = selectedItems.VNFItem.Name;
         	  }
-        	  
-        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFItem.upgradeUrl));
+        	  $state.go('dashboard.'.concat(selectedItems.EnvItem.url).concat(selectedItems.VNFItem.upgradeUrl), {}, {reload: true});
         	}, function () {
         	});
         };
