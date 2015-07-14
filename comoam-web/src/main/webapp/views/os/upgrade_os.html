@@ -54,7 +54,7 @@
 														</tr>
 														<tr align="center">
 															<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
-															<td>{{installConfig.block_storage_avail_zone.zoneName}}</td>
+															<td>{{installConfig.block_storage_avail_zone.zoneA}}</td>
 														</tr>
 														
 														<tr align="center">
@@ -63,7 +63,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
@@ -79,8 +79,13 @@
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="OAM_IMAGE">OAM image</td>
+															<td>{{installConfig.oam_cm_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="DB_VM">DB VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
@@ -96,8 +101,13 @@
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<td translate="DB_IMAGE">DB image</td>
+															<td>{{installConfig.db_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="CM_VM">CM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
@@ -111,6 +121,11 @@
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															<td translate="CM_IMAGE">CM image</td>
+															<td>{{installConfig.oam_cm_image}}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -172,7 +187,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.oam.provider_ip_address}}</td>
@@ -188,8 +203,13 @@
 															<td>{{installConfig.vm_config.oam.flavor}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<td translate="OAM_IMAGE">OAM image</td>
+															<td>{{installConfig.oam_cm_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="DB_VM">DB VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.db.provider_ip_address}}</td>
@@ -205,8 +225,13 @@
 															<td>{{installConfig.vm_config.db.flavor}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<td translate="DB_IMAGE">DB image</td>
+															<td>{{installConfig.db_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="3" width="25%" align="center"
+															<td rowspan="4" width="25%" align="center"
 																style="vertical-align: middle" translate="CM_VM">CM VM</td>
 															<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 															<td>{{installConfig.vm_config.cm.provider_ip_address}}</td>
@@ -220,6 +245,11 @@
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 															<td translate="FLAVOR">Flavor</td>
 															<td>{{installConfig.vm_config.cm.flavor}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
+															<td translate="CM_IMAGE">CM image</td>
+															<td>{{installConfig.oam_cm_image}}</td>
 														</tr>
 													</tbody>
 												</table>

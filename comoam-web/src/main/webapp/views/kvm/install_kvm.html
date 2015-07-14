@@ -236,7 +236,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<td rowspan="{{oamRowspan}}" width="15%" align="center"
+															<td rowspan="{{ networktraffic*2 + 2 }}" width="15%" align="center"
 																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 															<div ng-if="installConfig.vm_config.oam.nic[0]">
 																<td rowspan="2" width="15%" align="center"
@@ -288,7 +288,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<td rowspan="{{dbRowspan}}" width="15%" align="center"
+															<td rowspan="{{ networktraffic*2 + 2 }}" width="15%" align="center"
 																style="vertical-align: middle" translate="">DB VM</td>
 															<div ng-if="installConfig.vm_config.db.nic[0]">
 																<td rowspan="2" width="15%" align="center"
@@ -340,7 +340,7 @@
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
-															<td rowspan="{{cmRowspan}}" width="15%" align="center"
+															<td rowspan="{{ networktraffic*2 + 2 }}" width="15%" align="center"
 																style="vertical-align: middle" translate="">CM VM</td>
 															<div ng-if="installConfig.vm_config.cm.nic[0]">
 																<td rowspan="2" width="15%" align="center"
