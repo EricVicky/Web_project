@@ -16,7 +16,7 @@
         "CM":{
  			"oam": [ {"label": "Low End(4*16*80)", "vCpu": "4", "memory": "16777216", "disk": "80"}, 
 				   {"label": "Medium(6*24*150)","vCpu": "6", "memory": "25165824", "disk": "150"}, 
-				   {"label": "High End(8*32*250)","vCpu": "8", "memory": "33554432", "disk": "300"} 
+				   {"label": "High End(6*24*150)","vCpu": "6", "memory": "25165824", "disk": "150"} 
  				 ],
  			"cm": [ {"label": "Low End(6*16*50)", "vCpu": "6", "memory": "16777216", "disk": "50"}, 
 				   {"label": "Medium(12*32*100)","vCpu": "12", "memory": "33554432", "disk": "100"}, 
