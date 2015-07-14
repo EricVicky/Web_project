@@ -25,14 +25,14 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
 			},
 			"KVM_QOSAC":{
-				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
 				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
 				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"],
 				"backup":["Start","Data Backup","Finished"],
 				"restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_ARS":{
-				"intall":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
 				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
 				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
 			}
@@ -196,7 +196,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 			return stepsDict[environment][action];
 		},
 		getEndMsg: function(res){
-			return endMsg[action][res];
+			return endMsg[act][res];
 		}
 	};
 });
