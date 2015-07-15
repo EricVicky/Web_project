@@ -15,6 +15,7 @@ import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
+import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -32,7 +33,7 @@ public class InstallOSHandler implements IAnsibleHandler{
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
-    final String END = "end";
+    ParseResult END = new ParseResult();
     private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\].*$");
     private static Logger logger = LoggerFactory.getLogger(InstallOSHandler.class);
 	@Override
@@ -55,11 +56,12 @@ public class InstallOSHandler implements IAnsibleHandler{
 	public void onEnd() {
 		if(this.succeed){
         	this.onSucceed();
+        	END.setResult(ParseResult.SUCCEED);
         }else{
+        	END.setResult(ParseResult.FAILED);
             this.onError();
         }
-		logger.info("deployment on OS completed");
-		sender.send(getFulltopic(), END);
+        sender.send(getFulltopic(), END);
 		
 	}
 

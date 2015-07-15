@@ -12,6 +12,7 @@ import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.Status;
+import com.alu.omc.oam.log.ParseResult;
 
 @Component("GRUNINST_KVM_HANDLER")
 @Scope(value = "prototype")
@@ -42,10 +43,14 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     @Override
     public void onEnd()
     {
-        if(this.succeed){
+    	if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        	END.setResult(ParseResult.SUCCEED);
+        }else{
+        	END.setResult(ParseResult.FAILED);
+            this.onError();
         }
+        sender.send(getFulltopic(), END);
         runningComstackLock.unlock(getKVMConfig().getStackName());
 
     }
