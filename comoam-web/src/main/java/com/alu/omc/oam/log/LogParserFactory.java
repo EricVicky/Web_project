@@ -186,7 +186,7 @@ public class LogParserFactory
         dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
+        dict.put("PLAY\\s\\[Auto\\sinstall\\scom\\son\\skvm\\]", "Start");
         return new LogParser(dict);
     }
 

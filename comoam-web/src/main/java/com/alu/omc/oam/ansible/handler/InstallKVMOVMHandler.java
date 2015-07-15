@@ -14,6 +14,7 @@ import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.OVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
+import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -29,7 +30,7 @@ public abstract class InstallKVMOVMHandler implements IAnsibleHandler {
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
-    final String END = "end";
+    ParseResult END = new ParseResult();
     private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[wait\\_for\\_server\\_start\\s\\|\\swait\\sfor\\sguest\\sos\\sto\\sstart\\].*$");
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     
@@ -70,10 +71,11 @@ public abstract class InstallKVMOVMHandler implements IAnsibleHandler {
 	public void onEnd() {
 		if(this.succeed){
         	this.onSucceed();
+        	END.setResult(ParseResult.SUCCEED);
         }else{
+        	END.setResult(ParseResult.FAILED);
             this.onError();
         }
-        log.info("deployment on KVM completed");
         sender.send(getFulltopic(), END);
 	}
 

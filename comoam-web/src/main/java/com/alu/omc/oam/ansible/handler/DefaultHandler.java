@@ -16,6 +16,7 @@ import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
+import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -33,14 +34,15 @@ public class DefaultHandler implements IAnsibleHandler
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
-    final String END = "end";
+    ParseResult END = new ParseResult();
     private Pattern stackPattern = Pattern.compile("^.*TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\screate\\svirtual\\smachine\\sinstance\\].*$");
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
     @Override
     public void onStart()
     {
     	log.info("deployment on KVM start");
-        runningComstackLock.lock(((KVMCOMConfig)config).getDeployment_prefix(), Action.INSTALL);
+        runningComstackLock.lock(((KVMCOMConfig)config).getStackName(), Action.INSTALL);
+        log.info(((KVMCOMConfig)config).getStackName() + " is locked");
     }
 
     @Override
@@ -62,10 +64,11 @@ public class DefaultHandler implements IAnsibleHandler
     {
         if(this.succeed){
         	this.onSucceed();
+        	END.setResult(ParseResult.SUCCEED);
         }else{
+        	END.setResult(ParseResult.FAILED);
             this.onError();
         }
-        log.info("deployment on KVM completed");
         sender.send(getFulltopic(), END);
     }
     

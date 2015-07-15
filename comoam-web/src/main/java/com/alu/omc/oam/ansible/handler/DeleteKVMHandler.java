@@ -12,6 +12,7 @@ import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
+import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
@@ -33,7 +34,7 @@ public class DeleteKVMHandler implements IAnsibleHandler{
     COMConfig config;
     ILogParser logParser;
     Boolean succeed = true;
-    final String END = "end";
+    ParseResult END = new ParseResult();
     private static Logger log = LoggerFactory.getLogger(DeleteKVMHandler.class);	
 	@Override
 	public void onStart() {
@@ -56,8 +57,12 @@ public class DeleteKVMHandler implements IAnsibleHandler{
 	public void onEnd() {
 		if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        	END.setResult(ParseResult.SUCCEED);
+        }else{
+        	END.setResult(ParseResult.FAILED);
+            this.onError();
         }
+        sender.send(getFulltopic(), END);
 	}
 
 	@Override
