@@ -26,20 +26,30 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 									$scope.showlog = function(data) {
 										var tasks = $('#tasks');
 										var task = $('#task');
-										var loadpos = $('#loadpos');
-										if (data.body == "end") {
-											$scope.$apply(function() {
-														$scope.loadingshow = false;
-														WizardHandler.wizard().finish();
-													});
+										//$log.info(data);
+										var log = JSON3.parse(data.body);
+										if (log.result != ''){
+											if (log.result == "succeed") {
+												$scope.$apply(function() {
+													$scope.loadingshow = false;
+													WizardHandler.wizard().next();
+													WizardHandler.wizard().finish();
+												});
+											}
+											$scope.loadingshow = false;
+											websocketService.disconnect();
 											return;
 										}
-										var log = JSON3.parse(data.body);
+										if(!log.step){
+											return;
+										}
 										if ($scope.nextstep != log.step) {
 											$scope.nextstep = log.step;
-											$log.info("nextstep=" + $scope.nextstep);
 											$scope.$apply(function() {
-												WizardHandler.wizard().next();
+                                                var realStepNumber = $scope.ansibleSteps.indexOf(log.step) + 1;
+                                                while(WizardHandler.wizard().currentStepNumber() < realStepNumber){
+                                                    WizardHandler.wizard().next();
+                                                }
 											})
 										}
 										if (log.task != null && log.task != "") {
