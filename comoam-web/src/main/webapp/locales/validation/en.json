@@ -38,7 +38,7 @@
 	"UPGRADE":"Upgrade",
 	"SCALING":"Scaling",
 	"OPENSTACK_CREDENTIAL":"Openstack Credential",
-	"COM_TYPE":"COM Type",
+	"COM_TYPE":"VNF Type",
 	"COM_NAME":"COM Name",
 	"SELECT_IMAGE":"Select Image",
 	"VNFC_CONFIG":"VNFC Config",

@@ -14,8 +14,8 @@ import com.alu.omc.oam.ansible.Entity;
     private static final long serialVersionUID = -2647064957473634595L;
         String name;
         String ip_address;
-        String user = "root";
-        String password = "newsys";
+        String user = "";
+        String password = "";
 
         public String getName()
         {

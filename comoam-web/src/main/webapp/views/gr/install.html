@@ -89,6 +89,16 @@
 															<td>ip:{{gr_config.pri.vm_config.oam.nic[2].ip_v6.ipaddress}}/{{gr_config.pri.vm_config.oam.nic[2].ip_v6.prefix}} gateway:{{gr_config.pri.vm_config.oam.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.pri.vm_config.oam.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.pri.vm_config.oam.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.pri.vm_config.oam.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM' || gr_config.pri.comType=='QoSAC'">
+															<td translate="OAM_IMAGE" colspan="3">OAM image</td>
+															<td colspan="2">{{gr_config.pri.oam_cm_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
 															<td rowspan="{{priDBRowspan}}" width="15%" align="center"
 																style="vertical-align: middle" translate="">DB VM</td>
@@ -131,6 +141,16 @@
 															<td>ip:{{gr_config.pri.vm_config.db.nic[2].ip_v6.ipaddress}}/{{gr_config.pri.vm_config.db.nic[2].ip_v6.prefix}} gateway:{{gr_config.pri.vm_config.db.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.pri.vm_config.db.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.pri.vm_config.db.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.pri.vm_config.db.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='OAM' || gr_config.pri.comType=='CM'">
+															<td translate="DB_IMAGE" colspan="3">DB image</td>
+															<td colspan="2">{{gr_config.pri.db_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
 															<td rowspan="{{priCMRowspan}}" width="15%" align="center"
 																style="vertical-align: middle" translate="">CM VM</td>
@@ -171,6 +191,16 @@
 														<tr align="center" ng-if="gr_config.pri.vm_config.cm.nic[2]">
 															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
 															<td>ip:{{gr_config.pri.vm_config.cm.nic[2].ip_v6.ipaddress}}/{{gr_config.pri.vm_config.cm.nic[2].ip_v6.prefix}} gateway:{{gr_config.pri.vm_config.cm.nic[2].ip_v6.gateway}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.pri.vm_config.cm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.pri.vm_config.cm.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.pri.vm_config.cm.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.pri.comType=='FCAPS' || gr_config.pri.comType=='CM'">
+															<td translate="CM_IMAGE" colspan="3">CM image</td>
+															<td colspan="2">{{gr_config.pri.oam_cm_image}}</td>
 														</tr>
 														<tr align="center" ng-if="gr_config.pri.comType=='QOSAC' || gr_config.pri.comType=='ATC' || gr_config.pri.comType=='HPSIM' || gr_config.pri.comType=='ARS'">
 															<td colspan="2" translate="GR_STATUS">GR Status</td>
@@ -337,6 +367,16 @@
 															<td>ip:{{gr_config.sec.vm_config.oam.nic[2].ip_v6.ipaddress}}/{{gr_config.sec.vm_config.oam.nic[2].ip_v6.prefix}} gateway:{{gr_config.sec.vm_config.oam.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.sec.vm_config.oam.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.sec.vm_config.oam.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.sec.vm_config.oam.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM' || gr_config.sec.comType=='QoSAC'">
+															<td translate="OAM_IMAGE" colspan="3">OAM image</td>
+															<td colspan="2">{{gr_config.sec.oam_cm_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
 															<td rowspan="{{secDBRowspan}}" width="15%" align="center"
 																style="vertical-align: middle" translate="">DB VM</td>
@@ -379,6 +419,16 @@
 															<td>ip:{{gr_config.sec.vm_config.db.nic[2].ip_v6.ipaddress}}/{{gr_config.sec.vm_config.db.nic[2].ip_v6.prefix}} gateway:{{gr_config.sec.vm_config.db.nic[2].ip_v6.gateway}}</td>
 														</tr>
 														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.sec.vm_config.db.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.sec.vm_config.db.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.sec.vm_config.db.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='OAM' || gr_config.sec.comType=='CM'">
+															<td translate="DB_IMAGE" colspan="3">DB image</td>
+															<td colspan="2">{{gr_config.sec.db_image}}</td>
+														</tr>
+														<tr align="center"
 															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
 															<td rowspan="{{secCMRowspan}}" width="15%" align="center"
 																style="vertical-align: middle" translate="">CM VM</td>
@@ -419,6 +469,16 @@
 														<tr align="center" ng-if="gr_config.sec.vm_config.cm.nic[2]">
 															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
 															<td>ip:{{gr_config.sec.vm_config.cm.nic[2].ip_v6.ipaddress}}/{{gr_config.sec.vm_config.cm.nic[2].ip_v6.prefix}} gateway:{{gr_config.sec.vm_config.cm.nic[2].ip_v6.gateway}}</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{gr_config.sec.vm_config.cm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{gr_config.sec.vm_config.cm.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{gr_config.sec.vm_config.cm.flavor.disk}}GB</td>
+														</tr>
+														<tr align="center"
+															ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
+															<td translate="CM_IMAGE" colspan="3">CM image</td>
+															<td colspan="2">{{gr_config.sec.oam_cm_image}}</td>
 														</tr>
 														<tr align="center" ng-if="gr_config.sec.comType=='QOSAC' || gr_config.sec.comType=='ATC' || gr_config.sec.comType=='HPSIM' || gr_config.sec.comType=='ARS'">
 															<td colspan="2" translate="GR_STATUS">GR Status</td>

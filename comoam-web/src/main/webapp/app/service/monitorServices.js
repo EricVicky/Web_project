@@ -17,7 +17,10 @@ angular.module('monitor').factory('monitorService', function($log) {
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
-				 "restore":["Start","Data Restore","Finished"]
+				 "restore":["Start","Data Restore","Finished"],
+				 "gr_pri_install":["Start","Pri GR Install","Finished"],
+				 "gr_sec_install":["Start","Sec GR Install","Finished"],
+				 "gr_uninstall":["Start","GR Uninstall","Finished"]
 			},
 			"KVM_OVM" :{
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],

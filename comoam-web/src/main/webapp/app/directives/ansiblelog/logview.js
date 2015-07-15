@@ -11,6 +11,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 						},
 						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', function($scope, $element, $log, WizardHandler, websocketService) {
 									var taskgroup = new Array();
+									$scope.nologshow = true;
 									$scope.loadingshow = true;
 									$scope.nextstep = "Start";
 									$scope.$on('$destroy', function() {
@@ -52,11 +53,15 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 											})
 										}
 										if (log.task != null && log.task != "") {
+											$scope.$apply(function() {
+												$scope.nologshow = false;
+											});
 											tasks.append("<i class=\"fa fa-check\" style=\"color:green\"></i>"
 															+ "&nbsp;&nbsp;"
 															+ log.task + "<br>");
 											taskgroup.push(log.task);
 											var taskhtml = "";
+											var loadinghtml="";
 											var startIndex = taskgroup.length > 10 ? taskgroup.length - 10
 													: 0;
 											for (var n = startIndex; n < taskgroup.length; n++) {
@@ -66,6 +71,13 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 														+ taskgroup[n] + "<br>";
 											}
 											task.html(taskhtml);
+											if(taskgroup.length<10){
+												$scope.loadingpos=10+(taskgroup.length-1)*20;
+											}else{
+												$scope.loadingpos=190;
+											}
+											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+$scope.loadingpos+"px\"/>";
+											loadpos.html(loadinghtml);
 										}
 										var logviewer = $('#logviewer');
 										logviewer.append(log.logMsg + "<br>");
