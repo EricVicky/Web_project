@@ -31,9 +31,9 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
         parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
         parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
-        parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.KVM), kvmGrInstPriParser());
-        parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.KVM), kvmGrInstSecParser());
-        parserCache.put(new ActionKey(Action.GRUNINST, Environment.KVM), kvmGrUnInstParser());
+        parserCache.put(new ActionKey(Action.GRINST_PRI, Environment.OPENSTACK), osGrInstPriParser());
+        parserCache.put(new ActionKey(Action.GRINST_SEC, Environment.OPENSTACK), osGrInstSecParser());
+        parserCache.put(new ActionKey(Action.GRUNINST, Environment.OPENSTACK), osGrUnInstParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.HPSIM), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ATC), kvmovmInstallParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.ATC), kvmovmDeleteParser());
@@ -63,6 +63,29 @@ public class LogParserFactory
 	}
     
     private ILogParser kvmGrUnInstParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[Uninstall\\sOAM\\sGR\\]", "GR Uninstall");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser osGrInstPriParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser osGrInstSecParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sSEC\\sDB\\sGR\\]", "Sec GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser osGrUnInstParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[Uninstall\\sOAM\\sGR\\]", "GR Uninstall");
