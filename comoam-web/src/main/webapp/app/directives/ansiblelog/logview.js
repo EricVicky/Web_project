@@ -25,6 +25,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 									$scope.showlog = function(data) {
 										var tasks = $('#tasks');
 										var task = $('#task');
+										var loadpos = $('#loadpos');
 										$log.info(data);
 										if (data.body == "end") {
 											$scope.$apply(function() {
@@ -47,6 +48,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 															+ log.task + "<br>");
 											taskgroup.push(log.task);
 											var taskhtml = "";
+											var loadinghtml="";
 											var startIndex = taskgroup.length > 10 ? taskgroup.length - 10
 													: 0;
 											for (var n = startIndex; n < taskgroup.length; n++) {
@@ -56,6 +58,13 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 														+ taskgroup[n] + "<br>";
 											}
 											task.html(taskhtml);
+											if(taskgroup.length<10){
+												$scope.loadingpos=10+(taskgroup.length-1)*20;
+											}else{
+												$scope.loadingpos=190;
+											}
+											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+$scope.loadingpos+"px\"/>";
+											loadpos.html(loadinghtml);
 										}
 										var logviewer = $('#logviewer');
 										logviewer.append(log.logMsg + "<br>");
