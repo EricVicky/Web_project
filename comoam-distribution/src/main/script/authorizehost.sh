@@ -26,6 +26,7 @@ if [ -z $IP ]; then
 fi
 
 export host_IP=$IP
+/bin/echo "Password for root user:"
 ansible-playbook -i host  --ask-pass ../ELCM-playbook/playbooks/kvm/authhost.yml
 
 if [ $? = 0 ]

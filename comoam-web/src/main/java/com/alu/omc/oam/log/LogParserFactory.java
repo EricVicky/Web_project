@@ -182,7 +182,7 @@ public class LogParserFactory
 
     private ILogParser kvmqosacInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
