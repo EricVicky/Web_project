@@ -11,6 +11,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 						},
 						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', function($scope, $element, $log, WizardHandler, websocketService) {
 									var taskgroup = new Array();
+									$scope.nologshow = true;
 									$scope.loadingshow = true;
 									$scope.nextstep = "Start";
 									$scope.$on('$destroy', function() {
@@ -43,6 +44,9 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 											})
 										}
 										if (log.task != null && log.task != "") {
+											$scope.$apply(function() {
+												$scope.nologshow = false;
+											});
 											tasks.append("<i class=\"fa fa-check\" style=\"color:green\"></i>"
 															+ "&nbsp;&nbsp;"
 															+ log.task + "<br>");
