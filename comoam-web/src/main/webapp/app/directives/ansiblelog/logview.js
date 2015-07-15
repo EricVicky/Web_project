@@ -27,7 +27,6 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 										var tasks = $('#tasks');
 										var task = $('#task');
 										var loadpos = $('#loadpos');
-										$log.info(data);
 										if (data.body == "end") {
 											$scope.$apply(function() {
 														$scope.loadingshow = false;
