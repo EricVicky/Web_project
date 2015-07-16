@@ -38,13 +38,11 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 												});
 											}
 											$scope.loadingshow = false;
-											websocketService.disconnect();
+											setTimeout(websocketService.disconnect,10000);
+											
 											return;
 										}
-										if(!log.step){
-											return;
-										}
-										if ($scope.nextstep != log.step) {
+										if ($scope.nextstep != log.step && log.step) {
 											$scope.nextstep = log.step;
 											$scope.$apply(function() {
                                                 var realStepNumber = $scope.ansibleSteps.indexOf(log.step) + 1;
