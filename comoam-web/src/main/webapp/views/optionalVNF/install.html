@@ -87,21 +87,21 @@
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit="genExport()" rc-step>
 									<fieldset>
                                     <legend>IPv4 NETWORK</legend>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv4 Address</label> <input
 												name="ip_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.ip_address"
 							                    placeholder="Please Insert IP Address"
 												title="IP Address" validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv4 Netmask</label> <input
 												name="netmask" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.netmask"
 												placeholder="Please Insert Netmask" title="netmask"
 												validation="ipv4|required" />
 										</div>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv4 Gateway</label> <input
 												name="gateway" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.gateway"
@@ -109,20 +109,20 @@
 												validation="gateway|required" />
 										</div>
                                     <legend>IPv6 NETWORK</legend>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv6 Address</label> <input
 												name="ipv6_address" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.ipv6_address"
 												placeholder="Please Insert IP Address" title="IPv6 Address"
 												validation="ipv6" />
 										</div>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv6 Netmask</label> <input
 												name="ipv6_netmask" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.ipv6_netmask"
 												title="IPv6 netmask" validation="netmask" />
 										</div>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-4">
 											<label class="control-label">IPv6 Gateway</label> <input
 												name="ipv6_gateway" class="form-control" type="text"
 												ng-model="installConfig.vm_config.ovm.ipv6_gateway"
