@@ -768,7 +768,7 @@
 															<td>Secondary IP Address</td>
 															<td>{{gr_config.sec.vm_config.db.provider_ip_address}}</td>
 														</tr>
-														<tr align="center">
+														<tr align="center" ng-if="gr_config.sec.comType=='FCAPS' || gr_config.sec.comType=='CM'">
 															<td rowspan="1" width="25%" align="center"
 																style="vertical-align: middle" translate="CM_VM">CM VM</td>
 															<td>Primary IP Address</td>
