@@ -47,7 +47,7 @@ angular.module('kvm', [ 'ui.router',
     	                             {"label":"Traffic Separation", "mode": 2 },
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
-            $scope.avaliable_flavors = ["Low End", "Medium", "High End"];
+            $scope.avaliable_flavors = ["Enterprise","Low End", "Medium", "High End"];
         	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
