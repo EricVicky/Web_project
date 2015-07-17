@@ -1,9 +1,12 @@
 package com.alu.omc.oam.os.conf;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alu.omc.oam.util.InstallCert;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OpenstackConfig implements Serializable {
@@ -35,6 +38,23 @@ public class OpenstackConfig implements Serializable {
             setIdentityVersion(3);
         }
     }
+    
+    public void cert(){
+        if(this.authURL!=null){
+            try
+            {
+                URL url = new URL(this.authURL);
+                InstallCert crt = new InstallCert();
+                crt.autoImport(url.getHost(), url.getPort());
+            }
+            catch (MalformedURLException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+    
     public OpenstackConfig (){
         
     }
