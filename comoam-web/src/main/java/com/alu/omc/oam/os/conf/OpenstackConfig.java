@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alu.omc.oam.util.InstallCert;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,6 +27,7 @@ public class OpenstackConfig implements Serializable {
     private double clientReAuthTimeRatio = 0.75;
     private final int VERSION_3 = 3;
     private final int VERSION_2 = 2;
+	private static Logger log = LoggerFactory.getLogger(OpenstackConfig.class);
 
     public OpenstackConfig(String authURL, String osUsername,
             String osPassword, String osTenantOrDomainName) {
@@ -47,7 +51,7 @@ public class OpenstackConfig implements Serializable {
                 InstallCert crt = new InstallCert();
                 crt.autoImport(url.getHost(), url.getPort());
             }
-            catch (MalformedURLException e)
+            catch (Exception e)
             {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

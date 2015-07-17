@@ -28,6 +28,8 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -41,7 +43,7 @@ public class InstallCert
             "/etc/pki/java/cacerts", "/etc/pki/ca-trust/extracted/java/cacerts" };
     final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/openstack.crt";
     final static String DEFAULT_PASSWORD = "changeit";
-
+	 private static Logger log = LoggerFactory.getLogger(InstallCert.class);
     public static void main(String[] args) throws Exception
     {
         String host;
@@ -73,7 +75,7 @@ public class InstallCert
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.error("failed to auto import", e);
         }
     }
     
