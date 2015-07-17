@@ -186,7 +186,13 @@ public class CloudDeployController
     }  
     
     @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
-    public void uninstall_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    public void uninstall_kvm_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.GRUNINST, config);
+    } 
+    
+    @RequestMapping(value="/gr/os/uninstall", method=RequestMethod.POST)
+    public void uninstall_os_gr(@RequestBody GRUnInstallConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.GRUNINST, config);
     } 

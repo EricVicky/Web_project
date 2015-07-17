@@ -10,23 +10,24 @@ import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.Status;
 import com.alu.omc.oam.log.ParseResult;
 
-@Component("GRINST_SEC_KVM_HANDLER")
+@Component("GRINST_SEC_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
-public class GrInstSecKVMHandler extends DefaultHandler{
+public class GrInstSecOSHandler extends DefaultHandler{
 	
-	private static Logger log = LoggerFactory.getLogger(GrInstSecKVMHandler.class);
+	private static Logger log = LoggerFactory.getLogger(GrInstSecOSHandler.class);
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.GRINST_SEC);
+    	runningComstackLock.lock(getOSConfig().getStackName(), Action.GRINST_SEC);
     }
     
     @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((GRInstallConfig<KVMCOMConfig>)config).getSec();
+	private OSCOMConfig getOSConfig(){
+    	return ((GRInstallConfig<OSCOMConfig>)config).getSec();
     }
 
 	@Override
@@ -35,7 +36,7 @@ public class GrInstSecKVMHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
         service.grupdate(stack);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        runningComstackLock.unlock(getOSConfig().getStackName());
         
     }
 
@@ -50,15 +51,15 @@ public class GrInstSecKVMHandler extends DefaultHandler{
             this.onError();
         }
         sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        runningComstackLock.unlock(getOSConfig().getStackName());
 
     }
     public String getFulltopic(){
-    	return this.topic.concat(getKVMConfig().getStackName());
+    	return this.topic.concat(getOSConfig().getStackName());
      }
     @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        runningComstackLock.unlock(getOSConfig().getStackName());
     }
 }

@@ -13,8 +13,20 @@ public class ParseResult implements Serializable
     private String            logMsg;
     private String            step;
     private List<String> task = new ArrayList<String>();
+    private String result = "";
+    public static final String SUCCEED = "succeed"; 
+    public static final String FAILED = "failed"; 
 
-    public String getLogMsg()
+
+    public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getLogMsg()
     {
         return logMsg;
     }

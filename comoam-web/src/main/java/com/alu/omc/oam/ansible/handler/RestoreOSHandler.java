@@ -10,6 +10,7 @@ import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.log.ParseResult;
 
 @Component("RESTORE_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
@@ -37,10 +38,14 @@ public class RestoreOSHandler extends DefaultHandler{
     @Override
     public void onEnd()
     {
-        if(this.succeed){
+    	if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        	END.setResult(ParseResult.SUCCEED);
+        }else{
+        	END.setResult(ParseResult.FAILED);
+            this.onError();
         }
+        sender.send(getFulltopic(), END);
 
     }
     public String getFulltopic(){

@@ -23,7 +23,7 @@
 												<label class="control-label" translate="COM_INSTANCE">COM Instance</label> <select
 													name="pri" ng-model="gr_config.comConfig" class="form-control"
 													ng-options="  inst.deployment_prefix for inst in instances"
-													title="COM Instance" validation="required">
+													title="COM Instance" ng-change="translateSelectedGR()" validation="required">
 												</select>
 											</div>
 										</div>
@@ -177,7 +177,7 @@
 													</tbody>
 													</table>
 													<label class="control-label" >Force to uninstall:</label>
-													<input type="checkbox" name="force" ng-model="gr_config.forced" ng-click="changeForce()" />
+													<input type="checkbox" name="force" ng-model="gr_config.force" ng-click="changeForce()" />
 												</div>
 											</div>
 											<div class="panel-body"
@@ -201,7 +201,7 @@
 															</tr>
 															<tr align="center">
 																<td colspan="2" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</td>
-																<td>{{gr_config.comConfig.block_storage_avail_zone.zoneName}}</td>
+																<td>{{gr_config.comConfig.block_storage_avail_zone.zoneA}}</td>
 															</tr>
 
 															<tr align="center">
@@ -223,7 +223,7 @@
 															<tr align="center"
 																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
 																<td translate="FLAVOR">Flavor</td>
-																<td>{{flavor}}</td>
+																<td>{{gr_config.comConfig.vm_config.oam.flavor}}</td>
 															</tr>
 															<tr align="center"
 																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
@@ -240,7 +240,7 @@
 															<tr align="center"
 																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
 																<td translate="FLAVOR">Flavor</td>
-																<td>{{flavor}}</td>
+																<td>{{gr_config.comConfig.vm_config.db.flavor}}</td>
 															</tr>
 															<tr align="center"
 																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
@@ -257,7 +257,7 @@
 															<tr align="center"
 																ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
 																<td translate="FLAVOR">Flavor</td>
-																<td>{{flavor}}</td>
+																<td>{{gr_config.comConfig.vm_config.cm.flavor}}</td>
 															</tr>
 														</tbody>
 													</table>

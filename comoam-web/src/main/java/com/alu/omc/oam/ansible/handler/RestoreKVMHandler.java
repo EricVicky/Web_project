@@ -9,6 +9,7 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.log.ParseResult;
 
 @Component("RESTORE_KVM_HANDLER")
 @Scope(value = "prototype")
@@ -37,10 +38,14 @@ public class RestoreKVMHandler extends DefaultHandler{
     @Override
     public void onEnd()
     {
-        if(this.succeed){
+    	if(this.succeed){
         	this.onSucceed();
-        	sender.send(getFulltopic(), END);
+        	END.setResult(ParseResult.SUCCEED);
+        }else{
+        	END.setResult(ParseResult.FAILED);
+            this.onError();
         }
+        sender.send(getFulltopic(), END);
         runningComstackLock.unlock(getKVMConfig().getStackName());
 
     }

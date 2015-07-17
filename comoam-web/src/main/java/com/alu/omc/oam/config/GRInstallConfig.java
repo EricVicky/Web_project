@@ -21,9 +21,9 @@ public class GRInstallConfig<T extends COMConfig> extends COMConfig implements S
 private static final long serialVersionUID = 3890963920968307212L;
 private T pri;
 private T sec;
-private GRTrafic gr_traffic;
+private GRTrafic gr_traffic = GRTrafic.SIMPlE;
 private boolean gr_install_active = true;
-private IPtype gr_ip_type;
+private IPtype gr_ip_type = IPtype.ipv4;
 private Map<String, GRIP> gr_ip_config = new HashMap<String, GRIP>();
 public GRTrafic getGr_traffic()
 {

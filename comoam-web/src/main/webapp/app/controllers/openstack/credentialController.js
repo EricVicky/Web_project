@@ -25,4 +25,4 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
     };
-});;
+});

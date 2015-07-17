@@ -6,7 +6,7 @@ angular.module('gr', [ 'ui.router',
                         'ghiscoding.validation',
                         'ngResource'])
      .controller('grInstallController', function($scope, $q, $timeout, $log, 
-            $state, GRService,monitorService) {
+            $state, GRService,monitorService,$modal) {
     	 $scope.ip_types = ["ipv4", "ipv6"];
     	 GRService.getComInstance().then(function( comstacks ){
     		 if(comstacks.length > 0){
@@ -28,23 +28,23 @@ angular.module('gr', [ 'ui.router',
     			 "SIMPlE":"1",
     			 "SEPARATION":"2",
     			 "REDUDENCY":"3"
-    	 }
+    	 };
     	 $scope.getIPNum = function(gr_traffic){
     		 for(var indexofTypes=0;indexofTypes<$scope.all_gr_traffic_types.length;indexofTypes++){
     			 if($scope.all_gr_traffic_types[indexofTypes].value == gr_traffic){
     				 return $scope.all_gr_traffic_types[indexofTypes].index;
     			 }
     		 }
-    	 }
+    	 };
     	 $scope.primarycfg = function(){
     		 GRService.checkInstalled({"name":$scope.gr_config.pri.deployment_prefix}).then(function(data){
     			 $scope.installedPriGR = (data.succeed == true?"Installed":"Not Installed");
         	 });
     		 if($scope.gr_config.pri.environment == "KVM"){
-    			 $scope.priOAMRowspan = $scope.gr_config.pri.vm_config.oam.nic.length * 2;
-    			 $scope.priDBRowspan = $scope.gr_config.pri.vm_config.db.nic.length * 2;
+    			 $scope.priOAMRowspan = $scope.gr_config.pri.vm_config.oam.nic.length * 2+2;
+    			 $scope.priDBRowspan = $scope.gr_config.pri.vm_config.db.nic.length * 2+2;
     			 if($scope.gr_config.pri.comType != "OAM"){
-    				 $scope.priCMRowspan = $scope.gr_config.pri.vm_config.cm.nic.length * 2; 	    		 
+    				 $scope.priCMRowspan = $scope.gr_config.pri.vm_config.cm.nic.length * 2+2; 	    		 
     			 }
     		 }
     	 };
@@ -53,10 +53,10 @@ angular.module('gr', [ 'ui.router',
     			 $scope.installedSecGR = (data.succeed == true?"Installed":"Not Installed");
         	 });
     		 if($scope.gr_config.sec.environment == "KVM"){
-    			 $scope.secOAMRowspan = $scope.gr_config.sec.vm_config.oam.nic.length * 2;
-    			 $scope.secDBRowspan = $scope.gr_config.sec.vm_config.db.nic.length * 2;
+    			 $scope.secOAMRowspan = $scope.gr_config.sec.vm_config.oam.nic.length * 2+2;
+    			 $scope.secDBRowspan = $scope.gr_config.sec.vm_config.db.nic.length * 2+2;
     			 if($scope.gr_config.sec.comType != "OAM"){
-    				 $scope.secCMRowspan = $scope.gr_config.sec.vm_config.cm.nic.length * 2; 	    		 
+    				 $scope.secCMRowspan = $scope.gr_config.sec.vm_config.cm.nic.length * 2+2; 	    		 
     			 }
     		 }
     	 };
@@ -114,6 +114,21 @@ angular.module('gr', [ 'ui.router',
     		 }
     	 };
     	 $scope.getMinTraffic = function(){
+    		 var vm_config = $scope.gr_config.pri.vm_config;
+    		 for(var vm in vm_config){
+    			 if(!angular.equals($scope.gr_config.pri.comType,$scope.gr_config.sec.comType)||
+        			!angular.equals($scope.gr_config.pri.oam_cm_image,$scope.gr_config.sec.oam_cm_image)||
+        			!angular.equals($scope.gr_config.pri.db_image,$scope.gr_config.sec.db_image)||
+        			!angular.equals($scope.gr_config.pri.vm_config[vm].flavor,$scope.gr_config.sec.vm_config[vm].flavor)){
+        			         var modalInstance = $modal.open({
+          	      	         	animation: true,
+          	      	            backdrop:'static',
+          	      	         	templateUrl: 'views/gr/grcheck.html',
+          	      	         	controller: 'grcheck',
+          				     });
+        			 break;
+        		 }
+    		 }
     		 if($scope.gr_config.pri.environment == "KVM" && $scope.gr_config.sec.environment == "KVM"){
     			 var priNic = $scope.gr_config.pri.vm_config.oam.nic.length;
     			 var secNic = $scope.gr_config.sec.vm_config.oam.nic.length;
@@ -124,29 +139,48 @@ angular.module('gr', [ 'ui.router',
     			 }
     		 }
     		 $scope.gr_ip_changed();
-    	 }
+    	 };
     	 $scope.installGR = function() {
     		 if($scope.COMStack.length > 0){
     			 for(var i=0; i < $scope.COMStack.length; i++){
      		    	if($scope.COMStack[i].name == $scope.gr_config.pri.deployment_prefix){
      		    		if($scope.COMStack[i].status == "GRINSTALLED"){
      		    			$scope.gr_config.gr_install_active = false;
-     		    			GRService.install($scope.gr_config).then( function(){
-     		    				monitorService.monitorKVMGR_Sec_Install($scope.gr_config.sec.deployment_prefix);
-     		    				$state.go("dashboard.monitor");
-     		    			});
+     		    			if($scope.gr_config.sec.environment == "KVM"){
+     		    				GRService.kvminstall($scope.gr_config).then( function(){
+         		    				monitorService.monitor("KVM", "GR_SEC_INSTALL", $scope.gr_config.sec.comType,  $scope.gr_config.sec.deployment_prefix);
+         		         			$state.go("dashboard.monitor");
+         		    			});
+     		    			}else{
+     		    				GRService.osinstall($scope.gr_config).then( function(){
+         		    				monitorService.monitor("Openstack", "GR_SEC_INSTALL", $scope.gr_config.sec.comType,  $scope.gr_config.sec.deployment_prefix);
+         		         			$state.go("dashboard.monitor");
+         		    			});
+     		    			}
      		    		}else{
      		    			$scope.gr_config.gr_install_active = true;
-     		    			GRService.install($scope.gr_config).then( function(){
-     		    				monitorService.monitorKVMGR_Pri_Install($scope.gr_config.pri.deployment_prefix);
-     		    				$state.go("dashboard.monitor");
-     		    			});
+     		    			if($scope.gr_config.pri.environment == "KVM"){
+     		    				GRService.kvminstall($scope.gr_config).then( function(){
+         		    				monitorService.monitor("KVM", "GR_PRI_INSTALL", $scope.gr_config.pri.comType,  $scope.gr_config.pri.deployment_prefix);
+         		         			$state.go("dashboard.monitor");
+         		    			});
+     		    			}else{
+     		    				GRService.osinstall($scope.gr_config).then( function(){
+         		    				monitorService.monitor("Openstack", "GR_PRI_INSTALL", $scope.gr_config.pri.comType,  $scope.gr_config.pri.deployment_prefix);
+         		         			$state.go("dashboard.monitor");
+         		    			});
+     		    			}
      		    		}
      		    	}
      		    }
     		 }
-    	 }
+    	 };
     	 
+}).controller('grcheck', function($scope, $modalInstance,$state){
+	$scope.ok = function () {
+		$state.go('dashboard.grinstall', {}, {reload: true});
+		$modalInstance.dismiss('cancel');
+    };
 }).controller('grUnInstallController', function($scope, $q, $timeout, $log, 
              $state, GRService,monitorService, $modal) {
 	GRService.getComInstance().then(function( comstacks ){
@@ -162,20 +196,29 @@ angular.module('gr', [ 'ui.router',
 	 });
 	 
 	$scope.UnInstallGR = function(){
-		 GRService.uninstall($scope.gr_config).then( function(){
-			monitorService.monitorKVMGR_UnInstall($scope.gr_config.comConfig.deployment_prefix);
-         	$state.go("dashboard.monitor");
-		});
-	 };
-	$scope.translateSelectedGR = function(){
-			$scope.priOAMRowspan = $scope.gr_config.comConfig.vm_config.oam.nic.length * 2;
-			$scope.priDBRowspan = $scope.gr_config.comConfig.vm_config.db.nic.length * 2;
-			if($scope.gr_config.comConfig.comType != "OAM"){
-				$scope.priCMRowspan = $scope.gr_config.comConfig.vm_config.cm.nic.length * 2;
+		 if($scope.gr_config.comConfig.environment == "KVM"){
+			 GRService.kvmuninstall($scope.gr_config).then( function(){
+					monitorService.monitor("KVM", "GR_UNINSTALL", $scope.gr_config.comConfig.comType,  $scope.gr_config.comConfig.deployment_prefix);
+		         	$state.go("dashboard.monitor");
+				});
+			}else{
+				GRService.osuninstall($scope.gr_config).then( function(){
+					monitorService.monitor("Openstack", "GR_UNINSTALL", $scope.gr_config.comConfig.comType,  $scope.gr_config.comConfig.deployment_prefix);
+		         	$state.go("dashboard.monitor");
+				});
 			}
-	}
+	 };
+	 $scope.translateSelectedGR = function(){
+		 if($scope.gr_config.comConfig.environment == "KVM"){
+			 $scope.priOAMRowspan = $scope.gr_config.comConfig.vm_config.oam.nic.length * 2;
+				$scope.priDBRowspan = $scope.gr_config.comConfig.vm_config.db.nic.length * 2;
+				if($scope.gr_config.comConfig.comType != "OAM"){
+					$scope.priCMRowspan = $scope.gr_config.comConfig.vm_config.cm.nic.length * 2;
+				}
+		 }
+	};
 	$scope.changeForce = function(){
-		if($scope.gr_config.forced){
+		if($scope.gr_config.force){
 		      var modalInstance = $modal.open({
 		      animation: $scope.animationsEnabled,
 		      templateUrl: 'views/gr/forceConfirm.html',
@@ -184,12 +227,13 @@ angular.module('gr', [ 'ui.router',
 		      backdrop: true
 		    });	
 		    modalInstance.result.then(function () {
-		       $log.info("force confirmed!"); 
+		    	$scope.gr_config.forced = true;
 		    }, function () {
-		    	$scope.gr_config.forced = false;
 		    });	
+		}else{
+			$scope.gr_config.forced = false;
 		}
-	}
+	};
 })
 .controller('forceController', function($scope, $modalInstance){
 	$scope.ok = function(){

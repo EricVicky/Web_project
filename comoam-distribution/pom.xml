@@ -207,6 +207,16 @@
 									</sources>
 								</mapping>
 								<mapping>
+									<directory>/opt/PlexView/ELCM/crt</directory>
+									<username>root</username>
+									<groupname>root</groupname>
+									<sources>
+										<source>
+											<location>src/main/config/crt</location>
+										</source>
+									</sources>
+								</mapping>
+								<mapping>
 									<directory>/tmp/</directory>
 									<username>root</username>
 									<groupname>root</groupname>
