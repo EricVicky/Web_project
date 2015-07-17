@@ -217,7 +217,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/tmp/</directory>
+									<directory>/opt/PlexView/ELCM/tmp/</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>

@@ -2,14 +2,14 @@
 ## Utility Functions :
 execCmd() {
   cmd=$*
-  tmpcmd=/tmp/cmd.exe
+  tmpcmd=/opt/PlexView/ELCM/tmp/cmd.exe
   [ -f ${tmpcmd} ] && /bin/rm -f ${tmpcmd}
   /bin/echo "#!/bin/sh" > ${tmpcmd}
   /bin/echo ${cmd} >> ${tmpcmd}
   /bin/echo 'exit $?' >> ${tmpcmd}
   /bin/chmod +x ${tmpcmd}
 
-  tmpfic=/tmp/cmd.out
+  tmpfic=/opt/PlexView/ELCM/tmp/cmd.out
   [ -f ${tmpfic} ] && /bin/rm -f ${tmpfic}
   ${tmpcmd} > ${tmpfic} 2>&1
   res=$?
@@ -17,7 +17,7 @@ execCmd() {
   return ${res}
 }
 
-SSLDir=/tmp
+SSLDir=/opt/PlexView/ELCM/tmp
 mkdir -p ${SSLDir}
 # Error if environment definitions not available
 cfgFile="${SSLDir}/gen_ssl_certificate.cfg"
@@ -91,12 +91,12 @@ execCmd ${cmd}
 $openssl verify -CAfile $crtdir/ca.crt $crtdir/server.crt
 openssl pkcs12 -export -in ${SSLDir}/ssl.crt/server.crt -inkey ${SSLDir}/ssl.key/server.key -out ${SSLDir}/ssl.crt/server.pkcs12 -name tomcat -CAfile ${SSLDir}/ssl.crt/ca.crt -passout pass:serverpkcs12
 
-apachePKCS12File=/tmp/ssl.crt/server.pkcs12
+apachePKCS12File=/opt/PlexView/ELCM/tmp/ssl.crt/server.pkcs12
 tomcatHomeDir=/opt/PlexView/ELCM/server
 tomcatKeyStoreDir="$tomcatHomeDir/ssl/keystore"
 if [ ! -f $tomcatKeyStoreDir/elcm.jks ]
 then
-        cd /tmp
+        cd /opt/PlexView/ELCM/tmp
         if [ -f $apachePKCS12File ]; then
                 if [ ! -d $tomcatKeyStoreDir ]; then
                         mkdir -p $tomcatKeyStoreDir
