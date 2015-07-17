@@ -1,11 +1,19 @@
 package com.alu.omc.oam.rest.os.service.access;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+
 import javax.annotation.Resource;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.types.Facing;
+import org.openstack4j.core.transport.Config;
 import org.openstack4j.openstack.OSFactory;
 import org.springframework.stereotype.Service;
 
@@ -59,10 +67,33 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
                 .builder()
                 .endpoint(osConfig.getAuthURL())
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
-                .tenantName(osConfig.getOsTenant()).perspective(Facing.PUBLIC)
+                .tenantName(osConfig.getOsTenant()).perspective(Facing.PUBLIC).useNonStrictSSLClient(true)
                 .authenticate();
         setRegion(os, osConfig);
         return os;
+    }
+    
+    
+    private Config getConfigSSL(){
+        Config sslConfig = Config.newConfig();
+     // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager(){
+            public X509Certificate[] getAcceptedIssuers(){return null;}
+            public void checkClientTrusted(X509Certificate[] certs, String authType){}
+            public void checkServerTrusted(X509Certificate[] certs, String authType){}
+        }};
+
+        // Install the all-trusting trust manager
+        SSLContext sc = null;
+        try {
+             sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sslConfig.withSSLContext(sc);
+        return sslConfig;
     }
 
     // V3
@@ -72,7 +103,7 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
                 .endpoint(osConfig.getAuthURL())
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
                 .domainName(osConfig.getOsDomainName())
-                .perspective(Facing.PUBLIC).authenticate();
+                .perspective(Facing.PUBLIC).useNonStrictSSLClient(true).authenticate();
         setRegion(os, osConfig);
         return os;
     }
