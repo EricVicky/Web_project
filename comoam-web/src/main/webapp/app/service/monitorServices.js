@@ -35,9 +35,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_ARS":{
-				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
-				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
+				"install":["Start", "Prepare Environment", "Install", "Finished"]			
 			}
 	};
 	
@@ -190,6 +188,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMQOSACDelete: function(ch) {
 			environment = "KVM_QOSAC";
 			action = "delete";
+			channel = ch;
+		},
+		monitorKVMARSInstall: function(ch) {
+			environment = "KVM_ARS";
+			action = "install";
 			channel = ch;
 		},
 		getChannel : function (){
