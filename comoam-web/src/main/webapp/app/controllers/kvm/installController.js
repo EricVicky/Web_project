@@ -15,6 +15,15 @@ angular.module('kvm', [ 'ui.router',
 					};
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
+            	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
+            	for(var name in vms_flavor){
+            		var vm_flavor = vms_flavor[name];
+            		for(var index in vm_flavor){
+            			if(vm_flavor[index].label.indexOf($scope.flavor) != -1){
+            				$scope.installConfig.vm_config[name].flavor = vm_flavor[index];
+            			}
+            		}
+            	}
             };
             $scope.installConfig.app_install_options = {
 					BACKUP_SERVER_DISK_SPACE:'2000',
@@ -47,7 +56,7 @@ angular.module('kvm', [ 'ui.router',
     	                             {"label":"Traffic Separation", "mode": 2 },
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
-            $scope.avaliable_flavors = ["Enterprise","Low End", "Medium", "High End"];
+            $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
         	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
@@ -109,15 +118,6 @@ angular.module('kvm', [ 'ui.router',
             			});   
             };
             $scope.deploy = function(){
-            	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
-            	for(var name in vms_flavor){
-            		var vm_flavor = vms_flavor[name];
-            		for(var index in vm_flavor){
-            			if(vm_flavor[index].label.indexOf($scope.flavor) != -1){
-            				$scope.installConfig.vm_config[name].flavor = vm_flavor[index];
-            			}
-            		}
-            	}
             	/*check if it is locked: prevent multiple operation on same comstack
             	 * it may cause log chaos on monitor page
             	 */

@@ -41,7 +41,7 @@ public class InstallCert
 
     final static String[] REDHAD_KEYSTORE = new String[] {
             "/etc/pki/java/cacerts", "/etc/pki/ca-trust/extracted/java/cacerts" };
-    final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/openstack.crt";
+    final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/";
     final static String DEFAULT_PASSWORD = "changeit";
 	 private static Logger log = LoggerFactory.getLogger(InstallCert.class);
     public static void main(String[] args) throws Exception
@@ -209,22 +209,22 @@ public class InstallCert
                 md5.update(cert.getEncoded());
                 System.out.println("   md5     " + toHexString(md5.digest()));
                 System.out.println();
+                ks.setCertificateEntry(getAlias(host, i), cert);
+                ks.store();
+                ks.keytoolExport(getAlias(host, i), ks, passphrase, CERTIFICATE_PATH, i+1);
+                System.out.println();
+                System.out.println(cert);
+                System.out.println();
+                System.out .println("Added certificate to keystore " + ks.filePath +" using alias '"
+                        + getAlias(host, i) + "'");
             }
-            X509Certificate cert = chain[0];
-            ks.setCertificateEntry(getAlias(host), cert);
-            ks.store();
-            ks.keytoolExport(getAlias(host), ks, passphrase, CERTIFICATE_PATH);
-            System.out.println();
-            System.out.println(cert);
-            System.out.println();
-            System.out .println("Added certificate to keystore " + ks.filePath +" using alias '"
-                            + getAlias(host) + "'");
         }
     }
 
-    public String getAlias(String host)
+    public String getAlias(String host, int index)
     {
-        return host;
+        index = index++;
+        return host + "_" + index;
     }
 
     public class COMKeyStore
@@ -304,11 +304,11 @@ public class InstallCert
             }
         }*/
         
-        public void keytoolExport(String alias, COMKeyStore ks, String passphase, String targetPat) throws Exception{
+        public void keytoolExport(String alias, COMKeyStore ks, String passphase, String targetPath, int index) throws Exception{
            DefaultExecutor de =  new DefaultExecutor();
            HashMap envs = new HashMap();
            envs.putAll( EnvironmentUtils.getProcEnvironment());
-           CommandLine cmdLine = CommandLine.parse(KeytoolExportComand(alias, ks, passphase, targetPat));
+           CommandLine cmdLine = CommandLine.parse(KeytoolExportComand(alias, ks, passphase,  targetPath  + String.valueOf(index).concat(".crt")));
            de.execute(cmdLine, envs);
         }
         
