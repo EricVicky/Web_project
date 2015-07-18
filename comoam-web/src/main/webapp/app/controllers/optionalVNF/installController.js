@@ -71,22 +71,31 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     
 }).controller('ovmarsctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
 	
+	$scope.installConfig = {
+			"installConfig.comType":"ARS",
+			"active_host_ip":"",
+    		"vm_config":{
+    			"db":{
+    				"ip_address":""
+    			}
+    		},
+	        "deployment_prefix":""
+    };    
+	
 	$scope.reloadinstallconfig = function (){
 		if($scope.com_instance != null){
-        	$scope.installConfig.active_host_ip = $scope.com_instance.comConfig.active_host_ip;
-        	$scope.installConfig.vm_config.db.ip_address = $scope.com_instance.installConfig.vm_config.db.nic[0].ip_v4.ipaddress;
+        	$scope.installConfig.active_host_ip = $scope.com_instance.active_host_ip;
+        	$scope.installConfig.vm_config.db.ip_address = $scope.com_instance.vm_config.db.nic[0].ip_v4.ipaddress;
         	$scope.installConfig.deployment_prefix = $scope.com_instance.deployment_prefix;
     	}
 	};
 	
 	KVMService.getComInstance().then( function(data) {
-		$log.info(data);
-	 	$scope.installConfig.comType = KVMService.VNFType;
 		$scope.kvmcomInstance = [];
 		for(var ci=0;ci<data.length;ci++){
-			if(data[ci].comConfig.environment ==  "KVM"){
-				if(data[ci].comConfig.comType == "OAM" ||  data[ci].comConfig.comType == "CM" || data[ci].comConfig.comType == "FCAPS"){
-					$scope.kvmcomInstance.push(data[ci]);
+			if(data[ci].comType == "OAM" ||  data[ci].comType == "CM" || data[ci].comType == "FCAPS"){
+			    if(JSON3.parse(data[ci].comConfig).environment ==  "KVM"){
+					$scope.kvmcomInstance.push(JSON3.parse(data[ci].comConfig));
 				}
 			}
 		}

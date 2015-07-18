@@ -23,7 +23,7 @@
 									<legend>Common Variables</legend>
                                     <div class="form-group">
                                         <label class="control-label">COM Type</label> <select
-                                            name="comType" ng-model="installConfig.comType" 
+                                            name="comType" ng-model="installConfig.comType" ng-init="installConfig.comType='ARS'"
                                             class="form-control" title="COM Type">
                                             <option value="ARS">ARS</option>
                                         </select>
@@ -31,7 +31,7 @@
 									<label class="control-label">COM Instance</label> <select
 										ng-change="reloadinstallconfig()" name="com_instance"
 										ng-model="com_instance" class="form-control"
-										ng-options="  inst.name for inst in kvmcomInstance"
+										ng-options="inst.deployment_prefix for inst in kvmcomInstance"
 										title="COM Instance">
 										<option value="" default>--Please Select--</option>
 									</select>
@@ -45,15 +45,15 @@
                                             <label class="control-label">DP VM IPv4 address</label> <input
                                                 name="netmask" class="form-control" type="text"
                                                 ng-model="installConfig.vm_config.db.ip_address"
-                                                placeholder="Please Insert IPv4 address" title="netmask"
+                                                placeholder="Please Insert IPv4 address" title="IPV4 address"
                                                 validation="ipv4|required" />
                                      </div>
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit="genExport()" rc-step>
 									<div class="form-group">
                                         <label class="control-label">License_key</label> <input
-                                            name="deployment_prefix" class="form-control" type="text"
-                                            ng-model="installConfig.License_key"
+                                            name="license" class="form-control" type="text"
+                                            ng-model="installConfig.license"
                                             placeholder="Please Input License"
                                             title="License" validation="required" />
                                     </div>
