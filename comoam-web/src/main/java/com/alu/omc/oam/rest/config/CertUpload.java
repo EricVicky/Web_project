@@ -19,7 +19,6 @@ public class CertUpload {
     public void upload(@RequestParam("file") MultipartFile file ) throws Exception {
         if (!file.isEmpty()) {
             file.transferTo(new File(InstallCert.CERTIFICATE_PATH));
-            new InstallCert().importCert();
         }
     }
 
