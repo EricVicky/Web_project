@@ -21,16 +21,16 @@ public class ArsCOMConfig extends OVMCOMConfig {
 	}
 	
 	
-	public String getLicense() {
-		return license;
+	public String getLicense_key() {
+		return license_key;
 	}
 
 
-	public void setLicense(String license) {
-		this.license = license;
+	public void setLicense_key(String license_key) {
+		this.license_key = license_key;
 	}
 
 
-	private String license;
+	private String license_key;
 
 }
