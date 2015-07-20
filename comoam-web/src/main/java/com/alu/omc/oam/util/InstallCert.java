@@ -31,6 +31,8 @@ import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alu.omc.oam.os.conf.OpenstackConfig;
+
 
 /**
  * Class used to add the server's certificate to the KeyStore with your trusted
@@ -41,93 +43,12 @@ public class InstallCert
 
     final static String[] REDHAD_KEYSTORE = new String[] {
             "/etc/pki/java/cacerts", "/etc/pki/ca-trust/extracted/java/cacerts" };
-    final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/";
+    public final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/openstack.crt";
+//    public final static String CERTIFICATE_PATH = "d:\\openstack.crt";
     final static String DEFAULT_PASSWORD = "changeit";
-	 private static Logger log = LoggerFactory.getLogger(InstallCert.class);
-    public static void main(String[] args) throws Exception
-    {
-        String host;
-        int port;
-        String passphrase;
-        if ((args.length == 1) || (args.length == 2))
-        {
-            String[] c = args[0].split(":");
-            host = c[0];
-            port = (c.length == 1) ? 443 : Integer.parseInt(c[1]);
-            passphrase = (args.length == 1) ? DEFAULT_PASSWORD : args[1];
-        }
-        else
-        {
-            System.out
-                    .println("Usage: java InstallCert <host>[:port] [passphrase]");
-            return;
-        }
-
-        new InstallCert().autoImport(host, port, passphrase);
-
-    }
-
-    public void autoImport(String host, int port, String passphrase)
-    {
-        try
-        {
-            saveCert(host, port, passphrase);
-        }
-        catch (Exception e)
-        {
-            log.error("failed to auto import", e);
-        }
-    }
-    
-    public void autoImport(String host, int port)
-    {
-      this.autoImport(host, port, DEFAULT_PASSWORD); 
-    }
-
-    private final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
-
-    private String toHexString(byte[] bytes)
-    {
-        StringBuilder sb = new StringBuilder(bytes.length * 3);
-        for (int b : bytes)
-        {
-            b &= 0xff;
-            sb.append(HEXDIGITS[b >> 4]);
-            sb.append(HEXDIGITS[b & 15]);
-            sb.append(' ');
-        }
-        return sb.toString();
-    }
-
-    private static class SavingTrustManager implements X509TrustManager
-    {
-
-        private final X509TrustManager tm;
-        private X509Certificate[]      chain;
-
-        SavingTrustManager(X509TrustManager tm)
-        {
-            this.tm = tm;
-        }
-
-        public X509Certificate[] getAcceptedIssuers()
-        {
-            throw new UnsupportedOperationException();
-        }
-
-        public void checkClientTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException
-        {
-            throw new UnsupportedOperationException();
-        }
-
-        public void checkServerTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException
-        {
-            this.chain = chain;
-            tm.checkServerTrusted(chain, authType);
-        }
-    }
+    final static String OPENSTACK_AUTH= "openstack_auth";
+    final static String CERT_TOOL_COMMAND = "keytool ";
+	private static Logger log = LoggerFactory.getLogger(InstallCert.class);
 
     private COMKeyStore[] getKeyStore(String passphrase) throws Exception
     {
@@ -151,75 +72,32 @@ public class InstallCert
         return ks;
     }
 
-    public void saveCert(String host, int port, String passphrase)
+    
+     public void importCert()
             throws Exception
     {
 
-        COMKeyStore[] kss = getKeyStore(passphrase);
+        COMKeyStore[] kss = getKeyStore(DEFAULT_PASSWORD);
         for (COMKeyStore ks : kss)
         {
-            SSLContext context = SSLContext.getInstance("TLS");
-            TrustManagerFactory tmf = TrustManagerFactory
-                    .getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(ks.keyStore());
-            X509TrustManager defaultTrustManager = (X509TrustManager) tmf
-                    .getTrustManagers()[0];
-            SavingTrustManager tm = new SavingTrustManager(defaultTrustManager);
-            context.init(null, new TrustManager[] { tm }, null);
-            SSLSocketFactory factory = context.getSocketFactory();
-
-            System.out.println("Opening connection to " + host + ":" + port
-                    + "...");
-            SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
-            socket.setSoTimeout(10000);
-            try
-            {
-                System.out.println("Starting SSL handshake...");
-                socket.startHandshake();
-                socket.close();
-                System.out.println();
-                System.out.println("No errors, certificate is already trusted");
-            }
-            catch (SSLException e)
-            {
-                System.out.println();
-                e.printStackTrace(System.out);
-            }
-
-            X509Certificate[] chain = tm.chain;
-            if (chain == null)
-            {
-                System.out.println("Could not obtain server certificate chain");
-                return;
-            }
-            System.out.println();
-            System.out.println("Server sent " + chain.length
-                    + " certificate(s):");
-            System.out.println();
-            MessageDigest sha1 = MessageDigest.getInstance("SHA1");
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            for (int i = 0; i < chain.length; i++)
-            {
-                X509Certificate cert = chain[i];
-                System.out.println(" " + (i + 1) + " Subject "
-                        + cert.getSubjectDN());
-                System.out.println("   Issuer  " + cert.getIssuerDN());
-                sha1.update(cert.getEncoded());
-                System.out.println("   sha1    " + toHexString(sha1.digest()));
-                md5.update(cert.getEncoded());
-                System.out.println("   md5     " + toHexString(md5.digest()));
-                System.out.println();
-                ks.setCertificateEntry(getAlias(host, i), cert);
-                ks.store();
-                ks.keytoolExport(getAlias(host, i), ks, passphrase, CERTIFICATE_PATH, i+1);
-                System.out.println();
-                System.out.println(cert);
-                System.out.println();
-                System.out .println("Added certificate to keystore " + ks.filePath +" using alias '"
-                        + getAlias(host, i) + "'");
-            }
+            ks.keytoolImport(OPENSTACK_AUTH, ks, DEFAULT_PASSWORD, CERTIFICATE_PATH );
         }
     }
+     
+    public void importCert(OpenstackConfig config) throws Exception{
+        COMKeyStore[] kss = getKeyStore(DEFAULT_PASSWORD);
+        String alias = config.getHost() == null? OPENSTACK_AUTH: OPENSTACK_AUTH.concat(config.getHost());
+        for (COMKeyStore ks : kss)
+        {
+            try{
+                ks.keytoolDelete(alias, ks, DEFAULT_PASSWORD, CERTIFICATE_PATH );
+            }catch(Exception e){
+               log.info("delete of certification ".concat(alias).concat(" failed! ")); 
+            }
+            ks.keytoolImport(alias, ks, DEFAULT_PASSWORD, CERTIFICATE_PATH );
+        }
+    } 
+    
 
     public String getAlias(String host, int index)
     {
@@ -282,64 +160,47 @@ public class InstallCert
             return this.ks;
         }
 
-/*        public void exportCertificate(String alias, String targetPath)
-        {
-            try
-            {
-                Certificate cert = this.ks.getCertificate(alias);
-                File file = new File(targetPath);
-                System.out.println(cert.getPublicKey().toString());
-                byte[] buf = cert.getEncoded();
-                FileOutputStream os = new FileOutputStream(file);
-                Writer wr = new OutputStreamWriter(os, Charset.forName("UTF-8"));
-                wr.write(new BASE64Encoder().encode(buf));
-                os.write(buf);
-                wr.flush();
-                os.close();
-            }
-            catch (CertificateEncodingException | KeyStoreException
-                    | IOException e)
-            {
-                e.printStackTrace();
-            }
-        }*/
         
-        public void keytoolExport(String alias, COMKeyStore ks, String passphase, String targetPath, int index) throws Exception{
+        public void keytoolImport(String alias, COMKeyStore ks, String passphase, String certPath) throws Exception{
            DefaultExecutor de =  new DefaultExecutor();
            HashMap envs = new HashMap();
            envs.putAll( EnvironmentUtils.getProcEnvironment());
-           CommandLine cmdLine = CommandLine.parse(KeytoolExportComand(alias, ks, passphase,  targetPath  + String.valueOf(index).concat(".crt")));
+           CommandLine cmdLine = CommandLine.parse(KeytoolImportComand(alias, ks, passphase, certPath));
            de.execute(cmdLine, envs);
         }
         
-        private String KeytoolExportComand(String alias, COMKeyStore ks, String passphase, String targetPath){
-            StringBuffer command = new StringBuffer("keytool "); 
+        public void keytoolDelete(String alias, COMKeyStore ks, String passphase, String targetPath) throws Exception{
+           DefaultExecutor de =  new DefaultExecutor();
+           HashMap envs = new HashMap();
+           envs.putAll( EnvironmentUtils.getProcEnvironment());
+           CommandLine cmdLine = CommandLine.parse(KeytoolDeleteComand(alias, ks, passphase));
+           de.execute(cmdLine, envs);
+        }
+        
+        private String KeytoolImportComand(String alias, COMKeyStore ks, String passphase, String certPath){
+            StringBuffer command = new StringBuffer(CERT_TOOL_COMMAND); 
             List<String> paraList = new ArrayList<String>();
-            paraList.add("-export");
+            paraList.add("-import -trustcacerts");
             paraList.add("-alias ".concat(alias));
             paraList.add("-keystore ".concat("\"" + ks.filePath + "\""));
-            paraList.add("-rfc ");
-            paraList.add("-file ".concat(targetPath));
+            paraList.add("-storepass ".concat(passphase));
+            paraList.add("-file ".concat(certPath));
+            paraList.add("-noprompt");
             command.append(StringUtils.join(paraList, " "));
             return command.toString();
         }
-/*        public void exportPrivteKey(String alias, String targetPath) throws Exception{
-            Key key = this.ks.getKey(alias, this.passphrase.toCharArray());
-            if(key instanceof PrivateKey) {
-                    BASE64Encoder encoder=new BASE64Encoder();
-                    Certificate cert=this.ks.getCertificate(alias);
-                    PublicKey publicKey=cert.getPublicKey();
-                    KeyPair keyPair = new KeyPair(publicKey,(PrivateKey)key);
-                    PrivateKey privateKey=keyPair.getPrivate();
-                    String encoded=encoder.encode(privateKey.getEncoded());
-                    FileWriter fw=new FileWriter(targetPath);
-                    fw.write("—–BEGIN PRIVATE KEY—–\n");
-                    fw.write(encoded);
-                    fw.write("\n");
-                    fw.write("—–END PRIVATE KEY—–");
-                    fw.close();
-            }
-        }*/
+        
+         private String KeytoolDeleteComand(String alias, COMKeyStore ks, String passphase){
+            StringBuffer command = new StringBuffer(CERT_TOOL_COMMAND); 
+            List<String> paraList = new ArrayList<String>();
+            paraList.add("-delete");
+            paraList.add("-alias ".concat(alias));
+            paraList.add("-keystore ".concat("\"" + ks.filePath + "\""));
+            paraList.add("-storepass ".concat(passphase));
+            paraList.add("-noprompt");
+            command.append(StringUtils.join(paraList, " "));
+            return command.toString();
+        }
     }
 
 }

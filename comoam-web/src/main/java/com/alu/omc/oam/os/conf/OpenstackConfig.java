@@ -9,7 +9,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alu.omc.oam.util.InstallCert;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OpenstackConfig implements Serializable {
@@ -24,6 +23,8 @@ public class OpenstackConfig implements Serializable {
     private String authURL;
     private String osRegion;
     private int identityVersion;
+    private Boolean cert = false;
+
     private double clientReAuthTimeRatio = 0.75;
     private final int VERSION_3 = 3;
     private final int VERSION_2 = 2;
@@ -43,26 +44,20 @@ public class OpenstackConfig implements Serializable {
         }
     }
     
-    public void cert(){
-        if(this.authURL!=null){
-            try
-            {
-                URL url = new URL(this.authURL);
-                InstallCert crt = new InstallCert();
-                crt.autoImport(url.getHost(), url.getPort());
-            }
-            catch (Exception e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
-    
     public OpenstackConfig (){
         
     }
     
+    public Boolean getCert()
+    {
+        return cert;
+    }
+
+    public void setCert(Boolean cert)
+    {
+        this.cert = cert;
+    }
+
     public String getOsUsername() {
         return osUsername;
     }
@@ -166,5 +161,27 @@ public class OpenstackConfig implements Serializable {
 	   envs.put("OS_PASSWORD",this.getOsPassword());
 	   envs.put("OS_REGION_NAME", this.osRegion);
 	   return envs;
+	}
+	
+	public boolean HTTPs(){
+	    if(authURL!=null){
+	        return authURL.toLowerCase().indexOf("https") != -1;
+	    }
+	    return false;
+	}
+	@JsonIgnore 
+	public String getHost(){
+	        if(this.authURL!=null){
+	            try
+	            {
+	                URL url = new URL(this.authURL);
+	                return url.getHost();
+	            }
+	            catch (MalformedURLException e)
+	            {
+	                e.printStackTrace();
+	            }
+	        }
+	        return null;
 	}
 }

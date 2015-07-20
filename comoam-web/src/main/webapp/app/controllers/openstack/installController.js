@@ -5,6 +5,7 @@ angular.module('os', [ 'ui.router',
                        'websocket', 
                        'ghiscoding.validation', 
                        'mgo-angular-wizard',
+                       'ngFileUpload',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
 		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService) {
             OSService.getUpdateOSCred().then(function(data) {
@@ -14,10 +15,8 @@ angular.module('os', [ 'ui.router',
                 	$state.go("dashboard.oscredential");
                 }
             });
-            $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" },{"name": "icehouse", "version": "2013-05-23"}];
+            $scope.heat_version = [ {"name":"juno", "version": "2014-10-16" }];
             $scope.config_drive = [ 'True', 'False' ];
-            $scope.private_network = [ 'True', 'False'];
-            //$scope.blockAvailZoneStore = ['Nova', 'nova'];
             $scope.installConfig ={};
             
             $scope.changeComType = function(){
