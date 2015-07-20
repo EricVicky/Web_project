@@ -43,7 +43,7 @@ public class InstallCert
 
     final static String[] REDHAD_KEYSTORE = new String[] {
             "/etc/pki/java/cacerts", "/etc/pki/ca-trust/extracted/java/cacerts" };
-    public final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/openstack.crt";
+    public final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/ELCM-playbook/openstack.crt";
 //    public final static String CERTIFICATE_PATH = "d:\\openstack.crt";
     final static String DEFAULT_PASSWORD = "changeit";
     final static String OPENSTACK_AUTH= "openstack_auth";
