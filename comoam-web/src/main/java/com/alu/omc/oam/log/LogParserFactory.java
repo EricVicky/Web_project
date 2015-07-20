@@ -44,7 +44,8 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM, COMType.QOSAC), kvmqosacBackupParser());
-        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());        
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ARS), kvmarsInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -267,5 +268,14 @@ public class LogParserFactory
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}
+    
+    private ILogParser kvmarsInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[execute\\sinstall_boe_linux.sh","Install");
+        dict.put("TASK\\:\\s\\[create\\sdirectory", "Prepare Environment");
+        dict.put("PLAY\\s\\[Install\\sARS", "Start");
+        return new LogParser(dict);
+    }
     
 }

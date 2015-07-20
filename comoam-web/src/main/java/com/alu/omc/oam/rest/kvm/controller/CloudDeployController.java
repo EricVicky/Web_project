@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
-
-
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ArsCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
@@ -27,8 +23,6 @@ import com.alu.omc.oam.config.HpsimCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.QosacCOMConfig;
-import com.alu.omc.oam.config.Status;
-import com.alu.omc.oam.config.OVMCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -69,6 +63,12 @@ public class CloudDeployController
     
     @RequestMapping(value="/ovm/QOSACdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/ovm/ARSdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody ArsCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.execute(Action.INSTALL, config );
     }

@@ -13,7 +13,7 @@
 									class="badge">2</span> <span>Select Image&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>VNFc Config&nbsp;</span>
+									class="badge">3</span> <span>VNFC Config&nbsp;</span>
 							</a></li>
 							</a>
 							</li>
@@ -85,8 +85,15 @@
 									</fieldset>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit="genExport()" rc-step>
+                                    <legend></legend>
+									<div class="form-group">
+											<label class="control-label" id="basic-addon1"
+												translate="BRIDGE">Bridge</label> <input name="oam_bridge"
+												class="form-control" type="text" placeholder="Example:br0"
+												ng-model="installConfig.vm_config.ovm.bridge" validation="required" />
+									</div>
 									<fieldset>
-                                    <legend>IPv4 NETWORK</legend>
+										<legend>IPv4 NETWORK</legend>
 										<div class="form-group col-md-4">
 											<label class="control-label">IPv4 Address</label> <input
 												name="ip_address" class="form-control" type="text"
