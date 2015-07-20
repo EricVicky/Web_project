@@ -1,7 +1,6 @@
 package com.alu.omc.oam.rest.config;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,8 @@ public class CertUpload {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/upload/cert")
     public void upload(@RequestParam("file") MultipartFile file ) throws Exception {
-        byte[] bytes;
         if (!file.isEmpty()) {
             file.transferTo(new File(InstallCert.CERTIFICATE_PATH));
-            new InstallCert().importCert();
         }
     }
 

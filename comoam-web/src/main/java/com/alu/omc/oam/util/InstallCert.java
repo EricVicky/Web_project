@@ -7,21 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.MessageDigest;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -43,8 +32,8 @@ public class InstallCert
 
     final static String[] REDHAD_KEYSTORE = new String[] {
             "/etc/pki/java/cacerts", "/etc/pki/ca-trust/extracted/java/cacerts" };
-    public final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/crt/openstack.crt";
-//    public final static String CERTIFICATE_PATH = "d:\\openstack.crt";
+    public final static String CERTIFICATE_PATH = "/opt/PlexView/ELCM/ELCM-playbook/openstack.crt";
+ //  public final static String CERTIFICATE_PATH = "d:\\openstack.crt";
     final static String DEFAULT_PASSWORD = "changeit";
     final static String OPENSTACK_AUTH= "openstack_auth";
     final static String CERT_TOOL_COMMAND = "keytool ";

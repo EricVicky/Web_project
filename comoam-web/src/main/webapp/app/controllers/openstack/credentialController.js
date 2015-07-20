@@ -47,6 +47,11 @@ angular.module('os').controller('credentialsController', function($scope, $q, $t
 	                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
 	                }).success(function (data, status, headers, config) {
 	                    $scope.crendential.cert = true;
+	                    var modalInstance = $modal.open({
+	                    	animation: true,
+	                    	templateUrl: 'views/os/certupload.html',
+	                    	controller: 'confirm'
+	                    	});
 	                }).error(function (data, status, headers, config) {
 	                    console.log('error status: ' + status);
 	                })
