@@ -16,7 +16,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" : ["Start", "Valiadtion Key", "Generate Heat Templates",  "Check Presence of Heat Stack", "Cloud Init",  "Start COM", "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
+				 "delete":["Start","Check Presence of stack","Destroy stack","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
 				 "gr_sec_install":["Start","Sec GR Install","Finished"],

@@ -106,7 +106,9 @@ public class LogParserFactory
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("PLAY\\s\\[destroy", "Begin");
+        dict.put("stack-delete", "Destroy stack");
+        dict.put("check\\spresence\\sof\\sstack", "Check Presence of stack");
+        dict.put("Running\\swith\\sOS\\scredentials", "Start");
         return new LogParser(dict);
 	}
     
@@ -143,7 +145,7 @@ public class LogParserFactory
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Start COM");
-        dict.put("TASK\\:\\s\\[cloud\\_init\\s\\|\\scloud\\sinit\\send\\]", "Cloud Init");
+        dict.put("wait\\sfor\\svirtual\\smachines\\sto\\sbe\\salive", "Cloud Init");
         dict.put("TASK\\:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\]", "Check Presence of Heat Stack");
         dict.put("TASK\\:\\s\\[stack\\_templates\\s\\|\\sRunning\\swith\\sthe\\sfollowing\\soptions\\]", "Generate Heat Templates");
         dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\svaliadtion\\skey\\]", "Valiadtion Key");

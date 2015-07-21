@@ -1,25 +1,31 @@
 -------Call Ansible......
-2015-05-16 08:45:52,175 p=7122 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+2015-07-20 23:45:05,885 p=28870 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
 timing vulnerabilities when used with pycrypto. If possible, you should update
 it (i.e. yum update gmp).
 
-2015-05-16 08:45:52,308 p=7122 u=root |   
-2015-05-16 08:45:52,309 p=7122 u=root |  /usr/bin/ansible-playbook -i ../../inventory/hosts destroy.yml
-2015-05-16 08:45:52,309 p=7122 u=root |   
-2015-05-16 08:45:52,402 p=7122 u=root |  PLAY [destroy all virtual machines] ******************************************* 
-2015-05-16 08:45:52,403 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
-2015-05-16 08:45:54,042 p=7122 u=root |  changed: [135.252.138.138]
-2015-05-16 08:45:54,042 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
-2015-05-16 08:45:54,724 p=7122 u=root |  ok: [135.252.138.138]
-2015-05-16 08:45:54,726 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
-2015-05-16 08:45:56,330 p=7122 u=root |  changed: [135.252.138.138]
-2015-05-16 08:45:56,331 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
-2015-05-16 08:45:56,991 p=7122 u=root |  ok: [135.252.138.138]
-2015-05-16 08:45:56,992 p=7122 u=root |  TASK: [vnf_destroy_vms | destroy virtual machine] ***************************** 
-2015-05-16 08:45:58,634 p=7122 u=root |  changed: [135.252.138.138]
-2015-05-16 08:45:58,636 p=7122 u=root |  TASK: [vnf_destroy_vms | undefine virtual machine] **************************** 
-2015-05-16 08:45:59,333 p=7122 u=root |  ok: [135.252.138.138]
-2015-05-16 08:45:59,334 p=7122 u=root |  TASK: [vnf_destroy_vms | delete all virtual machine files and directories] **** 
-2015-05-16 08:46:03,516 p=7122 u=root |  changed: [135.252.138.138]
-2015-05-16 08:46:03,517 p=7122 u=root |  PLAY RECAP ******************************************************************** 
-2015-05-16 08:46:03,517 p=7122 u=root |  135.252.138.138            : ok=7    changed=4    unreachable=0    failed=0   
+2015-07-20 23:45:05,972 p=28870 u=root |
+2015-07-20 23:45:05,972 p=28870 u=root |  /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts destroy.yml
+2015-07-20 23:45:05,972 p=28870 u=root |
+2015-07-20 23:45:06,047 p=28870 u=root |  PLAY [create cinder stack {{ stack_name }}_cinder] ****************************
+2015-07-20 23:45:06,047 p=28870 u=root |  GATHERING FACTS ***************************************************************
+2015-07-20 23:45:06,548 p=28870 u=root |  ok: [localhost]
+2015-07-20 23:45:06,549 p=28870 u=root |  TASK: [os_common | Running with OS credentials] *******************************
+2015-07-20 23:45:06,570 p=28870 u=root |  ok: [localhost] => {
+    "msg": "os_username=com-user1 os_tenant_name=COM os_tenant_id= os_region= os_auth_url=http://135.111.111.69:5000/v2.0 os_cacert=None"
+}
+2015-07-20 23:45:06,570 p=28870 u=root |  TASK: [os_common | validate credentials] **************************************
+2015-07-20 23:45:07,197 p=28870 u=root |  ok: [localhost]
+2015-07-20 23:45:07,197 p=28870 u=root |  TASK: [os_common | valiadtion key] ********************************************
+2015-07-20 23:45:07,200 p=28870 u=root |  ok: [localhost] => {
+    "msg": "key_name=com-key "
+}
+2015-07-20 23:45:07,200 p=28870 u=root |  TASK: [os_common | validate presence of Nova SSH keypair] *********************
+2015-07-20 23:45:07,985 p=28870 u=root |  ok: [localhost]
+2015-07-20 23:45:07,986 p=28870 u=root |  TASK: [destroy_stack | check presence of stack] *******************************
+2015-07-20 23:45:08,764 p=28870 u=root |  ok: [localhost]
+2015-07-20 23:45:08,764 p=28870 u=root |  TASK: [destroy_stack | destroy the stack] *************************************
+2015-07-20 23:45:09,727 p=28870 u=root |  changed: [localhost]
+2015-07-20 23:45:09,728 p=28870 u=root |  TASK: [destroy_stack | wait for sucessful stack-delete for stack, and timeout after 15 minutes] ***
+2015-07-20 23:45:40,744 p=28870 u=root |  ok: [localhost]
+2015-07-20 23:45:40,745 p=28870 u=root |  PLAY RECAP ********************************************************************
+2015-07-20 23:45:40,745 p=28870 u=root |  localhost                  : ok=8    changed=1    unreachable=0    failed=0
