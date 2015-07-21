@@ -451,7 +451,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             						}
             					}else {
             						networkAddress = instances[comstack].com_private_network.cidr;
-            						providerNetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].provider_ip_address, instances[comstack].com_provider_network.netmask);
+            						providerNetworkAddress = getNetworkAddress4HPSIM(instances[comstack].vm_config[vnfc].provider_ip_address, instances[comstack].com_provider_network.netmask);
             						if(!networks[networkAddress] || !networks[providerNetworkAddress]){
                 						networks[networkAddress] = networkAddress;
                 						networks[providerNetworkAddress] = providerNetworkAddress;
