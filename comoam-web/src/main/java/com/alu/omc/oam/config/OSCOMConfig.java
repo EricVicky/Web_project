@@ -25,7 +25,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
      * @Fields serialVersionUID :
      */
     private static final long  serialVersionUID       = -3535916139459672300L;
-    private boolean            config_drive           = false;
+    private boolean            config_drive           = true;
     private String             deployment_prefix;
     private boolean            enable_private_network = true;
     private BlockAvailZone     block_storage_avail_zone;

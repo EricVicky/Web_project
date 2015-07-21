@@ -70,12 +70,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 														+ taskgroup[n] + "<br>";
 											}
 											task.html(taskhtml);
-											if(taskgroup.length<10){
-												$scope.loadingpos=10+(taskgroup.length-1)*20;
-											}else{
-												$scope.loadingpos=190;
-											}
-											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+$scope.loadingpos+"px\"/>";
+											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+($('#task').outerHeight()-8)+"px\"/>";
 											loadpos.html(loadinghtml);
 										}
 										var logviewer = $('#logviewer');
