@@ -16,7 +16,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"install" : ["Start", "Valiadtion Key", "Generate Heat Templates",  "Check Presence of Heat Stack", "Cloud Init",  "Start COM", "Finished"],
 				 "upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
+				 "delete":["Start","Check Presence of stack","Destroy stack","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
 				 "gr_sec_install":["Start","Sec GR Install","Finished"],
@@ -35,9 +35,7 @@ angular.module('monitor').factory('monitorService', function($log) {
 				"restore":["Start","Data Restore","Finished"]
 			},
 			"KVM_ARS":{
-				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
-				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"]
+				"install":["Start", "Prepare Environment", "Install", "Finished"]			
 			}
 	};
 	
@@ -190,6 +188,11 @@ angular.module('monitor').factory('monitorService', function($log) {
 		monitorKVMQOSACDelete: function(ch) {
 			environment = "KVM_QOSAC";
 			action = "delete";
+			channel = ch;
+		},
+		monitorKVMARSInstall: function(ch) {
+			environment = "KVM_ARS";
+			action = "install";
 			channel = ch;
 		},
 		getChannel : function (){

@@ -38,8 +38,6 @@ public class DeleteKVMHandler implements IAnsibleHandler{
     private static Logger log = LoggerFactory.getLogger(DeleteKVMHandler.class);	
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -50,6 +48,7 @@ public class DeleteKVMHandler implements IAnsibleHandler{
 
 	@Override
 	public void onSucceed() {
+	    runningComstackLock.unlock(config.getStackName());
         service.delete(config.getStackName());
 	}
 

@@ -36,9 +36,8 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label" translate="COM_TYPE">COM Type</label> <select
-											name="comType" ng-model="installConfig.comType" ng-init="installConfig.comType = installConfig.comType || options[0].value"
-											class="form-control"
-											ng-options="ct.Name as ct.Name for ct in comTypeStore"
+											name="comType" ng-model="installConfig.comType"
+											class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 											title="COM Type" validation="required">
 											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
 										</select>
@@ -68,7 +67,7 @@
 											title="VM image directory" validation="required" />
 									</div>
 								</form>
-								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
+								<form class="tab-pane" id="tab2" name="tab2" rc-submit="initNic()" rc-step>
 									<fieldset
 										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 										<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> <select mutuexclude="db_image" form="tab2"
@@ -105,7 +104,7 @@
 											<label class="control-label" translate="FLAVOR">Flavor</label> <select
 												name="flavor" 
 												ng-model="flavor"
-												class="form-control" ng-init="flavor=avaliable_flavors[0]"
+												class="form-control"
 												ng-options="fl for fl in avaliable_flavors"
 												title="Flavor" validation="required">
 											</select>
@@ -279,7 +278,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 															<td translate="FLAVOR" colspan="3">Flavor</td>
-															<td colspan="2">{{flavor}}</td>
+															<td colspan="2">vCPU:{{installConfig.vm_config.oam.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.oam.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.oam.flavor.disk}}GB</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -331,7 +330,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<td translate="FLAVOR" colspan="3">Flavor</td>
-															<td colspan="2">{{flavor}}</td>
+															<td colspan="2">vCPU:{{installConfig.vm_config.db.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.db.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.db.flavor.disk}}GB</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
@@ -383,7 +382,7 @@
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">
 															<td translate="FLAVOR" colspan="3">Flavor</td>
-															<td colspan="2">{{flavor}}</td>
+															<td colspan="2">vCPU:{{installConfig.vm_config.cm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.cm.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.cm.flavor.disk}}GB</td>
 														</tr>
 														<tr align="center"
 															ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='CM'">

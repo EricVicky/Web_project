@@ -22,7 +22,7 @@
 										<div class="panel-heading">
 												<label class="control-label" translate="COM_INSTANCE">COM Instance</label> <select
 													name="pri" ng-model="gr_config.comConfig" class="form-control"
-													ng-options="  inst.deployment_prefix for inst in instances"
+													ng-options="  inst.stackName for inst in instances"
 													title="COM Instance" ng-change="translateSelectedGR()" validation="required">
 												</select>
 											</div>
@@ -193,7 +193,7 @@
 															</tr>
 															<tr align="center">
 																<td colspan="2" translate="STACK_NAME">Stack Name</td>
-																<td>{{gr_config.comConfig.stack_name}}</td>
+																<td>{{gr_config.comConfig.stackName}}</td>
 															</tr>
 															<tr align="center">
 																<td colspan="2" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</td>

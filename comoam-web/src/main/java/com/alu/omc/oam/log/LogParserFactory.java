@@ -44,7 +44,8 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM, COMType.QOSAC), kvmqosacBackupParser());
-        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());        
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ARS), kvmarsInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -105,7 +106,9 @@ public class LogParserFactory
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("PLAY\\s\\[destroy", "Begin");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
         return new LogParser(dict);
 	}
     
@@ -142,7 +145,7 @@ public class LogParserFactory
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Start COM");
-        dict.put("TASK\\:\\s\\[cloud\\_init\\s\\|\\scloud\\sinit\\send\\]", "Cloud Init");
+        dict.put("wait\\sfor\\svirtual\\smachines\\sto\\sbe\\salive", "Cloud Init");
         dict.put("TASK\\:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\]", "Check Presence of Heat Stack");
         dict.put("TASK\\:\\s\\[stack\\_templates\\s\\|\\sRunning\\swith\\sthe\\sfollowing\\soptions\\]", "Generate Heat Templates");
         dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\svaliadtion\\skey\\]", "Valiadtion Key");
@@ -186,12 +189,11 @@ public class LogParserFactory
     
     private ILogParser osUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_restore", "Data Restore");
-        dict.put("post_install_populated", "Post Configuration");
-        dict.put("post_image_replacement",
-                "Post Image Replacement");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
+        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Post Configuration");
+        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Post Image Replacement");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
     }
@@ -267,5 +269,14 @@ public class LogParserFactory
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}
+    
+    private ILogParser kvmarsInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[execute\\sinstall_boe_linux.sh","Install");
+        dict.put("TASK\\:\\s\\[create\\sdirectory", "Prepare Environment");
+        dict.put("PLAY\\s\\[Install\\sARS", "Start");
+        return new LogParser(dict);
+    }
     
 }

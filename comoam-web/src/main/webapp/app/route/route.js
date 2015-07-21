@@ -134,5 +134,9 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/upgrade.html',
     	url:'/kvmovmupgrade',
     })
+    .state('dashboard.kvmarsinstall', {
+    	templateUrl:'views/optionalVNF/ars_install.html',
+    	url:'/kvmarsinstall',
+    })
     
   }])

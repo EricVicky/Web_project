@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.rest.os.service.access.YaoOsClientService;
 import com.alu.omc.oam.service.COMStackService;
+import com.alu.omc.oam.util.InstallCert;
 @RestController 
 public class OSConfigController
 {
@@ -31,11 +32,14 @@ public class OSConfigController
     }
 
     @RequestMapping(value="/os/uCred", method=RequestMethod.POST)
-    public void uCred(@RequestBody OpenstackConfig config) throws IOException, InterruptedException
+    public OpenstackConfig uCred(@RequestBody OpenstackConfig config) throws Exception
     {
         cOMStackService.addOpenstackConfig(config);
+        if(config.HTTPs()){
+            new InstallCert().importCert(config);
+        }
         log.info("starting to download&export certification");
-        config.cert();
         yaoOsClientService.reset();
+        return config;
     }
 }
