@@ -106,9 +106,9 @@ public class LogParserFactory
     private ILogParser osDeleteParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("stack-delete", "Destroy stack");
-        dict.put("check\\spresence\\sof\\sstack", "Check Presence of stack");
-        dict.put("Running\\swith\\sOS\\scredentials", "Start");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
         return new LogParser(dict);
 	}
     
@@ -189,12 +189,11 @@ public class LogParserFactory
     
     private ILogParser osUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("localhost", "Finished");
-        dict.put("TASK:\\s\\[data_restore", "Data Restore");
-        dict.put("post_install_populated", "Post Configuration");
-        dict.put("post_image_replacement",
-                "Post Image Replacement");
-        dict.put("TASK:\\s\\[data_backup", "Data Backup");
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
+        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Post Configuration");
+        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Post Image Replacement");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
     }
