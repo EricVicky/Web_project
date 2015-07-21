@@ -57,7 +57,22 @@ angular.module('kvm', [ 'ui.router',
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
             $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
-        	
+            $scope.flavor = $scope.avaliable_flavors[0];
+            $scope.initNic = function(){
+            	if($scope.installConfig.vm_config['oam'].flavor){
+            		if($scope.installConfig.vm_config['oam'].flavor.label == 'Medium(6*24*150)'){
+                		$scope.flavor = $scope.avaliable_flavors[2];
+                	}else if($scope.installConfig.vm_config['oam'].flavor.label == 'Low End(4*16*80)'){
+                		$scope.flavor = $scope.avaliable_flavors[1];
+                	}else if($scope.installConfig.vm_config['oam'].flavor.label == 'High End(8*32*300)'){
+                		$scope.flavor = $scope.avaliable_flavors[3];
+                	}else{
+                		$scope.flavor = $scope.avaliable_flavors[0];
+                	}
+            	}
+            };
+            
+            	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
             	for(var vm in vm_config){
@@ -90,7 +105,6 @@ angular.module('kvm', [ 'ui.router',
             	}, function () {
     		    });
             };
-            
 			$scope.doDeploy = function (){
 				$log.info($scope.installConfig);
 				$scope.clean_dirty();
@@ -133,13 +147,13 @@ angular.module('kvm', [ 'ui.router',
             		}
             	});
             };
-            
+
             KVMService.getFlavorStore().then( function(data) {
             				$scope.flavorStore = data.Flavors;
             			});
             KVMService.getComTypeStore().then(function(data){
             				$scope.comTypeStore = data.COMType;
-            			 	$scope.installConfig.comType = KVMService.VNFType;
+            			 	$scope.installConfig.comType = KVMService.VNFType==''?$scope.comTypeStore[0].Name:KVMService.VNFType;
             			});
             timezoneService.timezonelist().then( function(data) {
             				$scope.timezoneStore = data;
