@@ -301,7 +301,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             									}
             								}
 											for(var numberofProNetwork=0;numberofProNetwork<this.Networks.length;numberofProNetwork++){
-            									if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.prefix) == this.Networks[numberofProNetwork] ){
+            									if(getNetworkAddress4HPSIM(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.netmask) == this.Networks[numberofProNetwork] ){
             										providerLineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofProNetwork;
             										proLinePortColor = commoncolor[numberofProNetwork];
             									}
