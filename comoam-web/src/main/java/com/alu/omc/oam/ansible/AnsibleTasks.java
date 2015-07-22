@@ -21,5 +21,11 @@ public class AnsibleTasks
         return tasks.get(stackName);
     }
     
+    public void remove(String stackName){
+        if(tasks.containsKey(stackName)){
+            tasks.remove(stackName);
+        }
+    }
+    
 
 }

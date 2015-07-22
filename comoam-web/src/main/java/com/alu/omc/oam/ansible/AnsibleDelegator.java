@@ -45,7 +45,11 @@ public class AnsibleDelegator implements ApplicationContextAware
     
     public void execute(String comStack){
         AnsibleTask task = ansibleTasks.get(comStack);
-        invoke(task.getAction(), task.getConfig());
+        if(task!=null){
+            invoke(task.getAction(), task.getConfig());
+            ansibleTasks.remove(comStack);
+        }
+        
         
     }
     private void invoke(final Action action, final COMConfig config)
