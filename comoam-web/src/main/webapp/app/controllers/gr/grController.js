@@ -13,7 +13,13 @@ angular.module('gr', [ 'ui.router',
     		    var instances = new Array();
     		    for(var i=0; i < comstacks.length; i++){
     		    	if(comstacks[i].comType == 'OAM'||comstacks[i].comType == 'FCAPS'||comstacks[i].comType == 'CM'){
-    		    		instances.push(JSON3.parse(comstacks[i].comConfig));
+    		    		var temp_instance = JSON3.parse(comstacks[i].comConfig);
+    		    		if(temp_instance.stackName){
+    		    			instances.push(temp_instance);
+    		    		}else{
+    		    			temp_instance.stackName =temp_instance.deployment_prefix;
+    		    			instances.push(temp_instance);
+    		    		}
     		    	}
     		    }
     		    $scope.COMStack = comstacks;
@@ -188,7 +194,13 @@ angular.module('gr', [ 'ui.router',
 		    var instances = new Array();
 		    for(var i=0; i < comstacks.length; i++){
 		    	if(comstacks[i].status == "GRINSTALLED"){
-		    		instances.push(JSON3.parse(comstacks[i].comConfig));
+		    		var temp_instance = JSON3.parse(comstacks[i].comConfig);
+		    		if(temp_instance.stackName){
+		    			instances.push(temp_instance);
+		    		}else{
+		    			temp_instance.stackName =temp_instance.deployment_prefix;
+		    			instances.push(temp_instance);
+		    		}
 		    	}
 		    }
 		    $scope.instances = instances;
