@@ -20,6 +20,9 @@ angular.module('comoamApp').directive('importComconf',function(){
 		                            return function(e) {
 		                            	scope.$apply(function(){
 		                            	    scope.installConfig = JSON3.parse(e.target.result);
+		                            	    if(!scope.installConfig.key_name){
+		                            	    	scope.networktraffic = scope.installConfig.vm_config['oam'].nic.length;
+		                            	    }
 		                            	});
 		                            };
 		                          })(f);

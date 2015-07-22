@@ -184,7 +184,6 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
     }
 
     @Override
-    @JsonIgnore 
     public String getStackName()
     {
        return this.deployment_prefix; 
