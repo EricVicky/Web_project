@@ -81,7 +81,11 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					var comStackNamePoint = new Point(this.networkTopologyStartX + comStackTopoX,
                 							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum - comStackNameY);
 									var comStackNameText = new PointText(comStackNamePoint);
-									comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									if(this.COMStacks[comStacksNum].environment == "KVM"){
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									}else{
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].stackName;
+									}
 									comStackNameText.fillColor = 'black';
 									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
@@ -301,7 +305,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             									}
             								}
 											for(var numberofProNetwork=0;numberofProNetwork<this.Networks.length;numberofProNetwork++){
-            									if(getNetworkAddress(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.prefix) == this.Networks[numberofProNetwork] ){
+            									if(getNetworkAddress4HPSIM(this.COMStacks[comStacksNum].vm_config[vnfcNum].provider_ip_address , this.COMStacks[comStacksNum].com_provider_network.netmask) == this.Networks[numberofProNetwork] ){
             										providerLineEndX = this.networkTopologyStartX + networkTopoX + (networkWidth + networkInterval) * numberofProNetwork;
             										proLinePortColor = commoncolor[numberofProNetwork];
             									}
@@ -451,7 +455,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             						}
             					}else {
             						networkAddress = instances[comstack].com_private_network.cidr;
-            						providerNetworkAddress = getNetworkAddress(instances[comstack].vm_config[vnfc].provider_ip_address, instances[comstack].com_provider_network.netmask);
+            						providerNetworkAddress = getNetworkAddress4HPSIM(instances[comstack].vm_config[vnfc].provider_ip_address, instances[comstack].com_provider_network.netmask);
             						if(!networks[networkAddress] || !networks[providerNetworkAddress]){
                 						networks[networkAddress] = networkAddress;
                 						networks[providerNetworkAddress] = providerNetworkAddress;
