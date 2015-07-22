@@ -81,7 +81,11 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					var comStackNamePoint = new Point(this.networkTopologyStartX + comStackTopoX,
                 							this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum - comStackNameY);
 									var comStackNameText = new PointText(comStackNamePoint);
-									comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									if(this.COMStacks[comStacksNum].environment == "KVM"){
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].deployment_prefix;
+									}else{
+										comStackNameText.content = this.COMStacks[comStacksNum].comType + "::" + this.COMStacks[comStacksNum].stackName;
+									}
 									comStackNameText.fillColor = 'black';
 									comStackNameText.fontSize = '15px';
 									comStackNameText.fontFamily = 'Arial Rounded MT Bold';
