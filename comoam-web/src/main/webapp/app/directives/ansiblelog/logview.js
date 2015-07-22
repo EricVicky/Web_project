@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler, websocketService ) {
+angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler, websocketService, monitorService) {
 					return {
 						restrict : 'EA',
 						replace : true,
@@ -9,7 +9,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 							channel: '=',
 							endponit: '@'
 						},
-						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', function($scope, $element, $log, WizardHandler, websocketService) {
+						controller : [ '$scope', '$element', '$log', 'WizardHandler', 'websocketService', 'monitorService', function($scope, $element, $log, WizardHandler, websocketService, monitorService) {
 									var taskgroup = new Array();
 									$scope.nologshow = true;
 									$scope.loadingshow = true;
@@ -21,6 +21,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 										$scope.socket = websocketService.connect($scope.endponit, function( socket) { socket.stomp.subscribe(
 															$scope.channel,
 															$scope.showlog);
+														monitorService.runAnsibleTask();	
 												});
 									};
 									$scope.showlog = function(data) {

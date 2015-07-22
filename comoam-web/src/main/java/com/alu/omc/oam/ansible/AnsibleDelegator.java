@@ -34,15 +34,23 @@ public class AnsibleDelegator implements ApplicationContextAware
     
     @Resource
     private LogParserFactory logParserFactory;
+    
+    @Resource
+    private AnsibleTasks ansibleTasks;
 
 
-    public void execute(final Action action, final COMConfig config){
-        final PlaybookCall playbookCall = new PlaybookCall(config, action);
-        delayInvoke(action, config, playbookCall);
+    public void addAnsibleTask(final Action action, final COMConfig config){
+        ansibleTasks.create(action, config);
     }
-    private void delayInvoke(final Action action, final COMConfig config,
-            final PlaybookCall playbookCall)
+    
+    public void execute(String comStack){
+        AnsibleTask task = ansibleTasks.get(comStack);
+        invoke(task.getAction(), task.getConfig());
+        
+    }
+    private void invoke(final Action action, final COMConfig config)
     {
+        final PlaybookCall playbookCall = new PlaybookCall(config, action);
         try
         {
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
@@ -70,11 +78,9 @@ public class AnsibleDelegator implements ApplicationContextAware
             e.printStackTrace();
         }
     } 
-    public void execute(Action action, OSCOMConfig config){
-        PlaybookCall playbookCall = new PlaybookCall(config, action);
+    public void addAnsibleTask(Action action, OSCOMConfig config){
         try
         {
-           ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
@@ -88,7 +94,7 @@ public class AnsibleDelegator implements ApplicationContextAware
                    providerNetwork.setV6_prefix(NetworkUtil.getNetWorkPrefix(v6subnet.getCidr()));
                }
            }
-           delayInvoke(action, config, playbookCall);
+           ansibleTasks.create(action, config);
         }
         catch (AnsibleException e)
         {
@@ -107,12 +113,6 @@ public class AnsibleDelegator implements ApplicationContextAware
     }
     
     
-    private void deplayInvoke(){
-        
-    }
-
-
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException
