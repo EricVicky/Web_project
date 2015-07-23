@@ -44,7 +44,10 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
             }
             log.debug("Using existing " + access);
         }
-        return YaoOSFactory.clientFromAccess(access, Facing.PUBLIC);        
+        OpenstackConfig osConfig = configCache.getOSParam();
+        OSClient osClient =  YaoOSFactory.clientFromAccess(access, Facing.PUBLIC); 
+        setRegion(osClient , osConfig);
+        return osClient;
     }
     
     private YaoAccess genOsAccess() {
@@ -67,9 +70,8 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
                 .builder()
                 .endpoint(osConfig.getAuthURL())
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
-                .tenantName(osConfig.getOsTenant()).perspective(Facing.PUBLIC).useNonStrictSSLClient(true)
+                .tenantName(osConfig.getOsTenant()).perspective(Facing.PUBLIC)
                 .authenticate();
-        setRegion(os, osConfig);
         return os;
     }
     
@@ -104,7 +106,6 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
                 .credentials(osConfig.getOsUsername(), osConfig.getOsPassword())
                 .domainName(osConfig.getOsDomainName())
                 .perspective(Facing.PUBLIC).useNonStrictSSLClient(true).authenticate();
-        setRegion(os, osConfig);
         return os;
     }
     
