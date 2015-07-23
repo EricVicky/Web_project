@@ -2,15 +2,21 @@
 angular.module('os').factory('OSService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl + "rest/";
+	var VNFType = '';
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
+		VNFType    : VNFType,
 		getFlavorStore: function () {
 			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
 			return flavorRes.query().$promise;
 		},
 		deploy:function(config){
 			var deployRes = $resource(restUrl + "os/deployment");
+			return deployRes.save(config).$promise;
+		},
+		deployOVM:function(config){
+			var deployRes = $resource(restUrl + "os/ovm/" + config.comType + "deployment");
 			return deployRes.save(config).$promise;
 		},
 		getComInstance: function(success,error) {

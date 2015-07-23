@@ -127,16 +127,27 @@ angular.module('comoamApp')
         url:'/gr/uninstall',
     })
     .state('dashboard.kvmovminstall', {
-    	templateUrl:'views/optionalVNF/install.html',
+    	templateUrl:'views/optionalVNF/kvm/install.html',
     	url:'/kvmovminstall',
     })
     .state('dashboard.kvmovmupgrade', {
-    	templateUrl:'views/optionalVNF/upgrade.html',
+    	templateUrl:'views/optionalVNF/kvm/upgrade.html',
     	url:'/kvmovmupgrade',
     })
     .state('dashboard.kvmarsinstall', {
-    	templateUrl:'views/optionalVNF/ars_install.html',
+    	templateUrl:'views/optionalVNF/kvm/ars_install.html',
     	url:'/kvmarsinstall',
     })
-    
+    .state('dashboard.osovminstall', {
+    	templateUrl:'views/optionalVNF/os/install.html',
+    	url:'/osovminstall',
+    })
+    .state('dashboard.osqosacinstall', {
+    	templateUrl:'views/optionalVNF/os/qosac_install.html',
+    	url:'/osqosacinstall',
+    })
+    .state('dashboard.osarsinstall', {
+    	templateUrl:'views/optionalVNF/os/ars_install.html',
+    	url:'/osarsinstall',
+    })
   }])

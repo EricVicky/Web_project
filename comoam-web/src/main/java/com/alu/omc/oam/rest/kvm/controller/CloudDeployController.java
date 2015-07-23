@@ -20,9 +20,11 @@ import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
+import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.QosacCOMConfig;
+import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -55,6 +57,18 @@ public class CloudDeployController
         ansibleDelegator.execute(Action.INSTALL, config );
     }
     
+    @RequestMapping(value="/os/ovm/HPSIMdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.execute(Action.INSTALL, config );
+    }
+    
     @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
@@ -72,6 +86,7 @@ public class CloudDeployController
     {
         ansibleDelegator.execute(Action.INSTALL, config );
     }
+ 
 
     @RequestMapping(value="/ovm/HPSIMupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
