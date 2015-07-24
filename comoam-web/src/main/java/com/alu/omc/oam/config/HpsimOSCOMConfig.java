@@ -10,6 +10,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.config.QosacOSCOMConfig.BlockAvailZone;
+import com.alu.omc.oam.config.QosacOSCOMConfig.COMProvidernetwork;
+import com.alu.omc.oam.config.QosacOSCOMConfig.ComputeAvailZone;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,11 +34,13 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 	}
 	
 	private Map vm_config;
+    private boolean            config_drive           = true;
+    private boolean juno_base = false;
+    private String atc_switches = "";
 	private COMType            comType;
 	private String             deployment_prefix;
 	private String ovm_image;
 	private String timezone;
-	private String atc_switches = "";
 	private COMProvidernetwork com_provider_network;
 	private String template_version;
 	private String stack_name;
@@ -83,6 +88,29 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
     	Yaml yaml = new Yaml();
     	return YamlFormatterUtil.format(yaml.dump(this));
     }
+    
+
+	public boolean isConfig_drive() {
+		return config_drive;
+	}
+
+	public void setConfig_drive(boolean config_drive) {
+		this.config_drive = config_drive;
+	}
+
+	public boolean getJuno_base()
+    {
+        return this.isJuno();
+    }
+
+    public void setJuno_base(boolean juno_base)
+    {
+        this.juno_base = juno_base;
+    }
+    
+    private boolean  isJuno(){
+        return this.getTemplate_version().indexOf("2014-10-16") != -1;
+    }
 
 	public Map<String, Object> getVm_config()
     {
@@ -117,7 +145,6 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 		this.deployment_prefix = deployment_prefix;
 	}
 	
-	
 	public String getOvm_image() {
 		return ovm_image;
 	}
@@ -125,10 +152,10 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 	public void setOvm_image(String ovm_image) {
 		this.ovm_image = ovm_image;
 	}
-
+    
 	private String getVMImageName(String vmname){
-	           return this.ovm_image;
-	}
+        return this.ovm_image;
+    }
 	
 	@Override
 	public Environment getEnvironment() {

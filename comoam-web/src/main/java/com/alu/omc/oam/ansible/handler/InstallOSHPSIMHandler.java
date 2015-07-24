@@ -14,6 +14,7 @@ import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.OVMCOMConfig;
 import com.alu.omc.oam.config.QosacOSCOMConfig;
@@ -22,9 +23,9 @@ import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
-@Component("INSTALL_OPENSTACK_QOSAC_HANDLER")
+@Component("INSTALL_OPENSTACK_HPSIM_HANDLER")
 @Scope(value = "prototype")
-public class InstallOSQOSACHandler implements IAnsibleHandler {
+public class InstallOSHPSIMHandler implements IAnsibleHandler {
 
 	@Resource
     COMStackService service;
@@ -38,7 +39,7 @@ public class InstallOSQOSACHandler implements IAnsibleHandler {
     Boolean succeed = true;
     ParseResult END = new ParseResult();
    // private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\].*$");
-    private static Logger logger = LoggerFactory.getLogger(InstallOSQOSACHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(InstallOSHPSIMHandler.class);
 	@Override
 	public void onStart() {
 	    logger.info("start deployment on openstack");
@@ -89,7 +90,7 @@ public class InstallOSQOSACHandler implements IAnsibleHandler {
     }
 	
 	public String getFulltopic(){
-		   QosacOSCOMConfig cfg = (QosacOSCOMConfig)config;
+		HpsimOSCOMConfig cfg = (HpsimOSCOMConfig)config;
 	       return this.topic.concat(cfg.getStack_name());
 	    }
 

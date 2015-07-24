@@ -47,6 +47,7 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.BACKUP, COMType.QOSAC), new Playbook("backup_qosac.yml") );
         playbooks.put(key(Environment.KVM, Action.RESTORE, COMType.QOSAC), new Playbook("restore_qosac.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.QOSAC), new Playbook("ovm_install_qosac.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.HPSIM), new Playbook("ovm_install_hpsim.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

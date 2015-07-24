@@ -9,7 +9,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     
     $scope.deploy = function (){
     	OSService.deployOVM($scope.installConfig).then( function(){
-    		monitorService.monitorOSInstall($scope.installConfig.stack_name);
+    		monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.stack_name);
 			$state.go("dashboard.monitor");
 		});
     };
