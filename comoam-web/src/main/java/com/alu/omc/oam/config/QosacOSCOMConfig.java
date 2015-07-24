@@ -24,6 +24,8 @@ public class QosacOSCOMConfig extends COMConfig implements Serializable{
 	 */
 	private static final long serialVersionUID = 2478186978192603088L;
 	private Map vm_config;
+    private boolean            config_drive           = true;
+    private boolean juno_base = false;
 	private Map<String, String> app_install_options;
 	private COMType            comType;
 	private String             deployment_prefix;
@@ -345,6 +347,30 @@ public class QosacOSCOMConfig extends COMConfig implements Serializable{
         {
             this.netmask = netmask;
         }
+    }
+
+
+
+	public boolean isConfig_drive() {
+		return config_drive;
+	}
+
+	public void setConfig_drive(boolean config_drive) {
+		this.config_drive = config_drive;
+	}
+    
+	public boolean getJuno_base()
+    {
+        return this.isJuno();
+    }
+
+    public void setJuno_base(boolean juno_base)
+    {
+        this.juno_base = juno_base;
+    }
+    
+    private boolean  isJuno(){
+        return this.getTemplate_version().indexOf("2014-10-16") != -1;
     }
 
 

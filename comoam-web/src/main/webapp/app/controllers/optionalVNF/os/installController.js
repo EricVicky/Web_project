@@ -138,7 +138,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 			OMCCN_SUPPORT_SNMP_N_ITF:'true',
 			OMCCN_SUPPORT_GSST:'false',
 			OMCCN_SUPPORT_NETRA:'false',
-			INSTALL_ETHEREAL:'NO'
+			INSTALL_ETHEREAL:'YES'
 	};
     
     $scope.deploy = function (){

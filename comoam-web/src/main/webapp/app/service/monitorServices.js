@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('monitor').factory('monitorService', function($log) {
+angular.module('monitor').factory('monitorService', function($log, $location, $resource) {
 	var stepsDict= {
 			"KVM" : {
 				"install" :["Start", "Generate Config Driver", "Start VM Instance", "Prepare Install Options",  "Finished"],
@@ -79,7 +79,9 @@ angular.module('monitor').factory('monitorService', function($log) {
 	var environment;
 	var action;
 	var channel;
-	var topicPrefix= "/log/tail/" 
+	var topicPrefix= "/log/tail/";
+	var baseUrl = $location.absUrl().split("#", 1)[0];
+	var restUrl = baseUrl;
 	return {
 		monitorKVMInstall: function(ch) {
 			environment = "KVM";
@@ -187,6 +189,10 @@ angular.module('monitor').factory('monitorService', function($log) {
 			}else if(comType == "ATC" || comType == "HPSIM"){
 				environment = env + "_OVM";
 			}
+		},
+		runAnsibleTask : function(){
+			var runAnsibleRes = $resource(restUrl + "rest/ansible/task");
+			return runAnsibleRes.get({"comStack" : channel}).$promise;
 		},
 		monitorKVMQOSACDelete: function(ch) {
 			environment = "KVM_QOSAC";

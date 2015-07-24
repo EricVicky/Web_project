@@ -18,6 +18,7 @@ import com.alu.omc.oam.config.ActionKey;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig.COMProvidernetwork;
+import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.log.LogParserFactory;
 import com.alu.omc.oam.rest.os.service.NeutronService;
 import com.alu.omc.oam.util.NetworkUtil;
@@ -34,15 +35,27 @@ public class AnsibleDelegator implements ApplicationContextAware
     
     @Resource
     private LogParserFactory logParserFactory;
+    
+    @Resource
+    private AnsibleTasks ansibleTasks;
 
 
-    public void execute(final Action action, final COMConfig config){
-        final PlaybookCall playbookCall = new PlaybookCall(config, action);
-        delayInvoke(action, config, playbookCall);
+    public void addAnsibleTask(final Action action, final COMConfig config){
+        ansibleTasks.create(action, config);
     }
-    private void delayInvoke(final Action action, final COMConfig config,
-            final PlaybookCall playbookCall)
+    
+    public void execute(String comStack){
+        AnsibleTask task = ansibleTasks.get(comStack);
+        if(task!=null){
+            invoke(task.getAction(), task.getConfig());
+            ansibleTasks.remove(comStack);
+        }
+        
+        
+    }
+    private void invoke(final Action action, final COMConfig config)
     {
+        final PlaybookCall playbookCall = new PlaybookCall(config, action);
         try
         {
             ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
@@ -70,11 +83,9 @@ public class AnsibleDelegator implements ApplicationContextAware
             e.printStackTrace();
         }
     } 
-    public void execute(Action action, OSCOMConfig config){
-        PlaybookCall playbookCall = new PlaybookCall(config, action);
+    public void addAnsibleTask(Action action, OSCOMConfig config){
         try
         {
-           ansibleInvoker = (IAnsibleInvoker) applicationContext.getBean("ansibleInvoker");
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
@@ -88,13 +99,38 @@ public class AnsibleDelegator implements ApplicationContextAware
                    providerNetwork.setV6_prefix(NetworkUtil.getNetWorkPrefix(v6subnet.getCidr()));
                }
            }
-           delayInvoke(action, config, playbookCall);
+           ansibleTasks.create(action, config);
         }
         catch (AnsibleException e)
         {
             e.printStackTrace();
         }
     } 
+    
+    public void addAnsibleTask(Action action, QosacOSCOMConfig config){
+        try
+        {
+           NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
+           com.alu.omc.oam.config.QosacOSCOMConfig.COMProvidernetwork providerNetwork = config.getCom_provider_network();
+           NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
+           providerNetwork.setDns1(subnet.getDnsNames()==null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
+           providerNetwork.setGateway(subnet.getGateway());
+           providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
+               NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
+               providerNetwork.setV6_gateway(v6subnet.getGateway());
+               if(v6subnet != null){
+                   providerNetwork.setV6_prefix(NetworkUtil.getNetWorkPrefix(v6subnet.getCidr()));
+               }
+           }
+           ansibleTasks.create(action, config);
+        }
+        catch (AnsibleException e)
+        {
+            e.printStackTrace();
+        }
+    } 
+    
     private IAnsibleHandler getHandler(Action action, COMConfig config)
     {
       String handlerBeanName = new ActionKey(action, config.getEnvironment(), config.getCOMType())
@@ -107,12 +143,6 @@ public class AnsibleDelegator implements ApplicationContextAware
     }
     
     
-    private void deplayInvoke(){
-        
-    }
-
-
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException

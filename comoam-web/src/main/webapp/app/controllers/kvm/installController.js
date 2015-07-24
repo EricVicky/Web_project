@@ -42,7 +42,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
-					INSTALL_ETHEREAL:'NO'
+					INSTALL_ETHEREAL:'YES'
 			};
             
             $scope.installConfig.vm_config = {
@@ -56,7 +56,7 @@ angular.module('kvm', [ 'ui.router',
     	                             {"label":"Traffic Separation", "mode": 2 },
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
-            $scope.avaliable_flavors = ["Enterprise(4*16*50)", "Low End(4*16*80)", "Medium(6*24*150)", "High End(8*32*300)"];
+            $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
             $scope.flavor = $scope.avaliable_flavors[2];
             $scope.initNic = function(){
             	if($scope.installConfig.vm_config['oam'].flavor){

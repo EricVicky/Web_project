@@ -128,9 +128,7 @@
 												Name</label> <input name="stack_name" class="form-control"
 												type="text" ng-model="installConfig.stack_name"
 												title="Stack Name" validation="required" unique-stack>
-											<span class="validation text-danger"
-												ng-show="tab4.stack_name.$error.notunique"><label
-												translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
+											<span class="validation text-danger" ng-show="tab3.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
 										</div>
 									</fieldset>
 									<fieldset>
@@ -160,7 +158,7 @@
 										<div class="form-group col-md-6">
 											<label class="control-label" >OVM
 												image</label> <select name="ovm_image"
-												ng-model="installConfig.vm_config.ovm.imgname" class="form-control"
+												ng-model="installConfig.ovm_image" class="form-control"
 												ng-options="o.name as o.name for o in ovm_images"
 												title="OVM image" validation="required">
 											</select>

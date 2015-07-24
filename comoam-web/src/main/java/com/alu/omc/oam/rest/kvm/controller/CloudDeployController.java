@@ -42,92 +42,92 @@ public class CloudDeployController
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-    	ansibleDelegator.execute(Action.INSTALL, config );
+    	ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
         
     }
     @RequestMapping(value="/kvm/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
 
     @RequestMapping(value="/ovm/HPSIMdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
     @RequestMapping(value="/os/ovm/HPSIMdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
     @RequestMapping(value="/os/ovm/QOSACdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
     @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
     @RequestMapping(value="/ovm/QOSACdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
     @RequestMapping(value="/ovm/ARSdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody ArsCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.INSTALL, config );
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
  
 
     @RequestMapping(value="/ovm/HPSIMupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.UPGRADE, config );
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
 
     @RequestMapping(value="/ovm/QOSACupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.UPGRADE, config );
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
     @RequestMapping(value="/kvm/instances/QOSAC{name}", method=RequestMethod.POST)
     public void deleteKVM( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.DELETE, config );
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
     }
     
     @RequestMapping(value="/kvm/instances/HPSIM{name}", method=RequestMethod.POST)
     public void deleteKVM( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.DELETE, config );
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
     }
 
     @RequestMapping(value="/kvm/instances/ATC{name}", method=RequestMethod.POST)
     public void deleteKVM( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.DELETE, config );
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
     }
     
     @RequestMapping(value="/kvm/instances/{name}", method=RequestMethod.POST)
     public void deleteKVM( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.DELETE, config );
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
     }
     
     @RequestMapping(value="/os/instances/{name}", method=RequestMethod.POST)
     public void deleteOS( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.DELETE, config );
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
     }
     
     @RequestMapping(value="/kvm/images", method=RequestMethod.GET)
@@ -148,24 +148,24 @@ public class CloudDeployController
     @RequestMapping(value="/kvm/upgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.UPGRADE, config );
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
     @RequestMapping(value="/os/upgrade", method=RequestMethod.POST)
     public void osupgrade( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.UPGRADE, config );
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
     @RequestMapping(value="/kvm/backup", method=RequestMethod.POST)
     public void kvmbackup( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.BACKUP, config );
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
     @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
     public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.RESTORE, config );
+        ansibleDelegator.addAnsibleTask(Action.RESTORE, config );
     }
     
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)
@@ -184,9 +184,9 @@ public class CloudDeployController
     public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
     {
     	if(config.getGr_install_active()==true){
-    		ansibleDelegator.execute(Action.GRINST_PRI, config);
+    		ansibleDelegator.addAnsibleTask(Action.GRINST_PRI, config);
     	}else{
-    		ansibleDelegator.execute(Action.GRINST_SEC, config);
+    		ansibleDelegator.addAnsibleTask(Action.GRINST_SEC, config);
     	}
     }   
     
@@ -194,22 +194,22 @@ public class CloudDeployController
     public void install_os_gr(@RequestBody GRInstallConfig<OSCOMConfig> config) 
     {
     	if(config.getGr_install_active()==true){
-    		ansibleDelegator.execute(Action.GRINST_PRI, config);
+    		ansibleDelegator.addAnsibleTask(Action.GRINST_PRI, config);
     	}else{
-    		ansibleDelegator.execute(Action.GRINST_SEC, config);
+    		ansibleDelegator.addAnsibleTask(Action.GRINST_SEC, config);
     	}
     }  
     
     @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
     public void uninstall_kvm_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.GRUNINST, config);
+        ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     
     @RequestMapping(value="/gr/os/uninstall", method=RequestMethod.POST)
     public void uninstall_os_gr(@RequestBody GRUnInstallConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.GRUNINST, config);
+        ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     
     @RequestMapping(value="/os/instances", method=RequestMethod.GET)
@@ -230,13 +230,17 @@ public class CloudDeployController
     @RequestMapping(value="/os/backup", method=RequestMethod.POST)
     public void osbackup( @RequestBody BACKUPConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.BACKUP, config );
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
 
     @RequestMapping(value="/os/restore", method=RequestMethod.POST)
     public void osrestore( @RequestBody BACKUPConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
-        ansibleDelegator.execute(Action.RESTORE, config );
+        ansibleDelegator.addAnsibleTask(Action.RESTORE, config );
     }
-
+    @RequestMapping(value="/ansible/task", method=RequestMethod.GET)
+    public void executetask( @ModelAttribute("comStack") String comStack) 
+    {
+        ansibleDelegator.execute(comStack);
+    }
 }
