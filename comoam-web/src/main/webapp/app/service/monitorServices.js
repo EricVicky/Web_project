@@ -36,7 +36,13 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			},
 			"KVM_ARS":{
 				"install":["Start", "Prepare Environment", "Install", "Finished"]			
-			}
+			},
+			"Openstack_QOSAC":{
+				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
+			},
+			"Openstack_OVM":{
+				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"]
+			},
 	};
 	
 	var endMsg = {
@@ -184,7 +190,7 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			if(comType == "ARS" || comType == "QOSAC"){
 				environment = env + "_" + comType;
 			}else if(comType == "ATC" || comType == "HPSIM"){
-				environment = "KVM_OVM";
+				environment = env + "_OVM";
 			}
 		},
 		runAnsibleTask : function(){

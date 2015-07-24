@@ -138,9 +138,16 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/kvm/ars_install.html',
     	url:'/kvmarsinstall',
     })
-    .state('dashboard.kvmqosacinstall', {
-    	templateUrl:'views/optionalVNF/kvm/qosac_install.html',
-    	url:'/kvmqosacinstall',
+    .state('dashboard.osovminstall', {
+    	templateUrl:'views/optionalVNF/os/install.html',
+    	url:'/osovminstall',
     })
-    
+    .state('dashboard.osqosacinstall', {
+    	templateUrl:'views/optionalVNF/os/qosac_install.html',
+    	url:'/osqosacinstall',
+    })
+    .state('dashboard.osarsinstall', {
+    	templateUrl:'views/optionalVNF/os/ars_install.html',
+    	url:'/osarsinstall',
+    })
   }])

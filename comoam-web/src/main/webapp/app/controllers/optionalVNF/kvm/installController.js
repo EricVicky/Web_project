@@ -36,7 +36,14 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 	});
     
     KVMService.getComTypeStore().then(function(data){
-		$scope.comTypeStore = data.OVMType;
+    	$scope.temp_comTypeStore = data.OVMType;
+		var comTypeStore=[];
+		for(var index in $scope.temp_comTypeStore){
+			if($scope.temp_comTypeStore[index].Name=='ATC'||$scope.temp_comTypeStore[index].Name=='HPSIM'){
+				comTypeStore.push($scope.temp_comTypeStore[index]);
+			}
+		}
+		$scope.comTypeStore = comTypeStore;
 	 	$scope.installConfig.comType = KVMService.VNFType;
 	});
     
