@@ -48,6 +48,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ARS), kvmarsInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.QOSAC), osqosacInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.HPSIM), oshpsimInstallParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ATC), osatcInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -292,6 +293,16 @@ public class LogParserFactory
     }
     
     private ILogParser oshpsimInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
+        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
+        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
+        dict.put("PLAY\\s\\[Auto\\sinstall\\scom\\son\\skvm\\]", "Start");
+        return new LogParser(dict);
+    }
+    
+    private ILogParser osatcInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
