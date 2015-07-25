@@ -64,7 +64,7 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        String ipAddress = vmcfg.get("ip_address");
+	        String ipAddress = vmcfg.get("provider_ip_address");
 	        Group g = new Group(name);
 	        allVM.add(g);
 	        g.add(new Host(ipAddress));
