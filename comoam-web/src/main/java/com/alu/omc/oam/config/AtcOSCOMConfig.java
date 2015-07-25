@@ -17,7 +17,7 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class HpsimOSCOMConfig extends COMConfig implements Serializable{
+public class AtcOSCOMConfig extends COMConfig implements Serializable{
 
 	/**
 	 * 
@@ -26,10 +26,10 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 
 	@Override
 	public COMType getCOMType() {
-		return COMType.HPSIM;
+		return COMType.ATC;
 	}
 	
-	public HpsimOSCOMConfig(){
+	public AtcOSCOMConfig(){
 		
 	}
 	
@@ -47,7 +47,7 @@ public class HpsimOSCOMConfig extends COMConfig implements Serializable{
 	private BlockAvailZone     block_storage_avail_zone;
     private ComputeAvailZone   compute_avail_zone;
     private String key_name;
-	private static Logger log = LoggerFactory.getLogger(HpsimOSCOMConfig.class);	
+	private static Logger log = LoggerFactory.getLogger(AtcOSCOMConfig.class);	
 	@Override
     @JsonIgnore 
     public Inventory getInventory()

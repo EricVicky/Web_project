@@ -158,4 +158,8 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/os/ars_install.html',
     	url:'/osarsinstall',
     })
+    .state('dashboard.osqosacupgrade', {
+    	templateUrl:'views/optionalVNF/os/qosac_upgrade.html',
+    	url:'/osqosacupgrade',
+    })
   }])

@@ -15,6 +15,7 @@ import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ArsCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
+import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
@@ -65,6 +66,12 @@ public class CloudDeployController
     
     @RequestMapping(value="/os/ovm/QOSACdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ATCdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
