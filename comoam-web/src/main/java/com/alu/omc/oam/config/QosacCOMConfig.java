@@ -14,7 +14,13 @@ public class QosacCOMConfig extends OVMCOMConfig {
 	public COMType getCOMType() {
 		return COMType.QOSAC;
 	}
-	
+	private Map<String, String> app_install_options;
+	public Map<String, String> getApp_install_options() {
+		return app_install_options;
+	}
+	public void setApp_install_options(Map<String, String> app_install_options) {
+		this.app_install_options = app_install_options;
+	}
 	@Override
 	@JsonIgnore 
 	public String getVars() {
