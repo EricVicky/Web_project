@@ -49,6 +49,8 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.QOSAC), new Playbook("deploy_qosac.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.HPSIM), new Playbook("deploy_ovm.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.ATC), new Playbook("deploy_ovm.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE, COMType.QOSAC), new Playbook("upgrade_qosac.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE, COMType.HPSIM), new Playbook("upgrade_hpsim.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

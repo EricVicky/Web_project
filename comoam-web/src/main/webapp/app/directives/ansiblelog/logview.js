@@ -71,7 +71,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 														+ taskgroup[n] + "<br>";
 											}
 											task.html(taskhtml);
-											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+($('#task').outerHeight()-8)+"px\"/>";
+											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+($('#task').height()-8)+"px\"/>";
 											loadpos.html(loadinghtml);
 										}
 										var logviewer = $('#logviewer');
