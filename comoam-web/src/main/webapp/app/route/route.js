@@ -154,4 +154,8 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/os/qosac_upgrade.html',
     	url:'/osqosacupgrade',
     })
+    .state('dashboard.osovmupgrade', {
+    	templateUrl:'views/optionalVNF/os/upgrade.html',
+    	url:'/osovmupgrade',
+    })
   }])
