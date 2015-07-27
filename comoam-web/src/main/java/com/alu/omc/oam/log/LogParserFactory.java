@@ -50,7 +50,6 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.HPSIM), oshpsimInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ATC), osatcInstallParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.OPENSTACK, COMType.QOSAC), osqosacupgradeParser());
-        parserCache.put(new ActionKey(Action.UPGRADE, Environment.OPENSTACK, COMType.HPSIM), oshpsimupgradeParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -325,14 +324,4 @@ public class LogParserFactory
         return new LogParser(dict);
     }
     
-    private ILogParser oshpsimupgradeParser(){
-    	Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
-        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Post Configuration");
-        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Post Image Replacement");
-        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
-        dict.put("ansible-playbook", "Start");
-        return new LogParser(dict);
-    }
 }

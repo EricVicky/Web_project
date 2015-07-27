@@ -29,19 +29,19 @@
 					<td>{{selectedIns.deployment_prefix}}</td>
 				</tr>
 				<tr align="center"
-					ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QoSAC'">
+					ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QOSAC'">
 					<td rowspan="3" width="25%" align="center"
 						style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 					<td width="35%" translate="IPV4_ADDRESS">IPv4 Address</td>
 					<td>{{selectedIns.vm_config.oam.provider_ip_address}}</td>
 				</tr>
 				<tr align="center"
-						ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QoSAC'">
+						ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QOSAC'">
 						<td translate="IPV6_ADDRESS">IPv6 Address</td>
 						<td>{{selectedIns.vm_config.oam.provider_v6_ip_address}}</td>
 				</tr>
 				<tr align="center"
-					ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QoSAC'">
+					ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QOSAC'">
 					<td translate="FLAVOR">Flavor</td>
 					<td>{{selectedIns.vm_config.oam.flavor}}</td>
 				</tr>
