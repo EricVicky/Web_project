@@ -76,6 +76,24 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
+    @RequestMapping(value="/os/ovm/QOSACdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/HPSIMdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ATCdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
     @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
