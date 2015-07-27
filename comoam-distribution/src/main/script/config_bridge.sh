@@ -41,8 +41,8 @@ TARGET_HOST="127.0.0.1"
 while [[ $# > 0 ]]; do
   case $1 in
     --host)
-      TARGET_HOST=$1
-      shift
+      TARGET_HOST=$2
+      shift 2
     ;;
     -s)
       PRIMARY="false"
@@ -89,7 +89,6 @@ while [ -h "$PRG" ] ; do
   fi
 done
 PRGDIR=`dirname "$PRG"`
-VARS="itf=$eth br=$br PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} "
-export host_ip=$TARGET_HOST
-echo $host_IP
-ansible-playbook -i $PRGDIR/./host -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml
+VARS="itf=$eth br=$br PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} itf_type=${itf_type}"
+export host_IP=$TARGET_HOST
+ansible-playbook -i $PRGDIR/./host -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
