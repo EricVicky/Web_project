@@ -96,6 +96,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "os/instances/"+name);
 			return deleteRes.save(config).$promise;
+		},
+		deleteovm:function(config){
+			var deleteRes = $resource(restUrl + "os/ovm/" + config.comType + "delete");
+			return deleteRes.save(config).$promise;
 		}
 	};
 });
