@@ -46,6 +46,9 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"install":["Start", "Running Credentials", "Update Document", "Config switches for OVM", "Finished"],
 			    "delete":["Start","Check Presence of stack","Destroy stack","Finished"]
 			},
+			"Openstack_ARS":{
+				"install":["Start", "Prepare Environment", "Install", "Finished"]			
+			},
 	};
 	
 	var endMsg = {
