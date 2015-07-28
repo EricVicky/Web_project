@@ -15,6 +15,7 @@ import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ArsCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
+import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
@@ -69,6 +70,30 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
+    @RequestMapping(value="/os/ovm/ATCdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/HPSIMdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ATCdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
     @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
@@ -96,6 +121,12 @@ public class CloudDeployController
 
     @RequestMapping(value="/ovm/QOSACupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACupgrade", method=RequestMethod.POST)
+    public void upgrade( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }

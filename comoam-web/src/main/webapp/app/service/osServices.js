@@ -88,9 +88,17 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var upgradeRes = $resource(restUrl + "os/upgrade");
 			return upgradeRes.save(config).$promise;
 		},
+		upgradeOVM:function(config){
+			var upgradeRes = $resource(restUrl + "os/ovm/" + config.comType + "upgrade");
+			return upgradeRes.save(config).$promise;
+		},
 		deletecom:function(config){
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "os/instances/"+name);
+			return deleteRes.save(config).$promise;
+		},
+		deleteovm:function(config){
+			var deleteRes = $resource(restUrl + "os/ovm/" + config.comType + "delete");
 			return deleteRes.save(config).$promise;
 		}
 	};

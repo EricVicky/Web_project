@@ -138,6 +138,14 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/kvm/ars_install.html',
     	url:'/kvmarsinstall',
     })
+    .state('dashboard.kvmqosacinstall', {
+    	templateUrl:'views/optionalVNF/kvm/qosac_install.html',
+    	url:'/kvmqosacinstall',
+    })
+    .state('dashboard.kvmqosacupgrade', {
+    	templateUrl:'views/optionalVNF/kvm/qosac_upgrade.html',
+    	url:'/kvmqosacupgrade',
+    })
     .state('dashboard.osovminstall', {
     	templateUrl:'views/optionalVNF/os/install.html',
     	url:'/osovminstall',
@@ -149,5 +157,9 @@ angular.module('comoamApp')
     .state('dashboard.osarsinstall', {
     	templateUrl:'views/optionalVNF/os/ars_install.html',
     	url:'/osarsinstall',
+    })
+    .state('dashboard.osqosacupgrade', {
+    	templateUrl:'views/optionalVNF/os/qosac_upgrade.html',
+    	url:'/osqosacupgrade',
     })
   }])

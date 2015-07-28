@@ -141,6 +141,11 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 			INSTALL_ETHEREAL:'YES'
 	};
     
+    $scope.Backup_Server_Addr = function(){
+    	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.provider_ip_address;
+        $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.provider_ip_address;
+    }
+    
     $scope.deploy = function (){
     	OSService.deployOVM($scope.installConfig).then( function(){
     		monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.stack_name);
