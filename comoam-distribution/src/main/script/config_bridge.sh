@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 real_exec_user=`/usr/bin/id -un`
 [ "${runner}" = "" ] && runner=root
@@ -37,9 +37,13 @@ fi
 PRIMARY="true"
 PRIMARY6="true"
 itf_type="eth"
-
+TARGET_HOST="127.0.0.1"
 while [[ $# > 0 ]]; do
   case $1 in
+    --host)
+      TARGET_HOST=$2
+      shift 2
+    ;;
     -s)
       PRIMARY="false"
       shift
@@ -73,34 +77,6 @@ if [ $# -ne 0 ]; then
  usage
  exit 0
 fi
-
-if [ ! -f /etc/sysconfig/network-scripts/ifcfg-"$eth" ] ; then
-    echo "$eth not found"
-    exit 1
-fi
-if [ -f /etc/sysconfig/network-scripts/ifcfg-"$br" ] ; then
-    echo "bridge $br exits."
-    exit 1
-fi
-bridge=$(grep -i bridge /etc/sysconfig/network-scripts/ifcfg-"$eth")
-if [ ! -z "$bridge" ]; then
-    echo " the bridge on $eth has already been setup"
-    exit 1
-fi
-HWADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=HWADDR=).*$')
-IPADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=IPADDR=).*$')
-NETMASK=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=NETMASK=).*$')
-GATEWAY=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=GATEWAY=).*$')
-PREFIX=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=PREFIX=).*$')
-IPV6ADDR=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=IPV6ADDR=).*$')
-IPV6_DEFAULTGW=$(cat /etc/sysconfig/network-scripts/ifcfg-"$eth" |grep -oP '(?<=IPV6_DEFAULTGW=).*$')
-echo HWADDR=$HWADDR
-echo IPADDR=$IPADDR
-echo NETMASK=$NETMASK
-echo GATEWAY=$GATEWAY
-echo PREFIX=$PREFIX
-echo IPV6ADDR=$IPV6ADDR
-echo IPV6_DEFAULTGW=$IPV6_DEFAULTGW
 # resolve links - $0 may be a softlink
 PRG="$0"
 while [ -h "$PRG" ] ; do
@@ -113,5 +89,6 @@ while [ -h "$PRG" ] ; do
   fi
 done
 PRGDIR=`dirname "$PRG"`
-VARS="itf=$eth br=$br HWADDR=$HWADDR IPADDR=$IPADDR NETMASK=$NETMASK GATEWAY=$GATEWAY PREFIX=$PREFIX PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} IPV6ADDR=${IPV6ADDR} IPV6_DEFAULTGW=${IPV6_DEFAULTGW} itf_type=${itf_type}"
-ansible-playbook -i ../ELCM-playbook/inventory/hosts.local -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml
+VARS="itf=$eth br=$br PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} itf_type=${itf_type}"
+export host_IP=$TARGET_HOST
+ansible-playbook -i $PRGDIR/./host -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
