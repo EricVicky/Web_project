@@ -49,14 +49,17 @@ def error(message):
 
 def reg(varfilename,host):
     if os.path.exists(varfilename) :
+        print 'load com stacks'
         try:
             with open(varfilename, 'r') as stream:
                 comConfig = yaml.load(stream)
                 comConfig['environment'] = 'KVM'
                 comConfig['active_host_ip'] = host
+                print 'create new com stack'
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
                 comStack.setComconfig(json.dumps(comConfig))
                 comStack.append()
+                print 'stack created completed!'
         except Exception:
             error("failed to  save stack")
             raise Usage('failed to  save stack')

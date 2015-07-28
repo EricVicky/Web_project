@@ -91,4 +91,10 @@ done
 PRGDIR=`dirname "$PRG"`
 VARS="itf=$eth br=$br PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} itf_type=${itf_type}"
 export host_IP=$TARGET_HOST
-ansible-playbook -i $PRGDIR/./host -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
+INVENTORY=$PRGDIR/./host
+MATCH_LOCAL_IP=$(ifconfig -a|grep $TARGET_HOST)
+if [ -z "$TARGET_HOST" ] || [ "$TARGET_HOST" == '127.0.0.1' ] || [ "$TARGET_HOST" == 'localhost' ] || [ ! -z "$MATCH_LOCAL_IP" ]; then
+	echo 'setup bridge for localhost'
+	INVENTORY=$PRGDIR/../ELCM-playbook/inventory/hosts.local
+fi
+ansible-playbook -i $INVENTORY -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
