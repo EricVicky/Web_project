@@ -3,9 +3,8 @@ package com.alu.omc.oam.config;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.yaml.snakeyaml.Yaml;
-
-import com.alu.omc.oam.util.YamlFormatterUtil;
+import com.alu.omc.oam.util.Json2Object;
+import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class QosacCOMConfig extends OVMCOMConfig {
@@ -34,8 +33,8 @@ public class QosacCOMConfig extends OVMCOMConfig {
 		    istoption = InstallOptions.get(COMType.QOSAC, COMType.QOSAC.name());
 	        vmcfg.put("install_options", istoption );
 	    }
-		Yaml yaml = new Yaml();
-        return YamlFormatterUtil.format(yaml.dump(this));	
+	   String json = Json2Object.object2Json(this);
+       return JsonYamlConverter.convertJson2Yaml(json);
 	}
 
 }
