@@ -15,14 +15,17 @@ import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ArsCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
+import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
+import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.QosacCOMConfig;
+import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -55,6 +58,42 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
     
+    @RequestMapping(value="/os/ovm/HPSIMdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ATCdeployment", method=RequestMethod.POST)
+    public void deploy( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/HPSIMdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody HpsimOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ATCdelete", method=RequestMethod.POST)
+    public void delete( @RequestBody AtcOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.DELETE, config );
+    }
+    
     @RequestMapping(value="/ovm/ATCdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody AtcCOMConfig config) throws IOException, InterruptedException
     {
@@ -72,6 +111,7 @@ public class CloudDeployController
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }
+ 
 
     @RequestMapping(value="/ovm/HPSIMupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody HpsimCOMConfig config) throws IOException, InterruptedException
@@ -81,6 +121,12 @@ public class CloudDeployController
 
     @RequestMapping(value="/ovm/QOSACupgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/QOSACupgrade", method=RequestMethod.POST)
+    public void upgrade( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
@@ -224,8 +270,8 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.RESTORE, config );
     }
     @RequestMapping(value="/ansible/task", method=RequestMethod.GET)
-    public void osrestore( @ModelAttribute("comStack") String comStack) 
+    public void executetask( @ModelAttribute("comStack") String comStack) 
     {
-        ansibleDelegator.execute(comStack);;
+        ansibleDelegator.execute(comStack);
     }
 }

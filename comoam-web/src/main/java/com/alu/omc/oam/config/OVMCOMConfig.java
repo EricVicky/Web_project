@@ -14,7 +14,8 @@ public abstract class OVMCOMConfig extends COMConfig {
 
 	@Override
 	@JsonIgnore 
-	public Inventory getInventory() {
+	public Inventory getInventory() 
+	{
 		Inventory inv = new Inventory();
 	    Group hostg = new Group("host");
 	    hostg.add(new Host(this.active_host_ip));

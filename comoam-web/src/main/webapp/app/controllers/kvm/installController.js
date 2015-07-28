@@ -13,7 +13,7 @@ angular.module('kvm', [ 'ui.router',
 			$scope.installConfig ={
 					vm_img_dir : "/var/images"
 					};
-               	$scope.genExport = function(){
+            $scope.genExport = function(){
             	$scope.export=!$scope.export;
             	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
             	for(var name in vms_flavor){
@@ -42,7 +42,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
-					INSTALL_ETHEREAL:'NO'
+					INSTALL_ETHEREAL:'YES'
 			};
             
             $scope.installConfig.vm_config = {
@@ -57,16 +57,18 @@ angular.module('kvm', [ 'ui.router',
     	                             { "label":"Traffic Separation & Redundency", "mode": 3}];
             $scope.networktraffic = 1;
             $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
-            //set default flavor to Medium
             $scope.flavor = $scope.avaliable_flavors[2];
             $scope.initNic = function(){
             	if($scope.installConfig.vm_config['oam'].flavor){
-            		for(var i=0; i< $scope.avaliable_flavors.length; i++){
-            			if( $scope.installConfig.vm_config['oam'].flavor.label.indexOf($scope.avaliable_flavors[i]) != -1){
-            				$scope.flavor = $scope.avaliable_flavors[i];
-            				break;
-            			}
-            		}
+            		if($scope.installConfig.vm_config['oam'].flavor.label == 'Medium(6*24*150)'){
+                		$scope.flavor = $scope.avaliable_flavors[2];
+                	}else if($scope.installConfig.vm_config['oam'].flavor.label == 'Low End(4*16*80)'){
+                		$scope.flavor = $scope.avaliable_flavors[1];
+                	}else if($scope.installConfig.vm_config['oam'].flavor.label == 'High End(8*32*300)'){
+                		$scope.flavor = $scope.avaliable_flavors[3];
+                	}else{
+                		$scope.flavor = $scope.avaliable_flavors[0];
+                	}
             	}
             };
             

@@ -4,19 +4,19 @@
 		ng-model="installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE"
 		title="Backup Server Disk Space" validation="required" />
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="CALL_TRACE_DISK_SPACE">Call Trace Disk Space</label> <input
 		name="CALL_TRACE_DISK_SPACE" class="form-control" type="text" 
 		ng-model="installConfig.app_install_options.CALL_TRACE_DISK_SPACE"
 		title="Call Trace Disk Space" validation="required" />
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="CODE_SERVER_DISK_SPACE">Code Server Disk Space</label> <input
 		name="CODE_SERVER_DISK_SPACE" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.CODE_SERVER_DISK_SPACE"
 		title="Code Server Disk Space" validation="required" />
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_WEBSSO_SANE">OMCCN Support Websso SANE</label> <select
 		name="OMCCN_SUPPORT_WEBSSO_SANE" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_WEBSSO_SANE"
@@ -40,7 +40,7 @@
 		<option value="YES" translate="YES">Yes</option>
 		</select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
     <label class="control-label" translate="OMCCN_SUPPORT_COM_GR">Support COM GR</label> <select
         name="OMCCN_SUPPORT_COM_GR " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_COM_GR"
@@ -106,7 +106,7 @@
         ng-model="installConfig.app_install_options.BACKUP_SERVER_ADDRESS"
         title="BACKUP SERVER ADDRESS" validation="required" />
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_3GPP">Support 3GPP Corba Interface for Alarm</label> <select
 		name="OMCCN_SUPPORT_3GPP" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_3GPP"
@@ -115,7 +115,7 @@
 		<option value="false" translate="false">false</option>
 		</select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_SNMP_N_ITF">Support SNMP Northbound Interface</label> <select
 		name="OMCCN_SUPPORT_SNMP_N_ITF" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SNMP_N_ITF"
@@ -124,7 +124,7 @@
 		<option value="false" translate="false">false</option>
 		</select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_GSST">Support GSST NE</label> <select
 		name="OMCCN_SUPPORT_GSST" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_GSST"
@@ -133,7 +133,7 @@
 		<option value="false" translate="false">false</option>
 		</select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_NETRA">Support NETRA Management</label> <select
 		name="OMCCN_SUPPORT_NETRA" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.OMCCN_SUPPORT_NETRA"
@@ -142,7 +142,7 @@
 		<option value="false" translate="false">false</option>
 		</select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="INSTALL_ETHEREAL">Install Ethereal</label> <select
 		name="INSTALL_ETHEREAL" class="form-control" type="text"
 		ng-model="installConfig.app_install_options.INSTALL_ETHEREAL"

@@ -58,6 +58,7 @@
 	"OAM_VM":"OAM VM",
 	"DB_VM":"DB VM",
 	"CM_VM":"CM VM",
+	"OVM_VM":"OVM VM",
 	"IPV4_ADDRESS":"IPv4 Address",
 	"IPV6_ADDRESS":"IPv6 Address(optional)",
 	"IPV4_ADDRESS:":"IPv4 Address:",
