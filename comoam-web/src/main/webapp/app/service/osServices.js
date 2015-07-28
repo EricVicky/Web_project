@@ -2,15 +2,21 @@
 angular.module('os').factory('OSService', function($location, $resource, $log) {
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl + "rest/";
+	var VNFType = '';
 	return {
 		baseUrl: baseUrl,
 		restUrl: restUrl,
+		VNFType    : VNFType,
 		getFlavorStore: function () {
 			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
 			return flavorRes.query().$promise;
 		},
 		deploy:function(config){
 			var deployRes = $resource(restUrl + "os/deployment");
+			return deployRes.save(config).$promise;
+		},
+		deployOVM:function(config){
+			var deployRes = $resource(restUrl + "os/ovm/" + config.comType + "deployment");
 			return deployRes.save(config).$promise;
 		},
 		getComInstance: function(success,error) {
@@ -82,9 +88,17 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var upgradeRes = $resource(restUrl + "os/upgrade");
 			return upgradeRes.save(config).$promise;
 		},
+		upgradeOVM:function(config){
+			var upgradeRes = $resource(restUrl + "os/ovm/" + config.comType + "upgrade");
+			return upgradeRes.save(config).$promise;
+		},
 		deletecom:function(config){
 			var name = config.deployment_prefix;
 			var deleteRes = $resource(restUrl + "os/instances/"+name);
+			return deleteRes.save(config).$promise;
+		},
+		deleteovm:function(config){
+			var deleteRes = $resource(restUrl + "os/ovm/" + config.comType + "delete");
 			return deleteRes.save(config).$promise;
 		}
 	};

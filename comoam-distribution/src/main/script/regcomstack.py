@@ -53,6 +53,7 @@ def reg(varfilename):
         try:
             with open(varfilename, 'r') as stream:
                 comConfig = yaml.load(stream)
+                comConfig['environment'] = 'KVM'
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
                 comStack.setComconfig(json.dumps(comConfig))
                 comStack.append()

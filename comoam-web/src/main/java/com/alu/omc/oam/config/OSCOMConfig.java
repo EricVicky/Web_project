@@ -10,12 +10,12 @@ import java.util.Stack;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
 
 import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.kvm.model.Host;
-import com.alu.omc.oam.util.YamlFormatterUtil;
+import com.alu.omc.oam.util.Json2Object;
+import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializable
@@ -493,8 +493,8 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	        	log.error("the private network pool is empty");
 	        }
 	    }
-    	Yaml yaml = new Yaml();
-    	return YamlFormatterUtil.format(yaml.dump(this));
+	   String json = Json2Object.object2Json(this);
+       return JsonYamlConverter.convertJson2Yaml(json);
     }
     
 

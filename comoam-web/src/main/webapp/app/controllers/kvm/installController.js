@@ -42,7 +42,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
-					INSTALL_ETHEREAL:'NO'
+					INSTALL_ETHEREAL:'YES'
 			};
             
             $scope.installConfig.vm_config = {

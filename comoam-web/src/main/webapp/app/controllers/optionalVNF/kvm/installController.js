@@ -36,7 +36,14 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 	});
     
     KVMService.getComTypeStore().then(function(data){
-		$scope.comTypeStore = data.OVMType;
+    	$scope.temp_comTypeStore = data.OVMType;
+		var comTypeStore=[];
+		for(var index in $scope.temp_comTypeStore){
+			if($scope.temp_comTypeStore[index].Name=='ATC'||$scope.temp_comTypeStore[index].Name=='HPSIM'){
+				comTypeStore.push($scope.temp_comTypeStore[index]);
+			}
+		}
+		$scope.comTypeStore = comTypeStore;
 	 	$scope.installConfig.comType = KVMService.VNFType;
 	});
     
@@ -143,22 +150,13 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     };    
     $scope.installConfig.app_install_options = {
 			BACKUP_SERVER_DISK_SPACE:'2000',
-			CALL_TRACE_DISK_SPACE:'1000',
-			CODE_SERVER_DISK_SPACE:'2000',
-			OMCCN_SUPPORT_WEBSSO_SANE:'false',
 			NTP_SERVER:'COM_LOCAL_CLOCK',
 			SEC_UNIX_ENABLE:'YES',
-			OMCCN_SUPPORT_COM_GR:'false',
 			OMCCN_SUPPORT_SP_FM:'YES',
 			OMCCN_SUPPORT_SP_PM:'YES',
 			OMCCN_SUPPORT_SP_HVP:'NO',
 			BACKUP_SERVER_IS_LOCAL:'YES',
-			SOFTWARE_SERVER_IS_LOCAL:'YES',
-			OMCCN_SUPPORT_3GPP:'true',
-			OMCCN_SUPPORT_SNMP_N_ITF:'true',
-			OMCCN_SUPPORT_GSST:'false',
-			OMCCN_SUPPORT_NETRA:'false',
-			INSTALL_ETHEREAL:'YES'
+			SOFTWARE_SERVER_IS_LOCAL:'YES'
 	};
     $scope.submitComtype = function(){
 		$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
