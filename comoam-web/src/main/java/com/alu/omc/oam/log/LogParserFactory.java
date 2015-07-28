@@ -251,10 +251,10 @@ public class LogParserFactory
     }
     private ILogParser kvmqosacUpgradeParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
+        dict.put("PLAY\\sRECAP", "Finished");
         dict.put("PLAY\\s\\[restore\\sdata\\]", "Data Restore");
-        dict.put("PLAY\\s\\[image\\sreplacement\\spost\\sscript\\]", "Post Image Replacement");
-        dict.put("PLAY\\s\\[prepare\\sdata\\sfor\\svirtual\\smachines\\]","Prepare Virtual Machines");
+        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript", "Post Image Replacement");
+        dict.put("TASK\\:\\s\\[ovm\\_prepare\\s\\|\\sGenerate\\suuid\\sfor\\svm\\sinstance\\]","Prepare Virtual Machines");
         dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
         dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
