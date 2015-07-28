@@ -42,7 +42,7 @@ angular.module('os', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
-					INSTALL_ETHEREAL:'NO'
+					INSTALL_ETHEREAL:'YES'
 			};
             $scope.Backup_Server_Addr = function(){
             	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
