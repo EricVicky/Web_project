@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ArsCOMConfig;
+import com.alu.omc.oam.config.ArsOSCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
 import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
@@ -66,6 +67,12 @@ public class CloudDeployController
     
     @RequestMapping(value="/os/ovm/QOSACdeployment", method=RequestMethod.POST)
     public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+    }
+    
+    @RequestMapping(value="/os/ovm/ARSdeployment", method=RequestMethod.POST)
+    public void deployos( @RequestBody ArsOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
     }

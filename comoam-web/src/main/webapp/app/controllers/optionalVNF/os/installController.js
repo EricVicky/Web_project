@@ -153,4 +153,46 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 		});
     };
 
+})
+.controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
+	
+	$scope.installConfig = {
+    		"vm_config":{
+    			"db":{
+    				"provider_ip_address":""
+    			}
+    		}
+    };    
+	
+	$scope.reloadinstallconfig = function (){
+		if($scope.com_instance != null){
+        	$scope.installConfig.vm_config.db.provider_ip_address = $scope.com_instance.vm_config.db.provider_ip_address;
+    	}
+	};
+	
+	OSService.getComInstance().then( function(data) {
+		$scope.oscomInstance = [];
+		for(var ci=0;ci<data.length;ci++){
+			if(data[ci].comType == "OAM" ||  data[ci].comType == "CM" || data[ci].comType == "FCAPS"){
+			    if(JSON3.parse(data[ci].comConfig).environment ==  "OPENSTACK"){
+					$scope.oscomInstance.push(JSON3.parse(data[ci].comConfig));
+				}
+			}
+		}
+		
+    });
+    
+    $scope.genExport = function (){
+    	$scope.export = !$scope.export;
+    };
+    
+    $scope.deploy = function (){
+    	$scope.com_instance.comType = $scope.installConfig.comType;
+    	$scope.com_instance.license_key = $scope.installConfig.license_key;
+    	OSService.deployOVM($scope.com_instance).then( function(){
+            monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType, $scope.com_instance.deployment_prefix);
+            $state.go("dashboard.monitor");
+
+		});
+    };
 });
