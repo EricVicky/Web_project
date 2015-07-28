@@ -7,7 +7,7 @@
 	<name>COM LCM tool</name>
 	<packaging>pom</packaging>
 	<properties>
-		<release.version>0.9.4</release.version>
+		<release.version>0.9.5</release.version>
 	</properties>
   <modules>
     <module>comoam-web</module>
