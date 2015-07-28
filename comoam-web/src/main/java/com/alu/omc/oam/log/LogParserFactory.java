@@ -307,12 +307,12 @@ public class LogParserFactory
     }
     
     private ILogParser osatcInstallParser(){
-        Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("PLAY\\s\\[Auto\\sinstall\\scom\\son\\skvm\\]", "Start");
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[post\\_install\\_atc\\s\\|\\sadd\\sswitches\\sto\\sstats\\.cfg\\]", "Config switches for OVM");
+        dict.put("TASK\\:\\s\\[heat\\_templates\\s\\|\\supdate\\sVNFC\\syaml\\sdocument\\]","Update Document");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Running Credentials");
+        dict.put("PLAY\\s\\[create\\svirtual\\smachines\\]", "Start");
         return new LogParser(dict);
     }
     
@@ -342,7 +342,7 @@ public class LogParserFactory
         dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
-        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        dict.put("GATHERING\\sFACTS", "Start");
         return new LogParser(dict);
 	}
     
