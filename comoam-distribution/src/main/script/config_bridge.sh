@@ -20,13 +20,13 @@ function usage {
    echo "    -v the source interface is a vlan on bonding channel"
    echo "    -h display help message"
    echo "example:"
-   echo "    ./config_bridge.sh --host <HOST_IP>  eth0 br0"
-   echo "    ./config_bridge.sh --host <HOST_IP> -s eth1 br1"
-   echo "    ./config_bridge.sh --host <HOST_IP> -s --6s eth1 br1"
-   echo "    ./config_bridge.sh --host <HOST_IP> -b bond0 br0"
-   echo "    ./config_bridge.sh --host <HOST_IP> -s -b bond1 br1"
-   echo "    ./config_bridge.sh --host <HOST_IP> --6s -b bond1 br1"
-   echo "    ./config_bridge.sh --host <HOST_IP> -v bond0.190 br0"
+   echo "    ./config_bridge.sh eth0 br0"
+   echo "    ./config_bridge.sh -s eth1 br1"
+   echo "    ./config_bridge.sh -s --6s eth1 br1"
+   echo "    ./config_bridge.sh -b bond0 br0"
+   echo "    ./config_bridge.sh -s -b bond1 br1"
+   echo "    ./config_bridge.sh --6s -b bond1 br1"
+   echo "    ./config_bridge.sh -v bond0.190 br0"
 }
 
 if [ $# -eq 0 ]; then
@@ -91,4 +91,10 @@ done
 PRGDIR=`dirname "$PRG"`
 VARS="itf=$eth br=$br PRIMARY=${PRIMARY} PRIMARY6=${PRIMARY6} itf_type=${itf_type}"
 export host_IP=$TARGET_HOST
-ansible-playbook -i $PRGDIR/./host -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
+INVENTORY=$PRGDIR/./host
+MATCH_LOCAL_IP=$(ifconfig -a|grep $TARGET_HOST)
+if [ -z "$TARGET_HOST" ] || [ "$TARGET_HOST" == '127.0.0.1' ] || [ "$TARGET_HOST" == 'localhost' ] || [ ! -z "$MATCH_LOCAL_IP" ]; then
+	echo 'setup bridge for localhost'
+	INVENTORY=$PRGDIR/../ELCM-playbook/inventory/hosts.local
+fi
+ansible-playbook -i $INVENTORY -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/install_bridge.yml 
