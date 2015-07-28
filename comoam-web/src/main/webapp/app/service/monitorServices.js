@@ -38,12 +38,12 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"install":["Start", "Prepare Environment", "Install", "Finished"]			
 			},
 			"Openstack_QOSAC":{
-				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
-				"upgrade": ["Start", "Data Backup", "Post Image Replacement", "Post Configuration", "Data Restore", "Finished"],
+				"install":["Start", "Running Credentials", "Update Document", "Configure new disk drive", "Finished"],
+				"upgrade": ["Start", "Data Backup", "Update Document", "Heat status", "Configure new disk drive", "Data Restore", "Finished"],
 				"delete":["Start","Check Presence of stack","Destroy stack","Finished"],
 			},
 			"Openstack_OVM":{
-				"install":["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
+				"install":["Start", "Running Credentials", "Update Document", "Config switches for OVM", "Finished"],
 			    "delete":["Start","Check Presence of stack","Destroy stack","Finished"]
 			},
 	};

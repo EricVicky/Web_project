@@ -289,20 +289,20 @@ public class LogParserFactory
     private ILogParser osqosacInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("PLAY\\s\\[Auto\\sinstall\\scom\\son\\skvm\\]", "Start");
+        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Configure new disk drive");
+        dict.put("TASK\\:\\s\\[heat\\_templates\\s\\|\\supdate\\sVNFC\\syaml\\sdocument\\]","Update Document");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Running Credentials");
+        dict.put("PLAY\\s\\[create\\svirtual\\smachines\\]", "Start");
         return new LogParser(dict);
     }
     
     private ILogParser oshpsimInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
-        dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
-        dict.put("may\\stake\\saround\\s20\\sminutes", "Post Configuration");
-        dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
-        dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
-        dict.put("PLAY\\s\\[Auto\\sinstall\\scom\\son\\skvm\\]", "Start");
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[post\\_install\\_atc\\s\\|\\sadd\\sswitches\\sto\\sstats\\.cfg\\]", "Config switches for OVM");
+        dict.put("TASK\\:\\s\\[heat\\_templates\\s\\|\\supdate\\sVNFC\\syaml\\sdocument\\]","Update Document");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Running Credentials");
+        dict.put("PLAY\\s\\[create\\svirtual\\smachines\\]", "Start");
         return new LogParser(dict);
     }
     
@@ -320,10 +320,11 @@ public class LogParserFactory
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("TASK\\:\\s\\[Reboot\\sserver\\]", "Finished");
         dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\srestore\\sdata\\]", "Data Restore");
-        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Post Configuration");
-        dict.put("TASK\\:\\s\\[run\\spost\\sreplace\\sscript\\,\\smay\\stake\\saround\\s20\\sminutes\\]", "Post Image Replacement");
-        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
-        dict.put("ansible-playbook", "Start");
+        dict.put("TASK\\:\\s\\[configure\\snew\\sdisk\\sdrive\\]", "Configure new disk drive");
+        dict.put("TASK\\:\\s\\[rebuild\\_vms\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\]", "Heat status");
+        dict.put("TASK\\:\\s\\[heat\\_templates\\s\\|\\supdate\\sVNFC\\syaml\\sdocument\\]","Update Document");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[stop\\sCOM\\]", "Start");
         return new LogParser(dict);
     }
     
@@ -332,7 +333,7 @@ public class LogParserFactory
         dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
-        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        dict.put("GATHERING\\sFACTS", "Start");
         return new LogParser(dict);
 	}
     
@@ -350,7 +351,7 @@ public class LogParserFactory
         dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
         dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
-        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        dict.put("GATHERING\\sFACTS", "Start");
         return new LogParser(dict);
 	}
 }

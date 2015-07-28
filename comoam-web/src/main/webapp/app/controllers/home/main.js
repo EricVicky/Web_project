@@ -18,7 +18,11 @@ angular.module('comoamApp')
 				  $state.go("dashboard.kvmupgrade");	
 			  }
 		  }else{
-			  $state.go("dashboard.osupgrade");
+			  if($scope.selectedIns.comType == "QOSAC"){
+				  $state.go("dashboard.osqosacupgrade");
+			  }else{
+				  $state.go("dashboard.osupgrade");
+			  }
 		  }
 	  }
 	  

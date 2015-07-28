@@ -52,6 +52,7 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE, COMType.QOSAC), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE, COMType.ATC), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE, COMType.HPSIM), new Playbook("destroy.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE, COMType.QOSAC), new Playbook("upgrade_qosac.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

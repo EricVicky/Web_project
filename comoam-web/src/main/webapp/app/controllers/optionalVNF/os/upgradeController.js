@@ -5,6 +5,13 @@ angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter, 
     	$scope.ovm_images = data;
     });
 	
+	$scope.setDefaultInstace = function(){
+    	var selectedOSInstance = DashboardService.getSelectedInstance();
+    	if(selectedOSInstance == null){
+    		return;
+    	}
+    };
+	
     OSService.getComInstance().then( function(data) {
 		$log.info(data);
 		$scope.comInstance = data;
@@ -16,6 +23,7 @@ angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter, 
 				}
 			}
 		}
+		$scope.setDefaultInstace();
     });
     
     var default_app_install_options = {

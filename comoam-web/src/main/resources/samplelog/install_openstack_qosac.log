@@ -1,101 +1,94 @@
 -------Call Ansible......
-2015-07-14 14:00:12,634 p=10600 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+2015-07-26 22:31:21,013 p=29292 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
 timing vulnerabilities when used with pycrypto. If possible, you should update
 it (i.e. yum update gmp).
 
-2015-07-14 14:00:12,780 p=10600 u=root |   
-2015-07-14 14:00:12,780 p=10600 u=root |  /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts deploy_qosac.yml
-2015-07-14 14:00:12,780 p=10600 u=root |   
-2015-07-14 14:00:13,095 p=10600 u=root |  PLAY [Auto install com on kvm] ************************************************ 
-2015-07-14 14:00:13,096 p=10600 u=root |  TASK: [ovm_prepare | Generate uuid for vm instance] *************************** 
-2015-07-14 14:00:13,119 p=10600 u=root |  TASK: [ovm_prepare | Generate mac address] ************************************ 
-2015-07-14 14:00:13,162 p=10600 u=root |  TASK: [ovm_prepare | Generate directories for tmp file] *********************** 
-2015-07-14 14:00:13,209 p=10600 u=root |  TASK: [ovm_prepare | Get authorized key] ************************************** 
-2015-07-14 14:00:13,240 p=10600 u=root |  TASK: [ovm_prepare | Generate meta-data] ************************************** 
-2015-07-14 14:00:13,260 p=10600 u=root |  TASK: [ovm_prepare | Generate user-data] ************************************** 
-2015-07-14 14:00:13,285 p=10600 u=root |  TASK: [ovm_prepare | Generate data source image] ****************************** 
-2015-07-14 14:00:13,306 p=10600 u=root |  TASK: [ovm_prepare | Generate vm domain definition xml] *********************** 
-2015-07-14 14:00:13,325 p=10600 u=root |  TASK: [ovm_prepare | Generate file directories] ******************************* 
-2015-07-14 14:00:13,343 p=10600 u=root |  TASK: [ovm_prepare | Delete tmp meta-data] ************************************ 
-2015-07-14 14:00:13,362 p=10600 u=root |  TASK: [ovm_prepare | Delete tmp user-data] ************************************ 
-2015-07-14 14:00:13,380 p=10600 u=root |  TASK: [prepare | generate mac address for virtual machine] ******************** 
-2015-07-14 14:00:14,240 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:14,240 p=10600 u=root |  TASK: [prepare | Generate directories for tmp file] *************************** 
-2015-07-14 14:00:14,532 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:14,533 p=10600 u=root |  TASK: [prepare | Get authorized key] ****************************************** 
-2015-07-14 14:00:14,641 p=10600 u=root |  changed: [localhost -> 127.0.0.1]
-2015-07-14 14:00:14,642 p=10600 u=root |  TASK: [prepare | Generate meta-data] ****************************************** 
-2015-07-14 14:00:14,777 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:14,778 p=10600 u=root |  TASK: [prepare | Generate user-data] ****************************************** 
-2015-07-14 14:00:14,917 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:14,917 p=10600 u=root |  TASK: [prepare | Generate data source image] ********************************** 
-2015-07-14 14:00:15,284 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,285 p=10600 u=root |  TASK: [prepare | Generate vm domain definition xml] *************************** 
-2015-07-14 14:00:15,430 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,431 p=10600 u=root |  TASK: [prepare | Generate file directories] *********************************** 
-2015-07-14 14:00:15,565 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,566 p=10600 u=root |  TASK: [prepare | Generate install options] ************************************ 
-2015-07-14 14:00:15,696 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,697 p=10600 u=root |  TASK: [prepare | Delete tmp meta-data] **************************************** 
-2015-07-14 14:00:15,817 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,818 p=10600 u=root |  TASK: [prepare | Delete tmp user-data] **************************************** 
-2015-07-14 14:00:15,927 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:15,928 p=10600 u=root |  TASK: [ovm_tar_all_files | Tar optional VM] *********************************** 
-2015-07-14 14:00:16,034 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:16,035 p=10600 u=root |  TASK: [ovm_tar_all_files | Remove tmp directory] ****************************** 
-2015-07-14 14:00:16,132 p=10600 u=root |  changed: [localhost]
-2015-07-14 14:00:16,133 p=10600 u=root |  PLAY [Send data source image to host] ***************************************** 
-2015-07-14 14:00:16,134 p=10600 u=root |  TASK: [Create kvm directories] ************************************************ 
-2015-07-14 14:00:16,609 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:16,610 p=10600 u=root |  TASK: [Send data to hosts] **************************************************** 
-2015-07-14 14:00:17,269 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:17,270 p=10600 u=root |  TASK: [Untar data.tar.gz] ***************************************************** 
-2015-07-14 14:00:17,800 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:17,801 p=10600 u=root |  PLAY [Replace kvm qcow2 file] ************************************************* 
-2015-07-14 14:00:17,801 p=10600 u=root |  TASK: [destroy_kvm | Destroy kvms] ******************************************** 
-2015-07-14 14:00:18,297 p=10600 u=root |  failed: [135.251.236.98] => {"changed": true, "cmd": ["virsh", "destroy", "qosacM001QOSAC01"], "delta": "0:00:00.032688", "end": "2015-07-14 14:50:47.832023", "rc": 1, "start": "2015-07-14 14:50:47.799335", "warnings": []}
-2015-07-14 14:00:18,298 p=10600 u=root |  stderr: error: failed to get domain 'qosacM001QOSAC01'
-error: Domain not found: no domain with matching name 'qosacM001QOSAC01'
-2015-07-14 14:00:18,299 p=10600 u=root |  ...ignoring
-2015-07-14 14:00:18,299 p=10600 u=root |  TASK: [destroy_kvm | Undefine kvms] ******************************************* 
-2015-07-14 14:00:18,775 p=10600 u=root |  failed: [135.251.236.98] => {"changed": true, "cmd": ["virsh", "undefine", "qosacM001QOSAC01"], "delta": "0:00:00.033689", "end": "2015-07-14 14:50:48.319836", "rc": 1, "start": "2015-07-14 14:50:48.286147", "warnings": []}
-2015-07-14 14:00:18,776 p=10600 u=root |  stderr: error: failed to get domain 'qosacM001QOSAC01'
-error: Domain not found: no domain with matching name 'qosacM001QOSAC01'
-2015-07-14 14:00:18,776 p=10600 u=root |  ...ignoring
-2015-07-14 14:00:18,776 p=10600 u=root |  TASK: [change_kvm | Copy qcow2 files to directories] ************************** 
-2015-07-14 14:00:38,164 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:38,165 p=10600 u=root |  TASK: [change_kvm | Create data disk] ***************************************** 
-2015-07-14 14:00:39,620 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:39,621 p=10600 u=root |  TASK: [change_kvm | Create vm instance] *************************************** 
-2015-07-14 14:00:40,681 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:40,682 p=10600 u=root |  TASK: [change_kvm | Start vm instance] **************************************** 
-2015-07-14 14:00:41,933 p=10600 u=root |  changed: [135.251.236.98]
-2015-07-14 14:00:41,933 p=10600 u=root |  TASK: [wait_for_server_start | wait for guest os to start] ******************** 
-2015-07-14 14:01:47,429 p=10600 u=root |  ok: [135.251.236.98]
-2015-07-14 14:01:47,430 p=10600 u=root |  PLAY [Send install_option to qosac vm] **************************************** 
-2015-07-14 14:01:47,431 p=10600 u=root |  TASK: [send_install_options | Make /install/config directory if not exist] **** 
-2015-07-14 14:01:49,316 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:01:49,317 p=10600 u=root |  TASK: [send_install_options | Copy install_options to guest vm] *************** 
-2015-07-14 14:01:50,076 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:01:50,076 p=10600 u=root |  PLAY [image replacement post script] ****************************************** 
-2015-07-14 14:01:50,077 p=10600 u=root |  TASK: [run replace post script, may take around 20 minutes] ******************* 
-2015-07-14 14:22:56,612 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:22:56,613 p=10600 u=root |  PLAY [partiton disk drive] **************************************************** 
-2015-07-14 14:22:56,613 p=10600 u=root |  TASK: [partition_disk | configure new disk drive] ***************************** 
-2015-07-14 14:25:47,189 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:25:47,220 p=10600 u=root |  TASK: [partition_disk | organize directories for image replacement] *********** 
-2015-07-14 14:25:47,798 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:25:47,799 p=10600 u=root |  PLAY [Bulk config after installation] ***************************************** 
-2015-07-14 14:25:47,800 p=10600 u=root |  skipping: no hosts matched
-2015-07-14 14:25:47,801 p=10600 u=root |  PLAY [Vertical scaling COM VM for memory, and CPU] **************************** 
-2015-07-14 14:25:47,802 p=10600 u=root |  TASK: [tune memory] *********************************************************** 
-2015-07-14 14:25:48,305 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:25:48,306 p=10600 u=root |  PLAY [start com application] ************************************************** 
-2015-07-14 14:25:48,306 p=10600 u=root |  skipping: no hosts matched
-2015-07-14 14:25:48,306 p=10600 u=root |  PLAY [Reboot] ***************************************************************** 
-2015-07-14 14:25:48,307 p=10600 u=root |  TASK: [Reboot server] ********************************************************* 
-2015-07-14 14:25:48,785 p=10600 u=root |  changed: [10.223.0.233]
-2015-07-14 14:25:48,786 p=10600 u=root |  PLAY RECAP ******************************************************************** 
-2015-07-14 14:25:48,786 p=10600 u=root |  10.223.0.233               : ok=7    changed=7    unreachable=0    failed=0   
-2015-07-14 14:25:48,787 p=10600 u=root |  135.251.236.98             : ok=10   changed=9    unreachable=0    failed=0   
-2015-07-14 14:25:48,787 p=10600 u=root |  localhost                  : ok=13   changed=13   unreachable=0    failed=0   
+2015-07-26 22:31:21,122 p=29292 u=root |
+2015-07-26 22:31:21,122 p=29292 u=root |  /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts deploy_qosac.yml
+2015-07-26 22:31:21,123 p=29292 u=root |
+2015-07-26 22:31:21,229 p=29292 u=root |  PLAY [create virtual machines] ************************************************
+2015-07-26 22:31:21,229 p=29292 u=root |  GATHERING FACTS ***************************************************************
+2015-07-26 22:31:21,480 p=29292 u=root |  ok: [localhost]
+2015-07-26 22:31:21,481 p=29292 u=root |  TASK: [os_common | Running with OS credentials] *******************************
+2015-07-26 22:31:21,494 p=29292 u=root |  ok: [localhost] => {
+    "msg": "os_username=mgc8-com-test os_tenant_name=MGC8 os_tenant_id= os_region=RegionOne os_auth_url=http://135.251.91.5:5000/v2.0 os_cacert=../../crt/openstack.crt"
+}
+2015-07-26 22:31:21,494 p=29292 u=root |  TASK: [os_common | validate credentials] **************************************
+2015-07-26 22:31:21,987 p=29292 u=root |  ok: [localhost]
+2015-07-26 22:31:21,988 p=29292 u=root |  TASK: [os_common | valiadtion key] ********************************************
+2015-07-26 22:31:21,991 p=29292 u=root |  ok: [localhost] => {
+    "msg": "key_name=COMv5 "
+}
+2015-07-26 22:31:21,991 p=29292 u=root |  TASK: [os_common | validate presence of Nova SSH keypair] *********************
+2015-07-26 22:31:22,671 p=29292 u=root |  ok: [localhost]
+2015-07-26 22:31:22,672 p=29292 u=root |  TASK: [heat_templates | Running with the following options] *******************
+2015-07-26 22:31:22,675 p=29292 u=root |  ok: [localhost] => {
+    "msg": "template_version=2014-10-16 config_drive=True "
+}
+2015-07-26 22:31:22,676 p=29292 u=root |  TASK: [heat_templates | update ALU-1360-COM.hot.yaml document] ****************
+2015-07-26 22:31:22,852 p=29292 u=root |  changed: [localhost]
+2015-07-26 22:31:22,853 p=29292 u=root |  TASK: [heat_templates | update ALU-1360-COM.env.yaml document] ****************
+2015-07-26 22:31:23,033 p=29292 u=root |  changed: [localhost]
+2015-07-26 22:31:23,033 p=29292 u=root |  TASK: [heat_templates | update VNFC yaml document] ****************************
+2015-07-26 22:31:23,270 p=29292 u=root |  changed: [localhost]
+2015-07-26 22:31:23,271 p=29292 u=root |  TASK: [deploy_stack | check presence of heat stack] ***************************
+2015-07-26 22:31:23,915 p=29292 u=root |  ok: [localhost]
+2015-07-26 22:31:23,916 p=29292 u=root |  TASK: [deploy_stack | invoke a heat stack-create] *****************************
+2015-07-26 22:31:25,098 p=29292 u=root |  changed: [localhost]
+2015-07-26 22:31:25,099 p=29292 u=root |  TASK: [deploy_stack | wait for sucessful stack-create and timeout after 15 minutes] ***
+2015-07-26 22:31:41,072 p=29292 u=root |  ok: [localhost]
+2015-07-26 22:31:41,074 p=29292 u=root |  PLAY [wait for virtual machines to be alive] **********************************
+2015-07-26 22:31:41,075 p=29292 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] *************************
+2015-07-26 22:31:41,082 p=29292 u=root |  skipping: [localhost]
+2015-07-26 22:31:41,083 p=29292 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] *************************
+2015-07-26 22:31:41,087 p=29292 u=root |  skipping: [localhost]
+2015-07-26 22:31:41,088 p=29292 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] *************************
+2015-07-26 22:31:41,093 p=29292 u=root |  skipping: [localhost]
+2015-07-26 22:31:41,093 p=29292 u=root |  TASK: [vnf_wait_for_alive | wait for server to alive] *************************
+2015-07-26 22:32:41,257 p=29292 u=root |  ok: [localhost -> 127.0.0.1]
+2015-07-26 22:32:41,259 p=29292 u=root |  PLAY [acquire vm uuid] ********************************************************
+2015-07-26 22:32:41,261 p=29292 u=root |  TASK: [output_vm_uuid | acquire nova uuid] ************************************
+2015-07-26 22:32:41,907 p=29292 u=root |  ok: [135.252.152.142 -> localhost]
+2015-07-26 22:32:41,910 p=29292 u=root |  TASK: [output_vm_uuid | debug msg="{{ vms_uuid.output }}"] ********************
+2015-07-26 22:32:42,286 p=29292 u=root |  ok: [135.252.152.142] => {
+    "msg": "{'ovm': '67da8fce-272c-4bd8-8f5b-21c5ec256469'}"
+}
+2015-07-26 22:32:42,287 p=29292 u=root |  TASK: [output_vm_uuid | generate vm uuid] *************************************
+2015-07-26 22:32:42,946 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:32:42,946 p=29292 u=root |  PLAY [check /dev/vdb] *********************************************************
+2015-07-26 22:32:42,947 p=29292 u=root |  TASK: [search /dev/vdb] *******************************************************
+2015-07-26 22:32:43,383 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:32:43,385 p=29292 u=root |  TASK: [debug msg={{ vdb_rst.stdout  }}] ***************************************
+2015-07-26 22:32:43,730 p=29292 u=root |  ok: [135.252.152.142] => {
+    "msg": "/dev/vdb"
+}
+2015-07-26 22:32:43,731 p=29292 u=root |  TASK: [reboot if vdb not present] *********************************************
+2015-07-26 22:32:43,734 p=29292 u=root |  skipping: [135.252.152.142]
+2015-07-26 22:32:43,735 p=29292 u=root |  TASK: [wait_for host={{ inventory_hostname }} port=22 delay=10 timeout=300 state=stopped] ***
+2015-07-26 22:32:43,738 p=29292 u=root |  skipping: [135.252.152.142]
+2015-07-26 22:32:43,739 p=29292 u=root |  TASK: [wait_for host={{ inventory_hostname }} port=22 delay=10 timeout=300 state=started] ***
+2015-07-26 22:32:43,742 p=29292 u=root |  skipping: [135.252.152.142]
+2015-07-26 22:32:43,742 p=29292 u=root |  PLAY [image replacement post script] ******************************************
+2015-07-26 22:32:43,742 p=29292 u=root |  TASK: [run post replace script, may take around 20 minutes] *******************
+2015-07-26 22:48:02,277 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:48:02,278 p=29292 u=root |  TASK: [configure new disk drive] **********************************************
+2015-07-26 22:50:24,581 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:24,583 p=29292 u=root |  TASK: [organize directories for image replacement] ****************************
+2015-07-26 22:50:25,088 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:25,088 p=29292 u=root |  PLAY [Bulk config after installation] *****************************************
+2015-07-26 22:50:25,089 p=29292 u=root |  skipping: no hosts matched
+2015-07-26 22:50:25,089 p=29292 u=root |  PLAY [Vertical scaling COM VM for memory, and CPU] ****************************
+2015-07-26 22:50:25,089 p=29292 u=root |  TASK: [tune memory] ***********************************************************
+2015-07-26 22:50:26,059 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:26,059 p=29292 u=root |  PLAY [delete suspend file] ****************************************************
+2015-07-26 22:50:26,060 p=29292 u=root |  TASK: [delete_suspend_file | delete suspend file] *****************************
+2015-07-26 22:50:26,496 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:26,496 p=29292 u=root |  PLAY [start com application] **************************************************
+2015-07-26 22:50:26,497 p=29292 u=root |  TASK: [start_com | start com application] *************************************
+2015-07-26 22:50:33,010 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:33,010 p=29292 u=root |  PLAY [Reboot] *****************************************************************
+2015-07-26 22:50:33,011 p=29292 u=root |  TASK: [Reboot server] *********************************************************
+2015-07-26 22:50:33,470 p=29292 u=root |  changed: [135.252.152.142]
+2015-07-26 22:50:33,470 p=29292 u=root |  PLAY RECAP ********************************************************************
+2015-07-26 22:50:33,470 p=29292 u=root |  135.252.152.142            : ok=12   changed=9    unreachable=0    failed=0
+2015-07-26 22:50:33,471 p=29292 u=root |  localhost                  : ok=13   changed=4    unreachable=0    failed=0
