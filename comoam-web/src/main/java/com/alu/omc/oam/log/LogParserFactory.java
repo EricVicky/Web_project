@@ -208,7 +208,7 @@ public class LogParserFactory
     private ILogParser kvmovmInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put(".*post_install.*", "Post Configuration");
+        dict.put("PLAY\\s\\[Config\\sswitches\\sfor\\sOVM\\]", "Post Configuration");
         dict.put("change\\_kvm\\s\\|\\sCopy\\sqcow2\\sfiles\\sto\\sdirectories","Start VM Instance");
         dict.put("prepare\\s\\|\\sGenerate\\sdata\\ssource\\simage", "Generate Config Driver");
         dict.put("prepare\\s\\|\\sGenerate\\smeta-data", "Start");
