@@ -6,6 +6,7 @@
 dir_util=`dirname $0`
 tmp_host=${dir_util}/tmp_host_$$
 real_exec_user=`/usr/bin/id -un`
+export ANSIBLE_CONFIG=/opt/PlexView/ELCM/ELCM-playbook/cfg/kvm.cfg
 [ "${runner}" = "" ] && runner=root
 if [ "${real_exec_user}" != "${runner}" ]; then
    echo " This script must be run by ${runner} user"
@@ -34,7 +35,7 @@ if [ "$#" = "0" ]; then
 
   export host_IP=$IP
   /bin/echo "Password for root user:"
-  ansible-playbook -i host  --ask-pass ${dir_util}/../ELCM-playbook/playbooks/kvm/authhost.yml
+  ansible-playbook -c paramiko -i host  --ask-pass ${dir_util}/../ELCM-playbook/playbooks/kvm/authhost.yml
 else
   host="$1"
   IP="$2"
@@ -42,8 +43,7 @@ else
 
   echo "[host]" > ${tmp_host}
   echo "${IP} ansible_ssh_user=root ansible_ssh_pass=${pass}" >> ${tmp_host}
-
-  ansible-playbook -i ${tmp_host} ${dir_util}/../ELCM-playbook/playbooks/kvm/authhost.yml
+  ansible-playbook -c paramiko  -i ${tmp_host} ${dir_util}/../ELCM-playbook/playbooks/kvm/authhost.yml
 
   play_result=$?
 
@@ -58,7 +58,7 @@ else
   exit 1
 fi
 
-/usr/bin/python ./addHostJson.py $IP $host
+/usr/bin/python ${dir_util}/./addHostJson.py $IP $host
 
 if [ $? = 0 ]
 then
