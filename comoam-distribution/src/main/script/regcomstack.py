@@ -47,7 +47,7 @@ def error(message):
     sys.stderr.write("error: %s\n" % message)
     sys.exit(1)
 
-def reg(varfilename):
+def reg(varfilename,host):
     if os.path.exists(varfilename) :
         try:
             with open(varfilename, 'r') as stream:
@@ -67,7 +67,7 @@ def reg(varfilename):
 def main(argv):
    varfilename = ''
    try:
-      opts, args = getopt.getopt(argv,"hv:",["vfile="])
+      opts, args = getopt.getopt(argv,"hv:i:",["vfile=", "ifile="])
    except getopt.GetoptError:
       raise Usage('regcomstack.py -v <group_var/all>')
    for opt, arg in opts:
@@ -81,9 +81,8 @@ def main(argv):
    try:
       reg(varfilename, host)
    except Exception:
-      error("failed to register comstack")
       traceback.print_exc(file=sys.stdout)
-
+      error("failed to register comstack")
 
 if __name__ == "__main__":
    main(sys.argv[1:])
