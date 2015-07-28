@@ -50,6 +50,9 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.HPSIM), oshpsimInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ATC), osatcInstallParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.OPENSTACK, COMType.QOSAC), osqosacupgradeParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.QOSAC), osqosacdeleteParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.ATC), osatcdeleteParser());
+        parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.HPSIM), oshpsimdeleteParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -324,4 +327,30 @@ public class LogParserFactory
         return new LogParser(dict);
     }
     
+    private ILogParser osqosacdeleteParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser osatcdeleteParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser oshpsimdeleteParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\sdestroy\\sthe\\sstack\\]", "Destroy stack");
+        dict.put("TASK\\:\\s\\[destroy\\_stack\\s\\|\\scheck\\spresence\\sof\\sstack\\]", "Check Presence of stack");
+        dict.put("TASK\\:\\s\\[os\\_common\\s\\|\\sRunning\\swith\\sOS\\scredentials\\]", "Start");
+        return new LogParser(dict);
+	}
 }

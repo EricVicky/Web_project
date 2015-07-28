@@ -68,12 +68,12 @@ angular.module('comoamApp')
 		  }else{
 			  if($scope.selectedIns.comType=='QOSAC' || $scope.selectedIns.comType =='HPSIM' || $scope.selectedIns.comType=='ATC'){
 				  OSService.deleteovm($scope.selectedIns).then( function(){
-					  monitorService.monitor($scope.selectedIns.environment,"DELETE",$scope.selectedIns.comType,$scope.selectedIns.stack_name);
+					  monitorService.monitor("Openstack","DELETE",$scope.selectedIns.comType,$scope.selectedIns.stack_name);
 					  $state.go("dashboard.monitor");
 				  });
 			  }else{
 				  OSService.deletecom($scope.selectedIns).then( function(){
-					  monitorService.monitor($scope.selectedIns.environment,"DELETE",$scope.selectedIns.comType,$scope.selectedIns.stack_name);
+					  monitorService.monitor("Openstack","DELETE",$scope.selectedIns.comType,$scope.selectedIns.stack_name);
 					  $state.go("dashboard.monitor");
 				  });
 			  }
