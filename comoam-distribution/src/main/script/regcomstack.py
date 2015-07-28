@@ -31,7 +31,6 @@ class COMStack():
     def append(self):
             comstacks = self.loadcomstacks()
             comstacks.append(self.__dict__)
-            print comstacks
 	    with open(self.comstackfile, 'w') as comstacksfs:
     		json.dump(comstacks, comstacksfs,  indent=2)
 
@@ -49,16 +48,18 @@ def error(message):
     sys.exit(1)
 
 def reg(varfilename):
-    if os.path.exists(varfilename):
+    if os.path.exists(varfilename) :
         try:
             with open(varfilename, 'r') as stream:
                 comConfig = yaml.load(stream)
+                comConfig['environment'] = 'KVM'
+                comConfig['active_host_ip'] = host
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
                 comStack.setComconfig(json.dumps(comConfig))
                 comStack.append()
         except Exception:
+            error("failed to  save stack")
             raise Usage('failed to  save stack')
-#            error("failed to open the file {0}".format(varfilename))
     else:
             error("failed to open the file {0}".format(varfilename))
             raise Usage('failed to  save stack')
@@ -75,8 +76,10 @@ def main(argv):
          sys.exit()
       elif opt in ("-v", "--vfile"):
          varfilename = arg
+      elif opt in ("-i", "--ifile"):
+         host = arg
    try:
-      reg(varfilename)
+      reg(varfilename, host)
    except Exception:
       error("failed to register comstack")
       traceback.print_exc(file=sys.stdout)
