@@ -53,6 +53,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.QOSAC), osqosacdeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.ATC), osatcdeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.HPSIM), oshpsimdeleteParser());
+        parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ARS), osarsInstallParser());
     }
     
     private ILogParser kvmGrInstPriParser() {
@@ -278,6 +279,15 @@ public class LogParserFactory
 	}
     
     private ILogParser kvmarsInstallParser(){
+        Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[execute\\sinstall_boe_linux.sh","Install");
+        dict.put("TASK\\:\\s\\[create\\sdirectory", "Prepare Environment");
+        dict.put("PLAY\\s\\[Install\\sARS", "Start");
+        return new LogParser(dict);
+    }
+    
+    private ILogParser osarsInstallParser(){
         Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[execute\\sinstall_boe_linux.sh","Install");
