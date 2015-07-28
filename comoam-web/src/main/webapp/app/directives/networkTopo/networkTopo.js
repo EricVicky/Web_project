@@ -112,7 +112,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     	            					var hostNamePoint = new Point(this.networkTopologyStartX + comStackTopoX + hostCOMStackX,
     	            							this.networkTopologyStartY + comStackTopoY + hostCOMStackY + (comStackHeight + comStackInterval) * comStacksNum + hostHeight / 2 + 4);
     									hostNameText[comStacksNum] = new PointText(hostNamePoint);
-    									hostNameText[comStacksNum].content = this.COMStacks[comStacksNum].host.ip_address;
+    									hostNameText[comStacksNum].content = this.COMStacks[comStacksNum].active_host_ip;
     									hostNameText[comStacksNum].fillColor = 'black';
     									hostNameText[comStacksNum].fontSize = '15px'; 
     									hostNameText[comStacksNum].justification = 'center';
