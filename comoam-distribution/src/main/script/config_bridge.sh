@@ -20,13 +20,13 @@ function usage {
    echo "    -v the source interface is a vlan on bonding channel"
    echo "    -h display help message"
    echo "example:"
-   echo "    ./config_bridge.sh eth0 br0"
-   echo "    ./config_bridge.sh -s eth1 br1"
-   echo "    ./config_bridge.sh -s --6s eth1 br1"
-   echo "    ./config_bridge.sh -b bond0 br0"
-   echo "    ./config_bridge.sh -s -b bond1 br1"
-   echo "    ./config_bridge.sh --6s -b bond1 br1"
-   echo "    ./config_bridge.sh -v bond0.190 br0"
+   echo "    ./config_bridge.sh --host <host_ip> eth0 br0"
+   echo "    ./config_bridge.sh --host <host_ip> -s eth1 br1"
+   echo "    ./config_bridge.sh --host <host_ip> -s --6s eth1 br1"
+   echo "    ./config_bridge.sh --host <host_ip> -b bond0 br0"
+   echo "    ./config_bridge.sh --host <host_ip> -s -b bond1 br1"
+   echo "    ./config_bridge.sh --host <host_ip> --6s -b bond1 br1"
+   echo "    ./config_bridge.sh --host <host_ip> -v bond0.190 br0"
 }
 
 if [ $# -eq 0 ]; then
