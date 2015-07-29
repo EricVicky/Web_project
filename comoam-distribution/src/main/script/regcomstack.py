@@ -40,7 +40,8 @@ class COMStack():
                 comstacks = json.load(comstacksfs)
                 return comstacks
             except ValueError:
-                error('failed to load comstacks')
+                comstacks = []
+                return comstacks
         return None
 
 def error(message):
@@ -69,6 +70,7 @@ def reg(varfilename,host):
         
 def main(argv):
    varfilename = ''
+   host = '127.0.0.1'
    try:
       opts, args = getopt.getopt(argv,"hv:i:",["vfile=", "ifile="])
    except getopt.GetoptError:
