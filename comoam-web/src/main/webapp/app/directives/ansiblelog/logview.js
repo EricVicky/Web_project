@@ -82,7 +82,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 											if($('#task').height()!=0){
 												position = $('#task').height();
 											}else{
-												position = 200;
+												position = 210;
 											}
 											loadinghtml = "<img src=\"images/spinner.gif\" style=\"padding-left:280px;padding-top:"+(position-8)+"px\"/>";
 											loadpos.html(loadinghtml);
