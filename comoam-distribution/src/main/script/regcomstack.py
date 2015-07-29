@@ -40,7 +40,8 @@ class COMStack():
                 comstacks = json.load(comstacksfs)
                 return comstacks
             except ValueError:
-                error('failed to load comstacks')
+                comstacks = []
+                return comstacks
         return None
 
 def error(message):
@@ -49,14 +50,17 @@ def error(message):
 
 def reg(varfilename,host):
     if os.path.exists(varfilename) :
+        print 'load com stacks'
         try:
             with open(varfilename, 'r') as stream:
                 comConfig = yaml.load(stream)
                 comConfig['environment'] = 'KVM'
                 comConfig['active_host_ip'] = host
+                print 'create new com stack'
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
                 comStack.setComconfig(json.dumps(comConfig))
                 comStack.append()
+                print 'stack created completed!'
         except Exception:
             error("failed to  save stack")
             raise Usage('failed to  save stack')
@@ -66,6 +70,7 @@ def reg(varfilename,host):
         
 def main(argv):
    varfilename = ''
+   host = '127.0.0.1'
    try:
       opts, args = getopt.getopt(argv,"hv:i:",["vfile=", "ifile="])
    except getopt.GetoptError:

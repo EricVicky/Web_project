@@ -1,13 +1,13 @@
 #!/usr/bin/python
 import json
 import sys
-with open('../datasource/hosts.json', 'r') as hostsjson:
+with open('/opt/PlexView/ELCM/datasource/hosts.json', 'r') as hostsjson:
     try:
         feeds = json.load(hostsjson)
     except ValueError: 
         feeds = []
 
-with open('../datasource/hosts.json', 'w') as hostsjson:
+with open('/opt/PlexView/ELCM/datasource/hosts.json', 'w') as hostsjson:
 	entry = {'ip_address': sys.argv[1], 'name': sys.argv[2]}
 	for host in feeds:
 		if entry['name'] == host['name']:
