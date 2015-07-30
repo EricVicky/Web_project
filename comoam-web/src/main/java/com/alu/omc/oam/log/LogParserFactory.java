@@ -123,7 +123,7 @@ public class LogParserFactory
     private ILogParser kvmBackupParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}

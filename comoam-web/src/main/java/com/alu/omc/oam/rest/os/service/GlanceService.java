@@ -25,6 +25,9 @@ public class GlanceService
 		List<YaoImage> imageList = new ArrayList<YaoImage>();
 		for(Image image : images)
 		{
+		    if( image.getStatus() != Image.Status.ACTIVE){
+		        continue;
+		    }
 			YaoImage yaoImage = new YaoImage(image);
 						
 			imageList.add(yaoImage);
