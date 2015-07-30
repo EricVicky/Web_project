@@ -8,6 +8,9 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     $scope.installConfig ={};
     
     $scope.deploy = function (){
+    	if($scope.installConfig.comType=='HPSIM'){
+    		$scope.installConfig.vm_config.ovm.com_data_vol_size = 0;
+    	}
     	OSService.deployOVM($scope.installConfig).then( function(){
     		monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.stack_name);
 			$state.go("dashboard.monitor");
