@@ -37,7 +37,7 @@ public class UpgradeOSQOSACHandler implements IAnsibleHandler {
     ILogParser logParser;
     Boolean succeed = true;
     ParseResult END = new ParseResult();
-   // private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\].*$");
+    private static Pattern updatedPattern = Pattern.compile("wait\\sfor\\svirtual\\smachines\\sto\\sbe\\salive");
     private static Logger logger = LoggerFactory.getLogger(UpgradeOSQOSACHandler.class);
 	@Override
 	public void onStart() {
@@ -52,7 +52,8 @@ public class UpgradeOSQOSACHandler implements IAnsibleHandler {
 	@Override
 	public void onSucceed() {
 		logger.info("deployment on OS succeed");
-		
+	    COMStack stack = new COMStack(config);
+	    service.update(stack);
 	}
 	
 	@Override
@@ -74,13 +75,13 @@ public class UpgradeOSQOSACHandler implements IAnsibleHandler {
 	    	  this.succeed  = false;
 	      }
 		Object msg = logParser.parse(log);
-		//if((stackPattern.matcher(log)).find()){
+		if((updatedPattern.matcher(log)).find()){
 	    	  COMStack stack = new COMStack(config);
 	          service.update(stack);
-	     // }
+	      }
 	    sender.send(getFulltopic(), msg );
-		
 	}
+	
 	
 	private boolean hasError(String log){
     	return false;

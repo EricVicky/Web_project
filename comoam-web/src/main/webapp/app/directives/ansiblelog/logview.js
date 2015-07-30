@@ -13,6 +13,8 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 									var taskgroup = new Array();
 									$scope.nologshow = true;
 									$scope.loadingshow = true;
+									$scope.isfailed = false;
+									$scope.issucceed = false;
 									$scope.nextstep = "Start";
 									$scope.$on('$destroy', function() {
 										websocketService.disconnect();
@@ -43,11 +45,19 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 													}
 													WizardHandler.wizard().next();
 													WizardHandler.wizard().finish();
+													$scope.loadingshow = false;
 												});
 											}
-											$scope.loadingshow = false;
+											$scope.$apply(function() {
+												$scope.result = log.result;
+												if(log.result == 'succeed'){
+													$scope.issucceed = true;
+												}else{
+													$scope.isfailed = true;
+												}
+												$scope.result_message = monitorService.getEndMsg(log.result);
+											});
 											setTimeout(websocketService.disconnect,10000);
-											
 											return;
 										}
 										if ($scope.nextstep != log.step && log.step) {

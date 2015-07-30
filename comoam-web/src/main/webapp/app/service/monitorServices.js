@@ -53,36 +53,36 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 	
 	var endMsg = {
 			"install": {
-				"success" : "Installation Completed",
-				"error": "Installation Failed"
+				"succeed" : "Installation Completed",
+				"failed": "Installation Failed"
 			},
 			"upgrade":{
-				"success" : "Upgrade Completed",
-				"error": "Upgrade Failed"
+				"succeed" : "Upgrade Completed",
+				"failed": "Upgrade Failed"
 			},
 			"backup":{
-				"success" : "Backup Completed",
-				"error": "Backup Failed"
+				"succeed" : "Backup Completed",
+				"failed": "Backup Failed"
 			},
 			"delete":{
-				"success" : "Destroyed",
-				"error": "Deletion failed"
+				"succeed" : "Destroyed",
+				"failed": "Deletion failed"
 			},
 			"restore":{
-				"success" : "Restore completed!",
-				"error": "Restore failed"
+				"succeed" : "Restore completed!",
+				"failed": "Restore failed"
 			},
 			"gr_pri_install":{
-				"success" : "Installation of Primary completed!",
-				"error": "Installation of Primary failed"
+				"succeed" : "Installation of Primary completed!",
+				"failed": "Installation of Primary failed"
 			},
 			"gr_sec_install":{
-				"success" : "Installation of GR on secondary completed!",
-				"error": "Installation of GR on secondary  failed"
+				"succeed" : "Installation of GR on secondary completed!",
+				"failed": "Installation of GR on secondary  failed"
 			},
 			"gr_uninstall":{
-				"success" : "Uninstallation of GR completed!",
-				"error": "Uninstallation  of GR failed"
+				"succeed" : "Uninstallation of GR completed!",
+				"failed": "Uninstallation  of GR failed"
 			}
 	}
 	var environment;
@@ -220,7 +220,7 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			return stepsDict[environment][action];
 		},
 		getEndMsg: function(res){
-			return endMsg[act][res];
+			return endMsg[action][res];
 		}
 	};
 });

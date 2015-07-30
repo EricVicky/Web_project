@@ -405,3 +405,9 @@ div .loglocation {
 	overflow: auto;
 	margin-top:5px;
 }
+.alert {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}

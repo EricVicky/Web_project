@@ -7,6 +7,7 @@ angular.module('monitor', [ 'ui.router',
             $state, websocketService,  WizardHandler, monitorService) {
 			$scope.ansibleSteps = monitorService.getSteps();
 			$scope.channel = monitorService.getChannel();
+
 } );
 
 
