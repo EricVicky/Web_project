@@ -47,8 +47,8 @@
         },
         "OVM":{
             "QOSAC":[ {"label": "Normal(4*24*200)", "vCpu": "4", "memory": "25165824", "disk": "200"} ],
-            "ATC": [ {"label": "Normal(2*8*100)", "vCpu": "2", "memory": "8388608", "disk": "100"} ],
-            "HPSIM": [ {"label": "Normal(2*8*20)", "vCpu": "2", "memory": "8388608", "disk": "20"} ]
+            "ATC": [ {"label": "Normal(2*8*200)", "vCpu": "2", "memory": "8388608", "disk": "200"} ],
+            "HPSIM": [ {"label": "Normal(2*8*1)", "vCpu": "2", "memory": "8388608", "disk": "1"} ]
         }
         
      }
