@@ -45,7 +45,6 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 													}
 													WizardHandler.wizard().next();
 													WizardHandler.wizard().finish();
-													$scope.loadingshow = false;
 												});
 											}
 											$scope.$apply(function() {
@@ -55,6 +54,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 												}else{
 													$scope.isfailed = true;
 												}
+												$scope.loadingshow = false;
 												$scope.result_message = monitorService.getEndMsg(log.result);
 											});
 											setTimeout(websocketService.disconnect,10000);
