@@ -56,6 +56,8 @@ angular.module('os', [ 'ui.router',
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
             	if($scope.installConfig.com_provider_network!=null){
+            		$scope.installConfig.com_provider_network.v6_subnet = '';
+            		$scope.installConfig.com_provider_network.subnet = '';
             		OSService.getV4Subnets($scope.installConfig.com_provider_network.network)
                	 	.then(function(data){
                	 		$scope.v4subnets = data;
