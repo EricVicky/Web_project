@@ -114,14 +114,14 @@
 							<execution>
 								<id>generate-rpm</id>
 								<goals>
-									<goal>attached-rpm</goal>
+									<goal>rpm</goal>
 								</goals>
 							</execution>
 						</executions>
 						<configuration>
 							<name>ELCM</name>
 							<license>GPL (c) 2015, ALU</license>
-							<distribution>ALU 2005</distribution>
+							<distribution>ALU 2015</distribution>
 							<group>Alcatel-lucent</group>
 							<version>${release.version}</version>
 							<targetArchitecture>x86_64</targetArchitecture>
