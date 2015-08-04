@@ -68,10 +68,10 @@ public class AnsibleDelegator implements ApplicationContextAware
                 {
                     try
                     {
-                        Thread.currentThread().sleep(1500);
+                        //Thread.currentThread().sleep(1500);
                         ansibleInvoker.invoke(playbookCall, getHandler(action, config));
                     }
-                    catch (InterruptedException e)
+                    catch (Exception e)
                     {
                         e.printStackTrace();
                     }
@@ -91,9 +91,11 @@ public class AnsibleDelegator implements ApplicationContextAware
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
-           providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
-           providerNetwork.setGateway(subnet.getGateway());
-           providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(subnet!=null){
+               providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
+               providerNetwork.setGateway(subnet.getGateway());
+               providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           }
            if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
                NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
                if(v6subnet != null){
@@ -115,9 +117,11 @@ public class AnsibleDelegator implements ApplicationContextAware
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            com.alu.omc.oam.config.QosacOSCOMConfig.COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
-           providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
-           providerNetwork.setGateway(subnet.getGateway());
-           providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(subnet!=null){
+               providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
+               providerNetwork.setGateway(subnet.getGateway());
+               providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           }
            if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
                NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
                if(v6subnet != null){
@@ -139,9 +143,11 @@ public class AnsibleDelegator implements ApplicationContextAware
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            com.alu.omc.oam.config.HpsimOSCOMConfig.COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
-           providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
-           providerNetwork.setGateway(subnet.getGateway());
-           providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(subnet!=null){
+               providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
+               providerNetwork.setGateway(subnet.getGateway());
+               providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           }
            if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
                NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
                if(v6subnet != null){
@@ -163,9 +169,11 @@ public class AnsibleDelegator implements ApplicationContextAware
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
            com.alu.omc.oam.config.AtcOSCOMConfig.COMProvidernetwork providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
-           providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
-           providerNetwork.setGateway(subnet.getGateway());
-           providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           if(subnet != null){
+               providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
+               providerNetwork.setGateway(subnet.getGateway());
+               providerNetwork.setNetmask(NetworkUtil.getNetMask(subnet.getCidr()));
+           }
            if(!StringUtils.isBlank(providerNetwork.getV6_subnet())){
                NeutronSubnet v6subnet =  neutronService.getSubetById(providerNetwork.getV6_subnet());
                if(v6subnet != null){

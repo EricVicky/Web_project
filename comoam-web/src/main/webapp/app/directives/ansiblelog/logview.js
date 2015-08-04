@@ -17,12 +17,14 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 									$scope.issucceed = false;
 									$scope.nextstep = "Start";
 									$scope.$on('$destroy', function() {
+										$log.info("on destroy monitor");
 										websocketService.disconnect();
 									});
 									$scope.logtail = function(data) {
 										$scope.socket = websocketService.connect($scope.endponit, function( socket) { socket.stomp.subscribe(
 															$scope.channel,
 															$scope.showlog);
+														$log.info("connected");
 														monitorService.runAnsibleTask();	
 												});
 									};
@@ -57,7 +59,8 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 												$scope.loadingshow = false;
 												$scope.result_message = monitorService.getEndMsg(log.result);
 											});
-											setTimeout(websocketService.disconnect,10000);
+											$log.info("try to disconnect websocket in 10 second")
+											//setTimeout(websocketService.disconnect,10000);
 											return;
 										}
 										if ($scope.nextstep != log.step && log.step) {

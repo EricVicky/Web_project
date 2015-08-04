@@ -57,10 +57,10 @@ public class AnsibleInvoker implements IAnsibleInvoker
                     @Override
                     public void onProcessComplete(int paramInt)
                     {
-                        handler.onProcessComplete(paramInt);
                         try
                         {
                             Thread.currentThread().sleep(2*minterval);
+                            handler.onProcessComplete(paramInt);
                         }
                         catch (InterruptedException e)
                         {
@@ -75,10 +75,10 @@ public class AnsibleInvoker implements IAnsibleInvoker
                     public void onProcessFailed(
                             ExecuteException paramExecuteException)
                     {
-                        handler.onProcessFailed(paramExecuteException);
                         try
                         {
                             Thread.currentThread().sleep(2*minterval);
+                            handler.onProcessFailed(paramExecuteException);
                         }
                         catch (InterruptedException e)
                         {
