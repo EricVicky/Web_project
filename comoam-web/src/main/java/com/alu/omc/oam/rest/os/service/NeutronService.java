@@ -16,6 +16,8 @@ import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Port;
 import org.openstack4j.model.network.Subnet;
 import org.openstack4j.openstack.networking.domain.NeutronSubnet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alu.omc.oam.rest.os.domain.neutron.YaoNetwork;
@@ -28,6 +30,7 @@ public class NeutronService
 {
 	@Resource
 	private YaoOsClientService yaoOsClientService;
+	private static Logger log = LoggerFactory.getLogger(NeutronService.class);
 	public class IdNamePair
 	{
 		private String id;
@@ -143,9 +146,11 @@ public class NeutronService
 	
 	private Map<String, Subnet> buildSubnetMap(OSClient client) {
 	    List<? extends Subnet> subnetList = client.networking().subnet().list();
+	    log.info("subnetList.size=" + String.valueOf(subnetList.size()));
 	    Map<String, Subnet> subnetMap = new HashMap<String, Subnet>();
 	    for (Subnet subnet : subnetList) {
 	        subnetMap.put(subnet.getId(), subnet);
+	        log.info("add subnet:" + subnet.getId());
 	    }
 	    return subnetMap;
 	}
@@ -167,7 +172,12 @@ public class NeutronService
 		for(String subnetID: network.getSubnets())
 		{
 			
-			yaoSubnetList.add(assembleYaoSubnet(subnetMap.get(subnetID)));
+			log.info("try get subnet:" + subnetID);
+		    if(subnetMap.get(subnetID)!=null){			    
+			    yaoSubnetList.add(assembleYaoSubnet(subnetMap.get(subnetID)));
+			}else{
+			    log.warn("unable to get subnet" + subnetID);
+			}
 		}
 						
 		yaoNetwork.setNeutronSubnets(yaoSubnetList);

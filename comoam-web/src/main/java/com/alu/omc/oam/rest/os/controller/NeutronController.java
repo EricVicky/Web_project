@@ -6,10 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.openstack4j.api.OSClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alu.omc.oam.ansible.AnsibleDelegator;
 import com.alu.omc.oam.rest.os.domain.neutron.YaoNetwork;
 import com.alu.omc.oam.rest.os.domain.neutron.YaoPort;
 import com.alu.omc.oam.rest.os.service.NeutronService;
@@ -26,6 +29,8 @@ public class NeutronController {
 	private YaoOsClientService yaoOsClientService;
 	@Resource
 	private NeutronService neutronService;
+
+    private static Logger log = LoggerFactory.getLogger(NeutronController.class);
 
 	public void setYaoClientService(YaoOsClientService yaoOsClientService) {
 		this.yaoOsClientService = yaoOsClientService;
