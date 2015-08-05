@@ -183,14 +183,14 @@ public class GRIP implements Serializable{
             this.sec_ip = isIPv4?stbNics.get(1).getIp_v4().ipaddress: 
                 stbNics.get(1).getIp_v6().getIpaddress();
             this.red_ip = isIPv4?stbNics.get(2).getIp_v4().ipaddress: 
-                actNics.get(2).getIp_v6().getIpaddress();
+                stbNics.get(2).getIp_v6().getIpaddress();
         }else{
             this.pri_ip = isIPv4?actNics.get(1).getIp_v4().ipaddress: 
                 actNics.get(1).getIp_v6().getIpaddress();
             this.sec_ip = isIPv4?stbNics.get(0).getIp_v4().ipaddress: 
                 stbNics.get(0).getIp_v6().getIpaddress();
             this.red_ip = isIPv4?actNics.get(2).getIp_v4().ipaddress: 
-                stbNics.get(2).getIp_v6().getIpaddress();
+                actNics.get(2).getIp_v6().getIpaddress();
             
         } 
     }

@@ -66,7 +66,7 @@
 											name="deployment_prefix" class="form-control" type="text"
 											ng-model="installConfig.deployment_prefix"
 											placeholder="Please Insert Deployment Prefix"
-											title="Deployment Prefix" validation="required" />
+											title="Deployment Prefix" validation="required|alpha_num|max_len:14" />
 									</div>
 									<div class="form-group" ng-if="installConfig.comType=='ATC'">
 										<label class="control-label">ATC switches</label> <input

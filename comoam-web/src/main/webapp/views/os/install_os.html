@@ -180,11 +180,11 @@
 														</div>
 														<div class="form-group col-md-4">
 															<label class="control-label" translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack Resource</label>
-															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required">
+															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required|alpha_num|max_len:14">
 														</div>
 														<div class="form-group col-md-4">
 															<label class="control-label" translate="STACK_NAME">Stack Name</label>
-															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required" unique-stack>
+															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required|alpha_num|max_len:14" unique-stack>
 															<span class="validation text-danger" ng-show="tab4.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
 														</div>
 													</fieldset>
