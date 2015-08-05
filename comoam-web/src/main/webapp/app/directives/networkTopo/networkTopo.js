@@ -484,6 +484,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
             		//$("#canvas").css({"width":"1000" , "height":canvasHeight});
             		console.log(networkTopology);
         			networkTopology.drawNetworktopology();
+        			paper.view.draw();
             	};
             });
 		}
