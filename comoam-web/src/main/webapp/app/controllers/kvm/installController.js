@@ -59,10 +59,12 @@ angular.module('kvm', [ 'ui.router',
             $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
             $scope.flavor = $scope.avaliable_flavors[2];
             $scope.initNic = function(){
-            	for(var index in $scope.avaliable_flavors){
-            		if(!$scope.installConfig.vm_config['oam'].flavor.label.indexOf($scope.avaliable_flavors[index])){
-            			$scope.flavor = $scope.avaliable_flavors[index];
-            		}
+            	if($scope.installConfig.vm_config['oam'].flavor){
+            		for(var index in $scope.avaliable_flavors){
+            			if(!$scope.installConfig.vm_config['oam'].flavor.label.indexOf($scope.avaliable_flavors[index])){
+                			$scope.flavor = $scope.avaliable_flavors[index];
+                		}
+            	}
             	}
             };
                        	
