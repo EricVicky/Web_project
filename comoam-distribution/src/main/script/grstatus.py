@@ -55,7 +55,7 @@ def error(message):
     sys.exit(0)
         
 def main(argv):
-   comstackfile="/opt/PlexView/ELCM/datasource/comstack_status.json"
+   comstackfile="/opt/PlexView/ELCM/datasource/comstack.json"
    ip = ''
    iptype = 'ipv4'
    GRINSTALLED="GRINSTALLED" 
