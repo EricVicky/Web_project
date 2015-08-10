@@ -12,7 +12,7 @@ angular.module('comoamApp')
 	  $scope.goupgraqde = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  if($scope.selectedIns.environment == "KVM"){
-			  if ($scope.selectedIns.comType == "QOSAC" || $scope.selectedIns.comType == "HPSIM") {
+			  if ($scope.selectedIns.comType == "QOSAC") {
 				  $state.go("dashboard.kvmovmupgrade");
 			  }else{
 				  $state.go("dashboard.kvmupgrade");	
