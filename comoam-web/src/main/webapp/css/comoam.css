@@ -411,3 +411,13 @@ div .loglocation {
   border: 1px solid transparent;
   border-radius: 4px;
 }
+div .logo{
+	padding: 10px 10px 10px 10px;
+}
+div .com{
+	padding: 17px 10px 10px 0px;
+	font-size: 19px;
+}
+div .release{
+	padding: 17px 10px 10px 240px;
+}

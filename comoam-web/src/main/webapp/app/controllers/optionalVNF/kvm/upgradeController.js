@@ -98,13 +98,13 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         		if(angular.equals(com_config,selectedKVMInstance)){
         		   $scope.com_instance = $scope.kvmcomInstance[inst];
         		   $scope.installConfig = com_config;
-        		   return;
+        		   break;
         		}
         }
   
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
-    }
+        $scope.reloadinstallconfig();
+    };
 	
 	KVMService.getComInstance().then( function(data) {
 		$log.info(data);
@@ -121,12 +121,6 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 		$scope.setDefaultInstace();
 		
     });
-	$scope.reloadinstallconfig = function(){
-    	if($scope.com_instance != null){
-        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-    	}
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    };
     var default_app_install_options = {
 			BACKUP_SERVER_DISK_SPACE:'2000',
 			NTP_SERVER:'COM_LOCAL_CLOCK',
@@ -137,16 +131,24 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
 			BACKUP_SERVER_IS_LOCAL:'YES',
 			SOFTWARE_SERVER_IS_LOCAL:'YES'
 	};
-    $scope.reloadimglist = function(){
-    	//set default value if not set
-    	for(var attr in default_app_install_options){
-    		if(!$scope.installConfig.app_install_options[attr]){
-    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
-    		}
+    $scope.reloadinstallconfig = function(){
+    	if($scope.com_instance != null){
+        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
     	}
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
-    };
-    
+    	if($scope.installConfig.app_install_options){
+    		for(var attr in default_app_install_options){
+        		if(!$scope.installConfig.app_install_options[attr]){
+        			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
+        		}
+    		}
+    	}else{
+    		$scope.installConfig.app_install_options = default_app_install_options;
+    		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.ip_address;
+            $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.ip_address;
+    	}
+        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+        $scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+    }; 
 
 	$scope.loadimglist = function(host, dir) {
 		KVMService.imagelist({
