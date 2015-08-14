@@ -20,42 +20,28 @@ public class BackupOSHandler extends DefaultHandler {
     @Override
     public void onStart()
     {
-    	
-    }
-    
-    @SuppressWarnings("unchecked")
-	private OSCOMConfig getOSConfig(){
-    	return ((BACKUPConfig<OSCOMConfig>)config).getConfig();
-    }
+    	super.onStart();
+    	log.info("Start backup on openstack");
+    }   
 
     @Override
     public void onSucceed()
     {
-        log.info("backup succeed");
+        log.info("backup succeeded on KVM");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getOSConfig().getStack_name());
-     }
-    @Override
     public void onError()
     {
-
+    	log.error("backup failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.BACKUP;
+	}
 }
 
 

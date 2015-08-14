@@ -7,55 +7,36 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.BACKUPConfig;
-import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("BACKUP_KVM_HANDLER")
 @Scope(value = "prototype")
 public class BackupKVMHandler extends DefaultHandler {
 
-    private static Logger log = LoggerFactory.getLogger(BackupKVMHandler.class);
+	private static Logger log = LoggerFactory.getLogger(BackupKVMHandler.class);
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.BACKUP);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((BACKUPConfig<KVMCOMConfig>)config).getConfig();
-    }
+    	super.onStart();
+    	log.info("Start backup on KVM");
+    }   
 
     @Override
     public void onSucceed()
     {
-        log.info("backup succeed");
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-        
+        log.info("backup succeeded on KVM");     
     }
 
-    @Override
-    public void onEnd()
-    {
-        if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-        return this.topic.concat(getKVMConfig().getStackName());
-     }
+   
     @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("backup failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		return Action.BACKUP;
+	}
 }
 

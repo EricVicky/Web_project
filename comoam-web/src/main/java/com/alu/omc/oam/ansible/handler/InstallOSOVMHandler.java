@@ -2,38 +2,34 @@ package com.alu.omc.oam.ansible.handler;
 
 import java.util.regex.Pattern;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.exec.ExecuteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alu.omc.oam.ansible.RunningComstackLock;
-import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMStack;
-import com.alu.omc.oam.config.OVMCOMConfig;
 
 
-public abstract class InstallKVMOVMHandler extends DefaultHandler {
 
-    private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[wait\\_for\\_server\\_start\\s\\|\\swait\\sfor\\sguest\\sos\\sto\\sstart\\].*$");
-    private static Logger log = LoggerFactory.getLogger(InstallKVMOVMHandler.class);    
+public abstract class InstallOSOVMHandler extends DefaultHandler {
+
+    private Pattern stackPattern = Pattern.compile("^.*TASK:\\s\\[deploy\\_stack\\s\\|\\scheck\\spresence\\sof\\sheat\\sstack\\].*$");
+    private static Logger log = LoggerFactory.getLogger(InstallOSOVMHandler.class);
 
 	@Override
 	public void onStart() {
 		super.onStart();
-    	log.info("deployment on KVM OVM start");       
+    	log.info("OVM deployment on Openstack start");       
 	}
 
 	@Override
 	public void onError() {
-    	log.error("deployment on KVM OVM failed");
+    	log.error("OVM deployment on Openstack failed");
 	}
 
 	@Override
 	public void onSucceed() {
-    	log.info("deployment on KVM OVM succeed");
+    	log.info("OVM deployment on Openstack succeeded");
 	}
 
 	@Override
