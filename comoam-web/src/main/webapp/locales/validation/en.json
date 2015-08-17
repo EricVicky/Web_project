@@ -217,5 +217,10 @@
     "IP_ADDRESS":"IP Address",
     "NETWORK_GAT":"Network Gateway",
     "INVALIDE_IP_CONFIG_FOR_GR":"Invalide IP Config For GR",
-    "PLEASE_CONFIG_B_AND_A":"Please Config Bridge and All IPV4 Items!"
+    "PLEASE_CONFIG_B_AND_A":"Please Config Bridge and All IPV4 Items!",
+    "OPERATION_STATUS":"Status",
+    "INSTALL_SUCCEED":"Install Success",
+    "UPGRADE_SUCCEED":"Upgrade Success",
+    "INSTALL_FAIL":"Install Failure",
+    "UPGRADE_FAIL":"Upgrade Failure"
 }
