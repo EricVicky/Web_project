@@ -19,10 +19,11 @@ class COMStack():
 
     comstackfile="/opt/PlexView/ELCM/datasource/comstack.json"
 
-    def __init__(self, comType=None, name=None, status='STANDALONE', **kwargs ):
+    def __init__(self, comType=None, name=None, status='STANDALONE', actionResult='MIGRATION_SUCCEED', **kwargs ):
             self.comType = comType
             self.name = name
             self.status = status
+            self.actionResult = actionResult
             self.updatedate = int(round(time.time() * 1000))
 
     def setComconfig(self, comConfig):
