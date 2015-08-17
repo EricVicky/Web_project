@@ -1,7 +1,5 @@
 package com.alu.omc.oam.ansible.handler;
 
-import java.util.regex.Pattern;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.exec.ExecuteException;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
@@ -20,108 +19,100 @@ import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.WebsocketSender;
 
-@Component("INSTALL_KVM_HANDLER")
+
+@Component("DEFAULT_HANDLER")
 @Scope(value = "prototype")
-public class DefaultHandler implements IAnsibleHandler 
-{
+public abstract class DefaultHandler  implements IAnsibleHandler{
+	
+
+    Boolean succeed = true;
+    ParseResult END = new ParseResult();
+    COMConfig config;
+    ILogParser logParser;
     @Resource
     COMStackService service;
     @Resource
-    WebsocketSender sender;
+    WebsocketSender sender;   
     @Resource
     RunningComstackLock runningComstackLock;
     String topic = "/log/tail/";
-    COMConfig config;
-    ILogParser logParser;
-    Boolean succeed = true;
-    ParseResult END = new ParseResult();
-    private Pattern stackPattern = Pattern.compile("^.*TASK\\:\\s\\[vnf\\_create\\_vms\\s\\|\\screate\\svirtual\\smachine\\sinstance\\].*$");
     private static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
+	public Boolean getSucceed() {
+		return succeed;
+	}
+
+	public void setSucceed(Boolean succeed) {
+		this.succeed = succeed;
+	}
+	@Override
+	public void onStart(){
+		runningComstackLock.lock(config.getStackName(), this.getAction());
+        log.info(config.getStackName() + " is locked");
+	}
+	
+	public abstract Action getAction();
+    	
+
+	@Override
+    public abstract void onError();
+    	
+
     @Override
-    public void onStart()
-    {
-    	log.info("deployment on KVM start");
-        runningComstackLock.lock(((KVMCOMConfig)config).getStackName(), Action.INSTALL);
-        log.info(((KVMCOMConfig)config).getStackName() + " is locked");
+    public abstract void onSucceed();
+    	
+    
+
+    public  ActionResult getActionResult(){
+    	return ActionResult.NULL;
     }
 
     @Override
-    public void onError()
-    {
-        log.error("deployent on KVM failed");
-        runningComstackLock.unlock(((KVMCOMConfig)config).getStackName());
-    }
-
-    @Override
-    public void onSucceed()
-    {
-        log.info("deployment on KVM succeed");
-        runningComstackLock.unlock(((KVMCOMConfig)config).getStackName());
-    }
-
-    @Override
-    public void onEnd()
-    {
-        if(this.succeed){
-        	this.onSucceed();
+    public void onEnd(){
+    	    
+    	runningComstackLock.unlock(config.getStackName());
+    	if(getSucceed()){
+        	onSucceed();
         	END.setResult(ParseResult.SUCCEED);
         }else{
         	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
+            onError();
+        } 
+    	COMStack stack=service.get(config.getStackName());
+    	if (stack!=null && getActionResult() != ActionResult.NULL){
+        	stack.setActionResult(getActionResult());
+        	service.update(stack);    		
+    	}
+    	sender.send(getFulltopic(), END);
     }
-    
     @Override
     public void Parse(String log)
     {
-      if(hasError(log)){
-    	  this.succeed  = false;
-      }
-      if((stackPattern.matcher(log)).find()){
-    	  COMStack stack = new COMStack(config);
-          service.add(stack);
-      }
-      sender.send(getFulltopic(), logParser.parse(log));
+    	
     }
-    
-    private boolean hasError(String log){
-    	return false;
-    }
-
     public COMConfig getConfig()
     {
         return config;
     }
 
-    public void setConfig(COMConfig config)
-    {
-        this.config = config;
+    public void setConfig(COMConfig config){
+    	this.config = config;
     }
-    
-    public String getFulltopic(){
-       KVMCOMConfig cfg = (KVMCOMConfig)config;
-       return this.topic.concat(cfg.getStackName());
-    }
-    
     @Override
     public void setLogParser(ILogParser logParser){
-        this.logParser = logParser;
+    	this.logParser = logParser;
     }
+	@Override
+	public void onProcessComplete(int exitValue) {
+		this.onEnd();
+	}
 
-    @Override
-    public void onProcessComplete(int paramInt)
-    {
-       this.onEnd(); 
-        
-    }
-
-    @Override
-    public void onProcessFailed(ExecuteException paramExecuteException)
-    {
-        this.succeed = false;
-        this.onEnd();
-        
-    }
-
+	@Override
+	public void onProcessFailed(ExecuteException e) {
+		this.succeed = false;
+		this.onEnd();
+	}
+	
+	public String getFulltopic() {
+		return this.topic.concat(config.getStackName());
+	}
 }

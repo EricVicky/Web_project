@@ -22,7 +22,8 @@ public class GrInstPriOSHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getOSConfig().getStackName(), Action.GRINST_PRI);
+    	super.onStart();
+    	log.info("start Primary COM GR installation on Openstack");
     }
     
     @SuppressWarnings("unchecked")
@@ -36,30 +37,21 @@ public class GrInstPriOSHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
         service.grupdate(stack);
-        runningComstackLock.unlock(getOSConfig().getStackName());
-        
+        log.info("Primary COM GR installation succeeded on Openstack");
     }
 
-    @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getOSConfig().getStackName());
-
-    }
     public String getFulltopic(){
     	return this.topic.concat(getOSConfig().getStackName());
      }
     @Override
     public void onError()
     {
-        runningComstackLock.unlock(getOSConfig().getStackName());
+    	log.error("Primary COM GR installation failed on Openstack");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.GRINST_PRI;
+	}
 }

@@ -23,12 +23,8 @@ public class GrUnInstOSHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getOSConfig().getStackName(), Action.GRUNINST);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private OSCOMConfig getOSConfig(){
-    	return ((GRUnInstallConfig<OSCOMConfig>)config).getComConfig();
+    	super.onStart();
+    	log.info("Start uninstall GR on Openstack");
     }
 
     @Override
@@ -37,30 +33,18 @@ public class GrUnInstOSHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.STANDALONE);
         service.grupdate(stack);
-        runningComstackLock.unlock(getOSConfig().getStackName());
+        log.info("uninstall GR succeeded on Openstack");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getOSConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getOSConfig().getStackName());
-     }
-    @Override
     public void onError()
     {
-        runningComstackLock.unlock(getOSConfig().getStackName());
+    	log.error("uninstall GR failed on Openstack");
     }
+
+	@Override
+	public Action getAction() {
+		return Action.GRUNINST;
+	}
 }

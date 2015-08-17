@@ -21,12 +21,8 @@ public class GrInstSecKVMHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.GRINST_SEC);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((GRInstallConfig<KVMCOMConfig>)config).getSec();
+    	super.onStart();
+    	log.info("Start Secondary COM GR installation on KVM");
     }
 
 	@Override
@@ -35,30 +31,19 @@ public class GrInstSecKVMHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
         service.grupdate(stack);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-        
+
+        log.info("Secondary COM GR installation succeeded on KVM");
     }
 
-    @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getKVMConfig().getStackName());
-     }
     @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("Secondary COM GR installation failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.GRINST_SEC;
+	}
 }

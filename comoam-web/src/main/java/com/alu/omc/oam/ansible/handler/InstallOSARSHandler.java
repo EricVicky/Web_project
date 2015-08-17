@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component("INSTALL_OPENSTACK_ARS_HANDLER")
 @Scope(value = "prototype")
-public class InstallOSARSHandler extends InstallKVMOVMHandler {
+public class InstallOSARSHandler extends InstallOSOVMHandler {
 
 }

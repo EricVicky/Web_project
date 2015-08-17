@@ -20,7 +20,6 @@ public class COMStackService
 
     public void add(COMStack comStack)
     {
-    	boolean flag=false;
         List<COMStack> stacks = dataSource.list();
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
@@ -53,6 +52,7 @@ public class COMStackService
                 stack.setUpdatedate(new Date());
                 stack.setComConfig(comStack.getComConfig());
                 stack.setStatus(comStack.getStatus());
+                stack.setActionResult(comStack.getActionResult());
                 break;
             }
         }
@@ -103,5 +103,21 @@ public class COMStackService
     public OpenstackConfig getOpenstackConfig(){
     	return dataSource.getOpenstackConfig();
     }
-
+    public COMStack get(String name)
+    {
+    	if(name == null || name.length() == 0){
+    		return null;
+    	}
+        List<COMStack> stacks = dataSource.list();
+        COMStack comStack=null;
+        if(stacks != null && stacks.size() >0){
+          for(COMStack stack : stacks){
+            if(stack.getName().equals(name)){
+            	comStack = stack;
+            	break;
+            }
+          }
+        }
+    	return comStack;
+    }
 }

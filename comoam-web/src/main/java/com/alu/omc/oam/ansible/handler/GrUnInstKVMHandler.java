@@ -22,12 +22,8 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.GRUNINST);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((GRUnInstallConfig<KVMCOMConfig>)config).getComConfig();
+    	super.onStart();
+    	log.info("Start uninstall GR on KVM");
     }
 
     @Override
@@ -36,30 +32,19 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.STANDALONE);
         service.grupdate(stack);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        log.info("uninstall GR succeeded on KVM");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getKVMConfig().getStackName());
-     }
-    @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("uninstall GR failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.GRUNINST;
+	}
 }
