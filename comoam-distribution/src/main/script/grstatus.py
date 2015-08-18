@@ -16,10 +16,21 @@ class COMStack():
     def __init__(self, file ):
             self.comstackfile = file 
 
-    def update(self, ip, iptype, status):
-	    comstacks, comstack = self.search(ip, iptype)
-	    if comstack != None:
+    def update(self, pri_ip, sec_ip, iptype, status, role):
+	    comstacks, pri_comstack = self.search(pri_ip, iptype)
+	    comstacks, sec_comstack = self.search(sec_ip, iptype)
+	    mate = None
+	    comstack = None
+	    if role == 'Primary':
+	        mate = sec_comstack['name']
+	        comstack = pri_comstack
+	    else if role == 'Secondary':
+	        mate = pri_comstack['name']
+	        comstack = sec_comstack
+	    if comstack != None and comstacks != None:
 	    	comstack['status'] = status 
+	    	comstack['role'] = role
+	    	comstack['mate'] = mate
 	    	with open(self.comstackfile, 'w') as comstacksfs:
     			json.dump(comstacks, comstacksfs,  indent=2)
 
@@ -59,26 +70,30 @@ def main(argv):
    ip = ''
    iptype = 'ipv4'
    GRINSTALLED="GRINSTALLED" 
+   role="Primary" 
    try:
-      opts, args = getopt.getopt(argv,"hf:a:t:",["file=", "ip=", "iptype="])
+      opts, args = getopt.getopt(argv,"hf:p:s:t:r:",["file=", "pri_ip=", "sec_ip=","iptype=","role="])
    except getopt.GetoptError:
-       error('grstatus.py -f <comstack.json> -s <stack_name>')
+       error('grstatus.py -p <pri_ip> -s <sec_ip> -f <comstack.json> -r  <role> -t <ip_type>')
    for opt, arg in opts:
       if opt == '-h':
-       	 error('grstatus.py -f <comstack.json> -s <stack_name>')
+       	 error('grstatus.py -p <pri_ip> -s <sec_ip> -f <comstack.json> -r <role> -t <ip_type>')
          sys.exit()
       elif opt in ("-t", "--iptype"):
          iptype = arg
       elif opt in ("-f", "--file"):
          comstackfile = arg
-      elif opt in ("-a", "--ip"):
-	 print arg
+      elif opt in ("-r", "--role"):
+         comstackfile = arg
+      elif opt in ("-s", "--sec_ip"):
+         comstackfile = arg
+      elif opt in ("-p", "--pri_ip"):
          ip = arg
    try:
 	if ip == '' or ip is None:
 		sys.exit(0)
 	comstack = COMStack( comstackfile )
-        comstack.update(ip,iptype, GRINSTALLED)
+        comstack.update(pri_ip,sec_ip, iptype, GRINSTALLED,role)
    except Exception:
       traceback.print_exc(file=sys.stdout)
       error("failed to register comstack")
