@@ -17,16 +17,18 @@ class COMStack():
             self.comstackfile = file 
 
     def update(self, pri_ip, sec_ip, iptype, status, role):
-	    comstacks, pri_comstack = self.search(pri_ip, iptype)
-	    comstacks, sec_comstack = self.search(sec_ip, iptype)
+	    comstacks_pri, pri_comstack = self.search(pri_ip, iptype)
+	    comstacks_sec, sec_comstack = self.search(sec_ip, iptype)
 	    mate = None
 	    comstack = None
 	    if role == 'Primary':
 	        mate = sec_comstack['name']
 	        comstack = pri_comstack
-	    else if role == 'Secondary':
+		comstacks = comstacks_pri
+	    elif role == 'Secondary':
 	        mate = pri_comstack['name']
 	        comstack = sec_comstack
+		comstacks = comstacks_sec
 	    if comstack != None and comstacks != None:
 	    	comstack['status'] = status 
 	    	comstack['role'] = role
@@ -71,6 +73,8 @@ def main(argv):
    iptype = 'ipv4'
    GRINSTALLED="GRINSTALLED" 
    role="Primary" 
+   pri_ip=None
+   sec_ip=None
    try:
       opts, args = getopt.getopt(argv,"hf:p:s:t:r:",["file=", "pri_ip=", "sec_ip=","iptype=","role="])
    except getopt.GetoptError:
@@ -84,19 +88,19 @@ def main(argv):
       elif opt in ("-f", "--file"):
          comstackfile = arg
       elif opt in ("-r", "--role"):
-         comstackfile = arg
+         role = arg
       elif opt in ("-s", "--sec_ip"):
-         comstackfile = arg
+         sec_ip = arg
       elif opt in ("-p", "--pri_ip"):
-         ip = arg
+         pri_ip = arg
    try:
-	if ip == '' or ip is None:
+	if pri_ip == '' or pri_ip is None or  sec_ip == '' or sec_ip is None:
 		sys.exit(0)
 	comstack = COMStack( comstackfile )
         comstack.update(pri_ip,sec_ip, iptype, GRINSTALLED,role)
    except Exception:
-      traceback.print_exc(file=sys.stdout)
       error("failed to register comstack")
+      traceback.print_exc(file=sys.stdout)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
