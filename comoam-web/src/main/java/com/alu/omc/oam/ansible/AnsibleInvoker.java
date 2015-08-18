@@ -105,10 +105,10 @@ public class AnsibleInvoker implements IAnsibleInvoker
             tailer.stop();
             throw new AnsibleException("failed to call ansible", e);
         }
-        DoOperationLog();
+        doOperationLog();
     }
     
-    public void DoOperationLog(){
+    public void doOperationLog(){
     	OperationLog operation = new OperationLog(ansibleworkspace.getConfig(),ansibleworkspace.getAction(),ansibleworkspace.getFolder());
     	if(ansibleworkspace.getAction()==Action.DELETE){
     		dataSource.deleteLog(ansibleworkspace.getConfig().getStackName());
