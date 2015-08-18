@@ -15,6 +15,7 @@ public class OperationLog {
 	private Action action;
 	private String date;
 	private String dir;
+	private LogStatus logStatus;
 	
 	public OperationLog(){
 		
@@ -48,5 +49,14 @@ public class OperationLog {
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
+	public LogStatus getLogStatus() {
+		return logStatus;
+	}
+	public void setLogStatus(LogStatus logStatus) {
+		this.logStatus = logStatus;
+	}
+
+	
+	
 
 }
