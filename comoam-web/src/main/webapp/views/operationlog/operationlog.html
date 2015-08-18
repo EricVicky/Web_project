@@ -6,7 +6,8 @@
 		</div>
 		<div class="u_nav">
 			<ul style="padding-left: 0px;">
-				<li ng-repeat="ol in operationlog"><div class="status_success" >success</div><div class="status_fail" ng-if="">fail</div>
+				<li ng-repeat="ol in operationlog">
+				<div class="status_success" ng-if="ol.logStatus=='SUCCEED'">success</div><div class="status_fail" ng-if="ol.logStatus=='FAILED'">fail</div>
 				<a href="" ng-click="showlog(ol)">
 				<p translate="{{ol.action}}"></p>
 				<p>{{ol.date}}</p>
