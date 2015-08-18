@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.ansible.exception.AnsibleException;
 import com.alu.omc.oam.ansible.handler.IAnsibleHandler;
-import com.alu.omc.oam.ansible.persistence.JsonDataSource;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.log.Loglistener;
+import com.alu.omc.oam.service.OperationLogService;
 import com.alu.omc.oam.util.CommandProtype;
 import com.alu.omc.oam.util.ICommandExec;
 
@@ -32,7 +32,7 @@ public class AnsibleInvoker implements IAnsibleInvoker
     private  CommandProtype commandProtype;
     
     @Resource
-    private JsonDataSource dataSource;
+    private OperationLogService operationLogService;
 
 
     private static Logger log = LoggerFactory.getLogger(AnsibleInvoker.class);
@@ -111,9 +111,9 @@ public class AnsibleInvoker implements IAnsibleInvoker
     public void doOperationLog(){
     	OperationLog operation = new OperationLog(ansibleworkspace.getConfig(),ansibleworkspace.getAction(),ansibleworkspace.getFolder());
     	if(ansibleworkspace.getAction()==Action.DELETE){
-    		dataSource.deleteLog(ansibleworkspace.getConfig().getStackName());
+    		operationLogService.deleteLog(ansibleworkspace.getConfig().getStackName());
     	}else{
-    		dataSource.addLog(ansibleworkspace.getConfig().getStackName(),operation);
+    		operationLogService.addLog(ansibleworkspace.getConfig().getStackName(),operation);
     	}
     }
     

@@ -107,35 +107,11 @@ public class JsonDataSource
         }
         return operationlog;
     }
-    
-    public void addLog(String stackName, OperationLog log){
-    	Map<String, List<OperationLog>>  allLogs = loadAllLog();
-    	if(allLogs.get(stackName)!=null){
-    		List<OperationLog> logs = allLogs.get(stackName);
-    		logs.add(log);
-    	}else{
-    		List<OperationLog> logs = new ArrayList<OperationLog>();
-    		logs.add(log);
-    		allLogs.put(stackName, logs);
-    	}
-    	saveop(allLogs);
-    }
-    
-    public void deleteLog(String stackName){
-    	Map<String, List<OperationLog>>  allLogs = loadAllLog();
-    	if(allLogs.get(stackName)!=null){
-    		allLogs.remove(stackName);
-    	}
-    	saveop(allLogs);
-    }
-    
+ 
     public void saveop(Map<String, List<OperationLog>> opLog){
         object2Json(COM_OPERATION_JSON, opLog);
     }
-
-    
-    
-    
+      
     public void save(List<COMStack> comstacks){
        object2Json(COM_STACK_JSON, comstacks);
     }
