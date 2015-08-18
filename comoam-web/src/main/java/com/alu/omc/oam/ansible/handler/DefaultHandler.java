@@ -12,6 +12,7 @@ import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;

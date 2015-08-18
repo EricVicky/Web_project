@@ -25,6 +25,22 @@ angular.module('kvm', [ 'ui.router',
             		}
             	}
             };
+            
+            $scope.$watch('installConfig.re_root_password',function(){
+            	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
+            		$scope.disMatch = true;
+            	}else{
+            		$scope.disMatch = false;
+            	}
+            });
+            $scope.$watch('installConfig.re_axadmin_password',function(){
+            	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+            		$scope.disMatch = true;
+            	}else{
+            		$scope.disMatch = false;
+            	}
+            }); 
+            
             $scope.installConfig.app_install_options = {
 					BACKUP_SERVER_DISK_SPACE:'2000',
 					CALL_TRACE_DISK_SPACE:'1000',

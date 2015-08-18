@@ -160,6 +160,21 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
      				$scope.imagelist = data;
      			});   
      };
+     
+     $scope.$watch('installConfig.re_root_password',function(){
+     	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
+     		$scope.disMatch = true;
+     	}else{
+     		$scope.disMatch = false;
+     	}
+     });
+     $scope.$watch('installConfig.re_axadmin_password',function(){
+     	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+     		$scope.disMatch = true;
+     	}else{
+     		$scope.disMatch = false;
+     	}
+     });
 
     
     KVMService.getFlavorStore().then( function(data) {
