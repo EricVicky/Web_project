@@ -217,5 +217,13 @@
     "IP_ADDRESS":"IP Address",
     "NETWORK_GAT":"Network Gateway",
     "INVALIDE_IP_CONFIG_FOR_GR":"Invalide IP Config For GR",
-    "PLEASE_CONFIG_B_AND_A":"Please Config Bridge and All IPV4 Items!"
+    "PLEASE_CONFIG_B_AND_A":"Please Config Bridge and All IPV4 Items!",
+    
+    "INSTALL":"Install",
+    "UPGRADE":"Upgrade",
+    "BACKUP":"Backup",
+    "RESTORE":"Restore",
+    "GRINST_PRI":"GR Install(Pri)",
+    "GRINST_SEC":"GR Install(Sec)",
+    "GRUNINST":"GR Uninstall"
 }

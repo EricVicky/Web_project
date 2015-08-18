@@ -77,6 +77,21 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 		$scope.comTypeStore = comTypeStore;
 	 	$scope.installConfig.comType = 'QOSAC';
 	});
+	
+	$scope.$watch('installConfig.re_root_password',function(){
+    	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
+    		$scope.disMatch = true;
+    	}else{
+    		$scope.disMatch = false;
+    	}
+    });
+    $scope.$watch('installConfig.re_axadmin_password',function(){
+    	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+    		$scope.disMatch = true;
+    	}else{
+    		$scope.disMatch = false;
+    	}
+    });
  
     timezoneService.timezonelist().then( function(data) {
 		$scope.timezoneStore = data;

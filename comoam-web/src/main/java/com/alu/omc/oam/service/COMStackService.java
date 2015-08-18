@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.alu.omc.oam.ansible.Ansibleworkspace;
 import com.alu.omc.oam.ansible.persistence.JsonDataSource;
+import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
 
@@ -20,7 +23,6 @@ public class COMStackService
 
     public void add(COMStack comStack)
     {
-    	boolean flag=false;
         List<COMStack> stacks = dataSource.list();
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
@@ -91,7 +93,7 @@ public class COMStackService
         dataSource.save(stacks);
         
     }
-    
+
     public List<COMStack> list(){
         return dataSource.list();
     }

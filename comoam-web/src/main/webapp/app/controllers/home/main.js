@@ -24,12 +24,17 @@ angular.module('comoamApp')
 				  $state.go("dashboard.osupgrade");
 			  }
 		  }
-	  }
+	  };
+	  
+	  $scope.operationlog = function(){
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  $state.go("dashboard.operationlog");
+	  };
 	  
 	  $scope.gobackup = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  $state.go("dashboard.backup");			  
-	  }
+	  };
 	  
 	  $scope.gorestore = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
