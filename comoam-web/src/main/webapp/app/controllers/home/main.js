@@ -62,6 +62,11 @@ angular.module('comoamApp')
 		  }); 
 	  };
 	  
+	  $scope.operationlog = function(){
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  $state.go("dashboard.operationlog");
+	  };
+	  
 	  $scope.getComStack = function (config){
 		  for (var index in $scope.comInstance){
 			  if($scope.comInstance[index] && $scope.comInstance[index].name == config.stackName){
@@ -149,4 +154,3 @@ angular.module('comoamApp')
 		 $modalInstance.dismiss('cancel');
      };
 });
-
