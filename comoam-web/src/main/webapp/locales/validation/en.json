@@ -225,7 +225,7 @@
     "UPGRADE_FAIL":"Upgrade failed",
     "GRINST_PRI":"GR Install(Pri)",
     "GRINST_SEC":"GR Install(Sec)",
-    "GRUNINST":"GR Uninstall"
+    "GRUNINST":"GR Uninstall",
     "MIGRATE_SUCCEED":"Migrate succeeded",
     "MIGRATE_FAIL":"Migrate failed"
 }
