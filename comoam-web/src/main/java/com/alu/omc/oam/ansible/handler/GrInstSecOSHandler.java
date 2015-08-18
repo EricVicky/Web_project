@@ -22,12 +22,8 @@ public class GrInstSecOSHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getOSConfig().getStackName(), Action.GRINST_SEC);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private OSCOMConfig getOSConfig(){
-    	return ((GRInstallConfig<OSCOMConfig>)config).getSec();
+    	super.onStart();
+    	log.info("Start Secondary COM GR installation on Openstack");
     }
 
 	@Override
@@ -36,30 +32,18 @@ public class GrInstSecOSHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
         service.grupdate(stack);
-        runningComstackLock.unlock(getOSConfig().getStackName());
+        log.info("Secondary COM GR installation succeeded on Openstack");
         
     }
-
-    @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getOSConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getOSConfig().getStackName());
-     }
     @Override
     public void onError()
     {
-        runningComstackLock.unlock(getOSConfig().getStackName());
+    	log.error("Secondary COM GR installation failed on Openstack");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.GRINST_SEC;
+	}
 }

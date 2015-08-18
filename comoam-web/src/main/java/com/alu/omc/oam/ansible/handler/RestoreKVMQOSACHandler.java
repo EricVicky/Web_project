@@ -6,10 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
-import com.alu.omc.oam.config.BACKUPConfig;
-import com.alu.omc.oam.config.COMStack;
-import com.alu.omc.oam.config.KVMCOMConfig;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("RESTORE_KVM_QOSAC_HANDLER")
 @Scope(value = "prototype")
@@ -19,42 +15,26 @@ public class RestoreKVMQOSACHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(), Action.RESTORE);
+    	super.onStart();
+    	log.info("restore QOSAC start on KVM");
     }
     
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((BACKUPConfig<KVMCOMConfig>)config).getConfig();
-    }
-
     @Override
     public void onSucceed()
     {
-        log.info("restore succeed");
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        log.info("restore QOSAC succeeded on KVM");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-        return this.topic.concat(getKVMConfig().getStackName());
-     }
-    @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("restore QOSAC failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.RESTORE;
+	}
 }

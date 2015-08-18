@@ -19,43 +19,29 @@ public class BackupKVMQOSACHandler extends DefaultHandler {
     @Override
     public void onStart()
     {
-        runningComstackLock.lock(getKVMConfig().getStackName(), Action.BACKUP);
+    	super.onStart();
+    	log.info("Start backup QOSAC on KVM");
     }
-    
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((BACKUPConfig<KVMCOMConfig>)config).getConfig();
-    }
+ 
 
     @Override
     public void onSucceed()
     {
-        log.info("backup succeed");
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        log.info("backup QOSAC succeed on KVM");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-        return this.topic.concat(getKVMConfig().getHost().getIp_address());
-     }
-    @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("backup QOSAC failed on openstack");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.BACKUP;
+	}
+
 }
 

@@ -19,42 +19,26 @@ public class RestoreKVMHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	runningComstackLock.lock(getKVMConfig().getStackName(),Action.RESTORE);
-    }
-    
-    @SuppressWarnings("unchecked")
-	private KVMCOMConfig getKVMConfig(){
-    	return ((BACKUPConfig<KVMCOMConfig>)config).getConfig();
+    	super.onStart();
+    	log.info("restore start on KVM");
     }
 
     @Override
     public void onSucceed()
     {
-        log.info("restore succeed");
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+        log.info("restore succeeded on KVM");
         
     }
 
     @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        runningComstackLock.unlock(getKVMConfig().getStackName());
-
-    }
-    public String getFulltopic(){
-        return this.topic.concat(getKVMConfig().getStackName());
-     }
-    @Override
     public void onError()
     {
-        runningComstackLock.unlock(getKVMConfig().getStackName());
+    	log.error("restore failed on KVM");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.RESTORE;
+	}
 }

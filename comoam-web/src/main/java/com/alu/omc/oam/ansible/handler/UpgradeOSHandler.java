@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.OSCOMConfig;
@@ -20,46 +21,38 @@ public class UpgradeOSHandler extends DefaultHandler
     @Override
     public void onStart()
     {
-    		//runningComstackLock.lock(((OSCOMConfig)config).getStackName(), Action.UPGRADE);
+    	super.onStart();
+    	log.info("upgrade start on openstack");
     }
 
     @Override
     public void onSucceed()
     {
-       log.info("upgrade succeed");
+       log.info("upgrade succeeded on openstack");
         COMStack stack = new COMStack(config);
-        service.update(stack);
-        //runningComstackLock.unlock(((OSCOMConfig)config).getStackName());
-        
+        service.update(stack);              
     }
 
-    @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-        //runningComstackLock.unlock(((OSCOMConfig)config).getStackName());
-
-    }
-	public String getFulltopic(){
-	       OSCOMConfig cfg = (OSCOMConfig)config;
-	       return this.topic.concat(cfg.getStack_name());
-	    }
 	@Override
-	public void setConfig(COMConfig config) {
-		this.config = config;
-		
+	public Action getAction() {
+
+		return Action.UPGRADE;
+	}
+
+	@Override
+	public void onError() {
+
+		log.error("upgrade failed on openstack");
+	}
+    @Override
+	public ActionResult getActionResult(){
+		if(this.succeed){
+			return ActionResult.UPGRADE_SUCCEED;
+		}else{
+			return ActionResult.UPGRADE_FAIL;
+		}
 	}
 	
-    public COMConfig getConfig()
-    {
-        return config;
-    }
+
 
 }

@@ -6,11 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
-import com.alu.omc.oam.config.BACKUPConfig;
-import com.alu.omc.oam.config.COMStack;
-import com.alu.omc.oam.config.KVMCOMConfig;
-import com.alu.omc.oam.config.OSCOMConfig;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("RESTORE_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
@@ -20,40 +15,25 @@ public class RestoreOSHandler extends DefaultHandler{
     @Override
     public void onStart()
     {
-    	
-    }
-    
-    @SuppressWarnings("unchecked")
-	private OSCOMConfig getOSConfig(){
-    	return ((BACKUPConfig<OSCOMConfig>)config).getConfig();
+    	super.onStart();
+    	log.info("restore start on Openstack");
     }
 
     @Override
     public void onSucceed()
     {
-        log.info("restore succeed");
+        log.info("restore succeeded on Openstack");
         
     }
-
-    @Override
-    public void onEnd()
-    {
-    	if(this.succeed){
-        	this.onSucceed();
-        	END.setResult(ParseResult.SUCCEED);
-        }else{
-        	END.setResult(ParseResult.FAILED);
-            this.onError();
-        }
-        sender.send(getFulltopic(), END);
-
-    }
-    public String getFulltopic(){
-    	return this.topic.concat(getOSConfig().getStack_name());
-     }
     @Override
     public void onError()
     {
-
+    	log.error("restore failed on Openstack");
     }
+
+	@Override
+	public Action getAction() {
+		// TODO Auto-generated method stub
+		return Action.RESTORE;
+	}
 }

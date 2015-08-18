@@ -10,12 +10,14 @@ private String name;
 private Date updatedate;
 private String comConfig;
 private Status status = Status.STANDALONE;
+private ActionResult actionResult;
 
 public COMStack(COMConfig config){
     this.name = config.getStackName();
     this.comType = config.getCOMType();
     this.updatedate = new Date();
     this.comConfig = config.toJson();
+//    this.actionResult= config
 }
 public COMType getComType()
 {
@@ -68,8 +70,11 @@ public Status getStatus() {
 public void setStatus(Status status) {
 	this.status = status;
 }
-
-
-
+public ActionResult getActionResult() {
+	return actionResult;
+}
+public void setActionResult(ActionResult actionResult) {
+	this.actionResult = actionResult;
+}
 
 }
