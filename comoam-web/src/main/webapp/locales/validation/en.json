@@ -178,7 +178,6 @@
     "INVALID_REQUIRED":                 "Field is required. ",
     "INVALID_URL":                      "Must be a valid URL. ",
     "INVALID_TIME":                     "Must be a valid time format (hh:mm) OR (hh:mm:ss). ",
-
     "AREA1":                            "TextArea: Alphanumeric + Minimum(15) + Required",
     "ERRORS":                           "Errors",
     "CHANGE_LANGUAGE":                  "Change language",
@@ -225,7 +224,7 @@
     "UPGRADE_FAIL":"Upgrade failed",
     "GRINST_PRI":"GR Install(Pri)",
     "GRINST_SEC":"GR Install(Sec)",
-    "GRUNINST":"GR Uninstall"
+    "GRUNINST":"GR Uninstall",
     "MIGRATE_SUCCEED":"Migrate succeeded",
     "MIGRATE_FAIL":"Migrate failed"
 }
