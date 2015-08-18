@@ -3,7 +3,10 @@ package com.alu.omc.oam.ansible.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -23,9 +27,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Component
 public class JsonDataSource
 {
-
+	
     @Value("${ansible.comstacks}")
-    private  String COM_STACK_JSON; 
+    private  String COM_STACK_JSON;
+	@Value("${ansible.operation_log}")
+    private  String COM_OPERATION_JSON; 
     @Value("${ansible.hosts}")
     private  String HOSTS_JSON; 
     @Value("${ansible.openstack_config}")
@@ -85,6 +91,27 @@ public class JsonDataSource
     	return config;
     }
     
+    /*COM Operation*/
+    public Map<String, List<OperationLog>> loadAllLog(){
+    	Map<String, List<OperationLog>> operationlog = null;
+        try
+        {
+        	operationlog = fromJSON(COM_OPERATION_JSON,new TypeReference<Map<String, List<OperationLog>>>(){});
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        if(operationlog == null){
+        	operationlog = new HashMap<String, List<OperationLog>>();
+        }
+        return operationlog;
+    }
+ 
+    public void saveop(Map<String, List<OperationLog>> opLog){
+        object2Json(COM_OPERATION_JSON, opLog);
+    }
+      
     public void save(List<COMStack> comstacks){
        object2Json(COM_STACK_JSON, comstacks);
     }

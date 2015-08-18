@@ -21,6 +21,10 @@
 					<td colspan="4" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 					<td colspan="2">{{selectedIns.deployment_prefix}}</td>
 				</tr>
+				<tr align="center" ng-if="selectedIns.actionResult!=null && (selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM')">
+					<td colspan="4" translate="OPERATION_STATUS">Status</td>
+					<td colspan="2" translate="{{selectedIns.actionResult}}"></td>
+				</tr>
 						<tr align="center" ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QoSAC'">
 					<td rowspan="{{oamRowspan}}" width="15%" align="center" style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
 					<div ng-if="selectedIns.vm_config.oam.nic[0]">
@@ -164,6 +168,14 @@
 					<tr align="center" ng-if="selectedIns.comType=='QOSAC' || selectedIns.comType=='ATC' || selectedIns.comType=='HPSIM' || selectedIns.comType=='ARS'">
 						<td colspan="2">Prefix of VM Instance</td>
 						<td>{{selectedIns.deployment_prefix}}</td>
+					</tr>
+					<tr align="center" ng-if="selectedIns.actionResult!=null && (selectedIns.comType=='ATC' || selectedIns.comType=='HPSIM' || selectedIns.comType=='ARS' || selectedIns.comType=='QOSAC')">
+						<td colspan="2" translate="OPERATION_STATUS">Status</td>
+						<td translate="{{selectedIns.actionResult}}"></td>
+					</tr>
+					<tr align="center" ng-if="selectedIns.actionResult==null && (selectedIns.comType=='ATC' || selectedIns.comType=='HPSIM' || selectedIns.comType=='ARS' || selectedIns.comType=='QOSAC')">
+						<td colspan="2" translate="OPERATION_STATUS">Operation Status</td>
+						<td>UNKNOWN</td>
 					</tr>
 					<tr align="center" ng-if="selectedIns.comType=='QOSAC' || selectedIns.comType=='ATC' || selectedIns.comType=='HPSIM' || selectedIns.comType=='ARS'">
 						<td rowspan="2" width="25%" align="center" style="vertical-align: middle">OVM</td>

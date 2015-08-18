@@ -59,6 +59,7 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
         						var canvasLeft = $("#canvas").position().left;
         						var indexOfcomStack = '';
             					var comColor = '#337ab7';
+            					var failColor= '#f2dede';            							
             					var hostColor = 'rgb(55,91,205)';
             					var vnfcColor = 'rgb(42,176,224)';
             					for(var comStacksNum = 0;comStacksNum < this.COMStacks.length;comStacksNum++){
@@ -71,7 +72,12 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
                 					comStackPath[comStacksNum] = new Path.Rectangle(comStackRectangle,comStackCornerSize);
                 					comStackPath[comStacksNum].strokeColor='#8B8B83';
                 					comStackPath[comStacksNum].fillColor = comColor;
-                					
+                					var comStack = $scope.getComStack(this.COMStacks[comStacksNum]);
+                					if ( !comStack.actionResult || comStack.actionResult.toLowerCase().indexOf('fail') == -1){
+                						comStackPath[comStacksNum].fillColor = comColor;
+                					}else{
+                						comStackPath[comStacksNum].fillColor = failColor;
+                					}
                 					comStackPath[comStacksNum].attach('mouseleave' , function(){
                 						comStackPath[comStackPath.indexOf(this)].opacity = 1;
 									});

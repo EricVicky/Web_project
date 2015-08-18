@@ -16,13 +16,16 @@
 										class="badge">3</span> <span translate="VNFC_CONFIG">VNFc Config&nbsp;</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-										class="badge">4</span> <span translate="HEAT_STACK">Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								</a></li>
+									class="badge">4</span> <span>Set Password&nbsp;</span>
+							    </a></li>
 								<li><a href="#tab5" data-toggle="tab"> <span
-										class="badge">5</span> <span translate="INSTALL_OPTION">Install Options&nbsp;</span>
+										class="badge">5</span> <span translate="HEAT_STACK">Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab6" data-toggle="tab"> <span
-										class="badge">6</span> <span translate="DEPLOY">Deploy</span>
+										class="badge">6</span> <span translate="INSTALL_OPTION">Install Options&nbsp;</span>
+								</a></li>
+								<li><a href="#tab7" data-toggle="tab"> <span
+										class="badge">7</span> <span translate="DEPLOY">Deploy</span>
 								</a></li>
 							</ul>
 							<div class="modal-body">
@@ -171,7 +174,10 @@
 													</fieldset>
 												</div>
 											</form>
-											<form class="tab-pane" id="tab4" name="tab4" rc-submit="Backup_Server_Addr()" rc-step>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit="" rc-step>
+												<div ng-include="'views/common/password.html'"></div>
+											</form>
+											<form class="tab-pane" id="tab5" name="tab5" rc-submit="Backup_Server_Addr()" rc-step>
 													<fieldset >
 														<legend translate="HEAT">Heat</legend>
 														<div class="form-group col-md-4">
@@ -203,13 +209,13 @@
 														<legend translate="IMAGE">Image</legend>
 														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 															<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
-															<select name="oamcm_image"  form="tab4" mutuexclude="db_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
-															<span class="validation text-danger" ng-show="tab4.oamcm_image.$error.samefieldvalue">same image</span>
+															<select name="oamcm_image"  form="tab5" mutuexclude="db_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
+															<span class="validation text-danger" ng-show="tab5.oamcm_image.$error.samefieldvalue">same image</span>
 														</div>
 														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 															<label class="control-label" translate="DB_IMAGE">DB image</label> 
-															<select name="db_image" form="tab4" mutuexclude="oamcm_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
-															<span class="validation text-danger" ng-show="tab4.db_image.$error.samefieldvalue">same image</span>
+															<select name="db_image" form="tab5" mutuexclude="oamcm_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
+															<span class="validation text-danger" ng-show="tab5.db_image.$error.samefieldvalue">same image</span>
 														</div>
 													</fieldset>
 													<fieldset >
@@ -220,10 +226,10 @@
 														</div>
 													</fieldset>
 											</form>
-											<form class="tab-pane" id="tab5" name="tab5" rc-submit="genExport()" rc-step>
+											<form class="tab-pane" id="tab6" name="tab6" rc-submit="genExport()" rc-step>
 												<div ng-include="'views/common/common.html'"></div>
 											</form>
-											<form class="tab-pane" id="tab6" name="tab6" rc-submit rc-step>
+											<form class="tab-pane" id="tab7" name="tab7" rc-submit rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label" translate="DEPLOYMENT_SUMMERY">Deployment Summary</label>
@@ -324,7 +330,7 @@
 												ng-click="rc.OSInstallWizard.backward()"
 												ng-show="rc.OSInstallWizard.currentIndex > rc.OSInstallWizard.firstIndex" translate="BACK">Back</a>
 											<a class="btn btn-primary" 
-												ng-click="rc.OSInstallWizard.forward()"
+												ng-click="rc.OSInstallWizard.forward()" ng-disabled="disMatch"
 												ng-show="rc.OSInstallWizard.currentIndex < rc.OSInstallWizard.navigationLength" translate="CONTINUE">Continue</a>
 											<a class="btn btn-primary" ng-click="deploy()"
 												ng-show="rc.OSInstallWizard.currentIndex == rc.OSInstallWizard.navigationLength" translate="DEPLOY">Deploy</a>

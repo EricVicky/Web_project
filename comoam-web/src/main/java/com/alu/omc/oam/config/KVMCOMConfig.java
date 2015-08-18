@@ -202,7 +202,23 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
         return vmnics;
     }
 
+    private String root_password;
+    private String axadmin_password;
+	public String getRoot_password() {
+		return root_password;
+	}
 
+	public void setRoot_password(String root_password) {
+		this.root_password = root_password;
+	}
+
+	public String getAxadmin_password() {
+		return axadmin_password;
+	}
+
+	public void setAxadmin_password(String axadmin_password) {
+		this.axadmin_password = axadmin_password;
+	}
     
     
 

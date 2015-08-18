@@ -13,10 +13,11 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
-import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.LogStatus;
 import com.alu.omc.oam.log.ILogParser;
 import com.alu.omc.oam.log.ParseResult;
 import com.alu.omc.oam.service.COMStackService;
+import com.alu.omc.oam.service.OperationLogService;
 import com.alu.omc.oam.service.WebsocketSender;
 
 
@@ -31,6 +32,8 @@ public abstract class DefaultHandler  implements IAnsibleHandler{
     ILogParser logParser;
     @Resource
     COMStackService service;
+    @Resource
+    OperationLogService operationLogService;
     @Resource
     WebsocketSender sender;   
     @Resource
@@ -73,8 +76,10 @@ public abstract class DefaultHandler  implements IAnsibleHandler{
     	if(getSucceed()){
         	onSucceed();
         	END.setResult(ParseResult.SUCCEED);
+        	operationLogService.setLogStatus(config.getStackName(), LogStatus.SUCCEED);
         }else{
         	END.setResult(ParseResult.FAILED);
+        	operationLogService.setLogStatus(config.getStackName(), LogStatus.FAILED);
             onError();
         } 
     	COMStack stack=service.get(config.getStackName());
@@ -84,11 +89,11 @@ public abstract class DefaultHandler  implements IAnsibleHandler{
     	}
     	sender.send(getFulltopic(), END);
     }
-    @Override
-    public void Parse(String log)
-    {
-    	
-    }
+
+	public void Parse(String log) {
+		sender.send(getFulltopic(), logParser.parse(log));
+	}
+
     public COMConfig getConfig()
     {
         return config;

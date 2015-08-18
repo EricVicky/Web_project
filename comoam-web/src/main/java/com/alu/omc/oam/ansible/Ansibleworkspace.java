@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +28,15 @@ import com.alu.omc.oam.ansible.exception.WorkspaceException;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.Environment;
+import com.alu.omc.oam.config.OperationLog;
+import com.alu.omc.oam.service.COMStackService;
 
 @Component
 @Scope(value = "prototype")
 public class Ansibleworkspace
 {
+	@Resource
+    COMStackService service;
     @Value("${ansible.workspace}")
     String workDirRoot;
     @Value("${ansible.playbook}")
@@ -56,6 +62,9 @@ public class Ansibleworkspace
 
         }
         return this.workingDir;
+    }
+    public String getFolder(){
+    	return this.getWorkingdir().substring(workDirRoot.length());
     }
     
     public String getRunDir( ){
@@ -133,9 +142,22 @@ public class Ansibleworkspace
         {
            throw new  WorkspaceException("failed to prepare workspace", e);
         }
-    }
+    }  
     
     private File getHostFile(){
         return new File(this.getWorkingdir().concat(HOSTS_FILE_NAME));
     }
+
+	public COMConfig getConfig() {
+		return config;
+	}
+
+	public Action getAction() {
+		return action;
+	}
+
+	public COMStackService getService() {
+		return service;
+	}   
+    
 }

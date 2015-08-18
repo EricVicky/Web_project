@@ -421,3 +421,19 @@ div .com{
 div .release{
 	padding: 17px 10px 10px 240px;
 }
+div .operationlog:hover{
+	background-color:#EEE;
+}
+div .operationlog:active{
+	background-color:#c3c3c3;
+}
+div .status_success{
+	position: absolute;
+	padding-left: 90px;
+	color:green;
+}
+div .status_fail{
+	position: absolute;
+	padding-left: 90px;
+	color:red;
+}
