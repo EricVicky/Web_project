@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="ovmosqosacctr">
 	<div class="row">
-		<div class="col-md-10">
+		<div class="col-md-11">
 			<div rc-wizard="ovmInstallWizard" class="modal-body">
 				<section id="wizard" import-comconf>
 					<div id="rootwizard">
@@ -13,13 +13,16 @@
 									class="badge">2</span> <span>VNFC Config&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Heat Stack&nbsp;</span>
+									class="badge">3</span> <span>Set Password&nbsp;</span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> <span
-									class="badge">4</span> <span>Install Options&nbsp;</span>
+									class="badge">4</span> <span>Heat Stack&nbsp;</span>
 							</a></li>
 							<li><a href="#tab5" data-toggle="tab"> <span
-									class="badge">5</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									class="badge">5</span> <span>Install Options&nbsp;</span>
+							</a></li>
+							<li><a href="#tab6" data-toggle="tab"> <span
+									class="badge">6</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 						</ul>
 						<div class="modal-body">
@@ -104,7 +107,10 @@
 												</div>
 									</fieldset>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab3" name="tab3" rc-submit="Backup_Server_Addr()" rc-step="" novalidate="">
+								<form class="tab-pane" id="tab3" name="tab3" rc-submit="" rc-step>
+												<div ng-include="'views/common/password.html'"></div>
+											</form>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab4" name="tab4" rc-submit="Backup_Server_Addr()" rc-step="" novalidate="">
 									<fieldset>
 										<legend translate="HEAT">Heat</legend>
 										<div class="form-group col-md-4">
@@ -176,10 +182,10 @@
 										</div>
 									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab4" name="tab4" rc-submit="genExport()" rc-step>
+								<form class="tab-pane" id="tab5" name="tab5" rc-submit="genExport()" rc-step>
 									<div ng-include="'views/common/common.html'"></div>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab5" name="tab5" rc-submit="" rc-step="" novalidate="">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab6" name="tab6" rc-submit="" rc-step="" novalidate="">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label">Deployment Summary</label>
@@ -243,7 +249,7 @@
 											ng-click="rc.ovmInstallWizard.backward()"
 											ng-show="rc.ovmInstallWizard.currentIndex > rc.ovmInstallWizard.firstIndex">Back</a>
 										<a class="btn btn-primary"
-											ng-click="rc.ovmInstallWizard.forward()"
+											ng-click="rc.ovmInstallWizard.forward()" ng-disabled="disMatch"
 											ng-show="rc.ovmInstallWizard.currentIndex < rc.ovmInstallWizard.navigationLength">Continue</a>
 										<a class="btn btn-primary" ng-click="deploy()"
 											ng-show="rc.ovmInstallWizard.currentIndex == rc.ovmInstallWizard.navigationLength">Deploy</a>

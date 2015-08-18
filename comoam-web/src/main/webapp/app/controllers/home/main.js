@@ -24,17 +24,22 @@ angular.module('comoamApp')
 				  $state.go("dashboard.osupgrade");
 			  }
 		  }
-	  }
+	  };
+	  
+	  $scope.operationlog = function(){
+		  DashboardService.setSelectedInstance($scope.selectedIns);
+		  $state.go("dashboard.operationlog");
+	  };
 	  
 	  $scope.gobackup = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  $state.go("dashboard.backup");			  
-	  }
+	  };
 	  
 	  $scope.gorestore = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  $state.go("dashboard.restore");			  
-	  }
+	  };
 	  
 	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
@@ -44,7 +49,8 @@ angular.module('comoamApp')
 		  if($scope.del_com_instance != null){
 			  $scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
 		  }
-	  } 
+	  };
+	  
 	  $scope.animationsEnabled = true;
 
 	  $scope.open = function (action) {
@@ -62,10 +68,6 @@ angular.module('comoamApp')
 		  }); 
 	  };
 	  
-	  $scope.operationlog = function(){
-		  DashboardService.setSelectedInstance($scope.selectedIns);
-		  $state.go("dashboard.operationlog");
-	  };
 	  
 	  $scope.getComStack = function (config){
 		  for (var index in $scope.comInstance){

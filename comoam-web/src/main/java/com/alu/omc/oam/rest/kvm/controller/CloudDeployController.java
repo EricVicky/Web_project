@@ -2,6 +2,7 @@ package com.alu.omc.oam.rest.kvm.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alu.omc.oam.ansible.AnsibleDelegator;
+import com.alu.omc.oam.ansible.Ansibleworkspace;
+import com.alu.omc.oam.ansible.persistence.JsonDataSource;
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.AnsibleLog;
 import com.alu.omc.oam.config.ArsCOMConfig;
 import com.alu.omc.oam.config.ArsOSCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
@@ -25,6 +29,7 @@ import com.alu.omc.oam.config.HpsimCOMConfig;
 import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
+import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.QosacCOMConfig;
 import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
@@ -37,9 +42,13 @@ public class CloudDeployController
     @Resource
     private AnsibleDelegator ansibleDelegator;
     @Resource
+    private Ansibleworkspace ansibleWorkspace;
+    @Resource
     private HostService hostService;
     @Resource
     COMStackService cOMStackService;
+    @Resource
+    JsonDataSource jsonDataSource;
     
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
@@ -212,6 +221,21 @@ public class CloudDeployController
     	List<COMStack> instances = cOMStackService.list();
     	return instances;
     }
+    
+    @RequestMapping(value="/operationlog", method=RequestMethod.GET)
+    public Map<String, List<OperationLog>>  operationLog() throws IOException, InterruptedException
+    {
+    	Map<String, List<OperationLog>> operations = jsonDataSource.loadAllLog();
+    	return operations;
+    }
+    
+    @RequestMapping(value="/ansiblelog", method=RequestMethod.GET)
+    public AnsibleLog ansibleLog(@ModelAttribute("dir") String dir) throws Exception
+    {
+    	AnsibleLog AllLogs = new AnsibleLog(ansibleWorkspace.getWorkDirRoot().concat(dir));
+    	return AllLogs;
+    }
+    
     @RequestMapping(value="/instances", method=RequestMethod.GET)
     public List<COMStack>  allinstances() throws IOException, InterruptedException
     {

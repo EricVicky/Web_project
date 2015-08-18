@@ -162,4 +162,8 @@ angular.module('comoamApp')
     	templateUrl:'views/optionalVNF/os/qosac_upgrade.html',
     	url:'/osqosacupgrade',
     })
+    .state('dashboard.operationlog', {
+    	templateUrl:'views/operationlog/operationlog.html',
+    	url:'/operationlog',
+    })
   }])

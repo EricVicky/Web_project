@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
 	"COM_ELCM_TOOL_V1.0":"COM ELCM Tool v1.0",
 	"COM_INFO":"COM Info",
@@ -224,9 +225,9 @@
     "UPGRADE_SUCCEED":"Upgrade succeeded",
     "INSTALL_FAIL":"Deployment failed",
     "UPGRADE_FAIL":"Upgrade failed",
-    "MIGRATE_SUCCEED":"Migrate succeeded",
-    "MIGRATE_FAIL":"Migrate failed"
     "GRINST_PRI":"GR Install(Pri)",
     "GRINST_SEC":"GR Install(Sec)",
     "GRUNINST":"GR Uninstall"
+    "MIGRATE_SUCCEED":"Migrate succeeded",
+    "MIGRATE_FAIL":"Migrate failed"
 }

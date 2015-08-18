@@ -16,7 +16,8 @@ angular.module('comoamApp', [
     'rcForm', 
     'login',
     'backup_restore',
-    'gr'
+    'gr',
+    'operationlog'
   ]).controller('AppController', function($rootScope, $scope, $translate, $cookieStore, $window, $state, $location, $log, $modal, Auth) {
     $rootScope._user = {
         username: $cookieStore.get("username") || "",

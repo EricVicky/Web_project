@@ -12,6 +12,7 @@ import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.log.ILogParser;
@@ -84,11 +85,11 @@ public abstract class DefaultHandler  implements IAnsibleHandler{
     	}
     	sender.send(getFulltopic(), END);
     }
-    @Override
-    public void Parse(String log)
-    {
-    	
-    }
+
+	public void Parse(String log) {
+		sender.send(getFulltopic(), logParser.parse(log));
+	}
+
     public COMConfig getConfig()
     {
         return config;
