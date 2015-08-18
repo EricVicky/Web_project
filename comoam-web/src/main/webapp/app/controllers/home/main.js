@@ -39,7 +39,7 @@ angular.module('comoamApp')
 	  $scope.gorestore = function(){
 		  DashboardService.setSelectedInstance($scope.selectedIns);
 		  $state.go("dashboard.restore");			  
-	  }
+	  };
 	  
 	  KVMService.getComInstance().then( function(data) {
 			$log.info(data);
@@ -49,7 +49,8 @@ angular.module('comoamApp')
 		  if($scope.del_com_instance != null){
 			  $scope.Config = JSON3.parse($scope.del_com_instance.comConfig);
 		  }
-	  } 
+	  };
+	  
 	  $scope.animationsEnabled = true;
 
 	  $scope.open = function (action) {
@@ -65,7 +66,38 @@ angular.module('comoamApp')
 		    	  }
 		      }
 		  }); 
-	  }
+	  };
+	  
+	  
+	  $scope.getComStack = function (config){
+		  for (var index in $scope.comInstance){
+			  if($scope.comInstance[index] && $scope.comInstance[index].name == config.stackName){
+				  return $scope.comInstance[index];
+			  }
+		  }
+		  return null;
+	  };
+	  
+	  $scope.detail = function () {
+		  var selectedInsModal = "details" + $scope.selectedIns.environment + 'InsModal';
+		  for (var index in $scope.comInstance){
+			  if($scope.comInstance[index] && $scope.comInstance[index].name == $scope.selectedIns.stackName){
+				  $scope.selectedIns['actionResult'] = $scope.comInstance[index].actionResult;
+				  break;
+			  }
+		  }
+		  var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/common/' + selectedInsModal + '.html',
+		      controller: 'detailController',
+		      backdrop: true,
+		      resolve: {
+		    	  selectedIns: function () {
+		    		  return $scope.selectedIns;
+		    	  }
+		      }
+		  }); 
+	  };
   })
   .controller('deleteComController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){
 	  $scope.deletecom = function(){
@@ -87,7 +119,7 @@ angular.module('comoamApp')
 				  });
 			  }
 		  }  
-	  }
+	  };
 	 $scope.selectedIns = selectedIns;
 	 if($scope.selectedIns.environment == "KVM"){
 		 if($scope.selectedIns.comType=='FCAPS'||$scope.selectedIns.comType=='OAM'||$scope.selectedIns.comType=='CM'){
@@ -106,5 +138,21 @@ angular.module('comoamApp')
 	 $scope.cancel = function () {
 		 $modalInstance.dismiss('cancel');
      };
+}).controller('detailController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){
+	 $scope.selectedIns = selectedIns;
+	 if($scope.selectedIns.environment == "KVM"){
+		 if($scope.selectedIns.comType=='FCAPS'||$scope.selectedIns.comType=='OAM'||$scope.selectedIns.comType=='CM'){
+			 $scope.oamRowspan = $scope.selectedIns.vm_config.oam.nic.length * 2 + 2;
+		 	 $scope.dbRowspan = $scope.selectedIns.vm_config.db.nic.length * 2 + 2;
+		 	 if($scope.selectedIns.comType != "OAM"){
+		 		 $scope.cmRowspan = $scope.selectedIns.vm_config.cm.nic.length * 2 + 2;                		
+		 	 }
+		 }
+	 }
+	 $scope.ok = function(){
+		 $modalInstance.close($scope.selectedIns);
+	 };
+	 $scope.cancel = function () {
+		 $modalInstance.dismiss('cancel');
+     };
 });
-
