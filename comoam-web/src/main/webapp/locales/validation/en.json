@@ -226,5 +226,7 @@
     "GRINST_SEC":"GR Install(Sec)",
     "GRUNINST":"GR Uninstall",
     "MIGRATE_SUCCEED":"Migrate succeeded",
-    "MIGRATE_FAIL":"Migrate failed"
+    "MIGRATE_FAIL":"Migrate failed",
+    "STANDALONE": "GR not installed",
+    "GRINSTALLED": "GR installed"
 }

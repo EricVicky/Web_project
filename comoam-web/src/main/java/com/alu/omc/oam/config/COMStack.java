@@ -11,14 +11,37 @@ private Date updatedate;
 private String comConfig;
 private Status status = Status.STANDALONE;
 private ActionResult actionResult;
+private GRROLE  role;
 
 public COMStack(COMConfig config){
     this.name = config.getStackName();
     this.comType = config.getCOMType();
     this.updatedate = new Date();
     this.comConfig = config.toJson();
-//    this.actionResult= config
 }
+
+public GRROLE getRole()
+{
+    return role;
+}
+
+public void setRole(GRROLE role)
+{
+    this.role = role;
+}
+
+public String getMate()
+{
+    return mate;
+}
+
+public void setMate(String mate)
+{
+    this.mate = mate;
+}
+private String mate;
+
+
 public COMType getComType()
 {
     return comType;
@@ -75,6 +98,12 @@ public ActionResult getActionResult() {
 }
 public void setActionResult(ActionResult actionResult) {
 	this.actionResult = actionResult;
+}
+
+public void removeGR(){
+    this.status = Status.STANDALONE;
+    this.mate = null;
+    this.role = null;
 }
 
 }

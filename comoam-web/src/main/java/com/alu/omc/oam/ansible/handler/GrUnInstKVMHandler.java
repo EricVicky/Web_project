@@ -30,7 +30,7 @@ public class GrUnInstKVMHandler extends DefaultHandler{
     public void onSucceed()
     {
     	COMStack stack = new COMStack(config);
-    	stack.setStatus(Status.STANDALONE);
+    	stack.removeGR();
         service.grupdate(stack);
         log.info("uninstall GR succeeded on KVM");
         
