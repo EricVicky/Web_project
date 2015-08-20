@@ -25,15 +25,8 @@ angular.module('os', [ 'ui.router',
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
-            $scope.$watch('installConfig.re_root_password',function(){
-            	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
-            		$scope.disMatch = true;
-            	}else{
-            		$scope.disMatch = false;
-            	}
-            });
-            $scope.$watch('installConfig.re_axadmin_password',function(){
-            	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+            $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
+            	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password||$scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password){
             		$scope.disMatch = true;
             	}else{
             		$scope.disMatch = false;
