@@ -161,15 +161,8 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
      			});   
      };
      
-     $scope.$watch('installConfig.re_root_password',function(){
-     	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
-     		$scope.disMatch = true;
-     	}else{
-     		$scope.disMatch = false;
-     	}
-     });
-     $scope.$watch('installConfig.re_axadmin_password',function(){
-     	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+     $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
+     	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password||$scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password){
      		$scope.disMatch = true;
      	}else{
      		$scope.disMatch = false;
@@ -226,8 +219,8 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     			BACKUP_SERVER_DISK_SPACE:'2000',
     			NTP_SERVER:'COM_LOCAL_CLOCK',
     			SEC_UNIX_ENABLE:'YES',
-    			OMCCN_SUPPORT_SP_FM:'YES',
-    			OMCCN_SUPPORT_SP_PM:'YES',
+    			OMCCN_SUPPORT_SP_FM:'NO',
+    			OMCCN_SUPPORT_SP_PM:'NO',
     			OMCCN_SUPPORT_SP_HVP:'NO',
     			BACKUP_SERVER_IS_LOCAL:'YES',
     			SOFTWARE_SERVER_IS_LOCAL:'YES',

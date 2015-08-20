@@ -46,7 +46,15 @@ public Inventory getInventory()
 @JsonIgnore 
 public String getVars()
 {
-  return "forced: ".concat("\"" + String.valueOf(this.getForced()) + "\""); 
+    HashMap<String, String> vars = new HashMap<String, String>();
+   if(this.getEnvironment() == Environment.KVM){
+        vars.put("deployment_prefix", this.getStackName());
+    }else{
+        vars.put("stack_name", this.getStackName());
+    }
+   vars.put("forced","\"" + String.valueOf(this.getForced()) + "\"");
+    String json = Json2Object.object2Json(vars);
+    return JsonYamlConverter.convertJson2Yaml(json);
 }
 
 

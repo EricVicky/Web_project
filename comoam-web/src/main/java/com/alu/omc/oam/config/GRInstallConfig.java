@@ -71,6 +71,11 @@ public String getVars()
     vars.put("vnf_type", this.getPri().getCOMType());
     vars.put("gr_ip_type", this.getGr_ip_type());
     vars.put("gr_install_active", this.getGr_install_active());
+    if(this.getEnvironment() == Environment.KVM){
+        vars.put("deployment_prefix", this.getStackName());
+    }else{
+        vars.put("stack_name", this.getStackName());
+    }
     Map<String, List<NIC>> actVMnicsDic =  ((NetworkConfig)this.getPri()).allInterface();
     Map<String, List<NIC>> stdVMnicsDic =  ((NetworkConfig)this.getSec()).allInterface();
     Iterator<String> it = actVMnicsDic.keySet().iterator();

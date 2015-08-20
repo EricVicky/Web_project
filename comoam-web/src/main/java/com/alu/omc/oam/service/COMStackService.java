@@ -71,6 +71,8 @@ public class COMStackService
         for(COMStack stack : stacks){
             if(stack.getName().equals(comStack.getName())){
                 stack.setStatus(comStack.getStatus());
+                stack.setMate(comStack.getMate());
+                stack.setRole(comStack.getRole());
                 break;
             }
         }

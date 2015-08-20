@@ -4,16 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.regex.Pattern;
 
 public class ReadAnsibleLog {
 	
-	public String AnsibleLog(String dir) throws Exception{
+	private Pattern rootPass = Pattern.compile("^.*root_password.*$");
+	private Pattern axadminPass = Pattern.compile("^.*axadmin_password.*$");
+	public String ExAnsibleLog(String dir) throws Exception{
 		Reader reader = new FileReader(dir);
 		BufferedReader br = new BufferedReader(reader);
 		StringBuffer sb = new StringBuffer();
 		try{
 			String data = null;
 			while((data = br.readLine())!=null){
+				if(rootPass.matcher(data).find()||axadminPass.matcher(data).find()){
+					String tmp = data.substring(data.indexOf(":")+1,data.length());
+					data = data.replace(tmp," ******");
+				}
 				sb.append(data+"\r\n");
 			}
 		}catch(IOException e){

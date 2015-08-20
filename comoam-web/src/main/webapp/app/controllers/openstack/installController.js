@@ -25,15 +25,8 @@ angular.module('os', [ 'ui.router',
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
-            $scope.$watch('installConfig.re_root_password',function(){
-            	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password){
-            		$scope.disMatch = true;
-            	}else{
-            		$scope.disMatch = false;
-            	}
-            });
-            $scope.$watch('installConfig.re_axadmin_password',function(){
-            	if($scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password  ){
+            $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
+            	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password||$scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password){
             		$scope.disMatch = true;
             	}else{
             		$scope.disMatch = false;
@@ -59,6 +52,10 @@ angular.module('os', [ 'ui.router',
 					OMCCN_SUPPORT_NETRA:'false',
 					INSTALL_ETHEREAL:'YES'
 			};
+            if($scope.installConfig.comType == 'CM'){
+            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+            }
             $scope.Backup_Server_Addr = function(){
             	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
                 $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
