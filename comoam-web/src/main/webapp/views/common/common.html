@@ -8,6 +8,7 @@
 	<label class="control-label" translate="CALL_TRACE_DISK_SPACE">Call Trace Disk Space</label> <input
 		name="CALL_TRACE_DISK_SPACE" class="form-control" type="text" 
 		ng-model="installConfig.app_install_options.CALL_TRACE_DISK_SPACE"
+		
 		title="Call Trace Disk Space" validation="required" />
 </div>
 <div class="form-group" ng-if="installConfig.comType!='QOSAC'">
@@ -49,7 +50,7 @@
         <option value="true" translate="TRUE">true</option>
         </select>
 </div>
-<div class="form-group" ng-if="installConfig.comType=='OAM'">
+<div class="form-group" >
     <label class="control-label" translate="OMCCN_SUPPORT_SP_FM">Support Fault Management</label> <select
         name="OMCCN_SUPPORT_SP_FM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_FM"
@@ -58,7 +59,7 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
-<div class="form-group" ng-if="installConfig.comType=='OAM'">
+<div class="form-group">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">Support Performance Management</label> <select
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"

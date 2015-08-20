@@ -60,7 +60,10 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_NETRA:'false',
 					INSTALL_ETHEREAL:'YES'
 			};
-            
+            if($scope.installConfig.comType == 'CM'){
+            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+            }
             $scope.installConfig.vm_config = {
             		"oam": { "nic": []},
             		"cm" : { "nic": []},
