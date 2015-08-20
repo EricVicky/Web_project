@@ -49,15 +49,6 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
-<div class="form-group" ng-if="installConfig.comType=='CM'">
-    <label class="control-label" translate="OMCCN_SUPPORT_SP_HVP">Support High Speed Provisioning</label> <select
-        name="OMCCN_SUPPORT_SP_HVP " class="form-control" type="text"
-        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_HVP"
-        title="OMCCN Support SP HVP" validation="required">
-        <option value="NO" translate="NO">No</option>
-		<option value="YES" translate="YES">Yes</option>
-        </select>
-</div>
 <div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_3GPP">Support 3GPP Corba Interface for Alarm</label> <select
 		name="OMCCN_SUPPORT_3GPP" class="form-control" type="text"
