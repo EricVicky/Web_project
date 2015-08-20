@@ -9,6 +9,7 @@ import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
+import com.alu.omc.oam.config.GRROLE;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.Status;
 
@@ -34,6 +35,8 @@ public class GrInstSecOSHandler extends DefaultHandler{
     {
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
+    	stack.setMate(getMateConfig().getStackName());
+    	stack.setRole(GRROLE.SECONDARY);
         service.grupdate(stack);
         log.info("Secondary COM GR installation succeeded on Openstack");
         
