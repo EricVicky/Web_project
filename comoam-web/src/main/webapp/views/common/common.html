@@ -50,7 +50,7 @@
         <option value="true" translate="TRUE">true</option>
         </select>
 </div>
-<div class="form-group" >
+<div class="form-group"  ng-if="installConfig.comType=='OAM' || installConfig.comType =='CM'">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_FM">Support Fault Management</label> <select
         name="OMCCN_SUPPORT_SP_FM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_FM"
@@ -59,7 +59,7 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="installConfig.comType=='OAM' || installConfig.comType =='CM'">
     <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">Support Performance Management</label> <select
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"
