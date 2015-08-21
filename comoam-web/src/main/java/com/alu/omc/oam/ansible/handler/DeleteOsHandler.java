@@ -41,10 +41,8 @@ public class DeleteOsHandler extends DefaultHandler{
 		if(this.succeed){
         	this.onSucceed();
         	END.setResult(ParseResult.SUCCEED);
-        	operationLogService.setLogStatus(config.getStackName(), LogStatus.SUCCEED);
         }else{
         	END.setResult(ParseResult.FAILED);
-        	operationLogService.setLogStatus(config.getStackName(), LogStatus.FAILED);
             this.onError();
         }
         sender.send(getFulltopic(), END);
