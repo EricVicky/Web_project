@@ -20,7 +20,22 @@ public class GRUnInstallConfig<T extends COMConfig> extends COMConfig implements
 private static final long serialVersionUID = 3890963920968307212L;
 private T comConfig;
 private boolean forced= false;
+private String deployment_prefix;
+private String stack_name;
 
+
+public String getDeployment_prefix() {
+	return this.getStackName();
+}
+public void setDeployment_prefix(String deployment_prefix) {
+	this.deployment_prefix = deployment_prefix;
+}
+public String getStack_name() {
+	return this.getStackName();
+}
+public void setStack_name(String stack_name) {
+	this.stack_name = stack_name;
+}
 public boolean getForced()
 {
     return forced;
