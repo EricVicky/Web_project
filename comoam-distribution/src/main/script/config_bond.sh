@@ -31,6 +31,8 @@ addr_itf=""
 bond_itf=""
 bond_slave_itf=""
 
+TARGET_HOST="127.0.0.1"
+
 while [[ $# > 0 ]]; do
   case $1 in
     -u)
