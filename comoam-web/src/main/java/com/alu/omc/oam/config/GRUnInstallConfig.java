@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.config.GRInstallConfig.GRIP;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,7 +48,7 @@ public Inventory getInventory()
 public String getVars()
 {
 //    HashMap<String, Object> vars = new HashMap<String, Object>();
-//   if(this.getEnvironment() == Environment.KVM){
+//    if(this.getEnvironment() == Environment.KVM){
 //        vars.put("deployment_prefix", this.getStackName());
 //    }else{
 //        vars.put("stack_name", this.getStackName());
@@ -62,7 +63,7 @@ public String getVars()
     }else{
     	sb.append("stack_name:"+this.getStackName()+"\r\n");
     }
-    sb.append("forced:"+"\'\""+String.valueOf(this.getForced())+"\"\'");
+    sb.append("forced:"+"\'"+String.valueOf(this.getForced())+"\'");
     return sb.toString();
 }
 
