@@ -69,7 +69,7 @@ if [ -z "$bond_itf" -o -z "$addr_itf" -o -z "$bond_slave_itf" ]; then
 fi
 
 if [ "$bond_itf" == "$addr_itf" -o "$bond_itf" == "$bond_slave_itf" -o "$addr_itf" == "$bond_slave_itf" ]; then
- echo "bond, ethx and ethy should be same."
+ echo "bond, ethx and ethy should not be same."
  exit 1
 fi
 
