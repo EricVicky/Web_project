@@ -47,24 +47,24 @@ public Inventory getInventory()
 @JsonIgnore 
 public String getVars()
 {
-//    HashMap<String, Object> vars = new HashMap<String, Object>();
-//    if(this.getEnvironment() == Environment.KVM){
-//        vars.put("deployment_prefix", this.getStackName());
-//    }else{
-//        vars.put("stack_name", this.getStackName());
-//    }
-//    vars.put("forced","\"" + String.valueOf(this.getForced()) + "\"");
-//    String json = Json2Object.object2Json(vars);
-//    return JsonYamlConverter.convertJson2Yaml(json);
-    
-    StringBuffer sb = new StringBuffer();
+    HashMap<String, Object> vars = new HashMap<String, Object>();
     if(this.getEnvironment() == Environment.KVM){
-    	sb.append("deployment_prefix:"+this.getStackName()+"\r\n");
+        vars.put("deployment_prefix", this.getStackName());
     }else{
-    	sb.append("stack_name:"+this.getStackName()+"\r\n");
+        vars.put("stack_name", this.getStackName());
     }
-    sb.append("forced:"+String.valueOf(this.getForced()));
-    return sb.toString();
+    vars.put("forced","\"" + String.valueOf(this.getForced()) + "\"");
+    String json = Json2Object.object2Json(this);
+    return JsonYamlConverter.convertJson2Yaml(json);
+    
+//    StringBuffer sb = new StringBuffer();
+//    if(this.getEnvironment() == Environment.KVM){
+//    	sb.append("deployment_prefix:"+this.getStackName()+"\r\n");
+//    }else{
+//    	sb.append("stack_name:"+this.getStackName()+"\r\n");
+//    }
+//    sb.append("forced:"+String.valueOf(this.getForced()));
+//    return sb.toString();
 }
 
 
