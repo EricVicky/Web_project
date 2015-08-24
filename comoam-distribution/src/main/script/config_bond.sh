@@ -15,14 +15,14 @@ function usage {
    echo "option:"
    echo "    -b create a new bonding channel named bond"
    echo "    -u use the ip address in ethx as the ip address for bond"
-   echo "       and add this NIC device to the bonding channel"
-   echo "    -e add NIC device ethx/ethy to bonding channel"
+   echo "       and add this NIC device ethx to the bonding channel"
+   echo "    -e add NIC device ethy to the bonding channel"
    echo "example:"
    echo "    ./config_bond.sh -b bond0 -u eth0 -e eth5"
    echo "    ./config_bond.sh -b bond1 -u eth1 -e eth6"
 }
 
-if [ $# -eq 0 ]; then
+if [ $# -eq 0 -o $# -lt 6]; then
  usage
  exit 0
 fi
@@ -61,6 +61,16 @@ done
 if [ $# -ne 0 ]; then
  usage
  exit 0
+fi
+
+if [ -z "$bond_itf" -o -z "$addr_itf" -o -z "$bond_slave_itf" ]; then
+ usage
+ exit 1
+fi
+
+if [ "$bond_itf" == "$addr_itf" -o "$bond_itf" == "$bond_slave_itf" -o "$addr_itf" == "$bond_slave_itf" ]; then
+ echo "bond, ethx and ethy should be same."
+ exit 1
 fi
 
 # resolve links - $0 may be a softlink
