@@ -58,9 +58,9 @@ public String getVars()
     
     StringBuffer sb = new StringBuffer();
     if(this.getEnvironment() == Environment.KVM){
-    	sb.append("deployment_prefix:"+this.getStackName()+","+"\r\n");
+    	sb.append("deployment_prefix:"+this.getStackName()+"\r\n");
     }else{
-    	sb.append("stack_name:"+this.getStackName()+","+"\r\n");
+    	sb.append("stack_name:"+this.getStackName()+"\r\n");
     }
     sb.append("forced:"+"\'\""+String.valueOf(this.getForced())+"\"\'");
     return sb.toString();
