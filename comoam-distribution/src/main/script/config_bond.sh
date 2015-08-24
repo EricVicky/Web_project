@@ -18,8 +18,8 @@ function usage {
    echo "       and add this NIC device to the bonding channel"
    echo "    -e add NIC device ethx/ethy to bonding channel"
    echo "example:"
-   echo "    ./config_bond.sh -u eth0 -b bond0 -e eth0 eth5"
-   echo "    ./config_bond.sh -u eth1 -b bond1 -e eth1 eth6"
+   echo "    ./config_bond.sh -b bond0 -u eth0 -e eth5"
+   echo "    ./config_bond.sh -b bond1 -u eth1 -e eth6"
 }
 
 if [ $# -eq 0 ]; then
