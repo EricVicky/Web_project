@@ -22,7 +22,7 @@ function usage {
    echo "    ./config_bond.sh -b bond1 -u eth1 -e eth6"
 }
 
-if [ $# -eq 0 -o $# -lt 6]; then
+if [ $# -eq 0 -o $# -lt 6 ]; then
  usage
  exit 0
 fi
