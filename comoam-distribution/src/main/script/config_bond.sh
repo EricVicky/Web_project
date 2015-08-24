@@ -86,4 +86,4 @@ if [ -z "$TARGET_HOST" ] || [ "$TARGET_HOST" == '127.0.0.1' ] || [ "$TARGET_HOST
 	INVENTORY=$PRGDIR/../ELCM-playbook/inventory/hosts.local
 fi
 
-ansible-playbook -i $INVENTORY -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/config_bond.yml 
+ansible-playbook -i $INVENTORY -e "$VARS"  $PRGDIR/../ELCM-playbook/playbooks/kvm/create_bond.yml 
