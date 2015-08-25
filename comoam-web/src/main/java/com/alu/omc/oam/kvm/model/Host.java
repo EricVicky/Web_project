@@ -89,9 +89,9 @@ import com.alu.omc.oam.service.WebsocketSender;
         public static boolean isLocalHost(String ip_address){
         	
         	log.info("check local address:" + ip_address);
-        	if (("").equals(ip_address)){
+        	if (ip_address == null)
         		return false;
-        	}
+
 			try {
 				InetAddress addr = InetAddress.getLocalHost();
 				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
@@ -104,7 +104,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 				      }
 				    }
 				  }
-			} catch (UnknownHostException e) {				
+			} catch (Exception e) {				
 				log.error("failed to get localhost ip" + ip_address, e);
 				return false;
 			}
