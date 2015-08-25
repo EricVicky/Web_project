@@ -427,9 +427,9 @@ div .operationlog:hover{
 div .operationlog:active{
 	background-color:#c3c3c3;
 }
-div .status_success{
-	color:green;
-}
-div .status_fail{
-	color:red;
+div .log-list{
+	height: 500px; 
+	background-color: white; 
+	overflow: auto;
+	width: 180px;
 }
