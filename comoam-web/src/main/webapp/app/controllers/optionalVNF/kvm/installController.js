@@ -33,6 +33,15 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 
     timezoneService.timezonelist().then( function(data) {
 		$scope.timezoneStore = data;
+		return data;
+	}).then(function (timezonelist){
+           timezoneService.getHostTZ().then( function(hostTimeZone) {
+        	   for(var i in timezonelist){
+        		   if( timezonelist[i].id == hostTimeZone.id){
+        			   $scope.installConfig.timezone = timezonelist[i].id; 
+        		   }
+        	   }
+          });
 	});
     
     KVMService.getComTypeStore().then(function(data){

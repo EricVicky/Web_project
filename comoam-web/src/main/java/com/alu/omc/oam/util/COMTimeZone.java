@@ -35,6 +35,15 @@ public class COMTimeZone
         return timeset > 0 ? timeset : -timeset;
     }
     
+    public static Timezone getHostTZ(){
+    	Timezone tz = new Timezone();
+    	tz.setId(TimeZone.getDefault().getID());
+    	tz.setLabel(TimeZone.getDefault().getDisplayName());
+    	
+    	return tz;
+    	
+    }
+    
     /**
      * This function is used for getting all the time zones defined by Java. 
      */

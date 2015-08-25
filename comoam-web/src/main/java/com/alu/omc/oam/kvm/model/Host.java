@@ -1,6 +1,8 @@
 package com.alu.omc.oam.kvm.model;
 
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -81,7 +83,30 @@ import com.alu.omc.oam.ansible.Entity;
         }
         
         public static boolean isLocalHost(String ip_address){
-            return ip_address!=null && (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
+        	
+        	if (ip_address == null)
+        		return false;
+
+			try {
+				InetAddress addr = InetAddress.getLocalHost();
+				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
+				  if (allMyIps != null && allMyIps.length > 1) {
+				    for (int i = 0; i < allMyIps.length; i++) {
+				      if ( allMyIps[i].equals(ip_address)){
+                           return true;
+				      }
+				    }
+				  }
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        
+            return (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
+        }
+        
+        public static void main(String[] ars){
+        	isLocalHost("124.4.4.4");
         }
         
         private String localHost(){
