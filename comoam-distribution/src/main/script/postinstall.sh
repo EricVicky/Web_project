@@ -31,6 +31,9 @@ echo "generate ssl key"
 echo "add hostname to host.json"
 hostname=`hostname --fqdn`
 ip_addr=`hostname -i`
+if [ -z "$ip_addr" ]; then
+    ip_addr="127.0.0.1"
+fi
 /usr/bin/python /opt/PlexView/ELCM/script/updateHostJson.py $ip_addr $hostname
 
 if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]; then
