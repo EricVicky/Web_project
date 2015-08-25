@@ -97,14 +97,15 @@ import com.alu.omc.oam.service.WebsocketSender;
 				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
 				  if (allMyIps != null && allMyIps.length > 1) {
 				    for (int i = 0; i < allMyIps.length; i++) {
-				    	log.info("ip:" + allMyIps[0]);
-				      if ( allMyIps[i].equals(ip_address)){
+				    	log.info("ip:" + allMyIps[i].getHostAddress());
+				      if ( allMyIps[i].getHostAddress().equals(ip_address)){
+				    	  log.info("localhost ip is" + ip_address);
                            return true;
 				      }
 				    }
 				  }
 			} catch (UnknownHostException e) {				
-				e.printStackTrace();
+				log.error("failed to get localhost ip" + ip_address, e);
 				return false;
 			}
         
