@@ -107,7 +107,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 				      }
 				    }
 				  }
-			} catch (UnknownHostException e) {				
+			} catch (Exception e) {				
 				log.error("failed to get localhost ip" + ip_address, e);
 				return false;
 			}
