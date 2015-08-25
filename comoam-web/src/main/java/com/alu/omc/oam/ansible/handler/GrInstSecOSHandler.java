@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
-import com.alu.omc.oam.config.BACKUPConfig;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
-import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.GRROLE;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.Status;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("GRINST_SEC_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
@@ -25,12 +24,19 @@ public class GrInstSecOSHandler extends DefaultHandler{
     	super.onStart();
     	log.info("Start Secondary COM GR installation on Openstack");
     }
+    
+    @SuppressWarnings("unchecked")
+    private COMConfig getMateConfig(){
+        return ((GRInstallConfig<OSCOMConfig>)config).getPri();
+    }
 
 	@Override
     public void onSucceed()
     {
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
+    	stack.setMate(getMateConfig().getStackName());
+    	stack.setRole(GRROLE.SECONDARY);
         service.grupdate(stack);
         log.info("Secondary COM GR installation succeeded on Openstack");
         

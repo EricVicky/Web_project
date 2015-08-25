@@ -42,15 +42,15 @@ public class AnsibleLog extends ReadAnsibleLog implements Serializable{
 	}
 	
 	public String ReadLog() throws Exception{
-		return AnsibleLog(this.dir+LOG_FILE);
+		return ExAnsibleLog(this.dir+LOG_FILE);
 	}
 	
 	public String ReadAll() throws Exception{
-		return AnsibleLog(this.dir+ALL_FILE);
+		return ExAnsibleLog(this.dir+ALL_FILE);
 	}
 	
 	public String ReadHosts() throws Exception{
-		return AnsibleLog(this.dir+HOST_FILE);
+		return ExAnsibleLog(this.dir+HOST_FILE);
 	}
 
 	public String getLog() {

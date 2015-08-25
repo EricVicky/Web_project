@@ -6,11 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
+import com.alu.omc.oam.config.GRROLE;
 import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.Status;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("GRINST_PRI_KVM_HANDLER")
 @Scope(value = "prototype")
@@ -23,12 +24,17 @@ public class GrInstPriKVMHandler extends DefaultHandler{
     	super.onStart();
     	log.info("start Primary COM GR installation on KVM");
     }
-
+    @SuppressWarnings("unchecked")
+    private COMConfig getMateConfig(){
+        return ((GRInstallConfig<KVMCOMConfig>)config).getSec();
+    }
 	@Override
     public void onSucceed()
     {
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
+    	stack.setMate(getMateConfig().getStackName());
+    	stack.setRole(GRROLE.PRIMARY);
         service.grupdate(stack);
         log.info("Primary COM GR installation succeeded on KVM");
     }

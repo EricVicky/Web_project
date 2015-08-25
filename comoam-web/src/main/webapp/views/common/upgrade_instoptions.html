@@ -1,22 +1,3 @@
-<div class="form-group">
-	<label class="control-label" translate="BACKUP_SERVER_DISK_SPACE">Backup Server Disk Space</label> <input
-		name="BACKUP_SERVER_DISK_SPACE" class="form-control" type="text"
-		ng-model="installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE"
-		title="Backup Server Disk Space" validation="required" />
-</div>
-<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
-	<label class="control-label" translate="CALL_TRACE_DISK_SPACE">Call Trace Disk Space</label> <input
-		name="CALL_TRACE_DISK_SPACE" class="form-control" type="text" 
-		ng-model="installConfig.app_install_options.CALL_TRACE_DISK_SPACE"
-		
-		title="Call Trace Disk Space" validation="required" />
-</div>
-<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
-	<label class="control-label" translate="CODE_SERVER_DISK_SPACE">Code Server Disk Space</label> <input
-		name="CODE_SERVER_DISK_SPACE" class="form-control" type="text"
-		ng-model="installConfig.app_install_options.CODE_SERVER_DISK_SPACE"
-		title="Code Server Disk Space" validation="required" />
-</div>
 <div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_WEBSSO_SANE">OMCCN Support Websso SANE</label> <select
 		name="OMCCN_SUPPORT_WEBSSO_SANE" class="form-control" type="text"
@@ -59,7 +40,7 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
-<div class="form-group" ng-if="installConfig.comType=='OAM' || installConfig.comType =='CM'">
+<div class="form-group" ng-if="installConfig.comType=='OAM' || installConfig.comType =='CM'" >
     <label class="control-label" translate="OMCCN_SUPPORT_SP_PM">Support Performance Management</label> <select
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"
@@ -67,45 +48,6 @@
         <option value="NO" translate="NO">No</option>
 		<option value="YES" translate="YES">Yes</option>
         </select>
-</div>
-<div class="form-group" ng-if="installConfig.comType=='CM'">
-    <label class="control-label" translate="OMCCN_SUPPORT_SP_HVP">Support High Speed Provisioning</label> <select
-        name="OMCCN_SUPPORT_SP_HVP " class="form-control" type="text"
-        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_HVP"
-        title="OMCCN Support SP HVP" validation="required">
-        <option value="NO" translate="NO">No</option>
-		<option value="YES" translate="YES">Yes</option>
-        </select>
-</div>
-<div class="form-group">
-    <label class="control-label" translate="BACKUP_SERVER_IS_LOCAL">Backup Server is Local?</label> <select
-        name="BACKUP_SERVER_IS_LOCAL" class="form-control" type="text"
-        ng-model="installConfig.app_install_options.BACKUP_SERVER_IS_LOCAL"
-        title="BACKUP SERVER IS LOCAL" validation="required">
-        <option value="YES" translate="YES">Yes</option>
-        <option value="NO" translate="NO">No</option>
-        </select>
-</div>
-<div class="form-group">
-    <label class="control-label" translate="SOFTWARE_SERVER_IS_LOCAL">Software Server is Local?</label> <select
-        name="SOFTWARE_SERVER_IS_LOCAL" class="form-control" type="text"
-        ng-model="installConfig.app_install_options.SOFTWARE_SERVER_IS_LOCAL"
-        title="SOFTWARE SERVER IS LOCAL" validation="required">
-        <option value="YES" translate="YES">Yes</option>
-        <option value="NO" translate="NO">No</option>
-        </select>
-</div>
-<div class="form-group">
-    <label class="control-label" translate="SOFTWARE_SERVER_ADDRESS">Software Server Address</label> <input
-        name="SOFTWARE_SERVER_ADDRESS" class="form-control" type="text"
-        ng-model="installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS"
-        title="SOFTWARE SERVER ADDRESS" validation="required" />
-</div>
-<div class="form-group">
-    <label class="control-label" translate="BACKUP_SERVER_ADDRESS">Backup Server Address</label> <input
-        name="BACKUP_SERVER_ADDRESS" class="form-control" type="text"
-        ng-model="installConfig.app_install_options.BACKUP_SERVER_ADDRESS"
-        title="BACKUP SERVER ADDRESS" validation="required" />
 </div>
 <div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" translate="OMCCN_SUPPORT_3GPP">Support 3GPP Corba Interface for Alarm</label> <select

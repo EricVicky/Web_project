@@ -86,6 +86,7 @@ angular.module('comoamApp')
 				  break;
 			  }
 		  }
+		  var selectComstack = $scope.getComStack($scope.selectedIns);
 		  var modalInstance = $modal.open({
 		      animation: $scope.animationsEnabled,
 		      templateUrl: 'views/common/' + selectedInsModal + '.html',
@@ -94,6 +95,9 @@ angular.module('comoamApp')
 		      resolve: {
 		    	  selectedIns: function () {
 		    		  return $scope.selectedIns;
+		    	  },
+		    	  selectComstack: function () {
+		    		  return selectComstack;
 		    	  }
 		      }
 		  }); 
@@ -138,8 +142,9 @@ angular.module('comoamApp')
 	 $scope.cancel = function () {
 		 $modalInstance.dismiss('cancel');
      };
-}).controller('detailController', function($scope, $modalInstance, selectedIns, KVMService, OSService, monitorService, $state){
+}).controller('detailController', function($scope, $modalInstance, selectedIns, selectComstack, KVMService, OSService, monitorService, $state){
 	 $scope.selectedIns = selectedIns;
+     $scope.selectComstack = selectComstack;
 	 if($scope.selectedIns.environment == "KVM"){
 		 if($scope.selectedIns.comType=='FCAPS'||$scope.selectedIns.comType=='OAM'||$scope.selectedIns.comType=='CM'){
 			 $scope.oamRowspan = $scope.selectedIns.vm_config.oam.nic.length * 2 + 2;

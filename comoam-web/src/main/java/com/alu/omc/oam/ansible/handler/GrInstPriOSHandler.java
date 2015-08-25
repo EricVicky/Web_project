@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
-import com.alu.omc.oam.config.BACKUPConfig;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
-import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.GRROLE;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.Status;
-import com.alu.omc.oam.log.ParseResult;
 
 @Component("GRINST_PRI_OPENSTACK_HANDLER")
 @Scope(value = "prototype")
@@ -30,12 +29,19 @@ public class GrInstPriOSHandler extends DefaultHandler{
 	private OSCOMConfig getOSConfig(){
     	return ((GRInstallConfig<OSCOMConfig>)config).getPri();
     }
+    
+    @SuppressWarnings("unchecked")
+    private COMConfig getMateConfig(){
+        return ((GRInstallConfig<OSCOMConfig>)config).getSec();
+    }
 
 	@Override
     public void onSucceed()
     {
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
+    	stack.setMate(getMateConfig().getStackName());
+    	stack.setRole(GRROLE.PRIMARY);
         service.grupdate(stack);
         log.info("Primary COM GR installation succeeded on Openstack");
     }
