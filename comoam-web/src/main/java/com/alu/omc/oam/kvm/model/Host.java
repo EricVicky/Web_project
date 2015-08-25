@@ -97,12 +97,12 @@ import com.alu.omc.oam.service.WebsocketSender;
 				InetAddress addr = InetAddress.getLocalHost();
 				log.info("getlocalhost" + addr.toString());
 				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
-				log.info("get all by name " + allMyIps.toString());
+				log.info("get all by name " + allMyIps.length + " " + allMyIps[0].toString());
 				  if (allMyIps != null && allMyIps.length > 1) {
 				    for (int i = 0; i < allMyIps.length; i++) {
 				    	log.info("ip:" + allMyIps[i].getHostAddress());
 				      if ( allMyIps[i].getHostAddress().equals(ip_address)){
-				    	  log.info("localhost ip is" + ip_address);
+				    	  log.info("localhost ip is " + ip_address);
                            return true;
 				      }
 				    }
