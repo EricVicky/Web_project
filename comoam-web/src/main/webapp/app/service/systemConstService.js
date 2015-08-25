@@ -9,7 +9,11 @@ angular.module('sysconst', [ 'ngResource' ]).factory('timezoneService', function
 		timezonelist: function(success,error) {
 			var timezoneRes = $resource(restUrl + "rest/sysinfo/timezone");
 			return timezoneRes.query().$promise;
-		}
+		},
+	    getHostTZ: function(success,error) {
+	    	var hosttzRes = $resource(restUrl + "rest/sysinfo/hosttz");
+			return hosttzRes.get().$promise;
+	    }
 	};
 });
 

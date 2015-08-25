@@ -16,5 +16,9 @@ public class SystemInfoController
     {
     	return COMTimeZone.getTimeZone();
     }
-
+    @RequestMapping(value="/sysinfo/hosttz", method=RequestMethod.GET)
+    public Timezone hostTZ()
+    {
+    	return COMTimeZone.getHostTZ();
+    }
 }
