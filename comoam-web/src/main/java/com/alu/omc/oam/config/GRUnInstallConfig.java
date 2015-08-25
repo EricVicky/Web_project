@@ -68,7 +68,7 @@ public String getVars()
     }else{
     	sb.append("stack_name: "+this.getStackName()+"\r\n");
     }
-    sb.append("forced:"+String.valueOf(this.getForced()));
+    sb.append("forced: "+String.valueOf(this.getForced()));
     return sb.toString();
 }
 
