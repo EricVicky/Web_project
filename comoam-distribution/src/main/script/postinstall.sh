@@ -30,7 +30,7 @@ echo "generate ssl key"
 
 echo "add hostname to host.json"
 hostname=`hostname --fqdn`
-ip_addr=`grep " $hostname " /etc/hosts | cut -f 1 -d ' '`
+ip_addr=`hostname -i`
 /usr/bin/python /opt/PlexView/ELCM/script/updateHostJson.py $ip_addr $hostname
 
 if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]; then
