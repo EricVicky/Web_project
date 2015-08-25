@@ -5,14 +5,18 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alu.omc.oam.ansible.Entity;
+import com.alu.omc.oam.service.WebsocketSender;
 
   public class Host implements Entity , Serializable
     {
         /**
       * @Fields serialVersionUID :
       */
+    private static Logger log = LoggerFactory.getLogger(WebsocketSender.class);
     private static final long serialVersionUID = -2647064957473634595L;
         String name;
         String ip_address;
@@ -93,12 +97,13 @@ import com.alu.omc.oam.ansible.Entity;
 				  if (allMyIps != null && allMyIps.length > 1) {
 				    for (int i = 0; i < allMyIps.length; i++) {
 				      if ( allMyIps[i].equals(ip_address)){
+				    	  log.info("localhost ip is" + ip_address);
                            return true;
 				      }
 				    }
 				  }
 			} catch (UnknownHostException e) {				
-				e.printStackTrace();
+				log.error("failed to get localhost ip" + ip_address, e);
 				return false;
 			}
         
