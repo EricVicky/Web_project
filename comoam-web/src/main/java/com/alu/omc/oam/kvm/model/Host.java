@@ -2,7 +2,10 @@ package com.alu.omc.oam.kvm.model;
 
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -91,24 +94,45 @@ import com.alu.omc.oam.service.WebsocketSender;
         	log.info("check local address:" + ip_address);
         	if (ip_address == null)
         		return false;
-
+        	
 			try {
-				InetAddress addr = InetAddress.getLocalHost();
-				log.info("getlocalhost " + addr.toString());
-				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
-				log.info("All my IPs length is " + allMyIps.length);
-				  if (allMyIps != null && allMyIps.length > 0) {
-				    for (int i = 0; i < allMyIps.length; i++) {
-				      if ( allMyIps[i].getHostAddress().equals(ip_address)){
-				    	  log.info("localhost ip is " + ip_address);
-                           return true;
-				      }
-				    }
-				  }
-			} catch (Exception e) {				
-				log.error("failed to get localhost ip" + ip_address, e);
+				Enumeration e = NetworkInterface.getNetworkInterfaces();
+	        	while(e.hasMoreElements())
+	        	{
+	        	    NetworkInterface n = (NetworkInterface) e.nextElement();
+	        	    Enumeration ee = n.getInetAddresses();
+	        	    while (ee.hasMoreElements())
+	        	    {
+	        	        InetAddress i = (InetAddress) ee.nextElement();
+	        	        log.info("inet address is " + i.getHostAddress() );
+	        	        if(i.getHostAddress().equals(ip_address)){
+					    	  log.info("localhost ip is " + ip_address);
+	                          return true;
+	        	        }
+	        	    }
+	        	}
+			} catch (Exception e1) {
+				log.error("failed to get localhost ip" + ip_address, e1);
 				return false;
 			}
+
+//			try {
+//				InetAddress addr = InetAddress.getLocalHost();
+//				log.info("getlocalhost " + addr.toString());
+//				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
+//				log.info("All my IPs length is " + allMyIps.length);
+//				  if (allMyIps != null && allMyIps.length > 0) {
+//				    for (int i = 0; i < allMyIps.length; i++) {
+//				      if ( allMyIps[i].getHostAddress().equals(ip_address)){
+//				    	  log.info("localhost ip is " + ip_address);
+//                           return true;
+//				      }
+//				    }
+//				  }
+//			} catch (Exception e) {				
+//				log.error("failed to get localhost ip" + ip_address, e);
+//				return false;
+//			}
         
             return (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
         }
