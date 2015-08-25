@@ -103,16 +103,12 @@ import com.alu.omc.oam.service.WebsocketSender;
 				      }
 				    }
 				  }
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
+			} catch (UnknownHostException e) {				
 				e.printStackTrace();
+				return false;
 			}
         
             return (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
-        }
-        
-        public static void main(String[] ars){
-        	isLocalHost("124.4.4.4");
         }
         
         private String localHost(){
