@@ -16,7 +16,6 @@ import com.alu.omc.oam.service.WebsocketSender;
         /**
       * @Fields serialVersionUID :
       */
-    private static Logger log = LoggerFactory.getLogger(WebsocketSender.class);
     private static final long serialVersionUID = -2647064957473634595L;
     private static Logger log = LoggerFactory.getLogger(Host.class);
         String name;
