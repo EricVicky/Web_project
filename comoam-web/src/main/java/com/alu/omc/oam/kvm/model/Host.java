@@ -18,6 +18,7 @@ import com.alu.omc.oam.service.WebsocketSender;
       */
     private static Logger log = LoggerFactory.getLogger(WebsocketSender.class);
     private static final long serialVersionUID = -2647064957473634595L;
+    private static Logger log = LoggerFactory.getLogger(Host.class);
         String name;
         String ip_address;
         String user = "";
@@ -88,6 +89,7 @@ import com.alu.omc.oam.service.WebsocketSender;
         
         public static boolean isLocalHost(String ip_address){
         	
+        	log.info("check local address:" + ip_address);
         	if (ip_address == null)
         		return false;
 
@@ -96,6 +98,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
 				  if (allMyIps != null && allMyIps.length > 1) {
 				    for (int i = 0; i < allMyIps.length; i++) {
+				    	log.info("ip:" + allMyIps[i]);
 				      if ( allMyIps[i].equals(ip_address)){
 				    	  log.info("localhost ip is" + ip_address);
                            return true;
