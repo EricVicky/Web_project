@@ -35,7 +35,7 @@ public class GrInstSecKVMHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
     	stack.setMate(getMateConfig().getStackName());
-    	stack.setRole(GRROLE.SECONDARY);
+    	stack.setRole(GRROLE.Secondary);
         service.grupdate(stack);
 
         log.info("Secondary COM GR installation succeeded on KVM");
