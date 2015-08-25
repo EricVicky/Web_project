@@ -4,8 +4,8 @@
 		<div>
 			<label style="color:#777">VNF Name:{{selectedVNFName}}</label>
 		</div>
-		<div class="u_nav">
-			<ul style="padding-left: 0px;">
+		<div class="row">
+			<ul style="padding-left: 0px;height: 500px; background-color: white; overflow: auto">
 				<li ng-repeat="ol in operationlog">
 				<div class="status_success" ng-if="ol.logStatus=='SUCCEED'">success</div><div class="status_fail" ng-if="ol.logStatus=='FAILED'">fail</div>
 				<a href="" ng-click="showlog(ol)">
