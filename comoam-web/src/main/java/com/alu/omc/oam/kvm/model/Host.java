@@ -97,7 +97,7 @@ import com.alu.omc.oam.service.WebsocketSender;
 				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
 				  if (allMyIps != null && allMyIps.length > 1) {
 				    for (int i = 0; i < allMyIps.length; i++) {
-				    	log.info("ip:" + allMyIps[i]);
+				    	log.info("ip:" + allMyIps[0]);
 				      if ( allMyIps[i].equals(ip_address)){
                            return true;
 				      }
