@@ -95,6 +95,8 @@ import com.alu.omc.oam.service.WebsocketSender;
         	if (ip_address == null)
         		return false;
         	
+        	if (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"))
+        		return true;
 			try {
 				Enumeration e = NetworkInterface.getNetworkInterfaces();
 	        	while(e.hasMoreElements())
@@ -104,7 +106,6 @@ import com.alu.omc.oam.service.WebsocketSender;
 	        	    while (ee.hasMoreElements())
 	        	    {
 	        	        InetAddress i = (InetAddress) ee.nextElement();
-	        	        log.info("inet address is " + i.getHostAddress() );
 	        	        if(i.getHostAddress().equals(ip_address)){
 					    	  log.info("localhost ip is " + ip_address);
 	                          return true;
@@ -115,26 +116,8 @@ import com.alu.omc.oam.service.WebsocketSender;
 				log.error("failed to get localhost ip" + ip_address, e1);
 				return false;
 			}
-
-//			try {
-//				InetAddress addr = InetAddress.getLocalHost();
-//				log.info("getlocalhost " + addr.toString());
-//				InetAddress[] allMyIps = InetAddress.getAllByName(addr.getCanonicalHostName());
-//				log.info("All my IPs length is " + allMyIps.length);
-//				  if (allMyIps != null && allMyIps.length > 0) {
-//				    for (int i = 0; i < allMyIps.length; i++) {
-//				      if ( allMyIps[i].getHostAddress().equals(ip_address)){
-//				    	  log.info("localhost ip is " + ip_address);
-//                           return true;
-//				      }
-//				    }
-//				  }
-//			} catch (Exception e) {				
-//				log.error("failed to get localhost ip" + ip_address, e);
-//				return false;
-//			}
         
-            return (ip_address.equals("127.0.0.1") || ip_address.equals("localhost"));
+            return false;
         }
         
         private String localHost(){
