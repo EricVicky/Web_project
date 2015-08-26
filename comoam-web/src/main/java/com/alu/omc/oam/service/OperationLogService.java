@@ -1,7 +1,10 @@
 package com.alu.omc.oam.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +21,30 @@ import com.alu.omc.oam.config.LogStatus;
 import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @Service
 public class OperationLogService {
 	
 	@Resource
     private JsonDataSource dataSource;
+	
+	public List<OperationLog> listLog(String name){
+    	List<OperationLog> operationlog = null;
+        try
+        {
+        	operationlog = dataSource.loadAllLog().get(name);
+        	Collections.reverse(operationlog);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(operationlog == null){
+        	operationlog = new ArrayList<OperationLog>();
+        }
+        return operationlog;
+    }
 	
 	public void addLog(String stackName, OperationLog log){
     	Map<String, List<OperationLog>>  allLogs = dataSource.loadAllLog();

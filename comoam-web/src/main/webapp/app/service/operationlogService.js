@@ -3,9 +3,9 @@ angular.module('operationlog').factory('operationlogService', function($location
 	var baseUrl = $location.absUrl().split("#", 1)[0];
 	var restUrl = baseUrl;
 	return {
-		getOperationLog: function () {
+		getOperationLog: function (name) {
 			var operationLog = $resource(restUrl + "rest/operationlog");
-			return operationLog.get().$promise;
+			return operationLog.query({"name":name}).$promise;
 		},
 		getAnsibleLog:function(dir){
 			var ansibleLog = $resource(restUrl + "rest/ansiblelog");
