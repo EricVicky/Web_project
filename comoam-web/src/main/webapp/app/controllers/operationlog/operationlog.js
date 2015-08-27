@@ -5,8 +5,9 @@ angular.module('operationlog',[]).controller('operationlogctr', function($scope,
 		$scope.selectedVNFName = $scope.selectedVNF.stackName;	
 	}
 	
-	operationlogService.getOperationLog().then(function(data){
-		$scope.operationlog = data[$scope.selectedVNFName];
+	operationlogService.getOperationLog($scope.selectedVNFName).then(function(data){
+		$scope.operationlog = data;
+
 		operationlogService.getAnsibleLog($scope.operationlog[0].dir).then(function(data){
 			$scope.logview = data.log;
 			$scope.allview = data.all;

@@ -36,6 +36,7 @@ import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
+import com.alu.omc.oam.service.OperationLogService;
 
 @RestController 
 public class CloudDeployController 
@@ -50,6 +51,8 @@ public class CloudDeployController
     COMStackService cOMStackService;
     @Resource
     JsonDataSource jsonDataSource;
+    @Resource
+    OperationLogService operationLogService;
     
     @RequestMapping(value="/os/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
@@ -224,9 +227,9 @@ public class CloudDeployController
     }
     
     @RequestMapping(value="/operationlog", method=RequestMethod.GET)
-    public Map<String, List<OperationLog>>  operationLog() throws IOException, InterruptedException
+    public List<OperationLog>  operationLog(@ModelAttribute("name") String name) throws IOException, InterruptedException
     {
-    	Map<String, List<OperationLog>> operations = jsonDataSource.loadAllLog();
+    	List<OperationLog> operations = operationLogService.listLog(name);
     	return operations;
     }
     

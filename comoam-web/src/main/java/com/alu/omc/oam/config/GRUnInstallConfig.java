@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alu.omc.oam.ansible.Inventory;
+import com.alu.omc.oam.config.GRInstallConfig.GRIP;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,22 @@ public class GRUnInstallConfig<T extends COMConfig> extends COMConfig implements
 private static final long serialVersionUID = 3890963920968307212L;
 private T comConfig;
 private boolean forced= false;
+private String deployment_prefix;
+private String stack_name;
 
+
+public String getDeployment_prefix() {
+	return this.getStackName();
+}
+public void setDeployment_prefix(String deployment_prefix) {
+	this.deployment_prefix = deployment_prefix;
+}
+public String getStack_name() {
+	return this.getStackName();
+}
+public void setStack_name(String stack_name) {
+	this.stack_name = stack_name;
+}
 public boolean getForced()
 {
     return forced;
@@ -45,16 +61,15 @@ public Inventory getInventory()
 @Override
 @JsonIgnore 
 public String getVars()
-{
-    HashMap<String, String> vars = new HashMap<String, String>();
-   if(this.getEnvironment() == Environment.KVM){
-        vars.put("deployment_prefix", this.getStackName());
+{  
+    StringBuffer sb = new StringBuffer();
+    if(this.getEnvironment() == Environment.KVM){
+    	sb.append("deployment_prefix: "+this.getStackName()+"\r\n");
     }else{
-        vars.put("stack_name", this.getStackName());
+    	sb.append("stack_name: "+this.getStackName()+"\r\n");
     }
-   vars.put("forced","\"" + String.valueOf(this.getForced()) + "\"");
-    String json = Json2Object.object2Json(vars);
-    return JsonYamlConverter.convertJson2Yaml(json);
+    sb.append("forced: "+String.valueOf(this.getForced()));
+    return sb.toString();
 }
 
 

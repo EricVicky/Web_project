@@ -28,6 +28,12 @@ chmod +x /opt/PlexView/ELCM/server/bin/*sh
 echo "generate ssl key"
 /opt/PlexView/ELCM/script/sslKey.sh
 
+hostname=`hostname --fqdn`
+ip_addr=`hostname -i`
+if [ -n "$ip_addr" ] && [ -n "$hostname" ]; then
+	echo "remove localhost and add hostname to host.json"
+	/usr/bin/python /opt/PlexView/ELCM/script/updateHostJson.py $ip_addr $hostname
+fi
 
 if [ -f /opt/PlexView/ELCM/datasource/comstack.json ]; then
     /opt/PlexView/ELCM/script/migration-0.7-8.py

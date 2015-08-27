@@ -75,7 +75,7 @@
 	"NTP_SERVER":"NTP Server",
 	"SEC_UNIX_ENABLE":"Sec Unix Enable",
 	"OMCCN_SUPPORT_COM_GR":"Support COM GR",
-	"OMCCN_SUPPORT_SP_FM":"Support Fault Management",
+	"OMCCN_SUPPORT_SP_FM":"Support Alarm Resynchronization",
 	"OMCCN_SUPPORT_SP_PM":"Support Performance Management",
 	"OMCCN_SUPPORT_SP_HVP":"Support High Speed Provisioning",
 	"BACKUP_SERVER_IS_LOCAL":"Backup Server is Local?",

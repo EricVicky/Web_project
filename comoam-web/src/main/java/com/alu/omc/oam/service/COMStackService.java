@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,16 @@ public class COMStackService
 {
     @Resource
     private JsonDataSource dataSource;
-
+    private static Logger log = LoggerFactory.getLogger(COMStackService.class);
     public void add(COMStack comStack)
     {
-        List<COMStack> stacks = dataSource.list();
+        List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return;
+		}
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
         }
@@ -34,7 +42,13 @@ public class COMStackService
     }
     
     public boolean existstack(COMStack comStack){
-    	List<COMStack> stacks = dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+            return false;
+		}
     	if(stacks != null && stacks.size() >0){
             for(COMStack stack : stacks){
 				if (stack.getName().equals(comStack.getName())) {
@@ -46,7 +60,13 @@ public class COMStackService
     }
     
     public void update(COMStack comStack){
-        List<COMStack> stacks = dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return;
+		}
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
         }
@@ -64,7 +84,13 @@ public class COMStackService
     }
     
     public void grupdate(COMStack comStack){
-        List<COMStack> stacks = dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return;
+		}
         if(stacks == null){
             stacks = new ArrayList<COMStack>();
         }
@@ -84,7 +110,13 @@ public class COMStackService
     	if(name == null || name.length() == 0){
     		return;
     	}
-        List<COMStack> stacks = dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return;
+		}
         if(stacks != null && stacks.size() >0){
             for(COMStack stack : stacks){
             	if(stack.getName().equals(name)){
@@ -98,7 +130,14 @@ public class COMStackService
     }
 
     public List<COMStack> list(){
-        return dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return null;
+		}
+        return stacks;
     }
     
     public void addOpenstackConfig(OpenstackConfig config){
@@ -113,7 +152,13 @@ public class COMStackService
     	if(name == null || name.length() == 0){
     		return null;
     	}
-        List<COMStack> stacks = dataSource.list();
+    	List<COMStack> stacks=null;
+		try {
+			stacks = dataSource.list();
+		} catch (Exception e) {
+			log.error("failed to list comstack.json", e);
+			return null;
+		}
         COMStack comStack=null;
         if(stacks != null && stacks.size() >0){
           for(COMStack stack : stacks){

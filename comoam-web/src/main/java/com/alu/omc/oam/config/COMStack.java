@@ -1,10 +1,15 @@
 package com.alu.omc.oam.config;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class COMStack
+@JsonInclude(Include.NON_NULL)
+public class COMStack implements  Serializable
 {
+private static final long serialVersionUID = 4597002583194942399L;
 private COMType comType;
 private String name;
 private Date updatedate;

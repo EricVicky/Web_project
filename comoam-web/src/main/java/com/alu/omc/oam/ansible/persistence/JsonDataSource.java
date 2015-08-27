@@ -39,7 +39,7 @@ public class JsonDataSource
     
     private static Logger log = LoggerFactory.getLogger(JsonDataSource.class);
 
-    public List<COMStack> list()
+    public List<COMStack> list() throws Exception
     {
         List<COMStack> comstacks = null;
         try
@@ -51,7 +51,8 @@ public class JsonDataSource
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            log.error("failed to load comstack.json",e);
+            throw e;
         }
         if(comstacks == null){
             comstacks = new ArrayList<COMStack>();

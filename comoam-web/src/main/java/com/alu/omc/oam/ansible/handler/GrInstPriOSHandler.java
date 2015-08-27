@@ -41,7 +41,7 @@ public class GrInstPriOSHandler extends DefaultHandler{
     	COMStack stack = new COMStack(config);
     	stack.setStatus(Status.GRINSTALLED);
     	stack.setMate(getMateConfig().getStackName());
-    	stack.setRole(GRROLE.PRIMARY);
+    	stack.setRole(GRROLE.Primary);
         service.grupdate(stack);
         log.info("Primary COM GR installation succeeded on Openstack");
     }
