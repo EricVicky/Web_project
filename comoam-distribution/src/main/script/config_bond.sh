@@ -10,19 +10,21 @@ fi
 
 function usage {
    echo "usage:"
-   echo "    ./config_bond.sh -b bond -u ethx -e ethy"
+   echo "    ./config_bond.sh [--host <host_ip>] -b bond -u ethx -e ethy"
    echo "    ./config_bond.sh -h"
    echo "option:"
    echo "    -b create a new bonding channel named bond"
    echo "    -u use the ip address in ethx as the ip address for bond"
    echo "       and add this NIC device ethx to the bonding channel"
    echo "    -e add NIC device ethy to the bonding channel"
+   echo "    --host designate the remote host IP address"
    echo "example:"
    echo "    ./config_bond.sh -b bond0 -u eth0 -e eth5"
    echo "    ./config_bond.sh -b bond1 -u eth1 -e eth6"
+   echo "    ./config_bond.sh --host 192.169.0.100 -b bond1 -u eth1 -e eth6"
 }
 
-if [ $# -eq 0 -o $# -lt 6 ]; then
+if [ $# -gt 8 -o $# -lt 6 -o $# -eq 7 ]; then
  usage
  exit 0
 fi
@@ -35,6 +37,10 @@ TARGET_HOST="127.0.0.1"
 
 while [[ $# > 0 ]]; do
   case $1 in
+    --host)
+      TARGET_HOST=$2
+      shift 2
+    ;;
     -u)
       addr_itf="$2"
       shift 2
