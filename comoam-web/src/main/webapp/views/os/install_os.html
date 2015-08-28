@@ -10,17 +10,17 @@
 									<span class="badge">1</span> <span translate="COM_TYPE">COM Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab2" data-toggle="tab"> <span
-										class="badge">2</span> <span translate="NETWORK_CONFIG">Network Config</span>
+										class="badge">2</span> <span translate="HEAT_STACK">Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</a></li>
 								<li><a href="#tab3" data-toggle="tab"> <span
-										class="badge">3</span> <span translate="VNFC_CONFIG">VNFc Config&nbsp;</span>
+										class="badge">3</span> <span translate="NETWORK_CONFIG">Network Config</span>
 								</a></li>
 								<li><a href="#tab4" data-toggle="tab"> <span
-									class="badge">4</span> <span>Set Password&nbsp;</span>
-							    </a></li>
-								<li><a href="#tab5" data-toggle="tab"> <span
-										class="badge">5</span> <span translate="HEAT_STACK">Heat stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+										class="badge">4</span> <span translate="VNFC_CONFIG">VNFc Config&nbsp;</span>
 								</a></li>
+								<li><a href="#tab5" data-toggle="tab"> <span
+									class="badge">5</span> <span>Set Password&nbsp;</span>
+							    </a></li>
 								<li><a href="#tab6" data-toggle="tab"> <span
 										class="badge">6</span> <span translate="INSTALL_OPTION">Install Options&nbsp;</span>
 								</a></li>
@@ -33,7 +33,7 @@
 											<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1"  rc-step="" >
 												<div class="form-group">
 													<label class="control-label" translate="VNFC_TYPE">VNFC Type</label> <select
-														name="comType" ng-model="installConfig.comType" ng-change="changeComType()"
+														name="comType" ng-model="installConfig.comType" 
 														class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 														title="COM Type" validation="required">
 													</select>
@@ -48,6 +48,64 @@
 												</div>
 											</form>
 											<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
+													<fieldset >
+														<legend translate="HEAT">Heat</legend>
+														<div class="form-group col-md-4">
+															<label class="control-label" translate="HEAT_VERSION">Heat Version</label>
+															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv.version as hv.name for hv in heat_version" title="Heat Version" validation="required"> </select>
+														</div>
+														<div class="form-group col-md-4">
+															<label class="control-label" translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack Resource</label>
+															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required|alpha_num|max_len:14">
+														</div>
+														<div class="form-group col-md-4">
+															<label class="control-label" translate="STACK_NAME">Stack Name</label>
+															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required|alpha_num|max_len:14" unique-stack>
+															<span class="validation text-danger" ng-show="tab2.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
+														</div>
+													</fieldset>
+													<fieldset >
+														<legend translate="AVAILABLE_ZONE">Available Zone</legend>
+														<div class="form-group col-md-6">
+															<label class="control-label" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</label> 
+															<select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore" title="Compute Avail Zone" validation="required"> </select>
+														</div>
+														<div class="form-group col-md-6">
+															<label class="control-label" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</label> 
+															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="zone.zoneName as zone.zoneName for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
+														</div>
+													</fieldset>
+													<fieldset>
+														<legend translate="IMAGE">Image</legend>
+														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+															<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
+															<select name="oamcm_image"  form="tab2" mutuexclude="db_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
+															<span class="validation text-danger" ng-show="tab2.oamcm_image.$error.samefieldvalue">same image</span>
+														</div>
+														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+															<label class="control-label" translate="DB_IMAGE">DB image</label> 
+															<select name="db_image" form="tab2" mutuexclude="oamcm_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
+															<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
+														</div>
+													</fieldset>
+													<fieldset >
+														<legend translate="SECURITY">Security</legend>
+														<div class="form-group col-md-6">
+															<label class="control-label" translate="KEY_PAIR">Key Pair</label> 
+															<select name="key_name" ng-model="installConfig.key_name" class="form-control" ng-options="key  for key in keys" title="Key Pair" validation="required"> </select>
+														</div>
+														<div class="form-group col-md-1">
+															<input type="text" ng-hide="true" ng-model="installConfig.vm_config.oam.hide" ng-init="installConfig.vm_config.oam.hide='hide'">
+														</div>
+														<div class="form-group col-md-1">
+															<input type="text" ng-hide="true" ng-model="installConfig.vm_config.cm.hide" ng-init="installConfig.vm_config.cm.hide='hide'">
+														</div>
+														<div class="form-group col-md-1">
+															<input type="text" ng-hide="true" ng-model="installConfig.vm_config.db.hide" ng-init="installConfig.vm_config.db.hide='hide'">
+														</div>
+													</fieldset>
+											</form>
+											<form class="tab-pane" id="tab3" name="tab3" rc-submit="initHostName()" rc-step>
 												<div class="form-group">
 													<label class="control-label" translate="NETWORK">Network</label> <select
 														name="network"
@@ -77,7 +135,7 @@
 												</div>
 												</fieldset>
 											</form>
-											<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
+											<form class="tab-pane" id="tab4" name="tab4" rc-submit rc-step>
 												<div class="form-group">
 													<fieldset
 														ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
@@ -172,59 +230,42 @@
 															</select>
 														</div>
 													</fieldset>
+													<fieldset>
+										<legend>Host Name</legend>
+										<div ng-if="installConfig.comType=='OAM'">
+											<div class="form-group col-md-3">
+												<label class="control-label">OAM</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.oam.hostname" validation="required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">DB</label> <input
+												name="db_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.db.hostname" validation="required"/>
+									        </div>
+										</div>
+										<div ng-if="installConfig.comType=='FCAPS'||installConfig.comType=='CM'">
+											<div class="form-group col-md-3">
+												<label class="control-label">OAM</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.oam.hostname" validation="required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">CM</label> <input
+												name="cm_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.cm.hostname" validation="required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">DB</label> <input
+												name="db_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.db.hostname" validation="required"/>
+									        </div>
+										</div>
+									</fieldset>
 												</div>
 											</form>
-											<form class="tab-pane" id="tab4" name="tab4" rc-submit="" rc-step>
-												<div ng-include="'views/common/password.html'"></div>
-											</form>
 											<form class="tab-pane" id="tab5" name="tab5" rc-submit="Backup_Server_Addr()" rc-step>
-													<fieldset >
-														<legend translate="HEAT">Heat</legend>
-														<div class="form-group col-md-4">
-															<label class="control-label" translate="HEAT_VERSION">Heat Version</label>
-															 <select name="heat_version" ng-model="installConfig.template_version" class="form-control" ng-options="hv.version as hv.name for hv in heat_version" title="Heat Version" validation="required"> </select>
-														</div>
-														<div class="form-group col-md-4">
-															<label class="control-label" translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack Resource</label>
-															 <input name="stack_resource" class="form-control" type="text" ng-model="installConfig.deployment_prefix" title="Prefix of stack resource" validation="required|alpha_num|max_len:14">
-														</div>
-														<div class="form-group col-md-4">
-															<label class="control-label" translate="STACK_NAME">Stack Name</label>
-															<input name="stack_name" class="form-control" type="text" ng-model="installConfig.stack_name" title="Stack Name" validation="required|alpha_num|max_len:14" unique-stack>
-															<span class="validation text-danger" ng-show="tab4.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
-														</div>
-													</fieldset>
-													<fieldset >
-														<legend translate="AVAILABLE_ZONE">Available Zone</legend>
-														<div class="form-group col-md-6">
-															<label class="control-label" translate="COMPUTE_AVAIL_ZONE">Compute Avail Zone</label> 
-															<select name="compute_avail_zone" ng-model="installConfig.compute_avail_zone.zoneA" class="form-control" ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore" title="Compute Avail Zone" validation="required"> </select>
-														</div>
-														<div class="form-group col-md-6">
-															<label class="control-label" translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage Avail Zone</label> 
-															<select name="block_storage_avail_zone" ng-model="installConfig.block_storage_avail_zone.zoneA" class="form-control" ng-options="zone.zoneName as zone.zoneName for zone in blockAvailZoneStore" title="Block Storage Avail Zone" validation="required"> </select>
-														</div>
-													</fieldset>
-													<fieldset>
-														<legend translate="IMAGE">Image</legend>
-														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-															<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
-															<select name="oamcm_image"  form="tab5" mutuexclude="db_image" ng-model="installConfig.oam_cm_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
-															<span class="validation text-danger" ng-show="tab5.oamcm_image.$error.samefieldvalue">same image</span>
-														</div>
-														<div class="form-group col-md-6" ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-															<label class="control-label" translate="DB_IMAGE">DB image</label> 
-															<select name="db_image" form="tab5" mutuexclude="oamcm_image" ng-model="installConfig.db_image" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
-															<span class="validation text-danger" ng-show="tab5.db_image.$error.samefieldvalue">same image</span>
-														</div>
-													</fieldset>
-													<fieldset >
-														<legend translate="SECURITY">Security</legend>
-														<div class="form-group col-md-6">
-															<label class="control-label" translate="KEY_PAIR">Key Pair</label> 
-															<select name="key_name" ng-model="installConfig.key_name" class="form-control" ng-options="key  for key in keys" title="Key Pair" validation="required"> </select>
-														</div>
-													</fieldset>
+												<div ng-include="'views/common/password.html'"></div>
 											</form>
 											<form class="tab-pane" id="tab6" name="tab6" rc-submit="genExport()" rc-step>
 												<div ng-include="'views/common/common.html'"></div>

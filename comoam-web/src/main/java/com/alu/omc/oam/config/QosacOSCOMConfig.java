@@ -92,8 +92,8 @@ public class QosacOSCOMConfig extends COMConfig implements Serializable{
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
-	        VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
-	        vmcfg.put("image", this.getVMImageName(name));
+	        //VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
+	        //vmcfg.put("image", this.getVMImageName(name));
 	    }
     	Yaml yaml = new Yaml();
     	return YamlFormatterUtil.format(yaml.dump(this));

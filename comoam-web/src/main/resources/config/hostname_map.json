@@ -1,25 +1,25 @@
 {
 	"FCAPS":{
-		"oam": "{{ deployment_prefix}}M001OAM01",
-		"cm": "{{ deployment_prefix }}M002CM01",
-		"db": "{{ deployment_prefix }}M003DB01"
+		"oam": "M001OAM01",
+		"cm": "M002CM01",
+		"db": "M003DB01"
 	},
 	"CM":{
-		"oam": "{{ deployment_prefix }}M001OAM01",
-		"cm": "{{ deployment_prefix }}M002CM01",
-		"db": "{{ deployment_prefix }}M003DB01"
+		"oam": "M001OAM01",
+		"cm": "M002CM01",
+		"db": "M003DB01"
 	},
 	"OAM":{
-		"oam": "{{ deployment_prefix }}M001OAM01",
-		"db": "{{ deployment_prefix }}M002DB01"
+		"oam": "M001OAM01",
+		"db": "M002DB01"
 	},
 	"QOSAC":{
-		"ovm": "{{ deployment_prefix }}M001QOSAC01"
+		"ovm": "M001QOSAC01"
 	},
     "ATC":{
-        "ovm": "{{ deployment_prefix }}M001ATC01"
+        "ovm": "M001ATC01"
     },
     "HPSIM":{
-        "ovm": "{{ deployment_prefix }}M001HPSIM01"
+        "ovm": "M001HPSIM01"
     }
 }

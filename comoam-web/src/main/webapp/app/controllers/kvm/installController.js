@@ -25,7 +25,7 @@ angular.module('kvm', [ 'ui.router',
             		}
             	}
             };
-            
+  
             $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
             	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password||$scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password){
             		$scope.disMatch = true;
@@ -41,7 +41,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_WEBSSO_SANE:'false',
 					NTP_SERVER:'COM_LOCAL_CLOCK',
 					SEC_UNIX_ENABLE:'YES',
-					OMCCN_SUPPORT_COM_GR:'false',
+					OMCCN_SUPPORT_COM_GR:'true',
 					OMCCN_SUPPORT_SP_FM:'YES',
 					OMCCN_SUPPORT_SP_PM:'YES',
 					OMCCN_SUPPORT_SP_HVP:'NO',
@@ -70,6 +70,7 @@ angular.module('kvm', [ 'ui.router',
             $scope.networktraffic = 1;
             $scope.avaliable_flavors = ["Enterprise", "Low End", "Medium", "High End"];
             $scope.flavor = $scope.avaliable_flavors[2];
+            $scope.HostNameChanged = false;
             $scope.initNic = function(){
             	if($scope.installConfig.vm_config['oam'].flavor){
             		for(var index in $scope.avaliable_flavors){
@@ -78,7 +79,22 @@ angular.module('kvm', [ 'ui.router',
                 		}
             	}
             	}
+            	if(!$scope.HostNameChanged){
+            		KVMService.getHostNameStore().then(function(data){
+                    	$scope.oam_suffix = data[$scope.installConfig.comType].oam;
+                        $scope.db_suffix = data[$scope.installConfig.comType].db;
+                        $scope.cm_suffix = data[$scope.installConfig.comType].cm;
+                        $scope.installConfig.vm_config.oam.hostname = $scope.installConfig.deployment_prefix + $scope.oam_suffix;
+                        $scope.installConfig.vm_config.db.hostname = $scope.installConfig.deployment_prefix + $scope.db_suffix;
+                        $scope.installConfig.vm_config.cm.hostname = $scope.installConfig.deployment_prefix + $scope.cm_suffix;
+                });
+            	}
             };
+            $scope.changeHostName = function(){
+            	$scope.HostNameChanged = true;
+            };
+            
+
                        	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
@@ -158,6 +174,7 @@ angular.module('kvm', [ 'ui.router',
             KVMService.getFlavorStore().then( function(data) {
             				$scope.flavorStore = data.Flavors;
             			});
+            
             KVMService.getComTypeStore().then(function(data){
             				$scope.comTypeStore = data.COMType;
             			 	$scope.installConfig.comType = KVMService.VNFType==''?$scope.comTypeStore[0].Name:KVMService.VNFType;
@@ -174,7 +191,6 @@ angular.module('kvm', [ 'ui.router',
             		        	   }
             		          });
             			});
- 
             KVMService.hostips().then(function(data) {
             				$scope.hostIPs = data;
             			});

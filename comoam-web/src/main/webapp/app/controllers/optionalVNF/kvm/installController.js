@@ -44,6 +44,20 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
           });
 	});
     
+    $scope.HostNameChanged = false;
+    $scope.initHostName = function(){
+   	 if(!$scope.HostNameChanged){
+    		KVMService.getHostNameStore().then(function(data){
+            	$scope.ovm_suffix = data[$scope.installConfig.comType].ovm;
+               $scope.installConfig.vm_config.ovm.hostname = $scope.installConfig.deployment_prefix + $scope.ovm_suffix;
+        });
+    	}
+    };
+    
+    $scope.changeHostName = function(){
+    	$scope.HostNameChanged = true;
+    };
+    
     KVMService.getComTypeStore().then(function(data){
     	$scope.temp_comTypeStore = data.OVMType;
 		var comTypeStore=[];
@@ -177,6 +191,19 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
      		$scope.disMatch = false;
      	}
      });
+     $scope.HostNameChanged = false;
+     $scope.initHostName = function(){
+    	 if(!$scope.HostNameChanged){
+     		KVMService.getHostNameStore().then(function(data){
+             	$scope.qosac_suffix = data['QOSAC'].ovm;
+                $scope.installConfig.vm_config.ovm.hostname = $scope.installConfig.deployment_prefix + $scope.qosac_suffix;
+         });
+     	}
+     };
+     
+     $scope.changeHostName = function(){
+     	$scope.HostNameChanged = true;
+     };
 
     
     KVMService.getFlavorStore().then( function(data) {

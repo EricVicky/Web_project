@@ -46,7 +46,7 @@ public abstract class OVMCOMConfig extends COMConfig {
 	        @SuppressWarnings("unchecked")
             Map<String, String> vmcfg = (Map<String, String>)vm_config.get(name);
 //	        vmcfg.put("hostname", this.getDeployment_prefix().concat("-").concat(this.getComType().toLowerCase()).concat("-1"));
-	        VNFHostName.add(vmcfg, this.getCOMType(), name, this.deployment_prefix);
+	    //    VNFHostName.add(vmcfg, this.getCOMType(), name, this.deployment_prefix);
 	        String istoption = "";
 	        if(this.getComType().equals(COMType.QOSAC.name())){
 		        istoption = InstallOptions.get(COMType.QOSAC, COMType.QOSAC.name());
