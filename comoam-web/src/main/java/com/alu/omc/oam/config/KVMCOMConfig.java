@@ -135,7 +135,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 	        String name = it.next();
 	        @SuppressWarnings("unchecked")
             VMConfig vmcfg = vm_config.get(name);
-	        VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
+	       // VNFHostName.add(vmcfg, this.getComType(), name, this.deployment_prefix);
 	        vmcfg.setImgname(this.getVMImageName(name));
 	    }
 	   String json = Json2Object.object2Json(this);

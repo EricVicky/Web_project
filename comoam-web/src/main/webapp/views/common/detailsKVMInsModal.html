@@ -25,7 +25,7 @@
 					<td colspan="4" translate="OPERATION_STATUS">Status</td>
 					<td colspan="2" translate="{{selectedIns.actionResult}}"></td>
 				</tr>
-				<tr align="center" selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' ">
+				<tr align="center" ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' ">
 					<td colspan="4" translate="GR_STATUS">GR Status</td>
 					<td colspan="2" translate="{{selectComstack.status}}"></td>
 				</tr>

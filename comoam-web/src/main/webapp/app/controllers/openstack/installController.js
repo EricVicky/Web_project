@@ -19,9 +19,7 @@ angular.module('os', [ 'ui.router',
             $scope.config_drive = [ 'True', 'False' ];
             $scope.installConfig ={};
             
-            $scope.changeComType = function(){
-				$scope.installConfig.vm_config = null;
-			}
+
             $scope.genExport = function(){
             	$scope.export=!$scope.export;
             }
@@ -32,6 +30,23 @@ angular.module('os', [ 'ui.router',
             		$scope.disMatch = false;
             	}
             });
+            $scope.HostNameChanged = false;
+            $scope.initHostName = function(){
+            	if(!$scope.HostNameChanged){
+            		OSService.getHostNameStore().then(function(data){
+                    	$scope.oam_suffix = data[$scope.installConfig.comType].oam;
+                        $scope.db_suffix = data[$scope.installConfig.comType].db;
+                        $scope.cm_suffix = data[$scope.installConfig.comType].cm;
+                        $scope.installConfig.vm_config.oam.hostname = $scope.installConfig.deployment_prefix + $scope.oam_suffix;
+                        $scope.installConfig.vm_config.db.hostname = $scope.installConfig.deployment_prefix + $scope.db_suffix;
+                        $scope.installConfig.vm_config.cm.hostname = $scope.installConfig.deployment_prefix + $scope.cm_suffix;
+                });
+            	}
+            };
+            
+            $scope.changeHostName = function(){
+            	$scope.HostNameChanged = true;
+            };
             
             $scope.installConfig.app_install_options = {
 					BACKUP_SERVER_DISK_SPACE:'2000',
@@ -61,10 +76,19 @@ angular.module('os', [ 'ui.router',
                 $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
             }
             $scope.deploy = function (){
+            	$scope.clean_dirty();
             	OSService.deploy($scope.installConfig).then( function(){
             		monitorService.monitorOSInstall($scope.installConfig.stack_name);
     				$state.go("dashboard.monitor");
         		});
+            };
+            $scope.clean_dirty = function(){
+				if($scope.installConfig.comType=='OAM'){
+            		delete $scope.installConfig.vm_config['cm'];
+            	}
+				delete $scope.installConfig.vm_config['oam'].hide;
+				delete $scope.installConfig.vm_config['db'].hide;
+				delete $scope.installConfig.vm_config['cm'].hide;
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
             	if($scope.installConfig.com_provider_network!=null){

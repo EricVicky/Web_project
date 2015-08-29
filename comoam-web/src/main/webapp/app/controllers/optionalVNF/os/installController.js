@@ -17,6 +17,20 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 		});
     };
     
+    $scope.HostNameChanged = false;
+    $scope.initHostName = function(){
+   	 if(!$scope.HostNameChanged){
+    		OSService.getHostNameStore().then(function(data){
+            	$scope.qosac_suffix = data['QOSAC'].ovm;
+                $scope.installConfig.vm_config.ovm.hostname = $scope.installConfig.deployment_prefix + $scope.qosac_suffix;
+        });
+    	}
+    };
+    
+    $scope.changeHostName = function(){
+    	$scope.HostNameChanged = true;
+    };
+    
     OSService.getComTypeStore().then(function(data){
 		$scope.temp_comTypeStore = data.OVMType;
 		var comTypeStore=[];
@@ -85,6 +99,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 		}
 		$scope.comTypeStore = comTypeStore;
 	 	$scope.installConfig.comType = 'QOSAC';
+	 	
 	});
 	
     $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
@@ -94,6 +109,20 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     		$scope.disMatch = false;
     	}
     });
+    
+    $scope.HostNameChanged = false;
+    $scope.initHostName = function(){
+   	 if(!$scope.HostNameChanged){
+    		OSService.getHostNameStore().then(function(data){
+            	$scope.qosac_suffix = data['QOSAC'].ovm;
+                $scope.installConfig.vm_config.ovm.hostname = $scope.installConfig.deployment_prefix + $scope.qosac_suffix;
+        });
+    	}
+    };
+    
+    $scope.changeHostName = function(){
+    	$scope.HostNameChanged = true;
+    };
  
     timezoneService.timezonelist().then( function(data) {
 		$scope.timezoneStore = data;

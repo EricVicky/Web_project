@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="ovmosqosacctr">
 	<div class="row">
-		<div class="col-md-11">
+		<div class="col-md-12">
 			<div rc-wizard="ovmInstallWizard" class="modal-body">
 				<section id="wizard" import-comconf>
 					<div id="rootwizard">
@@ -10,24 +10,27 @@
 										Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab2" data-toggle="tab"> <span
-									class="badge">2</span> <span>VNFC Config&nbsp;</span>
+									class="badge">2</span> <span>Heat Stack&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Set Password&nbsp;</span>
+										class="badge">3</span> <span translate="NETWORK_CONFIG">Network Config</span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> <span
-									class="badge">4</span> <span>Heat Stack&nbsp;</span>
+									class="badge">4</span> <span>VNFC Config&nbsp;</span>
 							</a></li>
 							<li><a href="#tab5" data-toggle="tab"> <span
-									class="badge">5</span> <span>Install Options&nbsp;</span>
+									class="badge">5</span> <span>Set Password&nbsp;</span>
 							</a></li>
 							<li><a href="#tab6" data-toggle="tab"> <span
-									class="badge">6</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									class="badge">6</span> <span>Install Options&nbsp;</span>
+							</a></li>
+							<li><a href="#tab7" data-toggle="tab"> <span
+									class="badge">7</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 						</ul>
 						<div class="modal-body">
 							<div class="tab-content">
-								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="" rc-step="" novalidate="">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit rc-step="" novalidate="">
 									<legend>Common Variables</legend>
 									<div class="form-group">
                                         <label class="control-label" translate="COM_TYPE">VNF Type</label> <select
@@ -46,8 +49,110 @@
                                         </select>
                                     </div>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab2" name="tab2" rc-submit="" rc-step="" novalidate="">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab2" name="tab2" rc-submit="initHostName()" rc-step="" novalidate="">
 									<fieldset>
+										<legend translate="HEAT">Heat</legend>
+										<div class="form-group col-md-4">
+											<label class="control-label" translate="HEAT_VERSION">Heat
+												Version</label> <select name="heat_version"
+												ng-model="installConfig.template_version"
+												class="form-control"
+												ng-options="hv.version as hv.name for hv in heat_version"
+												title="Heat Version" validation="required">
+											</select>
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label"
+												translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack
+												Resource</label> <input name="stack_resource" class="form-control"
+												type="text" ng-model="installConfig.deployment_prefix"
+												title="Prefix of stack resource" validation="required">
+										</div>
+										<div class="form-group col-md-4">
+											<label class="control-label" translate="STACK_NAME">Stack
+												Name</label> <input name="stack_name" class="form-control"
+												type="text" ng-model="installConfig.stack_name"
+												title="Stack Name" validation="required" unique-stack>
+											<span class="validation text-danger" ng-show="tab2.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend translate="AVAILABLE_ZONE">Available Zone</legend>
+										<div class="form-group col-md-6">
+											<label class="control-label" translate="COMPUTE_AVAIL_ZONE">Compute
+												Avail Zone</label> <select name="compute_avail_zone"
+												ng-model="installConfig.compute_avail_zone.zoneA"
+												class="form-control"
+												ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore"
+												title="Compute Avail Zone" validation="required">
+											</select>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="control-label"
+												translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage
+												Avail Zone</label> <select name="block_storage_avail_zone"
+												ng-model="installConfig.block_storage_avail_zone.zoneA"
+												class="form-control"
+												ng-options="zone.zoneName as zone.zoneName for zone in blockAvailZoneStore"
+												title="Block Storage Avail Zone" validation="required">
+											</select>
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend translate="IMAGE">Image</legend>
+										<div class="form-group col-md-6">
+											<label class="control-label" >OVM
+												image</label> <select name="ovm_image"
+												ng-model="installConfig.vm_config.ovm.image" class="form-control"
+												ng-options="o.name as o.name for o in ovm_images"
+												title="OVM image" validation="required">
+											</select>
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend translate="SECURITY">Security</legend>
+										<div class="form-group col-md-6">
+											<label class="control-label" translate="KEY_PAIR">Key
+												Pair</label> <select name="key_name"
+												ng-model="installConfig.key_name" class="form-control"
+												ng-options="key  for key in keys" title="Key Pair"
+												validation="required">
+											</select>
+										</div>
+									</fieldset>
+								</form>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab3" name="tab3" rc-submit="" rc-step="" novalidate="">
+									<fieldset>
+									<div class="form-group col-md-12">
+										<label class="control-label" translate="NETWORK">Network</label>
+										<select name="network" ng-model="installConfig.com_provider_network.network"
+											class="form-control"
+											ng-options="n.id as n.name for n in networkStore"
+											title="Network" validation="required">
+										</select>
+									</div>
+									<div class="form-group col-md-12">
+										<label class="control-label">IPV4
+											Sub Network</label> <select name="sub_network"
+											ng-model="installConfig.com_provider_network.subnet" class="form-control"
+											ng-options="sn.id as sn.name for sn in v4subnets"
+											title="Sub Network" validation="required">
+										</select>
+									</div>
+									<div class="form-group col-md-12">
+													<label class="control-label" translate="IPV6_SUB_NETWORK">IPv6 Sub Network</label> <select
+														name="v6_sub_network" 
+														ng-model="installConfig.com_provider_network.v6_subnet"
+														class="form-control"
+														ng-options="sn.id as sn.name for sn in v6subnets"
+														title="Sub Network" >
+													</select>
+												</div>
+									</fieldset>
+								</form>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab4" name="tab4" rc-submit="" rc-step="" novalidate="">
+									<fieldset>
+									<legend>IP Address</legend>
 										<div class="form-group col-md-3">
 											<label class="control-label" translate="IPV4_ADDRESS">IPv4
 												Address</label> <input name="ovm_ip_address" class="form-control"
@@ -80,112 +185,23 @@
 									</div>
 									</fieldset>
 									<fieldset>
-									<div class="form-group col-md-12">
-										<label class="control-label" translate="NETWORK">Network</label>
-										<select name="network" ng-model="installConfig.com_provider_network.network"
-											class="form-control"
-											ng-options="n.id as n.name for n in networkStore"
-											title="Network" validation="required">
-										</select>
-									</div>
-									<div class="form-group col-md-12">
-										<label class="control-label">IPV4
-											Sub Network</label> <select name="sub_network"
-											ng-model="installConfig.com_provider_network.subnet" class="form-control"
-											ng-options="sn.id as sn.name for sn in v4subnets"
-											title="Sub Network" validation="required">
-										</select>
-									</div>
-									<div class="form-group col-md-12">
-													<label class="control-label" translate="IPV6_SUB_NETWORK">IPv6 Sub Network</label> <select
-														name="v6_sub_network" 
-														ng-model="installConfig.com_provider_network.v6_subnet"
-														class="form-control"
-														ng-options="sn.id as sn.name for sn in v6subnets"
-														title="Sub Network" >
-													</select>
-												</div>
+										<legend>Host Name</legend>
+
+											<div class="form-group col-md-6">
+												<label class="control-label">QOSAC Hostname</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.ovm.hostname" validation="required"/>
+									        </div>
+
 									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab3" name="tab3" rc-submit="" rc-step>
+								<form class="tab-pane" id="tab5" name="tab5" rc-submit="Backup_Server_Addr()" rc-step>
 												<div ng-include="'views/common/password.html'"></div>
-											</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab4" name="tab4" rc-submit="Backup_Server_Addr()" rc-step="" novalidate="">
-									<fieldset>
-										<legend translate="HEAT">Heat</legend>
-										<div class="form-group col-md-4">
-											<label class="control-label" translate="HEAT_VERSION">Heat
-												Version</label> <select name="heat_version"
-												ng-model="installConfig.template_version"
-												class="form-control"
-												ng-options="hv.version as hv.name for hv in heat_version"
-												title="Heat Version" validation="required">
-											</select>
-										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label"
-												translate="PREFIX_OF_STACK_RESOURCE">Prefix of Stack
-												Resource</label> <input name="stack_resource" class="form-control"
-												type="text" ng-model="installConfig.deployment_prefix"
-												title="Prefix of stack resource" validation="required">
-										</div>
-										<div class="form-group col-md-4">
-											<label class="control-label" translate="STACK_NAME">Stack
-												Name</label> <input name="stack_name" class="form-control"
-												type="text" ng-model="installConfig.stack_name"
-												title="Stack Name" validation="required" unique-stack>
-											<span class="validation text-danger" ng-show="tab3.stack_name.$error.notunique"><label translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
-										</div>
-									</fieldset>
-									<fieldset>
-										<legend translate="AVAILABLE_ZONE">Available Zone</legend>
-										<div class="form-group col-md-6">
-											<label class="control-label" translate="COMPUTE_AVAIL_ZONE">Compute
-												Avail Zone</label> <select name="compute_avail_zone"
-												ng-model="installConfig.compute_avail_zone.zoneA"
-												class="form-control"
-												ng-options="caz.zoneName as caz.zoneName for caz in computeAvailZoneStore"
-												title="Compute Avail Zone" validation="required">
-											</select>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="control-label"
-												translate="BLOCK_STORAGE_AVAIL_ZONE">Block Storage
-												Avail Zone</label> <select name="block_storage_avail_zone"
-												ng-model="installConfig.block_storage_avail_zone.zoneA"
-												class="form-control"
-												ng-options="zone.zoneName as zone.zoneName for zone in blockAvailZoneStore"
-												title="Block Storage Avail Zone" validation="required">
-											</select>
-										</div>
-									</fieldset>
-									<fieldset>
-										<legend translate="IMAGE">Image</legend>
-										<div class="form-group col-md-6">
-											<label class="control-label" >OVM
-												image</label> <select name="ovm_image"
-												ng-model="installConfig.ovm_image" class="form-control"
-												ng-options="o.name as o.name for o in ovm_images"
-												title="OVM image" validation="required">
-											</select>
-										</div>
-									</fieldset>
-									<fieldset>
-										<legend translate="SECURITY">Security</legend>
-										<div class="form-group col-md-6">
-											<label class="control-label" translate="KEY_PAIR">Key
-												Pair</label> <select name="key_name"
-												ng-model="installConfig.key_name" class="form-control"
-												ng-options="key  for key in keys" title="Key Pair"
-												validation="required">
-											</select>
-										</div>
-									</fieldset>
 								</form>
-								<form class="tab-pane" id="tab5" name="tab5" rc-submit="genExport()" rc-step>
+								<form class="tab-pane" id="tab6" name="tab6" rc-submit="genExport()" rc-step>
 									<div ng-include="'views/common/common.html'"></div>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab6" name="tab6" rc-submit="" rc-step="" novalidate="">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab7" name="tab7" rc-submit="" rc-step="" novalidate="">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label">Deployment Summary</label>
