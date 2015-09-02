@@ -93,10 +93,13 @@ angular.module('os', [ 'ui.router',
             $scope.clean_dirty = function(){
 				if($scope.installConfig.comType=='OAM'){
             		delete $scope.installConfig.vm_config['cm'];
+            		delete $scope.installConfig.vm_config['oam'].hide;
+    				delete $scope.installConfig.vm_config['db'].hide;
+            	}else{
+            		delete $scope.installConfig.vm_config['oam'].hide;
+    				delete $scope.installConfig.vm_config['db'].hide;
+    				delete $scope.installConfig.vm_config['cm'].hide;
             	}
-				delete $scope.installConfig.vm_config['oam'].hide;
-				delete $scope.installConfig.vm_config['db'].hide;
-				delete $scope.installConfig.vm_config['cm'].hide;
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
             	if($scope.installConfig.com_provider_network!=null){
