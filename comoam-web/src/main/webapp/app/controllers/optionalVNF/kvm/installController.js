@@ -161,7 +161,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 		});
     };
 }).controller('ovmqosacctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
-                        	
+     
     $scope.installConfig ={
     		"vm_config":{
     			"ovm":{
@@ -256,10 +256,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 
 		});
     };
-    
-    $scope.genExport = function (){
-    	$log.info($scope.installConfig);
-    	$scope.export = !$scope.export;
+    $scope.install_options = function(){
     	$scope.installConfig.app_install_options = {
     			BACKUP_SERVER_DISK_SPACE:'2000',
     			NTP_SERVER:'COM_LOCAL_CLOCK',
@@ -272,6 +269,18 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     			SOFTWARE_SERVER_ADDRESS:$scope.installConfig.vm_config.ovm.ip_address,
     			BACKUP_SERVER_ADDRESS:$scope.installConfig.vm_config.ovm.ip_address
     	};
+    };
+    
+    $scope.genExport = function (){
+    	$log.info($scope.installConfig);
+    	$scope.export = !$scope.export;
+    	$scope.calc_disk();
+    };
+    $scope.calc_disk = function(){
+    	var temp_disk = $scope.installConfig.vm_config.ovm.flavor.disk;
+    	var final_disk = Number(temp_disk)*1024
+		                +Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE);
+    	$scope.installConfig.vm_config.ovm.flavor.disk = Math.ceil(final_disk/1024);
     };
     
 })
