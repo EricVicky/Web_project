@@ -28,7 +28,7 @@
 						<div class="modal-body">
 							<div class="tab-content">
 								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
-									name="tab1" rc-submit="submitComtype()" rc-step=""
+									name="tab1" rc-submit="submitComtype()" rc-step
 									novalidate="">
 									<div class="form-group">
 										<label class="control-label" translate="COM_NAME">COM Name</label> <input
@@ -39,7 +39,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label" translate="COM_TYPE">COM Type</label> <select
-											name="comType" ng-model="installConfig.comType"
+											name="comType" ng-model="installConfig.comType" 
 											class="form-control" ng-options="ct.Name as ct.Name for ct in comTypeStore"
 											title="COM Type" validation="required">
 											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
@@ -208,6 +208,38 @@
 											<div class="col-md-5">
 											<span class="validation text-danger" ng-show="tab3.db_ipv4_ipaddress{{$index}}.$error.validation"><label translate="PLEASE_CONFIG_DB_VM">Please Config DB VM!</label></span>
 										</div>
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend>Host Name</legend>
+										<div ng-if="installConfig.comType=='OAM'">
+											<div class="form-group col-md-3">
+												<label class="control-label">OAM</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.oam.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">DB</label> <input
+												name="db_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.db.hostname"  validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+									        </div>
+										</div>
+										<div ng-if="installConfig.comType=='FCAPS'||installConfig.comType=='CM'">
+											<div class="form-group col-md-3">
+												<label class="control-label">OAM</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.oam.hostname"  validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">CM</label> <input
+												name="cm_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.cm.hostname"  validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+									        </div>
+									        <div class="form-group col-md-3">
+												<label class="control-label">DB</label> <input
+												name="db_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.db.hostname"  validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+									        </div>
 										</div>
 									</fieldset>
 								</form>
@@ -411,7 +443,7 @@
 								</div>
 								<div class="pull-right">
 									<a class="btn btn-default"
-										ng-click="rc.kvmInstallWizard.backward()"
+										ng-click="rc.kvmInstallWizard.backward() ;reset_password()"
 										ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex" translate="BACK">Back</a>
 									<a class="btn btn-primary"
 										ng-click="rc.kvmInstallWizard.forward()" ng-disabled="disMatch"

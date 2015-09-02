@@ -10,10 +10,10 @@
 										Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a></li>
 							<li><a href="#tab2" data-toggle="tab"> <span
-									class="badge">2</span> <span>VNFC Config&nbsp;</span>
+									class="badge">2</span> <span>Heat Stack&nbsp;</span>
 							</a></li>
 							<li><a href="#tab3" data-toggle="tab"> <span
-									class="badge">3</span> <span>Heat Stack&nbsp;</span>
+									class="badge">3</span> <span>VNFC Config&nbsp;</span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> <span
 									class="badge">4</span> <span>Deploy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -46,86 +46,7 @@
 											ng-model="installConfig.atc_switches" title="ATC switches" />
 									</div>
 								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab2" name="tab2" rc-submit="" rc-step="" novalidate="">
-									<fieldset ng-if="installConfig.comType=='ATC'">
-									<div class="form-group col-md-4">
-										<label class="control-label">IPv4 Address</label> <input
-											name="ip_address" class="form-control" type="text"
-											ng-model="installConfig.vm_config.ovm.provider_ip_address"
-											placeholder="Please Insert IP Address" title="IP Address"
-											validation="ipv4|required" />
-									</div>
-									<div class="form-group col-md-4">
-											<label class="control-label" translate="DISK">Disk(GB)</label>
-											<input name="ovm_disk" class="form-control" type="text"
-												ng-model="installConfig.vm_config.ovm.com_data_vol_size"
-												title="Disk(GB)" validation="int|required" />
-										</div>
-									<div class="form-group col-md-4">
-											<label class="control-label" translate="FLAVOR">Flavor</label>
-											<select name="cflavor"
-											ng-model="installConfig.vm_config.ovm.flavor"
-											class="form-control"
-											ng-options="fl.name as fl.name for fl in flavorStore"
-											title="Flavor" validation="required">
-											<option value="">--Please Select--</option>
-											</select>
-									</div>
-									</fieldset>
-									<fieldset ng-if="installConfig.comType=='HPSIM'">
-									<div class="form-group col-md-4">
-										<label class="control-label">IPv4 Address</label> <input
-											name="ip_address" class="form-control" type="text"
-											ng-model="installConfig.vm_config.ovm.provider_ip_address"
-											placeholder="Please Insert IP Address" title="IP Address"
-											validation="ipv4|required" />
-									</div>
-									<div class="form-group col-md-4">
-										<label class="control-label">IPv6 Address(optional)</label> <input
-											name="ip_v6_address" class="form-control" type="text"
-											ng-model="installConfig.vm_config.ovm.provider_v6_ip_address"
-											placeholder="Please Insert IP Address" title="IP Address" />
-									</div>
-									<div class="form-group col-md-4">
-											<label class="control-label" translate="FLAVOR">Flavor</label>
-											<select name="cflavor"
-											ng-model="installConfig.vm_config.ovm.flavor"
-											class="form-control"
-											ng-options="fl.name as fl.name for fl in flavorStore"
-											title="Flavor" validation="required">
-											<option value="">--Please Select--</option>
-											</select>
-									</div>
-									</fieldset>
-									<fieldset>
-									<div class="form-group col-md-12">
-										<label class="control-label" translate="NETWORK">Network</label>
-										<select name="network" ng-model="installConfig.com_provider_network.network"
-											class="form-control"
-											ng-options="n.id as n.name for n in networkStore"
-											title="Network" validation="required">
-										</select>
-									</div>
-									<div class="form-group col-md-12">
-										<label class="control-label">IPV4
-											Sub Network</label> <select name="sub_network"
-											ng-model="installConfig.com_provider_network.subnet" class="form-control"
-											ng-options="sn.id as sn.name for sn in v4subnets"
-											title="Sub Network" validation="required">
-										</select>
-									</div>
-									<div class="form-group col-md-12"  ng-if="installConfig.comType=='HPSIM'">
-													<label class="control-label">IPv6 Sub Network(optional)</label> <select
-														name="v6_sub_network" 
-														ng-model="installConfig.com_provider_network.v6_subnet"
-														class="form-control"
-														ng-options="sn.id as sn.name for sn in v6subnets"
-														title="Sub Network" >
-													</select>
-												</div>
-									</fieldset>
-								</form>
-								<form class="tab-pane active ng-pristine ng-valid" id="tab3" name="tab3" rc-submit="genExport()" rc-step="" novalidate="">
+								<form class="tab-pane active ng-pristine ng-valid" id="tab2" name="tab2" rc-submit="initHostName()" rc-step="" novalidate="">
 									<fieldset>
 										<legend translate="HEAT">Heat</legend>
 										<div class="form-group col-md-4">
@@ -150,7 +71,7 @@
 												type="text" ng-model="installConfig.stack_name"
 												title="Stack Name" validation="required" unique-stack>
 											<span class="validation text-danger"
-												ng-show="tab3.stack_name.$error.notunique"><label
+												ng-show="tab2.stack_name.$error.notunique"><label
 												translate="EXISTED_STACK_NAME">Existed Stack Name!</label></span>
 										</div>
 									</fieldset>
@@ -181,7 +102,7 @@
 										<div class="form-group col-md-6">
 											<label class="control-label" >OVM
 												image</label> <select name="ovm_image"
-												ng-model="installConfig.ovm_image" class="form-control"
+												ng-model="installConfig.vm_config.ovm.image" class="form-control"
 												ng-options="o.name as o.name for o in ovm_images"
 												title="OVM image" validation="required">
 											</select>
@@ -197,6 +118,95 @@
 												validation="required">
 											</select>
 										</div>
+									</fieldset>
+								</form>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab3" name="tab3" rc-submit="genExport()" rc-step="" novalidate="">
+									<fieldset ng-if="installConfig.comType=='ATC'">
+									<div class="form-group col-md-3">
+										<label class="control-label">IPv4 Address</label> <input
+											name="ip_address" class="form-control" type="text"
+											ng-model="installConfig.vm_config.ovm.provider_ip_address"
+											placeholder="Please Insert IP Address" title="IP Address"
+											validation="ipv4|required" />
+									</div>
+									<div class="form-group col-md-3">
+											<label class="control-label" translate="DISK">Disk(GB)</label>
+											<input name="ovm_disk" class="form-control" type="text"
+												ng-model="installConfig.vm_config.ovm.com_data_vol_size"
+												title="Disk(GB)" validation="int|required" />
+										</div>
+									<div class="form-group col-md-3">
+											<label class="control-label" translate="FLAVOR">Flavor</label>
+											<select name="cflavor"
+											ng-model="installConfig.vm_config.ovm.flavor"
+											class="form-control"
+											ng-options="fl.name as fl.name for fl in flavorStore"
+											title="Flavor" validation="required">
+											<option value="">--Please Select--</option>
+											</select>
+									</div>
+									<div class="form-group col-md-3">
+												<label class="control-label">Hostname</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.ovm.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
+										</div>
+									</fieldset>
+									<fieldset ng-if="installConfig.comType=='HPSIM'">
+									<div class="form-group col-md-3">
+										<label class="control-label">IPv4 Address</label> <input
+											name="ip_address" class="form-control" type="text"
+											ng-model="installConfig.vm_config.ovm.provider_ip_address"
+											placeholder="Please Insert IP Address" title="IP Address"
+											validation="ipv4|required" />
+									</div>
+									<div class="form-group col-md-3">
+										<label class="control-label">IPv6 Address(optional)</label> <input
+											name="ip_v6_address" class="form-control" type="text"
+											ng-model="installConfig.vm_config.ovm.provider_v6_ip_address"
+											placeholder="Please Insert IP Address" title="IP Address" />
+									</div>
+									<div class="form-group col-md-3">
+											<label class="control-label" translate="FLAVOR">Flavor</label>
+											<select name="cflavor"
+											ng-model="installConfig.vm_config.ovm.flavor"
+											class="form-control"
+											ng-options="fl.name as fl.name for fl in flavorStore"
+											title="Flavor" validation="required">
+											<option value="">--Please Select--</option>
+											</select>
+									</div>
+									<div class="form-group col-md-3">
+												<label class="control-label">OVM Hostname</label> <input
+												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
+												ng-model="installConfig.vm_config.ovm.hostname" validation="required"/>
+										</div>
+									</fieldset>
+									<fieldset>
+									<div class="form-group col-md-12">
+										<label class="control-label" translate="NETWORK">Network</label>
+										<select name="network" ng-model="installConfig.com_provider_network.network"
+											class="form-control"
+											ng-options="n.id as n.name for n in networkStore"
+											title="Network" validation="required">
+										</select>
+									</div>
+									<div class="form-group col-md-12">
+										<label class="control-label">IPV4
+											Sub Network</label> <select name="sub_network"
+											ng-model="installConfig.com_provider_network.subnet" class="form-control"
+											ng-options="sn.id as sn.name for sn in v4subnets"
+											title="Sub Network" validation="required">
+										</select>
+									</div>
+									<div class="form-group col-md-12"  ng-if="installConfig.comType=='HPSIM'">
+													<label class="control-label">IPv6 Sub Network(optional)</label> <select
+														name="v6_sub_network" 
+														ng-model="installConfig.com_provider_network.v6_subnet"
+														class="form-control"
+														ng-options="sn.id as sn.name for sn in v6subnets"
+														title="Sub Network" >
+													</select>
+												</div>
 									</fieldset>
 								</form>
 								<form class="tab-pane active ng-pristine ng-valid" id="tab4" name="tab4" rc-submit="" rc-step="" novalidate="">

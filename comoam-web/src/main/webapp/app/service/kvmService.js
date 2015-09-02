@@ -12,6 +12,10 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var flavorRes = $resource(restUrl + "data/kvmflavor.json");
 			return flavorRes.get().$promise;
 		},
+		getHostNameStore:function() {
+			var hostnameRes = $resource(restUrl + "data/hostname.json");
+			return hostnameRes.get().$promise;
+		},
 		images: function(success,error) {
 			var imageRes = $resource(restUrl + "rest/kvm/images");
 			return imageRes.query().$promise;

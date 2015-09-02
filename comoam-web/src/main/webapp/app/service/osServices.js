@@ -11,6 +11,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var flavorRes = $resource(restUrl + "nfv/os/compute/flavor/list");
 			return flavorRes.query().$promise;
 		},
+		getHostNameStore:function() {
+			var hostnameRes = $resource(baseUrl + "data/hostname.json");
+			return hostnameRes.get().$promise;
+		},
 		deploy:function(config){
 			var deployRes = $resource(restUrl + "os/deployment");
 			return deployRes.save(config).$promise;
