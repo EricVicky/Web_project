@@ -191,6 +191,14 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
      		$scope.disMatch = false;
      	}
      });
+     $scope.reset_password = function(){
+     	if($scope.disMatch == true){
+     		$scope.installConfig.root_password = "";
+     		$scope.installConfig.re_root_password = "";
+     		$scope.installConfig.axadmin_password = "";
+     		$scope.installConfig.re_axadmin_password = "";
+     	}
+     };
      $scope.HostNameChanged = false;
      $scope.initHostName = function(){
     	 if(!$scope.HostNameChanged){

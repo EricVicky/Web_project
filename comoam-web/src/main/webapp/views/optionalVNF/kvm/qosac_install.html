@@ -216,7 +216,7 @@
 									</div>
 									<div class="pull-right">
 										<a class="btn btn-default"
-											ng-click="rc.ovmInstallWizard.backward()"
+											ng-click="rc.ovmInstallWizard.backward();reset_password()"
 											ng-show="rc.ovmInstallWizard.currentIndex > rc.ovmInstallWizard.firstIndex">Back</a>
 										<a class="btn btn-primary"
 											ng-click="rc.ovmInstallWizard.forward()" ng-disabled="disMatch"

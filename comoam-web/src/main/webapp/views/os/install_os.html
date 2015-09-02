@@ -368,7 +368,7 @@
 								    </div>
 										<div class="pull-right">
 											<a class="btn btn-default" 
-												ng-click="rc.OSInstallWizard.backward()"
+												ng-click="rc.OSInstallWizard.backward();reset_password()"
 												ng-show="rc.OSInstallWizard.currentIndex > rc.OSInstallWizard.firstIndex" translate="BACK">Back</a>
 											<a class="btn btn-primary" 
 												ng-click="rc.OSInstallWizard.forward()" ng-disabled="disMatch"
