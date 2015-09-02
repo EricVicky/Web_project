@@ -36,6 +36,8 @@ if [ "$#" = "0" ]; then
   export host_IP=$IP
   /bin/echo "Password for root user:"
   ansible-playbook -c paramiko -i host  --ask-pass ${dir_util}/../ELCM-playbook/playbooks/kvm/authhost.yml
+
+  play_result=$?
 else
   host="$1"
   IP="$2"
