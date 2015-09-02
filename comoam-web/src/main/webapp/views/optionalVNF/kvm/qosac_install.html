@@ -153,7 +153,7 @@
 										<div class="form-group col-md-6">
 												<label class="control-label">QOSAC Hostname</label> <input
 												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
-												ng-model="installConfig.vm_config.ovm.hostname" validation="required"/>
+												ng-model="installConfig.vm_config.ovm.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name must be qualified|required"/>
 										</div>
 									</fieldset>
 								</form>
