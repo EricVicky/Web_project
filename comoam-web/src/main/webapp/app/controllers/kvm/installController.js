@@ -33,6 +33,14 @@ angular.module('kvm', [ 'ui.router',
             		$scope.disMatch = false;
             	}
             });
+            $scope.reset_password = function(){
+            	if($scope.disMatch == true){
+            		$scope.installConfig.root_password = "";
+            		$scope.installConfig.re_root_password = "";
+            		$scope.installConfig.axadmin_password = "";
+            		$scope.installConfig.re_axadmin_password = "";
+            	}
+            };
             
             $scope.installConfig.app_install_options = {
 					BACKUP_SERVER_DISK_SPACE:'2000',

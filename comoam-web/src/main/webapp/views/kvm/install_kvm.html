@@ -28,7 +28,7 @@
 						<div class="modal-body">
 							<div class="tab-content">
 								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
-									name="tab1" rc-submit="submitComtype()" rc-step=""
+									name="tab1" rc-submit="submitComtype()" rc-step
 									novalidate="">
 									<div class="form-group">
 										<label class="control-label" translate="COM_NAME">COM Name</label> <input
@@ -443,7 +443,7 @@
 								</div>
 								<div class="pull-right">
 									<a class="btn btn-default"
-										ng-click="rc.kvmInstallWizard.backward()"
+										ng-click="rc.kvmInstallWizard.backward() ;reset_password()"
 										ng-show="rc.kvmInstallWizard.currentIndex > rc.kvmInstallWizard.firstIndex" translate="BACK">Back</a>
 									<a class="btn btn-primary"
 										ng-click="rc.kvmInstallWizard.forward()" ng-disabled="disMatch"
