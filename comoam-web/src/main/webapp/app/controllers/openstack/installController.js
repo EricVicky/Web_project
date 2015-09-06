@@ -75,10 +75,7 @@ angular.module('os', [ 'ui.router',
 					OMCCN_SUPPORT_NETRA:'false',
 					INSTALL_ETHEREAL:'YES'
 			};
-            if($scope.installConfig.comType == 'CM'){
-            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
-            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
-            }
+
             $scope.Backup_Server_Addr = function(){
             	$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
                 $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.oam.provider_ip_address;
@@ -93,10 +90,13 @@ angular.module('os', [ 'ui.router',
             $scope.clean_dirty = function(){
 				if($scope.installConfig.comType=='OAM'){
             		delete $scope.installConfig.vm_config['cm'];
+            		delete $scope.installConfig.vm_config['oam'].hide;
+    				delete $scope.installConfig.vm_config['db'].hide;
+            	}else{
+            		delete $scope.installConfig.vm_config['oam'].hide;
+    				delete $scope.installConfig.vm_config['db'].hide;
+    				delete $scope.installConfig.vm_config['cm'].hide;
             	}
-				delete $scope.installConfig.vm_config['oam'].hide;
-				delete $scope.installConfig.vm_config['db'].hide;
-				delete $scope.installConfig.vm_config['cm'].hide;
             };
             $scope.$watch('installConfig.com_provider_network.network',function(){
             	if($scope.installConfig.com_provider_network!=null){
@@ -119,6 +119,15 @@ angular.module('os', [ 'ui.router',
             	$scope.comTypeStore = data.COMType;
 			 	$scope.installConfig.comType = OSService.VNFType;
 			});
+            $scope.$watch("installConfig.comType", function(){
+    	        if($scope.installConfig.comType == 'CM'){
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+    	        }else{
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+    	        }
+            });
             timezoneService.timezonelist().then( function(data) {
 				$scope.timezoneStore = data;
 				return data;

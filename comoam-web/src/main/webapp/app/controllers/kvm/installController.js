@@ -61,10 +61,7 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_NETRA:'false',
 					INSTALL_ETHEREAL:'YES'
 			};
-            if($scope.installConfig.comType == 'CM'){
-            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
-            	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
-            }
+
             $scope.installConfig.vm_config = {
             		"oam": { "nic": []},
             		"cm" : { "nic": []},
@@ -203,6 +200,15 @@ angular.module('kvm', [ 'ui.router',
             				$scope.hostIPs = data;
             			});
 
+      $scope.$watch("installConfig.comType", function(){
+    	        if($scope.installConfig.comType == 'CM'){
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+    	        }else{
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+    	        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+    	        }
+      });
 	  $scope.animationsEnabled = true;
 	  $scope.NFVTypes = ["FCAPS", "CM", "OAM"];
 	  $scope.open = function (size) {
