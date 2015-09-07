@@ -190,7 +190,7 @@
 											<div class="form-group col-md-6">
 												<label class="control-label">QOSAC Hostname</label> <input
 												name="oam_hostname" class="form-control" type="text" ng-change="changeHostName()"
-												ng-model="installConfig.vm_config.ovm.hostname" validation="required"/>
+												ng-model="installConfig.vm_config.ovm.hostname"validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required"/>
 									        </div>
 
 									</fieldset>
@@ -262,7 +262,7 @@
 									</div>
 									<div class="pull-right">
 										<a class="btn btn-default"
-											ng-click="rc.ovmInstallWizard.backward()"
+											ng-click="rc.ovmInstallWizard.backward();reset_password()"
 											ng-show="rc.ovmInstallWizard.currentIndex > rc.ovmInstallWizard.firstIndex">Back</a>
 										<a class="btn btn-primary"
 											ng-click="rc.ovmInstallWizard.forward()" ng-disabled="disMatch"
