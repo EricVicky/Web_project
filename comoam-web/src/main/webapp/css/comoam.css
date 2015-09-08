@@ -21,7 +21,8 @@ body {
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        margin: 0 0 0 250px;
+        /*margin: 0 0 0 250px;*/
+        
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
@@ -423,6 +424,12 @@ div .release{
 }
 div .operationlog:hover{
 	background-color:#EEE;
+}
+.navbar-default .navbar-nav>li>a{
+	color:white;
+}
+div .sidebarturn:hover{
+	background-color:#000;
 }
 div .operationlog:active{
 	background-color:#c3c3c3;

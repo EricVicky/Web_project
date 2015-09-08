@@ -81,6 +81,10 @@ angular.module('comoamApp')
           }
         }
       })
+      .state('dashboard.datatable',{
+        templateUrl:'views/dashboard/datatable.html',
+        url:'/datatable'
+    })
       .state('dashboard.kvminstall',{
         templateUrl:'views/kvm/install_kvm.html',
         url:'/kvminstall'

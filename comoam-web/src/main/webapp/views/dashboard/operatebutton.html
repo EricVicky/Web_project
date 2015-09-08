@@ -1,0 +1,33 @@
+<div style="margin-top:5px;">
+
+	<span class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.details(row)" 
+	 data-toggle="tooltip" data-placement="top" title="details">
+	  <a href=""><i class="glyphicon glyphicon-align-justify" style="color:darkturquoise;"></i></a> 
+	</span>
+	
+	<span class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.operationlog(row)" 
+	 data-toggle="tooltip" data-placement="top" title="ansible log">
+	  <a href=""><i class="glyphicon glyphicon-calendar" style="color:black;"></i></a> 
+	</span>
+	
+	<span ng-hide="row.entity.comType=='ATC'||row.entity.comType=='HPSIM'" class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.goupgraqde(row)" 
+	 data-toggle="tooltip" data-placement="top" title="upgrade">
+	  <a href=""><i class="glyphicon glyphicon-arrow-up" style="background-color:gold;"></i></a> 
+	</span>
+	
+	<span ng-hide="row.entity.comType=='ATC'||row.entity.comType=='HPSIM'" class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.gobackup(row)" 
+	 data-toggle="tooltip" data-placement="top" title="backup">
+	  <a href=""><i class="glyphicon glyphicon-floppy-save" style="color:green;"></i></a> 
+	</span>
+	
+	<span ng-hide="row.entity.comType=='ATC'||row.entity.comType=='HPSIM'" class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.gorestore(row)" 
+	 data-toggle="tooltip" data-placement="top" title="restore">
+	  <a href=""><i class="glyphicon glyphicon-floppy-open" style="color:purple;"></i></a> 
+	</span>
+	
+	<span class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.godelete(row)" 
+	 data-toggle="tooltip" data-placement="top" title="delete">
+	  <a href=""><i class="glyphicon glyphicon-remove" style="color:red;"></i></a> 
+	</span>
+	
+</div>

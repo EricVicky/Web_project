@@ -229,5 +229,6 @@
     "MIGRATE_SUCCEED":"Migrate succeeded",
     "MIGRATE_FAIL":"Migrate failed",
     "STANDALONE": "GR not installed",
-    "GRINSTALLED": "GR installed"
+    "GRINSTALLED": "GR installed",
+    "FCAPS":"fcaps"
 }
