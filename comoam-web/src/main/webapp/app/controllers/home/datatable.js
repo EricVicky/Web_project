@@ -28,21 +28,21 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
                         	 enableColumnMenu: false,
                         	 width:120
                          },
-                         {name: 'Oam Vm',  field: '',
-                        	 enableFiltering: false,
-                        	 enableColumnMenu: false,
-                        	 width:120
-                         },
-                         {name: 'Db Vm',  field: '',
-                        	 enableFiltering: false,
-                        	 enableColumnMenu: false,
-                        	 width:120
-                         },
-                         {name: 'Cm Vm',  field: '',
-                        	 enableFiltering: false,
-                        	 enableColumnMenu: false,
-                        	 width:120
-                         },
+//                         {name: 'Oam Vm',  field: '',
+//                        	 enableFiltering: false,
+//                        	 enableColumnMenu: false,
+//                        	 width:120
+//                         },
+//                         {name: 'Db Vm',  field: '',
+//                        	 enableFiltering: false,
+//                        	 enableColumnMenu: false,
+//                        	 width:120
+//                         },
+//                         {name: 'Cm Vm',  field: '',
+//                        	 enableFiltering: false,
+//                        	 enableColumnMenu: false,
+//                        	 width:120
+//                         },
                          {name: 'Timezone',  field: 'comConfig.timezone',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
