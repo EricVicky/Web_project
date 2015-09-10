@@ -433,3 +433,23 @@ div .log-list{
 	overflow: auto;
 	width: 180px;
 }
+
+/*Eric Own Play*/
+div .center-vertical {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div .center-horizontal {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); 
+}
+
+div .box{
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(0, 0, 0, 0.2), 0 0 0 18px rgba(0, 0, 0, 0.2), 0 0 0 24px rgba(0, 0, 0, 0.2);
+    height: 200px;
+    margin: 50px auto;
+    width: 400px
+}

@@ -17,6 +17,7 @@ angular.module('comoamApp', [
     'login',
     'backup_restore',
     'gr',
+    'chhostname',
     'operationlog'
   ]).controller('AppController', function($rootScope, $scope, $translate, $cookieStore, $window, $state, $location, $log, $modal, Auth) {
     $rootScope._user = {

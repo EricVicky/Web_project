@@ -23,6 +23,8 @@ import com.alu.omc.oam.config.ArsOSCOMConfig;
 import com.alu.omc.oam.config.AtcCOMConfig;
 import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
+import com.alu.omc.oam.config.CHKVMHostnameConfig;
+import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
@@ -200,6 +202,18 @@ public class CloudDeployController
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
+    }
+    
+    @RequestMapping(value="/kvm/chhostname", method=RequestMethod.POST)
+    public void kvmchhostname( @RequestBody CHKVMHostnameConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.CHHOSTNAME, config );
+    }
+    
+    @RequestMapping(value="/os/chhostname", method=RequestMethod.POST)
+    public void oschhostname( @RequestBody CHOSHostnameConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.CHHOSTNAME, config );
     }
     
     @RequestMapping(value="/os/upgrade", method=RequestMethod.POST)

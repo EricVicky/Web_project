@@ -54,7 +54,16 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.ATC), osatcdeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.HPSIM), oshpsimdeleteParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ARS), osarsInstallParser());
+        parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.KVM), kvmchhostnameParser());
     }
+    
+    private ILogParser kvmchhostnameParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
     private ILogParser kvmGrInstPriParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
