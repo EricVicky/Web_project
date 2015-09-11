@@ -73,6 +73,9 @@ angular.module('gr', [ 'ui.router',
     		 var IPNum =  $scope.getIPNum($scope.gr_config.gr_traffic);
     		 for(var vm in vm_config){
     			 //single vm comfig
+    			 if(vm_config[vm].nic.length-1 < IPNum){
+    				 var IPNum = vm_config[vm].nic.length-1;
+    			 }
     			 var cfg = vm_config[vm];
     			 if($scope.gr_config[role].environment == "KVM"){
     				 for(var i =0; i <= IPNum; i++){

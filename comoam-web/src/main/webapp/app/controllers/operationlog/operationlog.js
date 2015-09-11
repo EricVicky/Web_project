@@ -2,7 +2,11 @@ angular.module('operationlog',[]).controller('operationlogctr', function($scope,
 	
 	$scope.selectedVNF = DashboardService.getSelectedInstance();
 	if($scope.selectedVNF){
-		$scope.selectedVNFName = $scope.selectedVNF.stackName;	
+		if($scope.selectedVNF.stackName){
+			$scope.selectedVNFName = $scope.selectedVNF.stackName;			
+		}else{
+			$scope.selectedVNFName = $scope.selectedVNF.deployment_prefix;
+		}
 	}
 	
 	operationlogService.getOperationLog($scope.selectedVNFName).then(function(data){
