@@ -15,7 +15,7 @@
 						</ul>
 						<div class="modal-body col-md-12">
 							<div class="tab-content">
-								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="" rc-step>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="initoldhostname()" rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label" translate="COM_INSTANCE">COM Instance</label> <select
@@ -33,16 +33,9 @@
 										<legend>OAM VM</legend>
 										<div>
 											<div class="form-group col-md-5">
-												<label class="control-label">Old Hostname</label> <input
-												name="oam_hostname" class="form-control" type="text" 
-												ng-model="installConfig.old_vm_config.oam.old_hostname" ng-readonly="installConfig.old_vm_config.oam.old_hostname" />
-									        </div>
-										</div>
-										<div>
-											<div class="form-group col-md-5">
 												<label class="control-label">New Hostname</label> <input
 												name="oam_hostname" class="form-control" type="text"
-												ng-model="new_oamhostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
+												ng-model="installConfig.vm_config.oam.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
 									        </div>
 										</div>
 									</fieldset>
@@ -50,16 +43,9 @@
 										<legend>CM VM</legend>
 										<div>
 											<div class="form-group col-md-5">
-												<label class="control-label">Old Hostname</label> <input
-												name="cm_hostname" class="form-control" type="text" 
-												ng-model="installConfig.old_vm_config.cm.old_hostname" ng-readonly="installConfig.old_vm_config.cm.old_hostname" />
-									        </div>
-										</div>
-										<div>
-											<div class="form-group col-md-5">
 												<label class="control-label">New Hostname</label> <input
 												name="cm_hostname" class="form-control" type="text"
-												ng-model="new_cmhostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
+												ng-model="installConfig.vm_config.cm.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
 									        </div>
 										</div>
 									</fieldset>
@@ -67,16 +53,9 @@
 										<legend>DB VM</legend>
 										<div>
 											<div class="form-group col-md-5">
-												<label class="control-label">Old Hostname</label> <input
-												name="db_hostname" class="form-control" type="text" 
-												ng-model="installConfig.old_vm_config.db.old_hostname" ng-readonly="installConfig.old_vm_config.db.old_hostname" />
-									        </div>
-										</div>
-										<div>
-											<div class="form-group col-md-5">
 												<label class="control-label">New Hostname</label> <input
 												name="db_hostname" class="form-control" type="text" 
-												ng-model="new_dbhostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
+												ng-model="installConfig.vm_config.db.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
 									        </div>
 										</div>
 									</fieldset>
@@ -84,16 +63,9 @@
 										<legend>OVM VM</legend>
 										<div>
 											<div class="form-group col-md-5">
-												<label class="control-label">Old Hostname</label> <input
-												name="db_hostname" class="form-control" type="text" 
-												ng-model="installConfig.old_vm_config.ovm.old_hostname" ng-readonly="installConfig.old_vm_config.ovm.old_hostname" />
-									        </div>
-										</div>
-										<div>
-											<div class="form-group col-md-5">
 												<label class="control-label">New Hostname</label> <input
 												name="db_hostname" class="form-control" type="text" 
-												ng-model="new_ovmhostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
+												ng-model="installConfig.vm_config.ovm.hostname" validation="pattern=/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/:alt=host name not qualified for FQDN|required" />
 									        </div>
 										</div>
 									</fieldset>

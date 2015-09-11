@@ -24,6 +24,7 @@ import com.alu.omc.oam.config.AtcCOMConfig;
 import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.BACKUPConfig;
 import com.alu.omc.oam.config.CHKVMHostnameConfig;
+import com.alu.omc.oam.config.CHKVMQosacCOMConfig;
 import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
@@ -206,6 +207,12 @@ public class CloudDeployController
     
     @RequestMapping(value="/kvm/chhostname", method=RequestMethod.POST)
     public void kvmchhostname( @RequestBody CHKVMHostnameConfig config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.CHHOSTNAME, config );
+    }
+    
+    @RequestMapping(value="/kvm/qosac/chhostname", method=RequestMethod.POST)
+    public void kvmqosacchhostname( @RequestBody CHKVMQosacCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.CHHOSTNAME, config );
     }

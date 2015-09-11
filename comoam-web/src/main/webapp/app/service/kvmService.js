@@ -68,6 +68,10 @@ angular.module('kvm').factory('KVMService', function($location, $q, $resource, $
 			var hostnameRes = $resource(restUrl + "rest/kvm/chhostname");
 			return hostnameRes.save(config).$promise;
 		},
+		chQosacHostname:function(config){
+			var qohostnameRes = $resource(restUrl + "rest/kvm/qosac/chhostname");
+			return qohostnameRes.save(config).$promise;
+		},
 		upgradeOVM:function(config){
 			var upgradeRes = $resource(restUrl + "rest/ovm/" + config.comType + "upgrade");
 			return upgradeRes.save(config).$promise;

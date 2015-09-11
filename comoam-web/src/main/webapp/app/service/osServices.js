@@ -96,6 +96,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var hostnameRes = $resource(restUrl + "os/chhostname");
 			return hostnameRes.save(config).$promise;
 		},
+		chQosacHostname:function(config){
+			var qohostnameRes = $resource(restUrl + "os/qosac/chhostname");
+			return qohostnameRes.save(config).$promise;
+		},
 		upgradeOVM:function(config){
 			var upgradeRes = $resource(restUrl + "os/ovm/" + config.comType + "upgrade");
 			return upgradeRes.save(config).$promise;

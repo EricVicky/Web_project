@@ -10,7 +10,8 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
 				 "gr_sec_install":["Start","Sec GR Install","Finished"],
-				 "gr_uninstall":["Start","GR Uninstall","Finished"]
+				 "gr_uninstall":["Start","GR Uninstall","Finished"],
+				 "chhostname":["Start","Changing Hostname","Finished"]
 			},
 			"Openstack" :{
 				"install" : ["Start", "Valiadtion Key", "Generate Heat Templates",  "Check Presence of Heat Stack", "Cloud Init",  "Start COM", "Finished"],
@@ -32,7 +33,8 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"upgrade":["Start","Data Backup","Prepare Virtual Machines","Post Image Replacement","Data Restore","Finished"],
 				"delete":["Start","Destroy Virtual Machines","Undefine Virtual Machines","Delete Virtual Machine Files","Finished"],
 				"backup":["Start","Data Backup","Finished"],
-				"restore":["Start","Data Restore","Finished"]
+				"restore":["Start","Data Restore","Finished"],
+				"chhostname":["Start","Changing Hostname","Finished"],
 			},
 			"KVM_ARS":{
 				"install":["Start", "Prepare Environment", "Install", "Finished"]			
@@ -83,6 +85,10 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			"gr_uninstall":{
 				"succeed" : "Uninstallation of GR completed!",
 				"failed": "Uninstallation  of GR failed"
+			},
+			"chhostname":{
+				"succeed" : "Change Hostname completed!",
+				"failed": "Change Hostname failed"
 			}
 	}
 	var environment;
@@ -100,6 +106,16 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 		monitorKVMUpgrade: function(ch) {
 			environment = "KVM";
 			action = "upgrade";
+			channel = ch;
+		},
+		monitorKVMCHHostname: function(ch) {
+			environment = "KVM";
+			action = "chhostname";
+			channel = ch;
+		},
+		monitorKVMQOSACCHHostname: function(ch) {
+			environment = "KVM_QOSAC";
+			action = "chhostname";
 			channel = ch;
 		},
 		monitorKVMBackup: function(ch,comType) {
