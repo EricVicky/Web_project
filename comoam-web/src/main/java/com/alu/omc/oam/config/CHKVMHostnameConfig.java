@@ -12,13 +12,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CHKVMHostnameConfig extends KVMCOMConfig{
 	
-	private Map<String, VMConfig> old_vm_config;
+	private Map<String, OLDVMConfig> old_vm_config;
 	   
-	public Map<String, VMConfig> getOld_vm_config() {
+	public Map<String, OLDVMConfig> getOld_vm_config() {
 		return old_vm_config;
 	}
 
-	public void setOld_vm_config(Map<String, VMConfig> old_vm_config) {
+	public void setOld_vm_config(Map<String, OLDVMConfig> old_vm_config) {
 		this.old_vm_config = old_vm_config;
 	}
 
@@ -34,12 +34,6 @@ public class CHKVMHostnameConfig extends KVMCOMConfig{
 	        vmcfg.setImgname(this.getVMImageName(name));
 	    }
 	    Iterator<String> old_it = old_vm_config.keySet().iterator(); 
-	    while(old_it.hasNext()){
-	        String name = old_it.next();
-	        @SuppressWarnings("unchecked")
-            VMConfig vmcfg = old_vm_config.get(name);
-	        //vmcfg.setImgname(this.getVMImageName(name));
-	    }
 	   String json = Json2Object.object2Json(this);
        return JsonYamlConverter.convertJson2Yaml(json);
 	}
