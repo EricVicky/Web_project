@@ -21,7 +21,8 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
 				 "gr_sec_install":["Start","Sec GR Install","Finished"],
-				 "gr_uninstall":["Start","GR Uninstall","Finished"]
+				 "gr_uninstall":["Start","GR Uninstall","Finished"],
+				 "chhostname":["Start","Changing Hostname","Finished"]
 			},
 			"KVM_OVM" :{
 				"install" : ["Start", "Generate Config Driver", "Start VM Instance", "Post Configuration", "Finished"],
@@ -43,6 +44,7 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"install":["Start", "Running Credentials", "Update Document", "Configure new disk drive", "Finished"],
 				"upgrade": ["Start", "Data Backup", "Update Document", "Heat status", "Configure new disk drive", "Data Restore", "Finished"],
 				"delete":["Start","Check Presence of stack","Destroy stack","Finished"],
+				"chhostname":["Start","Changing Hostname","Finished"],
 			},
 			"Openstack_OVM":{
 				"install":["Start", "Running Credentials", "Update Document", "Config switches for OVM", "Finished"],
@@ -115,6 +117,16 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 		},
 		monitorKVMQOSACCHHostname: function(ch) {
 			environment = "KVM_QOSAC";
+			action = "chhostname";
+			channel = ch;
+		},
+		monitorOSCHHostname: function(ch) {
+			environment = "Openstack";
+			action = "chhostname";
+			channel = ch;
+		},
+		monitorOSQOSACCHHostname: function(ch) {
+			environment = "OPENSTACK_QOSAC";
 			action = "chhostname";
 			channel = ch;
 		},

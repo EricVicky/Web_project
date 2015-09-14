@@ -53,12 +53,12 @@ angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMS
     	}else{
     		if($scope.installConfig.comType == 'QOSAC'){
     			OSService.chQosacHostname($scope.installConfig).then( function(){
-    				monitorService.monitor("OPENSTACK", "CHHOSTNAME", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
+    				monitorService.monitor("Openstack", "CHHOSTNAME", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
     				$state.go("dashboard.monitor");
     			});
     		}else{
     			OSService.chHostname($scope.installConfig).then( function(){
-    				monitorService.monitor("OPENSTACK", "CHHOSTNAME", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
+    				monitorService.monitor("Openstack", "CHHOSTNAME", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
     				$state.go("dashboard.monitor");
     			});	
     		}

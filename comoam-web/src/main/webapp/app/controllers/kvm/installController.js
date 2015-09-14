@@ -113,7 +113,16 @@ angular.module('kvm', [ 'ui.router',
             	$scope.HostNameChanged = true;
             };
             
-
+            $scope.$watch('flavor',function(){
+            	alert("The flavor has been changed!");
+            });
+            
+//            $scope.$watch('flavor',function(newValue, oldValue){
+//            	if(newValue == oldValue){
+//            		return;
+//            	}
+//            	alert("The flavor has been changed!");
+//            });
                        	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
