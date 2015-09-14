@@ -52,7 +52,7 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
                         	 cellTemplate: 'views/dashboard/status.html',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
-                        	 width:170
+                        	 width:200
                          },
                          {name: 'operationMenu', field: '', 
                         	 cellTemplate: 'views/dashboard/operatebutton.html',

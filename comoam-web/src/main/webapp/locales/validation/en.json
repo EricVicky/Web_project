@@ -230,5 +230,7 @@
     "MIGRATE_FAIL":"Migrate failed",
     "STANDALONE": "GR not installed",
     "GRINSTALLED": "GR installed",
-    "FCAPS":"fcaps"
+    "FCAPS":"fcaps",
+    "CHHOSTNAME_SUCCEED":"Hostname modified",
+    "CHHOSTNAME_FAIL":"Change Hostname fail"
 }
