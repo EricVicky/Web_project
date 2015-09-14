@@ -122,6 +122,10 @@ angular.module('comoamApp')
         templateUrl:'views/backup_restore/restore.html',
         url:'/restore',
     })
+    .state('dashboard.chhostname',{
+        templateUrl:'views/chhostname/chhostname.html',
+        url:'/chhostname',
+    })
     .state('dashboard.grinstall',{
         templateUrl:'views/gr/install.html',
         url:'/gr/install',

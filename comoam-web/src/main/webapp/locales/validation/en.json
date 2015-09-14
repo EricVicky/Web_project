@@ -233,4 +233,5 @@
     "FCAPS":"fcaps",
     "CHHOSTNAME_SUCCEED":"Hostname modified",
     "CHHOSTNAME_FAIL":"Change Hostname fail"
+    "CHHOSTNAME":"Change Hostname"
 }

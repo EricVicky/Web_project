@@ -54,7 +54,43 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.ATC), osatcdeleteParser());
         parserCache.put(new ActionKey(Action.DELETE, Environment.OPENSTACK, COMType.HPSIM), oshpsimdeleteParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.ARS), osarsInstallParser());
+        parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.KVM), kvmchhostnameParser());
+        parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.KVM, COMType.QOSAC), kvmqosacchhostnameParser());
+        parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.OPENSTACK), oschhostnameParser());
+        parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.OPENSTACK, COMType.QOSAC), osqosacchhostnameParser());
     }
+    
+    private ILogParser oschhostnameParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser osqosacchhostnameParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser kvmchhostnameParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    
+    private ILogParser kvmqosacchhostnameParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
     
     private ILogParser kvmGrInstPriParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();

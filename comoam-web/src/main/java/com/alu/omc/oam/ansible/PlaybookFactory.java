@@ -54,6 +54,11 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.DELETE, COMType.HPSIM), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.UPGRADE, COMType.QOSAC), new Playbook("upgrade_qosac.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.ARS), new Playbook("deploy_ars.yml") );
+        playbooks.put(key(Environment.KVM, Action.CHHOSTNAME, COMType.QOSAC), new Playbook("qosac_hostname.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.CHHOSTNAME, COMType.QOSAC), new Playbook("qosac_hostname.yml") );
+        playbooks.put(key(Environment.KVM, Action.CHHOSTNAME), new Playbook("chostname.yml") );
+        playbooks.put(key(Environment.OPENSTACK, Action.CHHOSTNAME), new Playbook("chostname.yml") );
+
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {

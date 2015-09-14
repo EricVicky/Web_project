@@ -30,6 +30,20 @@
 								<form class="tab-pane active ng-pristine ng-valid" id="tab1"
 									name="tab1" rc-submit="submitComtype()" rc-step
 									novalidate="">
+									
+									
+									<div class="form-group">
+											<label class="control-label">Flavor</label> <select
+												name="flavor" 
+												ng-model="flavor"
+												class="form-control"
+												ng-options="fl for fl in avaliable_flavors"
+												title="Flavor" validation="required">
+											</select>
+									</div>
+									
+									
+									
 									<div class="form-group">
 										<label class="control-label" translate="COM_NAME">COM Name</label> <input
 											name="deployment_prefix" class="form-control" type="text" unique-com
