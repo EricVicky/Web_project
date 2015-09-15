@@ -133,6 +133,11 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 		  $state.go("dashboard.restore");			  
 	  };
 	  
+	  $scope.gochhostname = function(row){
+		  DashboardService.setSelectedInstance(row.entity.comConfig);
+		  $state.go("dashboard.chhostname");			  
+	  };
+	  
 	  $scope.godelete = function(row){
 		  $scope.selectedIns = row.entity.comConfig;
 		  var selectedInsModal = 'delete' + row.entity.comConfig.environment + 'InsModal';

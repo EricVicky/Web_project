@@ -25,6 +25,11 @@
 	  <a href=""><i class="glyphicon glyphicon-floppy-open" style="color:purple;"></i></a> 
 	</span>
 	
+	<span ng-hide="row.entity.comType=='ATC'||row.entity.comType=='HPSIM'" class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.gochhostname(row)" 
+	 data-toggle="tooltip" data-placement="top" title="chhostname">
+	  <a href=""><i class="glyphicon glyphicon-edit" style="color:grey;"></i></a> 
+	</span>
+	
 	<span class="hoverBoarder" style="margin-left:5px;" ng-click="grid.appScope.godelete(row)" 
 	 data-toggle="tooltip" data-placement="top" title="delete">
 	  <a href=""><i class="glyphicon glyphicon-remove" style="color:red;"></i></a> 

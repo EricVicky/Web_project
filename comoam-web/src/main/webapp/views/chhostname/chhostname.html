@@ -15,11 +15,11 @@
 						</ul>
 						<div class="modal-body col-md-12">
 							<div class="tab-content">
-								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="initoldhostname()" rc-step>
+								<form class="tab-pane active ng-pristine ng-valid" id="tab1" name="tab1" rc-submit="initconfig()" rc-step>
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<label class="control-label" translate="COM_INSTANCE">COM Instance</label> <select
-												ng-change="initconfig()" name="com_instance"
+												ng-change="" name="com_instance"
 												ng-model="com_instance" class="form-control"
 												ng-options="inst.name for inst in comInstance"
 												title="COM Instance" validation="required">

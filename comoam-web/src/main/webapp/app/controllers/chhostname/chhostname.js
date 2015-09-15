@@ -1,4 +1,4 @@
-angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMService,OSService,monitorService,$state){
+angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMService,OSService,monitorService,DashboardService,$state){
 	
     KVMService.getComInstance().then( function(data) {
 		$scope.Instance = data;
@@ -8,12 +8,14 @@ angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMS
 			if($scope.Instance[ci].comType == 'HPSIM'||$scope.Instance[ci].comType == 'ATC'){
 				continue;
 			}else{
-				$scope.comInstance.push($scope.Instance[ci]);
+				if(DashboardService.getSelectedInstance().comType == $scope.Instance[ci].comType){
+					$scope.comInstance.push($scope.Instance[ci]);
+				}
 			}
 		}
-		//$scope.setDefaultInstace();
-		
+		$scope.com_instance = $scope.comInstance[0];
     });
+    
     
     $scope.initconfig = function(){
     	$scope.installConfig = $scope.com_instance.comConfig;
