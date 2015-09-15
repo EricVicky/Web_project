@@ -6,8 +6,9 @@ angular.module('os', [ 'ui.router',
                        'ghiscoding.validation', 
                        'mgo-angular-wizard',
                        'ngFileUpload',
+                       'validation',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
-		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService) {
+		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService, validationService) {
             OSService.getUpdateOSCred().then(function(data) {
                 $scope.crendential = data;
                 if($scope.crendential.osUsername == "" && $scope.crendential.osPassword == ""){
@@ -156,5 +157,8 @@ angular.module('os', [ 'ui.router',
             OSService.getKeys().then(function(data){
             	$scope.keys= data;
             });
+            $scope.ping = function(ip){
+            	return validationService.ping(ip);
+            }
             
 } );

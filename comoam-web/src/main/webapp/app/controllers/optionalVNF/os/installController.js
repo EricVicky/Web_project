@@ -1,4 +1,4 @@
-angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
+angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
      
 	$scope.genExport = function (){
     	$scope.export = !$scope.export;
@@ -217,6 +217,9 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 			$state.go("dashboard.monitor");
 		});
     };
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 
 })
 .controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
@@ -260,4 +263,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
 
 		});
     };
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 });

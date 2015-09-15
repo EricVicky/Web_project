@@ -144,7 +144,7 @@
 															<label class="control-label" translate="IPV4_ADDRESS">IPv4 Address</label> <input
 																name="oam_ip_address" class="form-control" type="text"
 																ng-model="installConfig.vm_config.oam.provider_ip_address"
-																title="IP Address" validation="ipv4|required" />
+																title="IP Address" validation="ipv4|required|remote:ping" />
 														</div>
 														<div ng-if="installConfig.com_provider_network.v6_subnet" class="form-group col-md-3">
 															<label class="control-label" translate="IPV6_ADDRESS">IPv6 Address</label> <input

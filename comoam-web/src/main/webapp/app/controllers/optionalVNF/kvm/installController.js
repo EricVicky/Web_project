@@ -1,4 +1,4 @@
-angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
+angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state, validationService){
                         	
     $scope.installConfig ={
     		"vm_config":{
@@ -290,5 +290,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 		                +Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE);
     	$scope.installConfig.vm_config.ovm.flavor.disk = Math.ceil(final_disk/1024);
     };
-    
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 })

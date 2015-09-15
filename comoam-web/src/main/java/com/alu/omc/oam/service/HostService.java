@@ -113,17 +113,22 @@ public class HostService {
 
 	}
 
-	public boolean ping(String host) {
-		int  timeOut =  1000;
+	public static  boolean ping(String host) {
+		int  timeOut =  2000;
+		
 		boolean reachable = false;
 		try {
-//			reachable= InetAddress.getByName(host).isReachable(timeOut);
-			InetAddress aa= InetAddress.getByName(host);
+		    InetAddress aa= InetAddress.getByName(host);
 			reachable=aa.isReachable(timeOut);
 		} catch (Exception e) {
 			log.error("Failed to ping ip " + host, e);
 		} 
+		log.info(host + " is rechable :" + reachable);
 		return reachable;
+	}
+	
+	public static void main(String[] args){
+	    ping("135.251.236.110");
 	}
 	
 	public class IMGComparator implements Comparator<String> {

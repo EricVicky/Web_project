@@ -5,6 +5,7 @@ angular.module('kvm', [ 'ui.router',
                         'ghiscoding.validation',
                         'monitor',
                         'dashboard',
+                        'validation',
                         'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService, timezoneService, $modal) {
 			$scope.submitComtype = function(){
@@ -259,7 +260,7 @@ angular.module('kvm', [ 'ui.router',
 		$modalInstance.dismiss('cancel');
     };
 })
-.controller('nicctr', function($scope, $modalInstance,config,vm){
+.controller('nicctr', function($scope, $modalInstance,config,vm, validationService){
     $scope.ok = function(){
     	$scope.alert=true;
     	if($scope.nic.ip_v4!=null){
@@ -285,6 +286,9 @@ angular.module('kvm', [ 'ui.router',
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
     };
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 });
 
 

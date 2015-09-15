@@ -34,8 +34,8 @@ public class CheckController
     	ValidationResult res = new ValidationResult();
     	if (host!=null)
     	{
-    		res.setSucceed(hostService.ping((String)host));
-    		if (res.isSucceed()){
+    		res.setSucceed(!hostService.ping((String)host));
+    		if (!res.isSucceed()){
     			res.setMessage("This IP is in use, please change!");
     		}	   		
     	}
