@@ -5,16 +5,13 @@ angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMS
 		$scope.comInstance = [];
 		for(var ci=0;ci<$scope.Instance.length;ci++){
 			$scope.Instance[ci].comConfig = JSON3.parse($scope.Instance[ci].comConfig);
-			if($scope.Instance[ci].comType == 'HPSIM'||$scope.Instance[ci].comType == 'ATC'){
-				continue;
-			}else{
-				if(DashboardService.getSelectedInstance().comType == $scope.Instance[ci].comType){
-					$scope.comInstance.push($scope.Instance[ci]);
-				}
+			if(DashboardService.getSelectedInstance().deployment_prefix == $scope.Instance[ci].comConfig.deployment_prefix){
+				$scope.comInstance.push($scope.Instance[ci]);
 			}
 		}
 		$scope.com_instance = $scope.comInstance[0];
     });
+    
     
     
     $scope.initconfig = function(){
