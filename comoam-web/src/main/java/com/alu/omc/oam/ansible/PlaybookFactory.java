@@ -44,8 +44,8 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.QOSAC), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.HPSIM), new Playbook("destroy.yml") );
         playbooks.put(key(Environment.KVM, Action.DELETE, COMType.ATC), new Playbook("destroy.yml") );
-        playbooks.put(key(Environment.KVM, Action.BACKUP, COMType.QOSAC), new Playbook("backup_qosac.yml") );
-        playbooks.put(key(Environment.KVM, Action.RESTORE, COMType.QOSAC), new Playbook("restore_qosac.yml") );
+        playbooks.put(key(Environment.KVM, Action.BACKUP, COMType.QOSAC), new Playbook("backup.yml") );
+        playbooks.put(key(Environment.KVM, Action.RESTORE, COMType.QOSAC), new Playbook("restore.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.QOSAC), new Playbook("deploy_qosac.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.HPSIM), new Playbook("deploy_ovm.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.INSTALL, COMType.ATC), new Playbook("deploy_ovm.yml") );
