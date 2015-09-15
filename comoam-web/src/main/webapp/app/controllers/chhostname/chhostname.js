@@ -18,18 +18,18 @@ angular.module('chhostname',[]).controller('chhostnamectr', function($scope,KVMS
     	$scope.installConfig = $scope.com_instance.comConfig;
     	if($scope.installConfig.comType == 'FCAPS'||$scope.installConfig.comType == 'CM'){
     		$scope.installConfig.old_vm_config = {
-    				"oam": { "old_hostname": $scope.installConfig.vm_config.oam.hostname},
-    				"cm" : { "old_hostname": $scope.installConfig.vm_config.cm.hostname},
-    				"db" : { "old_hostname": $scope.installConfig.vm_config.db.hostname}
+    				"oam": { "hostname": $scope.installConfig.vm_config.oam.hostname},
+    				"cm" : { "hostname": $scope.installConfig.vm_config.cm.hostname},
+    				"db" : { "hostname": $scope.installConfig.vm_config.db.hostname}
     		};
     	}else if($scope.installConfig.comType == 'OAM'){
     		$scope.installConfig.old_vm_config = {
-    				"oam": { "old_hostname": $scope.installConfig.vm_config.oam.hostname},
-    				"db" : { "old_hostname": $scope.installConfig.vm_config.db.hostname}
+    				"oam": { "hostname": $scope.installConfig.vm_config.oam.hostname},
+    				"db" : { "hostname": $scope.installConfig.vm_config.db.hostname}
     		};
     	}else{
     		$scope.installConfig.old_vm_config = {
-    				"ovm": { "old_hostname": $scope.installConfig.vm_config.ovm.hostname}
+    				"ovm": { "hostname": $scope.installConfig.vm_config.ovm.hostname}
     		};
     	}
     }; 

@@ -16,15 +16,21 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
           * @Fields serialVersionUID :
           */
         private static final long serialVersionUID = 1L;
-        String old_hostname;
+        String hostname;
 
-        public String getOld_hostname() {
-			return old_hostname;
+
+
+		public String getHostname() {
+			return hostname;
 		}
 
-		public void setOld_hostname(String old_hostname) {
-			this.old_hostname = old_hostname;
+
+
+		public void setHostname(String hostname) {
+			this.hostname = hostname;
 		}
+
+
 
 		@JsonCreator
         public OLDVMConfig()
