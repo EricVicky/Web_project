@@ -150,15 +150,22 @@ angular.module('os', [ 'ui.router',
             OSService.getcinderzones().then(function(data) {
             	$scope.blockAvailZoneStore = data;
 			});
-            OSService.getImages().then(function(data){
-            	$scope.oam_cm_images = data;
-            	$scope.db_images = data;
-            });
-            OSService.getKeys().then(function(data){
-            	$scope.keys= data;
-            });
+
             $scope.ping = function(ip){
             	return validationService.ping(ip);
-            }
+            };
+            $scope.reloadimglist = function(){
+            	OSService.getImages().then(function(data){
+            		$scope.oam_cm_images = data;
+            		$scope.db_images = data;
+            	});
+            };
+            $scope.reloadkplist = function(){
+            	OSService.getKeys().then(function(data){
+            		$scope.keys= data;
+            	});
+            };
+            $scope.reloadkplist();
+            $scope.reloadimglist();
             
 } );

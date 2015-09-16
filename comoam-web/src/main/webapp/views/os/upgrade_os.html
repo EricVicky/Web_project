@@ -135,20 +135,26 @@
 								</form>
 								<form class="tab-pane ng-valid" id="tab2"
 									name="tab2" rc-submit="" rc-step>
-									<div class="form-group">
+									<div class="form-group col-md-6" >
 										<div ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
 											<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
-											<select name="oamcm_image" ng-model="installConfig.oam_cm_image" form="tab2"  mutuexclude="db_image" 
-											class="form-control" ng-options="o.name as o.name for o in oam_cm_images" 
-											title="OAM/CM image" validation="required"> </select>
-											<span class="validation text-danger" ng-show="tab2.oamcm_image.$error.samefieldvalue">same image</span>
+											<div class="input-group">
+													<select name="oamcm_image" ng-model="installConfig.oam_cm_image" form="tab2"  mutuexclude="db_image" class="form-control" ng-options="o.name as o.name for o in oam_cm_images" title="OAM/CM image" validation="required"> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
+     												</span>
+													<span class="validation text-danger" ng-show="tab2.oamcm_image.$error.samefieldvalue">same image</span>
+											</div>
 										</div>
 										<div ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
 											<label class="control-label" translate="DB_IMAGE">DB image</label> 
-											<select name="db_image" ng-model="installConfig.db_image" mutuexclude="oamcm_image" form="tab2"
-											class="form-control" ng-options="d.name as d.name for d in db_images" 
-											title="DB image" validation="required"> </select>
-											<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
+											<div class="input-group">
+													<select name="db_image" ng-model="installConfig.db_image" mutuexclude="oamcm_image" form="tab2" class="form-control" ng-options="d.name as d.name for d in db_images" title="DB image" validation="required"> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
+     												</span>
+													<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
+											</div>
 										</div>
 									</div>
 								</form>

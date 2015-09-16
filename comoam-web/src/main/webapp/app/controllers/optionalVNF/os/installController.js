@@ -80,12 +80,15 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     OSService.getcinderzones().then(function(data) {
     	$scope.blockAvailZoneStore = data;
 	});
-    OSService.getImages().then(function(data){
-    	$scope.ovm_images = data;
-    });
     OSService.getKeys().then(function(data){
     	$scope.keys= data;
     });
+    $scope.reloadimglist = function(){
+    	OSService.getImages().then(function(data){
+    		$scope.ovm_images = data;
+    	});
+    };
+    $scope.reloadimglist();
 })
 .controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
 	
@@ -171,10 +174,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     	$scope.blockAvailZoneStore = data;
 	});
     
-    OSService.getImages().then(function(data){
-    	$scope.ovm_images = data;
-    });
-    
+
     OSService.getKeys().then(function(data){
     	$scope.keys= data;
     });
@@ -219,7 +219,13 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     };
     $scope.ping = function(ip){
     	return validationService.ping(ip);
-    }
+    };
+    $scope.reloadimglist = function(){
+    	OSService.getImages().then(function(data){
+    		$scope.ovm_images = data;
+    	});
+    };
+    $scope.reloadimglist();
 
 })
 .controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){

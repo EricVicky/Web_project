@@ -9,6 +9,9 @@ angular.module('kvm', [ 'ui.router',
                         'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService, timezoneService, $modal) {
 			$scope.submitComtype = function(){
+				$scope.reloadimglist();
+			};
+			$scope.reloadimglist = function(){
 				$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
 			};
 			$scope.installConfig ={

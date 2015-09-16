@@ -223,24 +223,28 @@
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
 									<fieldset
 										ng-if="com_instance.comType=='FCAPS' || com_instance.comType=='OAM' || com_instance.comType=='CM' || com_instance.comType=='QoSAC'">
-										<div class="form-group">
-											<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> <select mutuexclude="db_image" form="tab2"
-												name="oam_cm_image" class="form-control"
-												ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-												ng-options=" im for im in imagelist" validation="required">
-											</select>
-											<span class="validation text-danger" ng-show="tab2.oam_cm_image.$error.samefieldvalue">same image</span>
+										<div class="form-group col-md-6">
+											<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label>
+											<div class="input-group">
+													<select mutuexclude="db_image" form="tab2" name="oam_cm_image" class="form-control" ng-model="installConfig.oam_cm_image" title="OAM/CM image" ng-options=" im for im in imagelist" validation="required"> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
+     												</span>
+													<span class="validation text-danger" ng-show="tab2.oam_cm_image.$error.samefieldvalue">same image</span>
+											</div>
 										</div>
 									</fieldset>
 									<fieldset
 										ng-if="com_instance.comType=='FCAPS' || com_instance.comType=='OAM' || com_instance.comType=='CM' ">
-										<div class="form-group">
-											<label class="control-label" translate="DB_IMAGE">DB image</label> <select mutuexclude="oam_cm_image" form="tab2"
-												name="db_image" class="form-control"
-												ng-model="installConfig.db_image" title="DB image"
-												ng-options=" im for im in imagelist" validation="required">
-											</select>
-											<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
+										<div class="form-group col-md-6">
+											<label class="control-label" translate="DB_IMAGE">DB image</label>
+											<div class="input-group">
+													<select mutuexclude="oam_cm_image" form="tab2" name="db_image" class="form-control" ng-model="installConfig.db_image" title="DB image" ng-options=" im for im in imagelist" validation="required"> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
+     												</span>
+													<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
+											</div>
 										</div>
 									</fieldset>
 

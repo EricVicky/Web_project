@@ -1,9 +1,12 @@
 angular.module('os').controller('osupgradectr', function($scope, $filter,  $log 
 		,  OSService, monitorService, $dialogs, $state , DashboardService) {
-    OSService.getImages().then(function(data){
-            	$scope.oam_cm_images = data;
-            	$scope.db_images = data;
-            });
+   $scope.reloadimglist = function(){
+          OSService.getImages().then(function(data){
+            		$scope.oam_cm_images = data;
+            		$scope.db_images = data;
+            	});
+   };
+   $scope.reloadimglist();
     var default_app_install_options = {
 			BACKUP_SERVER_DISK_SPACE:'2000',
 			CALL_TRACE_DISK_SPACE:'1000',
@@ -69,7 +72,7 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
     $scope.upgrade = function(){
          $scope.doUpgrade();
     };
-
+    
 } );
 
 

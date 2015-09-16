@@ -65,31 +65,29 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<label class="control-label" translate="IMAGE_DIR">Image Directory</label> <input
-											name="vm_image_dir" class="form-control" type="text"
-											ng-model="installConfig.vm_img_dir" ng-init="installConfig.vm_img_dir='/var/images'" placeholder="Please Insert Image Dir"
-											title="VM image directory" validation="required" />
+										<label class="control-label" translate="IMAGE_DIR">Image Directory</label> 
+										<input name="vm_image_dir" class="form-control" type="text" ng-model="installConfig.vm_img_dir" ng-init="installConfig.vm_img_dir='/var/images'" placeholder="Please Insert Image Dir" title="VM image directory" validation="required" />
 									</div>
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit="initNic()" rc-step>
-									<fieldset
-										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
-										<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> <select mutuexclude="db_image" form="tab2"
-											name="oam_cm_image" class="form-control"
-											ng-model="installConfig.oam_cm_image" title="OAM/CM image"
-											validation="required"><option ng-repeat="oamcm in imagelist">{{oamcm}}</option>
-											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
-										</select>
+									<fieldset  ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM' || installConfig.comType=='QoSAC'">
+										<label class="control-label" translate="OAM_CM_IMAGE">OAM/CM image</label> 
+										<div class="input-group col-md-6">
+													<select mutuexclude="db_image" form="tab2" name="oam_cm_image" class="form-control" ng-model="installConfig.oam_cm_image" title="OAM/CM image" validation="required"><option ng-repeat="oamcm in imagelist">{{oamcm}}</option> <option value="" translate="PLEASE_SELECT">--Please Select--</option> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()"  type="button"></button>
+     												</span>
+										</div>
 										<span class="validation text-danger" ng-show="tab2.oam_cm_image.$error.samefieldvalue">same image</span>
 									</fieldset>
-									<fieldset
-										ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
-										<label class="control-label" translate="DB_IMAGE">DB image</label> <select mutuexclude="oam_cm_image" form="tab2"
-											name="db_image" class="form-control"
-											ng-model="installConfig.db_image" title="OAM/CM image"
-											validation="required"><option ng-repeat="db in imagelist">{{db}}</option>
-											<option value="" translate="PLEASE_SELECT">--Please Select--</option>
-										</select>
+									<fieldset ng-if="installConfig.comType=='FCAPS' || installConfig.comType=='OAM' || installConfig.comType=='CM'">
+										<label class="control-label" translate="DB_IMAGE">DB image</label>
+										<div class="input-group  col-md-6">
+													<select mutuexclude="oam_cm_image" form="tab2" name="db_image" class="form-control" ng-model="installConfig.db_image" title="OAM/CM image" validation="required"><option ng-repeat="db in imagelist">{{db}}</option> <option value="" translate="PLEASE_SELECT">--Please Select--</option> </select>
+													<span class="input-group-btn">
+        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
+     												</span>
+										</div>
 										<span class="validation text-danger" ng-show="tab2.db_image.$error.samefieldvalue">same image</span>
 									</fieldset>
 								</form>
