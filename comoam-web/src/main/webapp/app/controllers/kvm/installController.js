@@ -112,7 +112,7 @@ angular.module('kvm', [ 'ui.router',
             $scope.changeHostName = function(){
             	$scope.HostNameChanged = true;
             };
-    	
+                       	
             $scope.Backup_Server_Addr = function(){
             	var vm_config = $scope.installConfig.vm_config;
             	for(var vm in vm_config){
