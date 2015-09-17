@@ -1,4 +1,4 @@
-angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('datatablectr', function($scope,KVMService,$modal,DashboardService, $state){
+angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns','ui.grid.selection']).controller('datatablectr', function($scope,KVMService,$modal,DashboardService, $state){
 	
 	KVMService.getComInstance().then( function(data) {
 		$scope.comInstance = data;
@@ -10,67 +10,83 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 	
 	$scope.comGridOptions = {
 			data: 'comInstance',
+            enableGridMenu: true,
+            enableRowSelection: false,
+            enableSelectAll: false,
+            multiSelect: false,
+            enableFiltering: true,
 			columnDefs: [
-			             {name: 'ComName',  field: 'name',
+			             {displayName: 'COM Name',  name: 'name',
+			            	 //enableFiltering: false,
+                        	 //enableColumnMenu: false,
 			            	 width:150
 			             },
-			             {name: 'VnfType',  field: 'comType',
-			            	 enableColumnMenu: false,
+			             {displayName: 'VNF Type',  name: 'comType',
+			            	 //enableFiltering: false,
+                        	 enableColumnMenu: false,
 			            	 width:100
 			             },
-                         {name: 'Environment',  field: 'comConfig.environment',
+                         {displayName: 'Environment',  name: 'Environment',
+			            	 cellTemplate: 'views/dashboard/environment.html',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:110
                          },
-                         {name: 'Host Server',  field: 'comConfig.active_host_ip',
+                         {displayName: 'Host Server',  name: 'comConfig.active_host_ip',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:120
                          },
-//                         {name: 'Oam Vm',  field: '',
-//                        	 enableFiltering: false,
-//                        	 enableColumnMenu: false,
-//                        	 width:120
-//                         },
-//                         {name: 'Db Vm',  field: '',
-//                        	 enableFiltering: false,
-//                        	 enableColumnMenu: false,
-//                        	 width:120
-//                         },
-//                         {name: 'Cm Vm',  field: '',
-//                        	 enableFiltering: false,
-//                        	 enableColumnMenu: false,
-//                        	 width:120
-//                         },
-                         {name: 'Timezone',  field: 'comConfig.timezone',
+                         {displayName: 'Timezone',  name: 'comConfig.timezone',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:120
                          },
-                         {name: 'Status',  field: '',
+                         {displayName: 'Last Action',  name: 'Last Action',
                         	 cellTemplate: 'views/dashboard/status.html',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:200
                          },
-                         {name: 'operationMenu', field: '', 
-                        	 cellTemplate: 'views/dashboard/operatebutton.html',
+                         {displayName: 'Operation', name: 'Operation', 
+                        	 //cellTemplate: 'views/dashboard/operatebutton.html',
+                        	 cellTemplate: 'views/dashboard/groupbar.html',
                         	 enableColumnMenu: false,
                         	 enableFiltering: false,
                         	 enableSorting: false,
                         	 enableColumnResizing: false
                          }
                         ],
-            enableGridMenu: true,
-            enableRowSelection: true,
-            enableSelectAll: true,
-            multiSelect: true,
-            enableFiltering: true,
             onRegisterApi: function( gridApi ) { 
                 $scope.gridApi = gridApi;
             }
 	};
+	
+	$scope.godelete = function(){
+		  row = $scope.gridApi.selection.getSelectedRows();
+		  if(row.length == 0){
+			  alert("Please select COM");
+		  }else{
+			  $scope.selectedIns = row[0].comConfig;
+			  var selectedInsModal = 'delete' + row[0].comConfig.environment + 'InsModal';
+			  var modalInstance = $modal.open({
+			      animation: $scope.animationsEnabled,
+			      templateUrl: 'views/common/' + selectedInsModal + '.html',
+			      controller: 'deleteController',
+			      backdrop: true,
+			      resolve: {
+			    	  selectedIns: function () {
+			    		  return $scope.selectedIns;
+			    	  }
+			      }
+			  });
+			  modalInstance.result.then(function (item) {
+			      	
+	      	  });
+		  }
+	};
+
+
 	
 	$scope.details = function(row){
 		  var selectedInsModal = "details" + row.entity.comConfig.environment + 'InsModal';
@@ -136,25 +152,6 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 	  $scope.gochhostname = function(row){
 		  DashboardService.setSelectedInstance(row.entity.comConfig);
 		  $state.go("dashboard.chhostname");			  
-	  };
-	  
-	  $scope.godelete = function(row){
-		  $scope.selectedIns = row.entity.comConfig;
-		  var selectedInsModal = 'delete' + row.entity.comConfig.environment + 'InsModal';
-		  var modalInstance = $modal.open({
-		      animation: $scope.animationsEnabled,
-		      templateUrl: 'views/common/' + selectedInsModal + '.html',
-		      controller: 'deleteController',
-		      backdrop: true,
-		      resolve: {
-		    	  selectedIns: function () {
-		    		  return $scope.selectedIns;
-		    	  }
-		      }
-		  });
-		  modalInstance.result.then(function (item) {
-		      	
-      	  });
 	  };
 	
 	

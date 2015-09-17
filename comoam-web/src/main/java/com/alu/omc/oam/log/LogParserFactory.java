@@ -63,7 +63,7 @@ public class LogParserFactory
     private ILogParser oschhostnameParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("", "Changing Hostname");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}
@@ -79,7 +79,7 @@ public class LogParserFactory
     private ILogParser kvmchhostnameParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[install\\sPRI\\sOAM\\sGR\\]", "Pri GR Install");
+        dict.put("PLAY\\s\\[oam\\spre\\schange\\shostname\\]", "Changing Hostname");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}

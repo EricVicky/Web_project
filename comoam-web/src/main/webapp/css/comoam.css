@@ -457,3 +457,19 @@ div .box{
     margin: 50px auto;
     width: 400px
 }
+
+.page-dashboard {
+  padding-bottom: 9px;
+  margin: 10px 0 10px;
+  border-bottom: 1px solid #eee;
+  font-size:200%;
+}
+
+.well-bottom {
+	margin-bottom:0;
+}
+
+.btn-action {
+    position: absolute;
+}
+
