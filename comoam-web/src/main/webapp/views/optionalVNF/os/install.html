@@ -99,16 +99,17 @@
 									</fieldset>
 									<fieldset>
 										<legend translate="IMAGE">Image</legend>
-										<div class="form-group col-md-6">
+										<div style="margin-left:2%">
 											<label class="control-label" >OVM image</label>
 											<div class="input-group col-md-6">
 													<select name="ovm_image" ng-model="installConfig.vm_config.ovm.image" class="form-control" ng-options="o.name as o.name for o in ovm_images" title="OVM image" validation="required"> </select>
-													<span class="input-group-btn">
-        													<button class="btn btn-default glyphicon glyphicon-refresh" ng-click="reloadimglist()" type="button"></button>
-     												</span>
+													<div class="input-group-btn">
+        												<button type="button" class="btn btn-default " ng-click="reloadimglist()"><span class="glyphicon glyphicon-refresh"></span></button>
+      												</div>
 											</div>
 										</div>
 									</fieldset>
+									<br>
 									<fieldset>
 										<legend translate="SECURITY">Security</legend>
 										<div class="form-group col-md-6">

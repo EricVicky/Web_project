@@ -45,6 +45,7 @@ public class HostService {
 			images.add("COM_5_0_0_2.D192.OAM.qcow2");
 			images.add("COM_5_0_0_2.D192.DB.qcow2");
 			images.add("QoSAC.qcow2");
+			images.add("ATC.qcow2");
 			images.add("COM_5_0_0_2.D198.OAM.qcow2");
 			images.add("COM_5_0_0_2.D198.DB.qcow2");
 			images.add("HPSAM.qcow2");
