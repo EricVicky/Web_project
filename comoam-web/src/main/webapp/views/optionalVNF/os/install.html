@@ -99,15 +99,17 @@
 									</fieldset>
 									<fieldset>
 										<legend translate="IMAGE">Image</legend>
-										<div class="form-group col-md-6">
-											<label class="control-label" >OVM
-												image</label> <select name="ovm_image"
-												ng-model="installConfig.vm_config.ovm.image" class="form-control"
-												ng-options="o.name as o.name for o in ovm_images"
-												title="OVM image" validation="required">
-											</select>
+										<div style="margin-left:2%">
+											<label class="control-label" >OVM image</label>
+											<div class="input-group col-md-6">
+													<select name="ovm_image" ng-model="installConfig.vm_config.ovm.image" class="form-control" ng-options="o.name as o.name for o in ovm_images" title="OVM image" validation="required"> </select>
+													<div class="input-group-btn">
+        												<button type="button" class="btn btn-default " ng-click="reloadimglist()"><span class="glyphicon glyphicon-refresh"></span></button>
+      												</div>
+											</div>
 										</div>
 									</fieldset>
+									<br>
 									<fieldset>
 										<legend translate="SECURITY">Security</legend>
 										<div class="form-group col-md-6">
@@ -127,7 +129,7 @@
 											name="ip_address" class="form-control" type="text"
 											ng-model="installConfig.vm_config.ovm.provider_ip_address"
 											placeholder="Please Insert IP Address" title="IP Address"
-											validation="ipv4|required" />
+											validation="ipv4|required|remote:ping" />
 									</div>
 									<div class="form-group col-md-3">
 											<label class="control-label" translate="DISK">Disk(GB)</label>
@@ -157,7 +159,7 @@
 											name="ip_address" class="form-control" type="text"
 											ng-model="installConfig.vm_config.ovm.provider_ip_address"
 											placeholder="Please Insert IP Address" title="IP Address"
-											validation="ipv4|required" />
+											validation="ipv4|required|remote:ping" />
 									</div>
 									<div class="form-group col-md-3">
 										<label class="control-label">IPv6 Address(optional)</label> <input

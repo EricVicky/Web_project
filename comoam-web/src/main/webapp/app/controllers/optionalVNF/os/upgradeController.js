@@ -1,9 +1,6 @@
 angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter,  $log, OSService,  
 		monitorService, DashboardService, $dialogs, $state) {
-    
-	OSService.getImages().then(function(data){
-    	$scope.ovm_images = data;
-    });
+
 	
 	$scope.setDefaultInstace = function(){
     	var selectedOSInstance = DashboardService.getSelectedInstance();
@@ -62,5 +59,13 @@ angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter, 
      		$state.go("dashboard.monitor");
 		});
     };
+    
+    $scope.reloadimglist = function(){
+    	OSService.getImages().then(function(data){
+    		$scope.ovm_images = data;
+    	});
+    };
+    
+    $scope.reloadimglist();
     
 });

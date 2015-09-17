@@ -6,8 +6,9 @@ angular.module('os', [ 'ui.router',
                        'ghiscoding.validation', 
                        'mgo-angular-wizard',
                        'ngFileUpload',
+                       'validation',
                        'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
-		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService) {
+		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService, validationService) {
             OSService.getUpdateOSCred().then(function(data) {
                 $scope.crendential = data;
                 if($scope.crendential.osUsername == "" && $scope.crendential.osPassword == ""){
@@ -149,12 +150,22 @@ angular.module('os', [ 'ui.router',
             OSService.getcinderzones().then(function(data) {
             	$scope.blockAvailZoneStore = data;
 			});
-            OSService.getImages().then(function(data){
-            	$scope.oam_cm_images = data;
-            	$scope.db_images = data;
-            });
-            OSService.getKeys().then(function(data){
-            	$scope.keys= data;
-            });
+
+            $scope.ping = function(ip){
+            	return validationService.ping(ip);
+            };
+            $scope.reloadimglist = function(){
+            	OSService.getImages().then(function(data){
+            		$scope.oam_cm_images = data;
+            		$scope.db_images = data;
+            	});
+            };
+            $scope.reloadkplist = function(){
+            	OSService.getKeys().then(function(data){
+            		$scope.keys= data;
+            	});
+            };
+            $scope.reloadkplist();
+            $scope.reloadimglist();
             
 } );

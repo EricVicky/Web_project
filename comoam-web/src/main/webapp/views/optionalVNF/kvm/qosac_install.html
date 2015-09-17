@@ -79,13 +79,13 @@
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit="initHostName()" rc-step>
 									<fieldset>
-										<label class="control-label">OVM image</label> <select
-											name="oam_cm_image" class="form-control"
-											ng-model="installConfig.vm_config.ovm.imgname"
-											title="OVCM image" validation="required"><option
-												ng-repeat="oamcm in imagelist">{{oamcm}}</option>
-											<option value="">--Please Select--</option>
-										</select>
+										<label class="control-label">OVM image</label>
+										<div class="input-group col-md-6">
+										 			<select name="oam_cm_image" class="form-control" ng-model="installConfig.vm_config.ovm.imgname" title="OVCM image" validation="required"><option ng-repeat="oamcm in imagelist">{{oamcm}}</option> <option value="">--Please Select--</option> </select>
+													<div class="input-group-btn">
+        												<button type="button" class="btn btn-default " ng-click="reloadimglist()"><span class="glyphicon glyphicon-refresh"></span></button>
+      												</div>
+										</div>
 									</fieldset>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>

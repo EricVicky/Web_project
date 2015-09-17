@@ -81,12 +81,13 @@
                                 <form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="control-label">OVM image</label> <select  form="tab2"
-                                                name="oam_cm_image" class="form-control"
-                                                ng-model="installConfig.vm_config.ovm.imgname" title="OAM/CM image"
-                                                ng-options=" im for im in imagelist" validation="required">
-                                            </select>
-                                            <span class="validation text-danger" ng-show="tab2.oam_cm_image.$error.samefieldvalue">same image</span>
+                                            <label class="control-label">OVM image</label>
+											<div class="input-group">
+                                            		<select  form="tab2" name="oam_cm_image" class="form-control" ng-model="installConfig.vm_config.ovm.imgname" title="OAM/CM image" ng-options=" im for im in imagelist" validation="required"> </select>
+													<div class="input-group-btn">
+        												<button type="button" class="btn btn-default " ng-click="reloadimglist()"><span class="glyphicon glyphicon-refresh"></span></button>
+      												</div>
+											</div>
                                         </div>
                                     </fieldset>
                                 </form>

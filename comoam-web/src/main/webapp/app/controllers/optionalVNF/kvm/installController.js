@@ -1,4 +1,4 @@
-angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
+angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state, validationService){
                         	
     $scope.installConfig ={
     		"vm_config":{
@@ -10,10 +10,6 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     		}
     };    
     
-    $scope.submitComtype = function(){
-		$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
-	};
-	
 	 $scope.loadimglist = function(host, dir){
      	KVMService.imagelist( { "host":host, "dir":dir}).then(
      			function(data) {
@@ -22,7 +18,13 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
      			});   
      };
 
-    
+   	$scope.submitComtype = function(){
+			$scope.reloadimglist();
+	};
+	$scope.reloadimglist = function(){
+			$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+	};
+	
     KVMService.getFlavorStore().then( function(data) {
 		$scope.flavorStore = data.Flavors;
 	});
@@ -171,19 +173,20 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     			}
     		}
     };    
-    
-    $scope.submitComtype = function(){
-		$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
-	};
 	
-	 $scope.loadimglist = function(host, dir){
+	$scope.loadimglist = function(host, dir){
      	KVMService.imagelist( { "host":host, "dir":dir}).then(
      			function(data) {
      				$log.info(data);
      				$scope.imagelist = data;
      			});   
-     };
-     
+    };
+    $scope.submitComtype = function(){
+			$scope.reloadimglist();
+	};
+	$scope.reloadimglist = function(){
+			$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+	};
      $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
      	if($scope.installConfig.root_password!=$scope.installConfig.re_root_password||$scope.installConfig.axadmin_password!=$scope.installConfig.re_axadmin_password){
      		$scope.disMatch = true;
@@ -290,5 +293,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 		                +Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE);
     	$scope.installConfig.vm_config.ovm.flavor.disk = Math.ceil(final_disk/1024);
     };
-    
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 })

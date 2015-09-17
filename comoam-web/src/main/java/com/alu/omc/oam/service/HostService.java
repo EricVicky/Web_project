@@ -2,7 +2,10 @@ package com.alu.omc.oam.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,6 +45,7 @@ public class HostService {
 			images.add("COM_5_0_0_2.D192.OAM.qcow2");
 			images.add("COM_5_0_0_2.D192.DB.qcow2");
 			images.add("QoSAC.qcow2");
+			images.add("ATC.qcow2");
 			images.add("COM_5_0_0_2.D198.OAM.qcow2");
 			images.add("COM_5_0_0_2.D198.DB.qcow2");
 			images.add("HPSAM.qcow2");
@@ -110,26 +114,22 @@ public class HostService {
 
 	}
 
-	public boolean ping(String host) {
-		JSch ssh = new JSch();
-		final String PING_COMMAND = "ping -n 1 ";
-		boolean REACHABLE = false;
+	public static  boolean ping(String host) {
+		int  timeOut =  2000;
+		
+		boolean reachable = false;
 		try {
-			Session session = ssh.getSession("127.0.0.1");
-			ChannelExec channel = (ChannelExec) session.openChannel("shell");
-			InputStream is = new ByteArrayInputStream(PING_COMMAND.concat(host)
-					.concat("\n").getBytes());
-			channel.setInputStream(is);
-			channel.setOutputStream(System.out);
-			channel.connect(2 * 1000);
-			channel.disconnect();
-			session.disconnect();
-			REACHABLE = (channel.getExitStatus() == 0);
-
-		} catch (JSchException e) {
-			log.error("failed to run ping command", e);
-		}
-		return REACHABLE;
+		    InetAddress aa= InetAddress.getByName(host);
+			reachable=aa.isReachable(timeOut);
+		} catch (Exception e) {
+			log.error("Failed to ping ip " + host, e);
+		} 
+		log.info(host + " is rechable :" + reachable);
+		return reachable;
+	}
+	
+	public static void main(String[] args){
+	    ping("135.251.236.110");
 	}
 	
 	public class IMGComparator implements Comparator<String> {

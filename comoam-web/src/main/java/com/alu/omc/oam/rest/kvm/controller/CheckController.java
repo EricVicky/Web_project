@@ -28,12 +28,19 @@ public class CheckController
     @Resource
     RunningComstackLock runningComstackLock;
 
-    @RequestMapping(value="/check/ping", method=RequestMethod.POST)
-    public boolean  ping(@ModelAttribute("host") String host) 
+    @RequestMapping(value="/check/ping", method=RequestMethod.GET)
+    public ValidationResult  ping(@ModelAttribute("host") String host) 
     {
-    	return hostService.ping((String)host);
+    	ValidationResult res = new ValidationResult();
+    	if (host!=null)
+    	{
+    		res.setSucceed(!hostService.ping((String)host));
+    		if (!res.isSucceed()){
+    			res.setMessage("This IP is in use, please change!");
+    		}	   		
+    	}
+    	return res;    			
     }
-
     
     @RequestMapping(value="/kvm/check/unique", method=RequestMethod.GET)
     public ValidationResult uniqueCOM(@ModelAttribute("name") String name){

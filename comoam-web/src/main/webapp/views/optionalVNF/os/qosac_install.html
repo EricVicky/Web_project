@@ -101,12 +101,13 @@
 									<fieldset>
 										<legend translate="IMAGE">Image</legend>
 										<div class="form-group col-md-6">
-											<label class="control-label" >OVM
-												image</label> <select name="ovm_image"
-												ng-model="installConfig.vm_config.ovm.image" class="form-control"
-												ng-options="o.name as o.name for o in ovm_images"
-												title="OVM image" validation="required">
-											</select>
+											<label class="control-label" >OVM image</label>
+											<div class="input-group">
+													<select name="ovm_image" ng-model="installConfig.vm_config.ovm.image" class="form-control" ng-options="o.name as o.name for o in ovm_images" title="OVM image" validation="required"> </select>
+													<div class="input-group-btn">
+        												<button type="button" class="btn btn-default " ng-click="reloadimglist()"><span class="glyphicon glyphicon-refresh"></span></button>
+      												</div>
+											</div>
 										</div>
 									</fieldset>
 									<fieldset>
@@ -158,7 +159,7 @@
 												Address</label> <input name="ovm_ip_address" class="form-control"
 												type="text"
 												ng-model="installConfig.vm_config.ovm.provider_ip_address"
-												title="IP Address" validation="ipv4|required" />
+												title="IP Address" validation="ipv4|required|remote:ping" />
 										</div>
 										<div class="form-group col-md-3">
 											<label class="control-label" translate="IPV6_ADDRESS">IPv6
