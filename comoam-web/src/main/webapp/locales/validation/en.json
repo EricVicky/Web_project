@@ -231,7 +231,7 @@
     "STANDALONE": "GR not installed",
     "GRINSTALLED": "GR installed",
     "FCAPS":"fcaps",
-    "CHHOSTNAME_SUCCEED":"Hostname modified",
-    "CHHOSTNAME_FAIL":"Change Hostname fail",
+    "CHHOSTNAME_SUCCEED":"Change Hostname succeeded",
+    "CHHOSTNAME_FAIL":"Change Hostname failed",
     "CHHOSTNAME":"Change Hostname"
 }
