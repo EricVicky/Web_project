@@ -51,7 +51,7 @@ public class CheckController
             for(COMStack stack : stacks){
                if (stack.getName().equals(name)){
                    //unique = false;
-            	   res.setSucceed(true);
+            	   res.setSucceed(false);
                    break;
                }
             }
