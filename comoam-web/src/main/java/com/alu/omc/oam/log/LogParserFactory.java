@@ -173,7 +173,7 @@ public class LogParserFactory
     private ILogParser osBackupParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
-        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\screate\\slocal\\sbackup\\sdirectory\\]", "Data Backup");
         dict.put("ansible-playbook", "Start");
         return new LogParser(dict);
 	}

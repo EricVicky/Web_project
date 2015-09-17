@@ -6,7 +6,7 @@ angular.module('comoamApp')
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+    $urlRouterProvider.otherwise('/dashboard/datatable');
 
     $stateProvider
       .state('dashboard', {

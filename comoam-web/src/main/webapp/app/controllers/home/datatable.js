@@ -1,4 +1,4 @@
-angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns','ui.grid.selection']).controller('datatablectr', function($scope,KVMService,$modal,DashboardService, $state){
+angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('datatablectr', function($scope,KVMService,$modal,DashboardService, $state){
 	
 	KVMService.getComInstance().then( function(data) {
 		$scope.comInstance = data;
@@ -62,28 +62,23 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns','ui.grid.selectio
             }
 	};
 	
-	$scope.godelete = function(){
-		  row = $scope.gridApi.selection.getSelectedRows();
-		  if(row.length == 0){
-			  alert("Please select COM");
-		  }else{
-			  $scope.selectedIns = row[0].comConfig;
-			  var selectedInsModal = 'delete' + row[0].comConfig.environment + 'InsModal';
-			  var modalInstance = $modal.open({
-			      animation: $scope.animationsEnabled,
-			      templateUrl: 'views/common/' + selectedInsModal + '.html',
-			      controller: 'deleteController',
-			      backdrop: true,
-			      resolve: {
-			    	  selectedIns: function () {
-			    		  return $scope.selectedIns;
-			    	  }
-			      }
-			  });
-			  modalInstance.result.then(function (item) {
-			      	
-	      	  });
-		  }
+	$scope.godelete = function(row){
+		  $scope.selectedIns = row.entity.comConfig;
+		  var selectedInsModal = 'delete' + row.entity.comConfig.environment + 'InsModal';
+		  var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'views/common/' + selectedInsModal + '.html',
+		      controller: 'deleteController',
+		      backdrop: true,
+		      resolve: {
+		    	  selectedIns: function () {
+		    		  return $scope.selectedIns;
+		    	  }
+		      }
+		  });
+		  modalInstance.result.then(function (item) {
+		      	
+      	  });
 	};
 
 
