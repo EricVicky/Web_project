@@ -7,7 +7,8 @@ if [ -f /opt/PlexView/ELCM/datasource.tar.gz ]; then
     tar -xzf /opt/PlexView/ELCM/datasource.tar.gz  -C / 
 fi
 
-if [ -f /opt/PlexView/ELCM/datasource.tar.gz ]; then
+if [ -f /opt/PlexView/ELCM/cert.tar.gz ]; then
+    echo "restore openstack certification"
     tar -xzf /opt/PlexView/ELCM/cert.tar.gz  -C / 
 fi
 echo "install jpam"
