@@ -282,7 +282,7 @@
 							<url>http://10.84.121.204:8080/manager/text</url>
 							<server>TomcatServer</server>
 							<path>/comoam</path>
-							<contextFile>src/main/webapp/META-INF/context.xml</contextFile>
+							<contextFile>src/test/resources/context.xml</contextFile>
 						</configuration>
 					</plugin>
 				</plugins>
