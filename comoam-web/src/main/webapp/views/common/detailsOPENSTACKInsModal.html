@@ -34,6 +34,18 @@
 					        <td colspan="2" translate="OPERATION_STATUS">Status</td>
 					        <td translate="{{selectedIns.actionResult}}"></td>
 				     	</tr>
+				     	<tr align="center" ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' ">
+							<td colspan="2" translate="GR_STATUS">GR Status</td>
+							<td translate="{{selectComstack.status}}"></td>
+						</tr>
+						<tr align="center" ng-if="selectComstack.role && selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM'">
+							<td colspan="2" translate="GR_ROLE">GR Role</td>
+							<td >{{selectComstack.role}}</td>
+						</tr>
+						<tr align="center" ng-if="selectComstack.mate && selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM'">
+							<td colspan="2" translate="GR_MATE">GR Mate</td>
+							<td>{{selectComstack.mate}}</label></td>
+						</tr>
 						<tr align="center"
 							ng-if="selectedIns.comType=='FCAPS' || selectedIns.comType=='OAM' || selectedIns.comType=='CM' || selectedIns.comType=='QoSAC'">
 							<td rowspan="3" width="25%" align="center"
