@@ -71,7 +71,7 @@ public abstract class OVMCOMConfig extends COMConfig {
 	private String vm_img_dir = "";
 	private String deployment_prefix = "";
 	private String atc_switches = "";
-	private Map<String, Object> vm_config;
+	public Map<String, Object> vm_config;
 	private String vnfType = "";
 	private String timezone;
 
