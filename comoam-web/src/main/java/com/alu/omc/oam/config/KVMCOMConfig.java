@@ -22,7 +22,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
      */
     private static final long  serialVersionUID       = -3535916139459672300L; 
     private COMType            comType;
-	private Map<String, VMConfig> vm_config;
+	public Map<String, VMConfig> vm_config;
 
 	private String timezone;
 	private String active_host_ip;
@@ -175,7 +175,7 @@ public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializab
 		this.vm_img_dir = vm_img_dir;
 	}
 
-	private String getVMImageName(String vmname){
+	public String getVMImageName(String vmname){
        if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
            return this.oam_cm_image;
        }else{

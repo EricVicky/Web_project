@@ -9,13 +9,15 @@ angular.module('backup_restore', ['ui.router',
 		, Backup_ResService, monitorService,DashboardService, $dialogs, $state,$translate) {
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
-        	$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-        	 if($scope.installConfig.comType=='FCAPS'||$scope.installConfig.comType=='OAM'||$scope.installConfig.comType=='CM'){
-        		$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
-             	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-             	if($scope.installConfig.comType != "OAM"){
-             		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
-             	}
+        	 $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
+        	 if($scope.installConfig.environment == 'KVM'){
+        		 if($scope.installConfig.comType=='FCAPS'||$scope.installConfig.comType=='OAM'||$scope.installConfig.comType=='CM'){
+        			 $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+        			 $scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+        			 if($scope.installConfig.comType != "OAM"){
+        				 $scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+        			 }
+        		 }        		 
         	 }
     	}
     }
@@ -34,11 +36,13 @@ angular.module('backup_restore', ['ui.router',
     		   break;
     		}
         }
-        $scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
-     	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-     	if($scope.installConfig.comType != "OAM"){
-     		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
-     	}
+        if($scope.installConfig.environment == 'KVM'){
+        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+        	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
+        	if($scope.installConfig.comType != "OAM"){
+        		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
+        	}       	
+        }
     }
     
     Backup_ResService.getComInstance().then( function(data) {

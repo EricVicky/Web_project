@@ -31,7 +31,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private BlockAvailZone     block_storage_avail_zone;
     private ComputeAvailZone   compute_avail_zone;
     private COMProvidernetwork com_provider_network;
-    private Map vm_config;
+    public Map vm_config;
     private Map<String, String> app_install_options;
     private COMType            comType;
     private String timezone;
@@ -89,7 +89,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 		this.db_image = db_image;
 	}
 	
-	private String getVMImageName(String vmname){
+	public String getVMImageName(String vmname){
 	       if(vmname.equals(VMType.cm.toString()) || vmname.equals(VMType.oam.toString())){
 	           return this.oam_cm_image;
 	       }else{

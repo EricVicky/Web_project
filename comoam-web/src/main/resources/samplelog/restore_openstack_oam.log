@@ -1,30 +1,39 @@
-2015-06-02 04:57:13,675 p=24995 u=root |   [WARNING]: The version of gmp you have installed has a known issue regarding
+-------Call Ansible......
+2015-09-18 17:38:29,119 p=16604 u=root | [WARNING]: The version of gmp you have installed has a known issue regarding
 timing vulnerabilities when used with pycrypto. If possible, you should update
 it (i.e. yum update gmp).
 
-2015-06-02 04:57:13,771 p=24995 u=root |   
-2015-06-02 04:57:13,771 p=24995 u=root |  /usr/bin/ansible-playbook -i ../../inventory/hosts restore.yml
-2015-06-02 04:57:13,771 p=24995 u=root |   
-2015-06-02 04:57:13,840 p=24995 u=root |  PLAY [stop com application] *************************************************** 
-2015-06-02 04:57:13,840 p=24995 u=root |  TASK: [stop_com | stop com application] *************************************** 
-2015-06-02 04:57:20,282 p=24995 u=root |  changed: [10.84.125.3]
-2015-06-02 04:57:20,282 p=24995 u=root |  PLAY [restore com data] ******************************************************* 
-2015-06-02 04:57:20,283 p=24995 u=root |  TASK: [restore_data | create local restore directory] ************************* 
-2015-06-02 04:57:20,506 p=24995 u=root |  ok: [10.84.125.4]
-2015-06-02 04:57:20,507 p=24995 u=root |  ok: [10.84.125.3]
-2015-06-02 04:57:20,508 p=24995 u=root |  ok: [10.84.125.5]
-2015-06-02 04:57:20,516 p=24995 u=root |  TASK: [restore_data | mount nfs directory] ************************************ 
-2015-06-02 04:57:20,540 p=24995 u=root |  skipping: [10.84.125.3]
-2015-06-02 04:57:20,543 p=24995 u=root |  skipping: [10.84.125.4]
-2015-06-02 04:57:20,544 p=24995 u=root |  skipping: [10.84.125.5]
-2015-06-02 04:57:20,551 p=24995 u=root |  TASK: [restore_data | restore data] ******************************************* 
-2015-06-02 04:57:22,456 p=24995 u=root |  changed: [10.84.125.4]
-2015-06-02 04:57:34,369 p=24995 u=root |  changed: [10.84.125.5]
-2015-06-02 04:58:03,407 p=24995 u=root |  changed: [10.84.125.3]
-2015-06-02 04:58:03,415 p=24995 u=root |  PLAY [start com application] ************************************************** 
-2015-06-02 04:58:03,415 p=24995 u=root |  TASK: [start_com | start com application] ************************************* 
-2015-06-02 04:58:09,742 p=24995 u=root |  changed: [10.84.125.3]
-2015-06-02 04:58:09,743 p=24995 u=root |  PLAY RECAP ******************************************************************** 
-2015-06-02 04:58:09,743 p=24995 u=root |  10.84.125.3                : ok=4    changed=3    unreachable=0    failed=0   
-2015-06-02 04:58:09,743 p=24995 u=root |  10.84.125.4                : ok=2    changed=1    unreachable=0    failed=0   
-2015-06-02 04:58:09,743 p=24995 u=root |  10.84.125.5                : ok=2    changed=1    unreachable=0    failed=0   
+2015-09-18 17:38:29,221 p=16604 u=root |
+2015-09-18 17:38:29,222 p=16604 u=root | /usr/bin/ansible-playbook -c paramiko -i ../../inventory/hosts restore.yml
+2015-09-18 17:38:29,222 p=16604 u=root |
+2015-09-18 17:38:29,290 p=16604 u=root | PLAY [stop com application] ***************************************************
+2015-09-18 17:38:29,290 p=16604 u=root | TASK: [stop_com | stop com application] ***************************************
+2015-09-18 17:38:36,591 p=16604 u=root | changed: [135.104.196.3]
+2015-09-18 17:38:36,592 p=16604 u=root | PLAY [restore com data] *******************************************************
+2015-09-18 17:38:36,593 p=16604 u=root | TASK: [remote_restore | create local restore directory] ***********************
+2015-09-18 17:38:37,138 p=16604 u=root | ok: [135.104.196.41]
+2015-09-18 17:38:37,146 p=16604 u=root | ok: [135.104.196.3]
+2015-09-18 17:38:37,186 p=16604 u=root | ok: [135.104.196.2]
+2015-09-18 17:38:37,202 p=16604 u=root | TASK: [remote_restore | mount nfs directory] **********************************
+2015-09-18 17:38:37,249 p=16604 u=root | skipping: [135.104.196.3]
+2015-09-18 17:38:37,256 p=16604 u=root | skipping: [135.104.196.2]
+2015-09-18 17:38:37,258 p=16604 u=root | skipping: [135.104.196.41]
+2015-09-18 17:38:37,270 p=16604 u=root | TASK: [remote_restore | restore data] *****************************************
+2015-09-18 17:38:39,594 p=16604 u=root | changed: [135.104.196.41]
+2015-09-18 17:39:34,219 p=16604 u=root | changed: [135.104.196.3]
+2015-09-18 17:42:17,885 p=16604 u=root | changed: [135.104.196.2]
+2015-09-18 17:42:17,916 p=16604 u=root | TASK: [remote_restore | restore data for CSA and CFMA] ************************
+2015-09-18 17:42:17,968 p=16604 u=root | skipping: [135.104.196.3]
+2015-09-18 17:42:17,971 p=16604 u=root | skipping: [135.104.196.2]
+2015-09-18 17:42:17,974 p=16604 u=root | skipping: [135.104.196.41]
+2015-09-18 17:42:17,986 p=16604 u=root | TASK: [remote_restore | restore qosac data] ***********************************
+2015-09-18 17:42:18,016 p=16604 u=root | skipping: [135.104.196.3]
+2015-09-18 17:42:18,016 p=16604 u=root | skipping: [135.104.196.2]
+2015-09-18 17:42:18,023 p=16604 u=root | skipping: [135.104.196.41]
+2015-09-18 17:42:18,038 p=16604 u=root | PLAY [start com application] **************************************************
+2015-09-18 17:42:18,039 p=16604 u=root | TASK: [start_com | start com application] *************************************
+2015-09-18 17:42:22,770 p=16604 u=root | changed: [135.104.196.3]
+2015-09-18 17:42:22,771 p=16604 u=root | PLAY RECAP ********************************************************************
+2015-09-18 17:42:22,771 p=16604 u=root | 135.104.196.2 : ok=2 changed=1 unreachable=0 failed=0
+2015-09-18 17:42:22,771 p=16604 u=root | 135.104.196.3 : ok=4 changed=3 unreachable=0 failed=0
+2015-09-18 17:42:22,771 p=16604 u=root | 135.104.196.41 : ok=2 changed=1 unreachable=0 failed=0 

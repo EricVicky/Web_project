@@ -74,7 +74,7 @@ angular.module('login', [
 		function(data) {
 			if (!data.reason) {
 				$log.info("user " + $rootScope._user.username + " logged on successfully!");
-				$state.go('dashboard.home');
+				$state.go('dashboard.datatable');
 			} else {
 					alert("Error - "+ data.reason);
 			}

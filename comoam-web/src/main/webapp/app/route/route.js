@@ -6,7 +6,7 @@ angular.module('comoamApp')
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+    $urlRouterProvider.otherwise('/dashboard/datatable');
 
     $stateProvider
       .state('dashboard', {
@@ -81,6 +81,10 @@ angular.module('comoamApp')
           }
         }
       })
+      .state('dashboard.datatable',{
+        templateUrl:'views/dashboard/datatable.html',
+        url:'/datatable'
+    })
       .state('dashboard.kvminstall',{
         templateUrl:'views/kvm/install_kvm.html',
         url:'/kvminstall'
@@ -117,6 +121,10 @@ angular.module('comoamApp')
     .state('dashboard.restore',{
         templateUrl:'views/backup_restore/restore.html',
         url:'/restore',
+    })
+    .state('dashboard.chhostname',{
+        templateUrl:'views/chhostname/chhostname.html',
+        url:'/chhostname',
     })
     .state('dashboard.grinstall',{
         templateUrl:'views/gr/install.html',
