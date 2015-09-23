@@ -101,7 +101,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     	$scope.export = !$scope.export;
     };
     
-}).controller('ovmarsctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
+}).controller('ovmarsctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state, validationService){
 	
 	$scope.installConfig = {
 			"installConfig.comType":"ARS",
@@ -162,7 +162,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
 
 		});
     };
-}).controller('ovmqosacctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state){
+}).controller('ovmqosacctr', function($scope,  $log, KVMService, monitorService, timezoneService, $state, validationService){
      
     $scope.installConfig ={
     		"vm_config":{

@@ -90,7 +90,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     };
     $scope.reloadimglist();
 })
-.controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
+.controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
 	
 	OSService.getComTypeStore().then(function(data){
 		$scope.temp_comTypeStore = data.OVMType;
@@ -228,7 +228,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     $scope.reloadimglist();
 
 })
-.controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state){
+.controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
 	
 	$scope.installConfig = {
     		"vm_config":{
