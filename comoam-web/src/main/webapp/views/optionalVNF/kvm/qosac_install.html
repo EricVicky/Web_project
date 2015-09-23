@@ -87,6 +87,7 @@
       												</div>
 										</div>
 									</fieldset>
+									<br>
 								</form>
 								<form class="tab-pane" id="tab3" name="tab3" rc-submit rc-step>
                                     <legend></legend>
@@ -198,7 +199,7 @@
 														</tr>
 														<tr align="center">
 															<td>Flavor</td>
-															<td>vCPU:{{installConfig.vm_config.ovm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.ovm.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{installConfig.vm_config.ovm.flavor.disk}}GB</td>
+															<td>vCPU:{{installConfig.vm_config.ovm.flavor.vCpu}}&nbsp;&nbsp;Memory:{{installConfig.vm_config.ovm.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{final_disk.ovm.disk}}GB</td>
 														</tr>
 													</tbody>
 												</table>

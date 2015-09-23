@@ -261,6 +261,7 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     };
     
     $scope.doDeploy = function (){
+    	$scope.installConfig.vm_config.ovm.flavor.disk = $scope.final_disk.ovm.disk;
     	KVMService.deployOVM($scope.installConfig).then( function(){
             monitorService.monitor("KVM", "INSTALL", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
             $state.go("dashboard.monitor");
@@ -287,13 +288,15 @@ angular.module('kvm').controller('ovmctr', function($scope,  $log, KVMService, m
     	$scope.export = !$scope.export;
     	$scope.calc_disk();
     };
+    $scope.final_disk = {
+    		"ovm": { "disk": ""}
+    };
     $scope.calc_disk = function(){
     	var temp_disk = $scope.installConfig.vm_config.ovm.flavor.disk;
-    	var final_disk = Number(temp_disk)*1024
-		                +Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE);
-    	$scope.installConfig.vm_config.ovm.flavor.disk = Math.ceil(final_disk/1024);
+    	$scope.final_disk.ovm.disk = Math.ceil((Number(temp_disk)*1024
+		                				+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE))/1024);
     };
     $scope.ping = function(ip){
     	return validationService.ping(ip);
     }
-})
+});
