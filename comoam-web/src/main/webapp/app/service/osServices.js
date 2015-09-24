@@ -92,11 +92,11 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 			var upgradeRes = $resource(restUrl + "os/upgrade");
 			return upgradeRes.save(config).$promise;
 		},
-		chHostname:function(config){
+		chOSHostname:function(config){
 			var hostnameRes = $resource(restUrl + "os/chhostname");
 			return hostnameRes.save(config).$promise;
 		},
-		chQosacHostname:function(config){
+		chOSQosacHostname:function(config){
 			var qohostnameRes = $resource(restUrl + "os/qosac/chhostname");
 			return qohostnameRes.save(config).$promise;
 		},
