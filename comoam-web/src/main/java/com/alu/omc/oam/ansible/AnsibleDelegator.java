@@ -19,9 +19,9 @@ import com.alu.omc.oam.config.AtcOSCOMConfig;
 import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.CHOSQosacCOMConfig;
 import com.alu.omc.oam.config.COMConfig;
+import com.alu.omc.oam.config.COMProvidernetworkConfig;
 import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.OSCOMConfig;
-import com.alu.omc.oam.config.OSCOMConfig.COMProvidernetwork;
 import com.alu.omc.oam.config.QosacOSCOMConfig;
 import com.alu.omc.oam.log.LogParserFactory;
 import com.alu.omc.oam.rest.os.service.NeutronService;
@@ -91,7 +91,7 @@ public class AnsibleDelegator implements ApplicationContextAware
         try
         {
            NeutronService neutronService =  (NeutronService)applicationContext.getBean("neutronService");
-           COMProvidernetwork providerNetwork = config.getCom_provider_network();
+           COMProvidernetworkConfig providerNetwork = config.getCom_provider_network();
            NeutronSubnet subnet =  neutronService.getSubetById(providerNetwork.getSubnet());
            if(subnet!=null){
                providerNetwork.setDns1(subnet.getDnsNames()!=null && subnet.getDnsNames().size() >0?subnet.getDnsNames().get(0):"8.8.8.8");
