@@ -233,6 +233,9 @@
 								         <softlinkSource>
 								              <location>/opt/PlexView/ELCM/script/config_bridge.sh</location>
 								         </softlinkSource>
+								         <softlinkSource>
+								              <location>/opt/PlexView/ELCM/script/config_bond.sh</location>
+								         </softlinkSource>
 								     </sources>
 								</mapping>
 							</mappings>

@@ -31,7 +31,7 @@ public class CHOSHostnameConfig extends COMConfig implements NetworkConfig, Seri
     private BlockAvailZone     block_storage_avail_zone;
     private ComputeAvailZone   compute_avail_zone;
     private COMProvidernetwork com_provider_network;
-    public Map vm_config;
+    private Map vm_config;
     private Map old_vm_config;
     private Map<String, String> app_install_options;
     private COMType            comType;

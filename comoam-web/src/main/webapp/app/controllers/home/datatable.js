@@ -27,7 +27,7 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 			            	 width:100
 			             },
                          {displayName: 'Environment',  name: 'Environment',
-			            	 cellTemplate: 'views/dashboard/environment.html',
+			            	 cellTemplate: 'views/dashboard/component/environment.html',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:110
@@ -43,14 +43,14 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
                         	 width:120
                          },
                          {displayName: 'Last Action',  name: 'Last Action',
-                        	 cellTemplate: 'views/dashboard/status.html',
+                        	 cellTemplate: 'views/dashboard/component/status.html',
                         	 enableFiltering: false,
                         	 enableColumnMenu: false,
                         	 width:200
                          },
                          {displayName: 'Operation', name: 'Operation', 
                         	 //cellTemplate: 'views/dashboard/operatebutton.html',
-                        	 cellTemplate: 'views/dashboard/groupbar.html',
+                        	 cellTemplate: 'views/dashboard/component/groupbar.html',
                         	 enableColumnMenu: false,
                         	 enableFiltering: false,
                         	 enableSorting: false,
