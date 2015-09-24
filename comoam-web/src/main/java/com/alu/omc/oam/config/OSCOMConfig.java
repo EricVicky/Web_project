@@ -31,7 +31,7 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private BlockAvailZone     block_storage_avail_zone;
     private ComputeAvailZone   compute_avail_zone;
     private COMProvidernetwork com_provider_network;
-    public Map vm_config;
+    private Map vm_config;
     private Map<String, String> app_install_options;
     private COMType            comType;
     private String timezone;

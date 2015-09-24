@@ -30,18 +30,20 @@ angular.module('kvm', [ 'ui.router',
             	}
             	$scope.calc_disk();
             };
+            
+            $scope.final_disk = {
+            		"oam": { "disk": ""}
+            };
+            
             $scope.calc_disk = function(){
-            	for(var vnf in $scope.installConfig.vm_config){
-            		if($scope.installConfig.vm_config[vnf].flavor){
-            			var temp_disk = $scope.installConfig.vm_config[vnf].flavor.disk;
-                		var final_disk = Number(temp_disk)*1024
-                						 +Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
-                		                 +Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
-                		                 +Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE);
-                		$scope.installConfig.vm_config[vnf].flavor.disk = Math.ceil(final_disk/1024);
+            		if($scope.installConfig.vm_config.oam.flavor){
+            			var temp_disk = $scope.installConfig.vm_config.oam.flavor.disk;
+                		$scope.final_disk.oam.disk = Math.ceil((Number(temp_disk)*1024
+                						 		+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
+                						 		+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
+                						 		+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE))/1024);
             		}
             		
-            	}
             };
   
             $scope.$watchGroup(['installConfig.root_password', 'installConfig.re_root_password','installConfig.axadmin_password','installConfig.re_axadmin_password'], function() {
@@ -152,6 +154,7 @@ angular.module('kvm', [ 'ui.router',
 			$scope.doDeploy = function (){
 				$log.info($scope.installConfig);
 				$scope.clean_dirty();
+				$scope.installConfig.vm_config.oam.flavor.disk = $scope.final_disk.oam.disk;
             	KVMService.deploy($scope.installConfig).then( function(){
             		monitorService.monitor("KVM", "INSTALL", $scope.installConfig.comType,  $scope.installConfig.deployment_prefix);
          			$state.go("dashboard.monitor");
