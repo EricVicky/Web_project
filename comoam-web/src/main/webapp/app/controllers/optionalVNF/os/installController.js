@@ -89,6 +89,10 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     	});
     };
     $scope.reloadimglist();
+    
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 })
 .controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
 	
