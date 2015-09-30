@@ -1,11 +1,13 @@
 #!/bin/sh
 echo "extract playbook"
 tar -xf  /opt/PlexView/ELCM/playbook.tar -C /opt/PlexView/ELCM/
+chmod 600 /opt/PlexView/ELCM/ELCM-playbook/group_vars
 
 if [ -f /opt/PlexView/ELCM/datasource.tar.gz ]; then
     echo "restore data"
     tar -xzf /opt/PlexView/ELCM/datasource.tar.gz  -C / 
 fi
+chmod 600 /opt/PlexView/ELCM/datasource
 
 if [ -f /opt/PlexView/ELCM/cert.tar.gz ]; then
     echo "restore openstack certification"
