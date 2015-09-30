@@ -38,7 +38,7 @@ angular.module('monitor').directive( 'ansiblelog', function($log, WizardHandler,
 											if (log.result == "succeed") {
 												$scope.$apply(function() {
 													$scope.loadingshow = false;
-													var realStepNumber = $scope.ansibleSteps.indexOf(log.step) + 1;
+													var realStepNumber = $scope.ansibleSteps.length;
 													var maxNext = 10;
 													var i =0;
 													while(WizardHandler.wizard().currentStepNumber() < realStepNumber && i < maxNext){

@@ -28,14 +28,14 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private boolean            config_drive           = true;
     private String             deployment_prefix;
     private boolean            enable_private_network = true;
-    private BlockAvailZone     block_storage_avail_zone;
-    private ComputeAvailZone   compute_avail_zone;
-    private COMProvidernetwork com_provider_network;
+    private BlockAvailZoneConfig     block_storage_avail_zone;
+    private ComputeAvailZoneConfig   compute_avail_zone;
+    private COMProvidernetworkConfig com_provider_network;
     private Map vm_config;
     private Map<String, String> app_install_options;
     private COMType            comType;
     private String timezone;
-    private COMPrivatenetwork com_private_network = new COMPrivatenetwork("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
+    private COMPrivatenetworkConfig com_private_network = new COMPrivatenetworkConfig("192.168.10.0/22", "192.168.10.1", "255.255.252.0", "22");
     private String template_version;
 	private String stack_name;
     private String oam_cm_image;
@@ -97,11 +97,12 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
 	       }
 	    }
 	
-	public COMPrivatenetwork getCom_private_network() {
+
+	public COMPrivatenetworkConfig getCom_private_network() {
 		return com_private_network;
 	}
 
-	public void setCom_private_network(COMPrivatenetwork com_private_network) {
+	public void setCom_private_network(COMPrivatenetworkConfig com_private_network) {
 		this.com_private_network = com_private_network;
 	}
 
@@ -154,224 +155,6 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         // TODO Auto-generated method stub
         return comType;
     }
-    
-    public class ComputeAvailZone implements Serializable
-    {
-        /**
-         * @Fields serialVersionUID :
-         */
-        private static final long serialVersionUID = 1L;
-        private String            zoneA;
-
-        public String getZoneA()
-        {
-            return zoneA;
-        }
-
-        public void setZoneA(String zoneA)
-        {
-            this.zoneA = zoneA;
-        }
-
-
-
-        public ComputeAvailZone()
-        {
-        }
-    }
-
-    public class BlockAvailZone implements Serializable
-    {
-        /**
-         * @Fields serialVersionUID :
-         */
-        private static final long serialVersionUID = 1L;
-
-        public String getZoneA()
-        {
-            return zoneA;
-        }
-
-        public void setZoneA(String zoneA)
-        {
-            this.zoneA = zoneA;
-        }
-
-
-        public BlockAvailZone()
-        {
-            // TODO Auto-generated constructor stub
-        }
-
-
-        private String zoneA;
-    }
-
-    public class COMProvidernetwork implements Serializable
-    {
-        /**
-         * @Fields serialVersionUID :
-         */
-        private static final long serialVersionUID = -8224828541397406250L;
-        String                    network;
-        String                    subnet;
-        String                    netmask;
-        String                    gateway;
-        String                    dns1;
-        String                    v6_subnet = "";
-        String                    v6_gateway = "";
-        String                    v6_prefix = "";
-
-        public String getV6_subnet()
-        {
-            return v6_subnet;
-        }
-
-        public void setV6_subnet(String v6_subnet)
-        {
-            this.v6_subnet = v6_subnet;
-        }
-
-        public String getV6_gateway()
-        {
-            return v6_gateway;
-        }
-
-        public void setV6_gateway(String v6_gateway)
-        {
-            this.v6_gateway = v6_gateway;
-        }
-
-        public String getV6_prefix()
-        {
-            return v6_prefix;
-        }
-
-        public void setV6_prefix(String v6_prefix)
-        {
-            this.v6_prefix = v6_prefix;
-        }
-
-        public String getDns1()
-        {
-            return dns1;
-        }
-
-        public void setDns1(String dns1)
-        {
-            this.dns1 = dns1;
-        }
-
-        public String getGateway()
-        {
-            return gateway;
-        }
-
-        public void setGateway(String gateway)
-        {
-            this.gateway = gateway;
-        }
-
-        public String getNetwork()
-        {
-            return network;
-        }
-
-        public void setNetwork(String network)
-        {
-            this.network = network;
-        }
-
-        public String getSubnet()
-        {
-            return subnet;
-        }
-
-        public void setSubnet(String subnet)
-        {
-            this.subnet = subnet;
-        }
-
-        public String getNetmask()
-        {
-            return netmask;
-        }
-
-        public void setNetmask(String netmask)
-        {
-            this.netmask = netmask;
-        }
-    }
-    
-    
-    public class COMPrivatenetwork implements Serializable
-    {
-
-        private static final long serialVersionUID = -8224828541397406250L;
-        String                    netmask;
-        String                    gateway;
-        String                    cidr;
-        String                    prefix;
-        Stack<String> ippool = new Stack<String>();
-        
-        public String getCidr()
-        {
-            return cidr;
-        }
-
-        public void setCidr(String cidr)
-        {
-            this.cidr = cidr;
-        }
-
-        public String getPrefix()
-        {
-            return prefix;
-        }
-
-        public void setPrefix(String prefix)
-        {
-            this.prefix = prefix;
-        }
-
-        public String getGateway()
-        {
-            return gateway;
-        }
-
-        public void setGateway(String gateway)
-        {
-            this.gateway = gateway;
-        }
-
-        public String getNetmask()
-        {
-            return netmask;
-        }
-
-        public void setNetmask(String netmask)
-        {
-            this.netmask = netmask;
-        }
-        
-        public COMPrivatenetwork(){
-            
-        }
-        
-        public COMPrivatenetwork( String cidr, String gateway, String netmask, String prefix){
-            this.cidr = cidr;
-            this.netmask = netmask;
-            this.gateway = gateway;
-            this.prefix = prefix;
-            ippool.push("192.168.10.115");
-            ippool.push("192.168.10.116");
-            ippool.push("192.168.10.117");
-        }
-        
-        public String popIp(){
-            return ippool.pop();
-        }
-    }
 
    
     public boolean getConfig_drive()
@@ -395,38 +178,36 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
         this.enable_private_network = enable_private_network;
     }
 
-    public BlockAvailZone getBlock_storage_avail_zone()
-    {
-        return block_storage_avail_zone;
-    }
 
-    public void setBlock_storage_avail_zone(
-            BlockAvailZone block_storage_avail_zone)
-    {
-        this.block_storage_avail_zone = block_storage_avail_zone;
-    }
 
-    public ComputeAvailZone getCompute_avail_zone()
-    {
-        return compute_avail_zone;
-    }
+    public BlockAvailZoneConfig getBlock_storage_avail_zone() {
+		return block_storage_avail_zone;
+	}
 
-    public void setCompute_avail_zone(ComputeAvailZone compute_avail_zone)
-    {
-        this.compute_avail_zone = compute_avail_zone;
-    }
+	public void setBlock_storage_avail_zone(
+			BlockAvailZoneConfig block_storage_avail_zone) {
+		this.block_storage_avail_zone = block_storage_avail_zone;
+	}
 
-    public COMProvidernetwork getCom_provider_network()
-    {
-        return com_provider_network;
-    }
 
-    public void setCom_provider_network(COMProvidernetwork com_provider_network)
-    {
-        this.com_provider_network = com_provider_network;
-    }
+    public ComputeAvailZoneConfig getCompute_avail_zone() {
+		return compute_avail_zone;
+	}
 
-    public COMType getComType()
+	public void setCompute_avail_zone(ComputeAvailZoneConfig compute_avail_zone) {
+		this.compute_avail_zone = compute_avail_zone;
+	}
+
+	public COMProvidernetworkConfig getCom_provider_network() {
+		return com_provider_network;
+	}
+
+	public void setCom_provider_network(
+			COMProvidernetworkConfig com_provider_network) {
+		this.com_provider_network = com_provider_network;
+	}
+
+	public COMType getComType()
     {
         return comType;
     }

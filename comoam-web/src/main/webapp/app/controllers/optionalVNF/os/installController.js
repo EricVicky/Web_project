@@ -89,6 +89,10 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     	});
     };
     $scope.reloadimglist();
+    
+    $scope.ping = function(ip){
+    	return validationService.ping(ip);
+    }
 })
 .controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
 	
@@ -264,7 +268,7 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     	$scope.com_instance.comType = $scope.installConfig.comType;
     	$scope.com_instance.license_key = $scope.installConfig.license_key;
     	OSService.deployOVM($scope.com_instance).then( function(){
-            monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType, $scope.com_instance.deployment_prefix);
+            monitorService.monitor("Openstack", "INSTALL", $scope.installConfig.comType, $scope.com_instance.stack_name);
             $state.go("dashboard.monitor");
 
 		});

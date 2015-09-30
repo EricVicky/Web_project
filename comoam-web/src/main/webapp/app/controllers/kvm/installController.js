@@ -22,7 +22,7 @@ angular.module('kvm', [ 'ui.router',
             	var vms_flavor = $scope.flavorStore[$scope.installConfig.comType];
             	for(var name in vms_flavor){
             		var vm_flavor = vms_flavor[name];
-            		for(var index in vm_flavor){
+            		for(var index =0; index< vm_flavor.length ; index ++){
             			if(vm_flavor[index].label.indexOf($scope.flavor) != -1){
             				$scope.installConfig.vm_config[name].flavor = vm_flavor[index];
             			}
