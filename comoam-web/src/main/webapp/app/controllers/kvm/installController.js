@@ -38,10 +38,16 @@ angular.module('kvm', [ 'ui.router',
             $scope.calc_disk = function(){
             		if($scope.installConfig.vm_config.oam.flavor){
             			var temp_disk = $scope.installConfig.vm_config.oam.flavor.disk;
-                		$scope.final_disk.oam.disk = Math.ceil((Number(temp_disk)*1024
-                						 		+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
-                						 		+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
-                						 		+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE))/1024);
+            			if(Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
+            					+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
+            					+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE) > 5000){
+            				$scope.final_disk.oam.disk = Math.ceil((Number(temp_disk)*1024
+            						+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
+            						+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
+            						+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE))/1024)-5;
+            			}else{
+            				$scope.final_disk.oam.disk = Number(temp_disk);
+            			}
             		}
             		
             };

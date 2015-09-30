@@ -30,7 +30,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
     		$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 3;
         	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
         	if($scope.installConfig.comType != "OAM"){
         		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
@@ -88,7 +88,9 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 				if(KVMService.VNFType && $scope.comInstance[ci].comType != KVMService.VNFType){
 					continue;
 				}
-				$scope.kvmcomInstance.push($scope.comInstance[ci]);
+				if($scope.comInstance[ci].comType!='ATC'&&$scope.comInstance[ci].comType!='HPSIM'&&$scope.comInstance[ci].comType!='QOSAC'){
+					$scope.kvmcomInstance.push($scope.comInstance[ci]);		
+				}
 			}
 		}
 		$scope.setDefaultInstace();
