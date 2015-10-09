@@ -6,7 +6,7 @@ angular.module('fullbackup_restore', ['ui.router',
                                   'ghiscoding.validation',
                                   'monitor',
                                   'ngResource']).controller('fullbackup_resctr', function($scope,  $log, KVMService
-		, Backup_ResService, monitorService,DashboardService, $dialogs, $state,$translate) {
+		, fullBackup_ResService, monitorService,DashboardService, $dialogs, $state,$translate) {
                                 	
                                 	  $scope.reloadimglist = function(){
                                 	    	if($scope.com_instance != null){
@@ -48,11 +48,13 @@ angular.module('fullbackup_restore', ['ui.router',
                                 	        }
                                 	    };                                	  
           
-                                	    Backup_ResService.getComInstance().then( function(data) {
-                                	    	var comInstance = new Array();
+                                	    fullBackup_ResService.getComInstance().then( function(data) {
+                                	    	var comInstance = [];
                                 			for(var index in data){
                                 				if(data[index].comType=='FCAPS'||data[index].comType=='OAM'||data[index].comType=='CM'||data[index].comType=='QOSAC'){
-                                					comInstance.push(data[index]);
+                                					if(JSON3.parse(data[index].comConfig).environment == 'KVM'){
+                                						comInstance.push(data[index]);			
+                                					}
                                 				}
                                 			}
                                 			$scope.comInstance = comInstance;
