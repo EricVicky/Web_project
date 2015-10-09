@@ -122,6 +122,16 @@ angular.module('comoamApp')
         templateUrl:'views/backup_restore/restore.html',
         url:'/restore',
     })
+    
+    .state('dashboard.fullbackup',{
+        templateUrl:'views/backup_restore/fullbackup.html',
+        url:'/fullbackup',
+    })
+    .state('dashboard.fullrestore',{
+        templateUrl:'views/backup_restore/fullrestore.html',
+        url:'/fullrestore',
+    })
+    
     .state('dashboard.chhostname',{
         templateUrl:'views/chhostname/chhostname.html',
         url:'/chhostname',
