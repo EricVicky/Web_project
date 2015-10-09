@@ -17,7 +17,7 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class QosacOSCOMConfig extends COMConfig implements Serializable{
+public class QosacOSCOMConfig extends COMConfig implements Serializable, EncryPassword{
 
 	/**
 	 * 
