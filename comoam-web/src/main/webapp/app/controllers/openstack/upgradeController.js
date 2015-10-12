@@ -18,12 +18,14 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 			OMCCN_SUPPORT_SP_FM:'YES',
 			OMCCN_SUPPORT_SP_PM:'YES',
 			OMCCN_SUPPORT_SP_HVP:'NO',
+			OMCCN_SUPPORT_SP_LVP:'NO',
 			BACKUP_SERVER_IS_LOCAL:'YES',
 			SOFTWARE_SERVER_IS_LOCAL:'YES',
 			OMCCN_SUPPORT_3GPP:'true',
 			OMCCN_SUPPORT_SNMP_N_ITF:'true',
 			OMCCN_SUPPORT_GSST:'false',
 			OMCCN_SUPPORT_NETRA:'false',
+			OMCCN_SUPPORT_NE_TYPES:'all',
 			INSTALL_ETHEREAL:'YES'
 
 	};

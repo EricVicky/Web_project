@@ -374,15 +374,7 @@
 									</div>
 								</form>
 								<form class="tab-pane" id="tab2" name="tab2" rc-submit rc-step>
-									<div class="form-group">
-    									<label class="control-label">GR Activate 0310</label> <select
-        								name="gr_activate_0310" class="form-control" type="text"
-        								ng-model="gr_config.gr_activate_0310" validation="required">
-        									<option value="">--Please Select--</option>
-        									<option value="NO" translate="NO">No</option>
-											<option value="YES" translate="YES">Yes</option>
-        								</select>
-									</div>
+								<div class="col-md-12">
 									<div class="form-group" ng-if="gr_config.pri.environment == 'KVM' || gr_config.sec.environment == 'KVM'">
 										<label class="control-label" translate="GR_TRAFFIC">GR Traffic</label> <select
 											name="gr_traffic" class="form-control"
@@ -404,12 +396,14 @@
 											<label translate="INVALIDE_IP_CONFIG_FOR_GR">Invalide IP Config For GR!</label>
 										</span>
 									</div>
+								</div>
+									
 									<div class="col-md-12">
 										<div class="col-md-6">
-											<label class="control-label" translate="PRIMARY_VNF">Primary VNF:</label> 
-											<label class="control-label">{{gr_config.pri.deployment_prefix}}</label>
+											<label class="control-label" ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">Primary VNF:</label> 
+											<label class="control-label" ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">{{gr_config.pri.deployment_prefix}}</label>
 											<table class="table table-striped table-bordered table-hover" id="dataTables-grPri">
-												<tbody>
+												<tbody ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">
 													<div ng-if="gr_IP.pri.oam">
 														<tr align="center" ng-repeat="ip in gr_IP.pri.oam track by $index">
 															<td>OAM</td>
@@ -432,10 +426,10 @@
 											</table>
 										</div>
 										<div class="col-md-6">
-											<label class="control-label" translate="SECONDARY_VNF">Secondary VNF</label>
-											<label class="control-label">{{gr_config.sec.deployment_prefix}}</label> 
+											<label class="control-label" ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">Secondary VNF:</label>
+											<label class="control-label" ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">{{gr_config.sec.deployment_prefix}}</label> 
 											<table class="table table-striped table-bordered table-hover" id="dataTables-grPri">
-												<tbody>
+												<tbody ng-if="gr_config.gr_traffic!=null&&gr_config.gr_ip_type=='ipv4'">
 													<div ng-if="gr_IP.sec.oam">
 														<tr align="center" ng-repeat="ip in gr_IP.sec.oam track by $index">
 															<td>OAM</td>
@@ -456,6 +450,16 @@
 													</div>
 												</tbody>
 											</table>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+    										<label class="control-label">Enable Last Login Display</label> <select
+        									name="gr_activate_0310" class="form-control" type="text"
+        									ng-model="gr_config.gr_activate_0310" ng-init="gr_config.gr_activate_0310 = 'NO'" validation="required">
+        										<option value="NO">No</option>
+												<option value="YES">Yes</option>
+        									</select>
 										</div>
 									</div>
 								</form>

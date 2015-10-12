@@ -7,7 +7,7 @@ import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class QosacCOMConfig extends OVMCOMConfig {
+public class QosacCOMConfig extends OVMCOMConfig implements EncryPassword {
 
 	@Override
 	public COMType getCOMType() {

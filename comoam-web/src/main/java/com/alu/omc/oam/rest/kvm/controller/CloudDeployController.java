@@ -1,9 +1,7 @@
 package com.alu.omc.oam.rest.kvm.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -27,7 +25,10 @@ import com.alu.omc.oam.config.CHKVMHostnameConfig;
 import com.alu.omc.oam.config.CHKVMQosacCOMConfig;
 import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.CHOSQosacCOMConfig;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.EncryPassword;
+import com.alu.omc.oam.config.FullBackupConfig;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
@@ -41,6 +42,7 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 import com.alu.omc.oam.service.OperationLogService;
+import com.alu.omc.oam.util.EncryptUtils;
 
 @RestController 
 public class CloudDeployController 
@@ -62,12 +64,19 @@ public class CloudDeployController
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
     	ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
         
     }
     @RequestMapping(value="/kvm/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
+    }
+    
+    private void encryPassword(EncryPassword ep){ 
+        ep.setRoot_password(EncryptUtils.encryptPasswd(ep.getRoot_password()));
+        ep.setAxadmin_password(EncryptUtils.encryptPasswd(ep.getAxadmin_password()));
     }
 
     @RequestMapping(value="/ovm/HPSIMdeployment", method=RequestMethod.POST)
@@ -86,6 +95,7 @@ public class CloudDeployController
     public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
     }
     
     @RequestMapping(value="/os/ovm/ARSdeployment", method=RequestMethod.POST)
@@ -128,6 +138,7 @@ public class CloudDeployController
     public void deploy( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
     }
     
     @RequestMapping(value="/ovm/ARSdeployment", method=RequestMethod.POST)
@@ -241,6 +252,18 @@ public class CloudDeployController
     {
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
+    @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
+    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> config) throws Exception
+    {
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    }
+    
+    @RequestMapping(value="/os/fullbackup", method=RequestMethod.POST)
+    public void osfullbackup(@RequestBody FullBackupConfig<OSCOMConfig> config) throws Exception
+    {
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    }
+    
     @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
     public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
