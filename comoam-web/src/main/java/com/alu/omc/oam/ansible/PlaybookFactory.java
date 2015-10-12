@@ -58,6 +58,7 @@ public class PlaybookFactory
         playbooks.put(key(Environment.OPENSTACK, Action.CHHOSTNAME, COMType.QOSAC), new Playbook("chostname_qosac.yml") );
         playbooks.put(key(Environment.KVM, Action.CHHOSTNAME), new Playbook("chostname.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.CHHOSTNAME), new Playbook("chostname.yml") );
+        playbooks.put(key(Environment.KVM, Action.FULLBACKUP), new Playbook("data_full_backup.yml") );
 
     }
 

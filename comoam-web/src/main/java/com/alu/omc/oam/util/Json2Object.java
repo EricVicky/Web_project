@@ -3,6 +3,7 @@ package com.alu.omc.oam.util;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,17 +34,22 @@ public class Json2Object<T>
         T obj = null; 
          try
         {
-        Class<T>  cls =(Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; 
-             obj = (T)new ObjectMapper().readValue(json, cls);
+      /*  Class<T>  cls =(Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; */
+             Type[] parameterizedTypes = ReflectionUtil.getParameterizedTypes(this);
+             Class<T> clazz = (Class<T>)ReflectionUtil.getClass(parameterizedTypes[0]);
+             obj = (T)new ObjectMapper().readValue(json, clazz);
+             return obj;
            
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
          return obj;
     }
+    
+    
     
      public static String  object2Json( Object obj)
     {

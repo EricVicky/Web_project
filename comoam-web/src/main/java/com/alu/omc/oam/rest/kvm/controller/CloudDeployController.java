@@ -43,6 +43,8 @@ import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 import com.alu.omc.oam.service.OperationLogService;
 import com.alu.omc.oam.util.EncryptUtils;
+import com.alu.omc.oam.util.Json2Object;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @RestController 
 public class CloudDeployController 
@@ -253,10 +255,19 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
     @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
-    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> config) throws Exception
+    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> backupconfig) throws Exception
     {
-        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    	backupconfig.setConfig(getComconfig(backupconfig.getStackName()));
+        ansibleDelegator.addAnsibleTask(Action.FULLBACKUP, backupconfig );
     }
+    
+    private KVMCOMConfig getComconfig(String stackName){
+        COMStack comStack = cOMStackService.get(stackName); 
+         @SuppressWarnings("unchecked") 
+         KVMCOMConfig config = new Json2Object<KVMCOMConfig>().toMap(comStack.getComConfig());
+         return config;
+    }
+    
     
     @RequestMapping(value="/os/fullbackup", method=RequestMethod.POST)
     public void osfullbackup(@RequestBody FullBackupConfig<OSCOMConfig> config) throws Exception

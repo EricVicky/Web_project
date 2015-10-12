@@ -195,16 +195,10 @@
 												title="serverip" validation="required"/>
 										</div>
 										<div class="form-group">
-											<label class="control-label" translate="LOCAL_DIRECTORY">Local Directory</label> <input
+											<label class="control-label">Full Backup Directory</label> <input
 												name="local_directory" class="form-control" type="text"
-												ng-model="fullbackupConfig.backupLocation.local_backup_dir" 
-												title="directory" validation="required" ng-init="fullbackupConfig.backupLocation.local_backup_dir='/localbackup'"/>
-										</div>
-										<div class="form-group">
-											<label class="control-label" translate="FILE_NAME">File Name</label> <input
-												name="version" class="form-control" type="text"
-												ng-model="fullbackupConfig.backupLocation.local_backup_file"
-												title="file name" validation="required" />
+												ng-model="fullbackupConfig.backupLocation.full_backup_dir" 
+												title="directory" validation="required" ng-init="fullbackupConfig.backupLocation.full_backup_dir='/fullbackup'"/>
 										</div>
 									</fieldset>
 								</form>

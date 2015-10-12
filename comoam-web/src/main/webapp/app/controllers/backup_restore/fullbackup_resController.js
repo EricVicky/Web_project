@@ -65,8 +65,8 @@ angular.module('fullbackup_restore', ['ui.router',
                                 	    	$scope.fullbackupConfig.stackName = $scope.installConfig.environment == 'KVM'?$scope.installConfig.deployment_prefix:$scope.installConfig.stackName;
                                 	    	if($scope.installConfig.environment=='KVM'){
                                 	    		fullBackup_ResService.kvmfullbackup($scope.fullbackupConfig).then( function(){
-                                	    			//monitorService.monitorKVMfullBackup($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
-                                	             	//$state.go("dashboard.monitor");
+                                	    			monitorService.monitorKVMfullBackup($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
+                                	             	$state.go("dashboard.monitor");
                                 	    		});
                                 	    	}else{
                                 	    		fullBackup_ResService.osfullbackup($scope.fullbackupConfig).then( function(){
