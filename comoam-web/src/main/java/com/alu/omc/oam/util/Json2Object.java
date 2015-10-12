@@ -2,6 +2,7 @@ package com.alu.omc.oam.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public class Json2Object
+public class Json2Object<T>
 {
     public static Map toMap(File json){
         Map obj = null; 
@@ -27,6 +28,23 @@ public class Json2Object
         }
          return obj;
     }
+    
+    public  T toMap(String json){
+        T obj = null; 
+         try
+        {
+        Class<T>  cls =(Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; 
+             obj = (T)new ObjectMapper().readValue(json, cls);
+           
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+         return obj;
+    }
+    
      public static String  object2Json( Object obj)
     {
         ObjectMapper mapper = new ObjectMapper();

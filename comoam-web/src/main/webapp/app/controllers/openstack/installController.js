@@ -74,6 +74,7 @@ angular.module('os', [ 'ui.router',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
+					OMCCN_SUPPORT_NE_TYPES:'all',
 					INSTALL_ETHEREAL:'YES'
 			};
 

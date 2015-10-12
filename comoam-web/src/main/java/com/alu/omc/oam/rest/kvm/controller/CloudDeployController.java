@@ -25,8 +25,10 @@ import com.alu.omc.oam.config.CHKVMHostnameConfig;
 import com.alu.omc.oam.config.CHKVMQosacCOMConfig;
 import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.CHOSQosacCOMConfig;
+import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.EncryPassword;
+import com.alu.omc.oam.config.FullBackupConfig;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
@@ -250,6 +252,18 @@ public class CloudDeployController
     {
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
+    @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
+    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> config) throws Exception
+    {
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    }
+    
+    @RequestMapping(value="/os/fullbackup", method=RequestMethod.POST)
+    public void osfullbackup(@RequestBody FullBackupConfig<OSCOMConfig> config) throws Exception
+    {
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    }
+    
     @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
     public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
