@@ -1,53 +1,68 @@
 package com.alu.omc.oam.config;
 
 
+import javax.annotation.Resource;
+
+import org.yaml.snakeyaml.Yaml;
+
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.service.COMStackService;
-import com.alu.omc.oam.util.Json2Object;
+import com.alu.omc.oam.util.YamlFormatterUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class FullBackupConfig<T> extends COMConfig
+public class FullBackupConfig<T extends COMConfig> extends COMConfig
 {
-public String stackName;
-//public BackupLocation location;
 
-@JsonIgnore
-public COMStackService comstackService;
+
+	public String stackName;
+	private FullBackupLocation backupLocation;
+	private T config;
+	@Resource
+	COMStackService cOMStackService;
     
-    @Override
+    public FullBackupLocation getBackupLocation() {
+		return backupLocation;
+	}
+
+	public void setBackupLocation(FullBackupLocation backupLocation) {
+		this.backupLocation = backupLocation;
+	}
+	 @JsonIgnore
+	public T getConfig() {
+		return config;
+	}
+
+	public void setConfig(T config) {
+		this.config = config;
+	}
+
+	@Override
     @JsonIgnore
     public Inventory getInventory()
     {
-        return getComconfig().getInventory();
+        return config.getInventory();
     }
 
     @Override
     @JsonIgnore
     public String getVars()
     {
-    	//String location = Json2Object.object2Json(location);
-    	//return getComconfig().getVars() + location;
-    	return getComconfig().getVars();
+    	Yaml yaml = new Yaml();
+        return config.getVars()+YamlFormatterUtil.formatbackup(yaml.dump(this.backupLocation));
     }
 
     @Override
     @JsonIgnore
     public Environment getEnvironment()
     {
-       return getComconfig().getEnvironment();
+       return config.getEnvironment();
     }
-    @JsonIgnore
-    private COMConfig getComconfig(){
-        COMStack comStack = comstackService.get(stackName); 
-         @SuppressWarnings("unchecked")
-        COMConfig config = (COMConfig)new Json2Object<T>().toMap(comStack.getComConfig());
-         return config;
-    }
+
 
     @Override
     public COMType getCOMType()
     {
-        return  getComconfig().getCOMType() ;
+        return  config.getCOMType() ;
     }
 
     @Override

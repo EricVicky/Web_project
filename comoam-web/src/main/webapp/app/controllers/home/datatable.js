@@ -144,6 +144,16 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 		  $state.go("dashboard.restore");			  
 	  };
 	  
+	  $scope.fullbackup = function(row){
+			  DashboardService.setSelectedInstance(row.entity.comConfig);
+			  $state.go("dashboard.fullbackup");			   
+	  };
+	  
+	  $scope.fullrestore = function(row){
+			  DashboardService.setSelectedInstance(row.entity.comConfig);
+			  $state.go("dashboard.fullrestore");			  	  
+	  };
+	  
 	  $scope.gochhostname = function(row){
 		  DashboardService.setSelectedInstance(row.entity.comConfig);
 		  $state.go("dashboard.chhostname");			  

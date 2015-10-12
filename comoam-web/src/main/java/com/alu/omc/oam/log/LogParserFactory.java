@@ -58,6 +58,7 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.KVM, COMType.QOSAC), kvmqosacchhostnameParser());
         parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.OPENSTACK), oschhostnameParser());
         parserCache.put(new ActionKey(Action.CHHOSTNAME, Environment.OPENSTACK, COMType.QOSAC), osqosacchhostnameParser());
+        parserCache.put(new ActionKey(Action.FULLBACKUP, Environment.KVM), kvmfullBackupParser());
     }
     
     private ILogParser oschhostnameParser() {
@@ -157,6 +158,13 @@ public class LogParserFactory
 	}
     
     private ILogParser kvmBackupParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser kvmfullBackupParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
     	dict.put("PLAY\\sRECAP", "Finished");
         dict.put("PLAY\\s\\[backup\\scom\\sdata\\]", "Data Backup");

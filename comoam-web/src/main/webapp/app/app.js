@@ -16,6 +16,7 @@ angular.module('comoamApp', [
     'rcForm', 
     'login',
     'backup_restore',
+    'fullbackup_restore',
     'gr',
     'datatable',
     'chhostname',

@@ -6,6 +6,7 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"install" :["Start", "Generate Config Driver", "Start VM Instance", "Prepare Install Options",  "Finished"],
 				"upgrade": ["Start", "Data Backup", "Prepare Virtual Machines", "Post Image Replacement", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
+				 "fullbackup":["Start","Data Backup","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
@@ -146,6 +147,17 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			action = "restore";
 			channel = ch;
 		},
+		
+		monitorKVMfullBackup: function(ch,comType) {
+			if(comType=='QOSAC'){
+				environment = "KVM_QOSAC";
+			}
+			environment = "KVM";
+			action = "fullbackup";
+			channel = ch;
+		},
+		
+		
 		monitorKVMDelete: function(ch,comType) {
 			if(comType=='FCAPS'||comType=='CM'||comType=='OAM'){
 				environment = "KVM";
