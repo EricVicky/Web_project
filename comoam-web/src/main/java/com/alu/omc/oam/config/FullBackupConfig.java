@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class FullBackupConfig<T> extends COMConfig
 {
 public String stackName;
+//public BackupLocation location;
 
 @JsonIgnore
 public COMStackService comstackService;
@@ -24,7 +25,9 @@ public COMStackService comstackService;
     @JsonIgnore
     public String getVars()
     {
-        return getComconfig().getVars();
+    	//String location = Json2Object.object2Json(location);
+    	//return getComconfig().getVars() + location;
+    	return getComconfig().getVars();
     }
 
     @Override
