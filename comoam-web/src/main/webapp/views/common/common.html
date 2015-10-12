@@ -77,6 +77,15 @@
 		<option value="YES" translate="YES">Yes</option>
         </select>
 </div>
+<div class="form-group" ng-if="installConfig.comType=='OAM'">
+    <label class="control-label">Support Provisioning</label> <select
+        name="OMCCN_SUPPORT_SP_LVP " class="form-control" type="text"
+        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_LVP"
+        title="OMCCN Support SP LVP" validation="required">
+        <option value="NO" translate="NO">No</option>
+		<option value="YES" translate="YES">Yes</option>
+        </select>
+</div>
 <div class="form-group">
     <label class="control-label" translate="BACKUP_SERVER_IS_LOCAL">Backup Server is Local?</label> <select
         name="BACKUP_SERVER_IS_LOCAL" class="form-control" type="text"
