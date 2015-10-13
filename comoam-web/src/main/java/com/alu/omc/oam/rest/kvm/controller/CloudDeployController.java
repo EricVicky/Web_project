@@ -213,6 +213,13 @@ public class CloudDeployController
     @RequestMapping(value="/kvm/upgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+       if(config.getVm_config() == null){
+          KVMCOMConfig curConfig = getKVMCOMConfig(config.getStackName());
+          curConfig.setOam_cm_image(config.getOam_cm_image());
+          curConfig.setDb_image(config.getDb_image());
+          config = curConfig;
+        }
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
@@ -243,6 +250,13 @@ public class CloudDeployController
     @RequestMapping(value="/os/upgrade", method=RequestMethod.POST)
     public void osupgrade( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+       if(config.getVm_config() == null){
+          OSCOMConfig curConfig = getOSCOMConfig(config.getStackName());
+          curConfig.setOam_cm_image(config.getOam_cm_image());
+          curConfig.setDb_image(config.getDb_image());
+          config = curConfig;
+        }
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
