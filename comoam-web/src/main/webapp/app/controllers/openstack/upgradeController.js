@@ -29,6 +29,16 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 			INSTALL_ETHEREAL:'YES'
 
 	};
+    
+    $scope.install_option = function(){
+    	//set default value if not set
+    	for(var attr in default_app_install_options){
+    		if(!$scope.installConfig.app_install_options[attr]){
+    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
+    		}
+    	}
+    };
+    
     $scope.setDefaultInstace = function(){
     	var selectedOSInstance = DashboardService.getSelectedInstance();
     	if(selectedOSInstance == null){

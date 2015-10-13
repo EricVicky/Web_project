@@ -46,7 +46,16 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
-    }
+    };
+    
+    $scope.install_option = function(){
+    	//set default value if not set
+    	for(var attr in default_app_install_options){
+    		if(!$scope.installConfig.app_install_options[attr]){
+    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
+    		}
+    	}
+    };
     
     $scope.setDefaultInstace = function(){
     	var selectedKVMInstance = DashboardService.getSelectedInstance();
