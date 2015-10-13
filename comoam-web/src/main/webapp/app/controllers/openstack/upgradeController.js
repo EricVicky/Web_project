@@ -5,6 +5,9 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
             		$scope.oam_cm_images = data;
             		$scope.db_images = data;
             	});
+          if($scope.com_instance != null){
+        	  $scope.initistoption();	  
+          }
    };
    $scope.reloadimglist();
     var default_app_install_options = {
@@ -30,7 +33,7 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 
 	};
     
-    $scope.install_option = function(){
+    $scope.initistoption = function(){
     	//set default value if not set
     	for(var attr in default_app_install_options){
     		if(!$scope.installConfig.app_install_options[attr]){
@@ -50,10 +53,11 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
     		if(angular.equals(com_config,selectedOSInstance)){
     		   $scope.com_instance = $scope.oscomInstance[inst];
     		   $scope.installConfig = com_config;
-    		   return;
+    		   break;
     		}
         }
-    }
+        $scope.initistoption();
+    };
     
     OSService.getComInstance().then( function(data) {
 		$log.info(data);

@@ -60,6 +60,11 @@ angular.module('comoamApp')
                         {
                           name:'oamflavor',
                           files:['app/directives/flavorinit.js']
+                }),
+                $ocLazyLoad.load(
+                        {
+                          name:'table_sidebarcss',
+                          files:['css/table_sidebar.css']
                 })
             }
         }
