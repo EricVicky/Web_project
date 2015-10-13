@@ -1,7 +1,6 @@
 package com.alu.omc.oam.config;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +12,8 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KVMCOMConfig extends COMConfig implements NetworkConfig, Serializable, EncryPassword{
 	  
 	

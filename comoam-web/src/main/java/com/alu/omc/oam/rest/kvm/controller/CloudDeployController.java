@@ -264,16 +264,10 @@ public class CloudDeployController
     private KVMCOMConfig getComconfig(String stackName){
         COMStack comStack = cOMStackService.get(stackName); 
          @SuppressWarnings("unchecked") 
-         KVMCOMConfig config = new Json2Object<KVMCOMConfig>().toMap(comStack.getComConfig());
+         KVMCOMConfig config = new Json2Object<KVMCOMConfig>(){}.toMap(comStack.getComConfig());
          return config;
     }
     
-    
-    @RequestMapping(value="/os/fullbackup", method=RequestMethod.POST)
-    public void osfullbackup(@RequestBody FullBackupConfig<OSCOMConfig> config) throws Exception
-    {
-        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
-    }
     
     @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
     public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException

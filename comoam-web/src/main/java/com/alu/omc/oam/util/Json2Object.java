@@ -34,7 +34,6 @@ public class Json2Object<T>
         T obj = null; 
          try
         {
-      /*  Class<T>  cls =(Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; */
              Type[] parameterizedTypes = ReflectionUtil.getParameterizedTypes(this);
              Class<T> clazz = (Class<T>)ReflectionUtil.getClass(parameterizedTypes[0]);
              obj = (T)new ObjectMapper().readValue(json, clazz);

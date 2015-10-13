@@ -37,15 +37,19 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         	if($scope.installConfig.comType != "OAM"){
         		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
         	}
-        	//set default value if not set
-        	for(var attr in default_app_install_options){
-        		if(!$scope.installConfig.app_install_options[attr]){
-        			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
-        		}
-        	}
+            $scope.initistoption();
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    }
+    
+    $scope.initistoption = function(){
+    	//set default value if not set
+    	for(var attr in default_app_install_options){
+    		if(!$scope.installConfig.app_install_options[attr]){
+    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
+    		}
+    	}
     }
     
     $scope.setDefaultInstace = function(){
@@ -71,6 +75,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    	$scope.initistoption();
     }
    
 	$scope.doUpgrade = function (){
@@ -79,6 +84,8 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
      		$state.go("dashboard.monitor");
 		});
     };
+    
+    
     
     
     KVMService.getComInstance().then( function(data) {
@@ -112,6 +119,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
             		}
             	});
     }
+
 } );
 
 
