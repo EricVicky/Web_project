@@ -84,7 +84,9 @@ public class HostService {
 						continue;
 					}
 					log.info(file.getFilename());
-					images.add(file.getFilename());
+					if(!file.getFilename().contains("cksum")){
+						images.add(file.getFilename());	
+					}
 				}
 				
 				channel.disconnect();
