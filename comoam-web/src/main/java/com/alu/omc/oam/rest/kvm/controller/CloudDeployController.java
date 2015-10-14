@@ -266,10 +266,16 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
     @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
-    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> backupconfig) throws Exception
+    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> fullbackupconfig) throws Exception
     {
-    	backupconfig.setConfig(getKVMCOMConfig(backupconfig.getStackName()));
-        ansibleDelegator.addAnsibleTask(Action.FULLBACKUP, backupconfig );
+    	fullbackupconfig.setConfig(getKVMCOMConfig(fullbackupconfig.getStackName()));
+        ansibleDelegator.addAnsibleTask(Action.FULLBACKUP, fullbackupconfig );
+    }
+    @RequestMapping(value="/kvm/fullrestore", method=RequestMethod.POST)
+    public void kvmfullrestore(@RequestBody FullBackupConfig<KVMCOMConfig> fullrestoreconfig) throws Exception
+    {
+    	fullrestoreconfig.setConfig(getKVMCOMConfig(fullrestoreconfig.getStackName()));
+        ansibleDelegator.addAnsibleTask(Action.FULLRESTORE, fullrestoreconfig );
     }
     
     private KVMCOMConfig getKVMCOMConfig(String stackName){

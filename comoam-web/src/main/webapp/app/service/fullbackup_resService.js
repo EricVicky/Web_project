@@ -13,6 +13,10 @@ angular.module('fullbackup_restore').factory('fullBackup_ResService', function($
 			var fullbackupRes = $resource(restUrl + "rest/kvm/fullbackup");
 			return fullbackupRes.save(fullbackupConfig).$promise;
 		},
+		kvmfullrestore:function(fullrestoreConfig){
+			var fullrestoreRes = $resource(restUrl + "rest/kvm/fullrestore");
+			return fullrestoreRes.save(fullrestoreConfig).$promise;
+		},
 //		osfullbackup:function(config){
 //			var backupRes = $resource(restUrl + "rest/kvm/backup");
 //			return backupRes.save(config).$promise;

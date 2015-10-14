@@ -51,7 +51,7 @@ angular.module('fullbackup_restore', ['ui.router',
                                 	    fullBackup_ResService.getComInstance().then( function(data) {
                                 	    	var comInstance = [];
                                 			for(var index in data){
-                                				if(data[index].comType=='FCAPS'||data[index].comType=='OAM'||data[index].comType=='CM'||data[index].comType=='QOSAC'){
+                                				if(data[index].comType=='FCAPS'||data[index].comType=='OAM'||data[index].comType=='CM'){
                                 					if(JSON3.parse(data[index].comConfig).environment == 'KVM'){
                                 						comInstance.push(data[index]);			
                                 					}
@@ -68,16 +68,17 @@ angular.module('fullbackup_restore', ['ui.router',
                                 	    			monitorService.monitorKVMfullBackup($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
                                 	             	$state.go("dashboard.monitor");
                                 	    		});
-                                	    	}else{
-                                	    		fullBackup_ResService.osfullbackup($scope.fullbackupConfig).then( function(){
-                                	    			monitorService.monitorOSfullBackup($scope.installConfig.stack_name);
-                                	     			$state.go("dashboard.monitor");
-                                	    		});
-                                	    	}
+                                	    	}//else
                                 	    };
                                 	    
                                 	    $scope.fullrestore = function(){
-                                	    	
+                                	    	$scope.fullbackupConfig.stackName = $scope.installConfig.environment == 'KVM'?$scope.installConfig.deployment_prefix:$scope.installConfig.stackName;
+                                	    	if($scope.installConfig.environment=='KVM'){
+                                	    		fullBackup_ResService.kvmfullrestore($scope.fullbackupConfig).then( function(){
+                                	    			monitorService.monitorKVMfullRestore($scope.installConfig.deployment_prefix, $scope.installConfig.comType);
+                                	             	$state.go("dashboard.monitor");
+                                	    		});
+                                	    	}//else
                                 	    };
   
 } );
