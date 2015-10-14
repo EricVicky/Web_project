@@ -101,7 +101,7 @@ public class HostService {
 		String[] files = dirFile.list();
 		List<String> images = new ArrayList();
 		for (String file : files) {
-			if (file.contains("qcow2")) {
+			if (file.contains("qcow2") && !file.contains("cksum")) {
 				images.add(file);
 			}
 		Collections.sort(images, new IMGComparator());
