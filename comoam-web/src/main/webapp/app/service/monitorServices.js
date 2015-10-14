@@ -6,7 +6,8 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"install" :["Start", "Generate Config Driver", "Start VM Instance", "Prepare Install Options",  "Finished"],
 				"upgrade": ["Start", "Data Backup", "Prepare Virtual Machines", "Post Image Replacement", "Data Restore", "Finished"],
 				 "backup":["Start","Data Backup","Finished"],
-				 "fullbackup":["Start","Data Backup","Finished"],
+				 "fullbackup":["Start","Full Backup","Finished"],
+				 "fullrestore":["Start","Full Restore","Finished"],
 				 "delete":["Start","Destroy Virtual Machine","Undefine Virtual Machine","Finished"],
 				 "restore":["Start","Data Restore","Finished"],
 				 "gr_pri_install":["Start","Pri GR Install","Finished"],
@@ -68,6 +69,14 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			"backup":{
 				"succeed" : "Backup Completed",
 				"failed": "Backup Failed"
+			},
+			"fullbackup":{
+				"succeed" : "FullBackup Completed",
+				"failed": "FullBackup Failed"
+			},
+			"fullrestore":{
+				"succeed" : "FullRestore Completed",
+				"failed": "FullRestore Failed"
 			},
 			"delete":{
 				"succeed" : "Destroyed",
@@ -157,7 +166,14 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 			channel = ch;
 		},
 		
-		
+		monitorKVMfullRestore: function(ch,comType) {
+			if(comType=='QOSAC'){
+				environment = "KVM_QOSAC";
+			}
+			environment = "KVM";
+			action = "fullrestore";
+			channel = ch;
+		},
 		monitorKVMDelete: function(ch,comType) {
 			if(comType=='FCAPS'||comType=='CM'||comType=='OAM'){
 				environment = "KVM";

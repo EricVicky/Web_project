@@ -59,7 +59,7 @@ public class PlaybookFactory
         playbooks.put(key(Environment.KVM, Action.CHHOSTNAME), new Playbook("chostname.yml") );
         playbooks.put(key(Environment.OPENSTACK, Action.CHHOSTNAME), new Playbook("chostname.yml") );
         playbooks.put(key(Environment.KVM, Action.FULLBACKUP), new Playbook("data_full_backup.yml") );
-
+        playbooks.put(key(Environment.KVM, Action.FULLRESTORE), new Playbook("data_full_restore.yml") );
     }
 
     public Playbook getPlaybook(Action action, COMFact fact) {
