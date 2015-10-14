@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionResult;
+import com.alu.omc.oam.config.CHOSHostnameConfig;
+import com.alu.omc.oam.config.CHOSQosacCOMConfig;
 import com.alu.omc.oam.config.COMStack;
 
 
@@ -27,6 +29,7 @@ public class CHOSQOSACHostnameHandler extends DefaultHandler
     public void onSucceed()
     {
        log.info("upgrade on KVM succeed");
+       ((CHOSQosacCOMConfig)config).setOld_vm_config(null);
         COMStack stack = new COMStack(config);
         service.update(stack);
         
