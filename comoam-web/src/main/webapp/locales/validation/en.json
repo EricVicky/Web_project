@@ -240,5 +240,9 @@
     "FCAPS":"fcaps",
     "CHHOSTNAME_SUCCEED":"Change Hostname succeeded",
     "CHHOSTNAME_FAIL":"Change Hostname failed",
-    "CHHOSTNAME":"Change Hostname"
+    "CHHOSTNAME":"Change Hostname",
+    "GRINSTALL_SUCCEED":"GR Install succeeded",
+    "GRINSTALL_FAIL":"GR Install failed",
+    "GRUNINSTALL_SUCCEED":"GR Uninstall succeeded",
+    "GRUNINSTALL_FAIL":"GR Uninstall failed"
 }

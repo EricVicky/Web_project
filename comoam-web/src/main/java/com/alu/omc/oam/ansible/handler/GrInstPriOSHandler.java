@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
+import com.alu.omc.oam.config.ActionResult;
 import com.alu.omc.oam.config.COMConfig;
 import com.alu.omc.oam.config.COMStack;
 import com.alu.omc.oam.config.GRInstallConfig;
@@ -49,6 +50,16 @@ public class GrInstPriOSHandler extends DefaultHandler{
     public String getFulltopic(){
     	return this.topic.concat(getOSConfig().getStackName());
      }
+    
+    @Override
+	public ActionResult getActionResult(){
+		if(this.succeed){
+			return ActionResult.GRINSTALL_SUCCEED;
+		}else{
+			return ActionResult.GRINSTALL_FAIL;
+		}
+	}
+    
     @Override
     public void onError()
     {
