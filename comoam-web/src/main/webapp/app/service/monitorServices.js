@@ -47,6 +47,8 @@ angular.module('monitor').factory('monitorService', function($log, $location, $r
 				"upgrade": ["Start", "Data Backup", "Update Document", "Heat status", "Configure new disk drive", "Data Restore", "Finished"],
 				"delete":["Start","Check Presence of stack","Destroy stack","Finished"],
 				"chhostname":["Start","Changing Hostname","Finished"],
+				"backup":["Start","Data Backup","Finished"],
+				"restore":["Start","Data Restore","Finished"],
 			},
 			"Openstack_OVM":{
 				"install":["Start", "Running Credentials", "Update Document", "Config switches for OVM", "Finished"],

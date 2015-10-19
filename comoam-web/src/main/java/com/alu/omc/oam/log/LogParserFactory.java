@@ -44,7 +44,9 @@ public class LogParserFactory
         parserCache.put(new ActionKey(Action.DELETE, Environment.KVM, COMType.HPSIM), kvmovmDeleteParser());
         parserCache.put(new ActionKey(Action.UPGRADE, Environment.KVM, COMType.QOSAC), kvmqosacUpgradeParser());
         parserCache.put(new ActionKey(Action.BACKUP, Environment.KVM, COMType.QOSAC), kvmqosacBackupParser());
-        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());        
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.KVM, COMType.QOSAC), kvmqosacRestoreParser());
+        parserCache.put(new ActionKey(Action.BACKUP, Environment.OPENSTACK, COMType.QOSAC), osqosacBackupParser());
+        parserCache.put(new ActionKey(Action.RESTORE, Environment.OPENSTACK, COMType.QOSAC), osqosacRestoreParser());        
         parserCache.put(new ActionKey(Action.INSTALL, Environment.KVM, COMType.ARS), kvmarsInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.QOSAC), osqosacInstallParser());
         parserCache.put(new ActionKey(Action.INSTALL, Environment.OPENSTACK, COMType.HPSIM), oshpsimInstallParser());
@@ -323,6 +325,20 @@ public class LogParserFactory
         return new LogParser(dict);
 	}
     private ILogParser kvmqosacRestoreParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+        dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\screate\\slocal\\srestore\\sdirectory\\]", "Data Restore");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser osqosacBackupParser() {
+    	Map<String, String> dict = new LinkedHashMap<String, String>();
+    	dict.put("PLAY\\sRECAP", "Finished");
+        dict.put("TASK\\:\\s\\[backup\\_data\\s\\|\\sbackup\\sdata\\]", "Data Backup");
+        dict.put("ansible-playbook", "Start");
+        return new LogParser(dict);
+	}
+    private ILogParser osqosacRestoreParser() {
     	Map<String, String> dict = new LinkedHashMap<String, String>();
         dict.put("PLAY\\sRECAP", "Finished");
         dict.put("TASK\\:\\s\\[restore\\_data\\s\\|\\screate\\slocal\\srestore\\sdirectory\\]", "Data Restore");

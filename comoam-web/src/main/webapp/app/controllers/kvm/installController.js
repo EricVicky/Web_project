@@ -8,6 +8,7 @@ angular.module('kvm', [ 'ui.router',
                         'validation',
                         'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService, timezoneService, $modal) {
+                        	
 			$scope.submitComtype = function(){
 				$scope.reloadimglist();
 			};
