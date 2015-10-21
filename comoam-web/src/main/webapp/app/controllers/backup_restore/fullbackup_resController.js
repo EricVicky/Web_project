@@ -60,8 +60,15 @@ angular.module('fullbackup_restore', ['ui.router',
                                 			$scope.comInstance = comInstance;
                                 			$scope.setDefaultInstace();
                                 	    });
-                                	    
+                                	         	    
                                 	    $scope.fullbackup = function(){
+                                	    	var vm_img_dir = $scope.installConfig.vm_img_dir;
+                	    					var deployment_prefix = $scope.installConfig.deployment_prefix;
+                                	    	if($scope.remote_server == null){
+                            	    			$scope.fullbackupConfig ={                         	    					
+                                    					full_backup_dir : vm_img_dir+"/"+deployment_prefix
+                                    			};
+                            	    		}
                                 	    	$scope.fullbackupConfig.stackName = $scope.installConfig.environment == 'KVM'?$scope.installConfig.deployment_prefix:$scope.installConfig.stackName;
                                 	    	if($scope.installConfig.environment=='KVM'){
                                 	    		fullBackup_ResService.kvmfullbackup($scope.fullbackupConfig).then( function(){
@@ -72,6 +79,13 @@ angular.module('fullbackup_restore', ['ui.router',
                                 	    };
                                 	    
                                 	    $scope.fullrestore = function(){
+                                	    	var vm_img_dir = $scope.installConfig.vm_img_dir;
+                	    					var deployment_prefix = $scope.installConfig.deployment_prefix;
+                                	    	if($scope.remote_server == null){
+                            	    			$scope.fullbackupConfig ={                         	    					
+                                    					full_backup_dir : vm_img_dir+"/"+deployment_prefix
+                                    			};
+                            	    		}
                                 	    	$scope.fullbackupConfig.stackName = $scope.installConfig.environment == 'KVM'?$scope.installConfig.deployment_prefix:$scope.installConfig.stackName;
                                 	    	if($scope.installConfig.environment=='KVM'){
                                 	    		fullBackup_ResService.kvmfullrestore($scope.fullbackupConfig).then( function(){
