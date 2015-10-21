@@ -62,6 +62,8 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         		var com_config = JSON3.parse($scope.kvmcomInstance[inst].comConfig);
         		if(angular.equals(com_config,selectedKVMInstance)){
         		   $scope.com_instance = $scope.kvmcomInstance[inst];
+        		   $scope.kvmcomInstance = [];
+        		   $scope.kvmcomInstance.push($scope.com_instance);	
         		   $scope.installConfig = com_config;
         		   break;
         		}

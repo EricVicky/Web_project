@@ -52,6 +52,8 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
     		var com_config = JSON3.parse($scope.oscomInstance[inst].comConfig);
     		if(angular.equals(com_config,selectedOSInstance)){
     		   $scope.com_instance = $scope.oscomInstance[inst];
+    		   $scope.oscomInstance = [];
+    		   $scope.oscomInstance.push($scope.com_instance);	
     		   $scope.installConfig = com_config;
     		   break;
     		}
@@ -65,6 +67,9 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
 		$scope.oscomInstance = [];
 		for(var ci=0;ci<$scope.comInstance.length;ci++){
 			if(JSON3.parse($scope.comInstance[ci].comConfig).environment ==  "OPENSTACK"){
+				if(OSService.VNFType && $scope.comInstance[ci].comType != OSService.VNFType){
+					continue;
+				}
 				$scope.oscomInstance.push($scope.comInstance[ci]);
 			}
 		}
