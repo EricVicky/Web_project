@@ -7,6 +7,17 @@ angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter, 
     	if(selectedOSInstance == null){
     		return;
     	}
+    	 for(var inst in $scope.oscomInstance){
+     		var com_config = JSON3.parse($scope.oscomInstance[inst].comConfig);
+     		if(angular.equals(com_config,selectedOSInstance)){
+     		   $scope.com_instance = $scope.oscomInstance[inst];
+     		   $scope.oscomInstance = [];
+     		   $scope.oscomInstance.push($scope.com_instance);	
+     		   $scope.installConfig = com_config;
+     		   break;
+     		}
+         }
+    	 $scope.showInstance();
     };
 	
     OSService.getComInstance().then( function(data) {

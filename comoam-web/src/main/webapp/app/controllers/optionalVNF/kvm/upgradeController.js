@@ -12,7 +12,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         for(var inst in $scope.kvmcomInstance){
         		var com_config = JSON3.parse($scope.kvmcomInstance[inst].comConfig);
         		if(angular.equals(com_config,selectedKVMInstance)){
-        		   $scope.com_instance = $scope.kvmcomInstance[inst];
+        		   $scope.com_instance = $scope.kvmcomInstance[inst];	
         		   $scope.installConfig = com_config;
         		   return;
         		}
@@ -97,6 +97,8 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         		var com_config = JSON3.parse($scope.kvmcomInstance[inst].comConfig);
         		if(angular.equals(com_config,selectedKVMInstance)){
         		   $scope.com_instance = $scope.kvmcomInstance[inst];
+        		   $scope.kvmcomInstance = [];
+        		   $scope.kvmcomInstance.push($scope.com_instance);
         		   $scope.installConfig = com_config;
         		   break;
         		}
