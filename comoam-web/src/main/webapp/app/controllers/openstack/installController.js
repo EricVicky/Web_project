@@ -170,4 +170,8 @@ angular.module('os', [ 'ui.router',
             $scope.reloadkplist();
             $scope.reloadimglist();
             
+            OSService.validateCred().then(function(data) {
+            	alert(data);
+			});
+            
 } );

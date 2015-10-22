@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alu.omc.oam.ansible.validation.ValidationResult;
 import com.alu.omc.oam.os.conf.OpenstackConfig;
 import com.alu.omc.oam.rest.os.service.access.YaoOsClientService;
 import com.alu.omc.oam.service.COMStackService;
@@ -41,5 +42,21 @@ public class OSConfigController
         log.info("starting to download&export certification");
         yaoOsClientService.reset();
         return config;
+    }
+    
+    @RequestMapping(value="/os/vCred", method=RequestMethod.GET)
+    public ValidationResult vCred() throws IOException, InterruptedException
+    {
+    	ValidationResult res = new ValidationResult();
+    	OpenstackConfig config = cOMStackService.getOpenstackConfig();
+        if(config==null){
+        	res.setSucceed(false);
+        	res.setMessage("No Cred");
+        }else{
+        	
+        	res.setSucceed(true);
+        	res.setMessage("");
+        }
+    	return res;
     }
 }
