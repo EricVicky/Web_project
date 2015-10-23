@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.alu.omc.oam.config.Action;
 import com.alu.omc.oam.config.ActionResult;
+import com.alu.omc.oam.config.CHKVMHostnameConfig;
 import com.alu.omc.oam.config.COMStack;
 
 
@@ -27,6 +28,7 @@ public class CHKVMHostnameHandler extends DefaultHandler
     public void onSucceed()
     {
        log.info("upgrade on KVM succeed");
+       ((CHKVMHostnameConfig)config).setOld_vm_config(null);
         COMStack stack = new COMStack(config);
         service.update(stack);
         

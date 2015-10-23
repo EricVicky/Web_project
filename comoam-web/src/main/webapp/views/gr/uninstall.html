@@ -48,131 +48,27 @@
 															<td colspan="4" translate="PREFIX_OF_VM_INS">Prefix of VM Instance</td>
 															<td colspan="2">{{gr_config.comConfig.deployment_prefix}}</td>
 														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
-															<td rowspan="{{priOAMRowspan}}" width="15%" align="center"
-																style="vertical-align: middle" translate="OAM_VM">OAM VM</td>
-															<div ng-if="gr_config.comConfig.vm_config.oam.nic[0]">
-																<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[0].name}}</td>
-																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-																<td rowspan="2" width="10%" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[0].bridge}}</td>
-																<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-																<td>ip:{{gr_config.comConfig.vm_config.oam.nic[0].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[0].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[0].ip_v4.gateway}}</td>
-															</div>
+														<tr align="center" ng-repeat-start="VM in gr_config.comConfig.vm_config">
+															<td rowspan="{{VM.nic.length*2+3}}" width="15%" align="center" style="vertical-align: middle">{{VM.hostname}}</td>
 														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM' || gr_config.comConfig.comType=='QoSAC'">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.oam.nic[0].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[0].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[0].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.oam.nic[1]">
-															<td rowspan="2" width="15%" align="center"
-																style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[1].name}}</td>
+														<tr align="center" ng-repeat-start="NIC in VM.nic">
+															<td rowspan="2" width="15%" align="center" style="vertical-align: middle">{{NIC.name}}</td>
 															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[1].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.oam.nic[1].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[1].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[1].ip_v4.gateway}}</td>
+															<td rowspan="2" align="center" style="vertical-align: middle">{{NIC.bridge}}</td>
+															<td width="10%" translate="IPV4">IPv4</td>
+															<td>ip:{{NIC.ip_v4.ipaddress}}/{{NIC.ip_v4.prefix}} gateway:{{NIC.ip_v4.gateway}}</td>
 														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.oam.nic[1]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.oam.nic[1].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[1].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[1].ip_v6.gateway}}</td>
+														<tr align="center" ng-repeat-end>
+															<td width="10%" translate="IPV6">IPv6</td>
+															<td>ip:{{NIC.ip_v6.ipaddress}}/{{NIC.ip_v6.prefix}} gateway:{{NIC.ip_v6.gateway}}</td>
 														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.oam.nic[2]">
-															<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[2].name}}</td>
-															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.oam.nic[2].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.oam.nic[2].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[2].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[2].ip_v4.gateway}}</td>
+														<tr align="center">
+															<td translate="FLAVOR" colspan="3">Flavor</td>
+															<td colspan="2">vCPU:{{VM.flavor.vCpu}}&nbsp;&nbsp;Memory:{{VM.flavor.memory/1024/1024}}GB&nbsp;&nbsp;Disk:{{VM.flavor.disk}}GB</td>
 														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.oam.nic[2]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.oam.nic[2].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.oam.nic[2].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.oam.nic[2].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
-															<td rowspan="{{priDBRowspan}}" width="15%" align="center"
-																style="vertical-align: middle" translate="">DB VM</td>
-															<div ng-if="gr_config.comConfig.vm_config.db.nic[0]">
-																<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[0].name}}</td>
-																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-																<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[0].bridge}}</td>
-																<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-																<td>ip:{{gr_config.comConfig.vm_config.db.nic[0].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[0].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[0].ip_v4.gateway}}</td>
-															</div>
-														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='OAM' || gr_config.comConfig.comType=='CM'">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.db.nic[0].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[0].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[0].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.db.nic[1]">
-															<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[1].name}}</td>
-															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[1].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.db.nic[1].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[1].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[1].ip_v4.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.db.nic[1]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.db.nic[1].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[1].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[1].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.db.nic[2]">
-															<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[2].name}}</td>
-															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.db.nic[2].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.db.nic[2].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[2].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[2].ip_v4.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.db.nic[2]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.db.nic[2].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.db.nic[2].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.db.nic[2].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
-															<td rowspan="{{priCMRowspan}}" width="15%" align="center"
-																style="vertical-align: middle" translate="">CM VM</td>
-															<div ng-if="gr_config.comConfig.vm_config.cm.nic[0]">
-																<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[0].name}}</td>
-																<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-																<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[0].bridge}}</td>
-																<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-																<td>ip:{{gr_config.comConfig.vm_config.cm.nic[0].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[0].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[0].ip_v4.gateway}}</td>
-															</div>
-														</tr>
-														<tr align="center"
-															ng-if="gr_config.comConfig.comType=='FCAPS' || gr_config.comConfig.comType=='CM'">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.cm.nic[0].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[0].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[0].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.cm.nic[1]">
-															<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[1].name}}</td>
-															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[1].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.cm.nic[1].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[1].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[1].ip_v4.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.cm.nic[1]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.cm.nic[1].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[1].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[1].ip_v6.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.cm.nic[2]">
-															<td rowspan="2" width="15%" align="center"
-																	style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[2].name}}</td>
-															<td rowspan="2" width="15%" align="center" style="vertical-align: middle" translate="BRIDGE">Bridge</td>
-															<td rowspan="2" align="center" style="vertical-align: middle">{{gr_config.comConfig.vm_config.cm.nic[2].bridge}}</td>
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV4">IPv4</td>
-															<td>ip:{{gr_config.comConfig.vm_config.cm.nic[2].ip_v4.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[2].ip_v4.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[2].ip_v4.gateway}}</td>
-														</tr>
-														<tr align="center" ng-if="gr_config.comConfig.vm_config.cm.nic[2]">
-															<td width="10%" align="center" style="vertical-align: middle" translate="IPV6">IPv6</td>
-															<td>ip:{{gr_config.comConfig.vm_config.cm.nic[2].ip_v6.ipaddress}}/{{gr_config.comConfig.vm_config.cm.nic[2].ip_v6.prefix}} gateway:{{gr_config.comConfig.vm_config.cm.nic[2].ip_v6.gateway}}</td>
+														<tr align="center" ng-repeat-end>
+															<td translate="OAM_IMAGE" colspan="3">OAM image</td>
+															<td colspan="2">{{VM.imgname}}</td>
 														</tr>
 													</tbody>
 													</table>

@@ -18,7 +18,7 @@ import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializable
+public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializable, EncryPassword
 {
 
     /**

@@ -13,6 +13,12 @@
         ng-model="installConfig.app_install_options.NTP_SERVER"
 		title="NTP Server" />
 </div>
+<div class="form-group" ng-if="installConfig.comType!='QOSAC'">
+	<label class="control-label" >Supported NE Types</label> <input
+		name="NTP_SERVER" class="form-control" type="text" 
+        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_NE_TYPES"
+		title="NE types" />
+</div>
 <div class="form-group">
 	<label class="control-label" translate="SEC_UNIX_ENABLE">Sec Unix Enable</label> <select
 		name="SEC_UNIX_ENABLE" class="form-control" type="text"
@@ -45,6 +51,24 @@
         name="OMCCN_SUPPORT_SP_PM " class="form-control" type="text"
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_PM"
         title="OMCCN Support SP PM" validation="required">
+        <option value="NO" translate="NO">No</option>
+		<option value="YES" translate="YES">Yes</option>
+        </select>
+</div>
+<div class="form-group" ng-if="installConfig.comType=='CM'">
+    <label class="control-label" translate="OMCCN_SUPPORT_SP_HVP">Support High Speed Provisioning</label> <select
+        name="OMCCN_SUPPORT_SP_HVP " class="form-control" type="text"
+        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_HVP"
+        title="OMCCN Support SP HVP" validation="required">
+        <option value="NO" translate="NO">No</option>
+		<option value="YES" translate="YES">Yes</option>
+        </select>
+</div>
+<div class="form-group" ng-if="installConfig.comType=='OAM'">
+    <label class="control-label">Support Provisioning</label> <select
+        name="OMCCN_SUPPORT_SP_LVP " class="form-control" type="text"
+        ng-model="installConfig.app_install_options.OMCCN_SUPPORT_SP_LVP"
+        title="OMCCN Support SP LVP" validation="required">
         <option value="NO" translate="NO">No</option>
 		<option value="YES" translate="YES">Yes</option>
         </select>

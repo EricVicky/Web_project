@@ -3,13 +3,12 @@ package com.alu.omc.oam.config;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.alu.omc.oam.ansible.Group;
-import com.alu.omc.oam.ansible.Inventory;
-import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+@JsonInclude(Include.NON_NULL)
 public class CHKVMHostnameConfig extends KVMCOMConfig{
 	
 	private Map<String, OLDVMConfig> old_vm_config;

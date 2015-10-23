@@ -3,6 +3,8 @@ package com.alu.omc.oam.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.codec.digest.UnixCrypt;
+
 public class EncryptUtils {
 	/**
 	 * Encrypt string using MD5 algorithm
@@ -69,5 +71,13 @@ public class EncryptUtils {
 			sb.append(digit);
 		}
 		return sb.toString().toUpperCase();
+	}
+	
+	public static void main(String[] args){
+	    System.out.println(UnixCrypt.crypt("jeff"));
+	}
+	//encry password
+	public static String encryptPasswd(String password){
+	    return UnixCrypt.crypt(password);
 	}
 }

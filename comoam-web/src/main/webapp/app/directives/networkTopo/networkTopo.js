@@ -133,18 +133,26 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     	            						vnfcCounts++;
     	            					}
     	            					var vnfcCOMStackX = 60;						//distance between VNFC and COMStack on direction X 
-    	            					var vnfcCOMStackY = 20;						//distance between first VNFC and COMStack on direction Y
-    	            					var vnfcInterval = 10;						//interval between VNFCs
-    	            					var vnfcHeight = 40;
-    	            					var vnfcWidth = vnfcHeight / 2;		
+    	            					var vnfcHeight = 40; 
+    	            					var vnfcWidth = 20;	
+    	            					var vnfcInterval = 11;						//interval between VNFCs
     	            					var vnfcCornerWidth = 5;
     	            					var vnfcCornerHeight = 5;
     	            					var vnfcNamevnfcX = 3;						//distance between vnfc and it's name on direction X
     	            					for(var vnfcNum in this.COMStacks[comStacksNum].vm_config){
     	            						this.COMStacks[comStacksNum].vm_config[vnfcNum];
+    	            						if(this.COMStacks[comStacksNum].comType == 'FCAPS'||this.COMStacks[comStacksNum].comType == 'OAM'||this.COMStacks[comStacksNum].comType == 'CM'){
+    	            							if(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic.length > 3){
+    	            								var vnfcSize = new Size(20, 40+(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic.length-3)*10);
+    	            								var vnfcCOMStackY = 20-(this.COMStacks[comStacksNum].vm_config[vnfcNum].nic.length-3)*10;						//distance between first VNFC and COMStack on direction Y
+    	            							}else{
+    	            								var vnfcSize = new Size(vnfcWidth, vnfcHeight);
+    	            								var vnfcCOMStackY = 20;						//distance between first VNFC and COMStack on direction Y
+    	            								
+    	            							}	
+    	            						}
     	            						var vnfcPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX,
     	            								this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j);
-    	            						var vnfcSize = new Size(vnfcWidth, vnfcHeight);
                 							var vnfcRectangle = new Rectangle(vnfcPoint, vnfcSize);
                 							var vnfcCornerSize = new Size(vnfcCornerWidth, vnfcCornerHeight);
                 							var vnfcPath = new Path.Rectangle(vnfcRectangle, vnfcCornerSize);

@@ -1,9 +1,7 @@
 package com.alu.omc.oam.rest.kvm.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -28,6 +26,8 @@ import com.alu.omc.oam.config.CHKVMQosacCOMConfig;
 import com.alu.omc.oam.config.CHOSHostnameConfig;
 import com.alu.omc.oam.config.CHOSQosacCOMConfig;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.EncryPassword;
+import com.alu.omc.oam.config.FullBackupConfig;
 import com.alu.omc.oam.config.GRInstallConfig;
 import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
@@ -41,6 +41,8 @@ import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
 import com.alu.omc.oam.service.OperationLogService;
+import com.alu.omc.oam.util.EncryptUtils;
+import com.alu.omc.oam.util.Json2Object;
 
 @RestController 
 public class CloudDeployController 
@@ -62,12 +64,19 @@ public class CloudDeployController
     public void deploy( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
     	ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
         
     }
     @RequestMapping(value="/kvm/deployment", method=RequestMethod.POST)
     public void deploy( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
+    }
+    
+    private void encryPassword(EncryPassword ep){ 
+        ep.setRoot_password(EncryptUtils.encryptPasswd(ep.getRoot_password()));
+        ep.setAxadmin_password(EncryptUtils.encryptPasswd(ep.getAxadmin_password()));
     }
 
     @RequestMapping(value="/ovm/HPSIMdeployment", method=RequestMethod.POST)
@@ -86,6 +95,7 @@ public class CloudDeployController
     public void deploy( @RequestBody QosacOSCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
     }
     
     @RequestMapping(value="/os/ovm/ARSdeployment", method=RequestMethod.POST)
@@ -128,6 +138,7 @@ public class CloudDeployController
     public void deploy( @RequestBody QosacCOMConfig config) throws IOException, InterruptedException
     {
         ansibleDelegator.addAnsibleTask(Action.INSTALL, config );
+        encryPassword(config);
     }
     
     @RequestMapping(value="/ovm/ARSdeployment", method=RequestMethod.POST)
@@ -194,7 +205,6 @@ public class CloudDeployController
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -203,6 +213,13 @@ public class CloudDeployController
     @RequestMapping(value="/kvm/upgrade", method=RequestMethod.POST)
     public void upgrade( @RequestBody KVMCOMConfig config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+       if(config.getVm_config() == null){
+          KVMCOMConfig curConfig = getKVMCOMConfig(config.getStackName());
+          curConfig.setOam_cm_image(config.getOam_cm_image());
+          curConfig.setDb_image(config.getDb_image());
+          config = curConfig;
+        }
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
@@ -233,6 +250,13 @@ public class CloudDeployController
     @RequestMapping(value="/os/upgrade", method=RequestMethod.POST)
     public void osupgrade( @RequestBody OSCOMConfig config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+       if(config.getVm_config() == null){
+          OSCOMConfig curConfig = getOSCOMConfig(config.getStackName());
+          curConfig.setOam_cm_image(config.getOam_cm_image());
+          curConfig.setDb_image(config.getDb_image());
+          config = curConfig;
+        }
         ansibleDelegator.addAnsibleTask(Action.UPGRADE, config );
     }
     
@@ -241,6 +265,32 @@ public class CloudDeployController
     {
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
+    @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
+    public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> fullbackupconfig) throws Exception
+    {
+    	fullbackupconfig.setConfig(getKVMCOMConfig(fullbackupconfig.getStackName()));
+        ansibleDelegator.addAnsibleTask(Action.FULLBACKUP, fullbackupconfig );
+    }
+    @RequestMapping(value="/kvm/fullrestore", method=RequestMethod.POST)
+    public void kvmfullrestore(@RequestBody FullBackupConfig<KVMCOMConfig> fullrestoreconfig) throws Exception
+    {
+    	fullrestoreconfig.setConfig(getKVMCOMConfig(fullrestoreconfig.getStackName()));
+        ansibleDelegator.addAnsibleTask(Action.FULLRESTORE, fullrestoreconfig );
+    }
+    
+    private KVMCOMConfig getKVMCOMConfig(String stackName){
+        COMStack comStack = cOMStackService.get(stackName); 
+         @SuppressWarnings("unchecked") 
+         KVMCOMConfig config = new Json2Object<KVMCOMConfig>(){}.toMap(comStack.getComConfig());
+         return config;
+    }
+     private OSCOMConfig getOSCOMConfig(String stackName){
+        COMStack comStack = cOMStackService.get(stackName); 
+         @SuppressWarnings("unchecked") 
+         OSCOMConfig config = new Json2Object<OSCOMConfig>(){}.toMap(comStack.getComConfig());
+         return config;
+    }   
+    
     @RequestMapping(value="/kvm/restore", method=RequestMethod.POST)
     public void kvmrestore( @RequestBody BACKUPConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
@@ -277,16 +327,27 @@ public class CloudDeployController
     @RequestMapping(value="/gr/kvm/install", method=RequestMethod.POST)
     public void install_gr(@RequestBody GRInstallConfig<KVMCOMConfig> config) 
     {
+       //the request is from jmeter
+        if(config.getPri().getVm_config() == null){
+            config.setPri(getKVMCOMConfig(config.getPri().getStackName()));
+            config.setSec(getKVMCOMConfig(config.getSec().getStackName()));
+        }
     	if(config.getGr_install_active()==true){
     		ansibleDelegator.addAnsibleTask(Action.GRINST_PRI, config);
     	}else{
     		ansibleDelegator.addAnsibleTask(Action.GRINST_SEC, config);
     	}
-    }   
+    }
+    
     
         @RequestMapping(value="/gr/os/install", method=RequestMethod.POST)
     public void install_os_gr(@RequestBody GRInstallConfig<OSCOMConfig> config) 
     {
+       //the request is from jmeter
+        if(config.getPri().getVm_config() == null){
+            config.setPri(getOSCOMConfig(config.getPri().getStackName()));
+            config.setSec(getOSCOMConfig(config.getSec().getStackName()));
+        }
     	if(config.getGr_install_active()==true){
     		ansibleDelegator.addAnsibleTask(Action.GRINST_PRI, config);
     	}else{
@@ -297,12 +358,20 @@ public class CloudDeployController
     @RequestMapping(value="/gr/kvm/uninstall", method=RequestMethod.POST)
     public void uninstall_kvm_gr(@RequestBody GRUnInstallConfig<KVMCOMConfig> config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+       if(config.getComConfig().getVm_config() == null){
+            config.setComConfig(getKVMCOMConfig(config.getStackName()));
+        }
         ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     
     @RequestMapping(value="/gr/os/uninstall", method=RequestMethod.POST)
     public void uninstall_os_gr(@RequestBody GRUnInstallConfig<OSCOMConfig> config) throws IOException, InterruptedException
     {
+       //the request is from jmeter
+        if(config.getComConfig().getVm_config() == null){
+            config.setComConfig(getOSCOMConfig(config.getStackName()));
+        }
         ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     

@@ -8,6 +8,7 @@ angular.module('kvm', [ 'ui.router',
                         'validation',
                         'sysconst']).controller('kvmctr', function($scope,  $log, KVMService,
            $state,  $dialogs, monitorService, timezoneService, $modal) {
+                        	
 			$scope.submitComtype = function(){
 				$scope.reloadimglist();
 			};
@@ -38,10 +39,16 @@ angular.module('kvm', [ 'ui.router',
             $scope.calc_disk = function(){
             		if($scope.installConfig.vm_config.oam.flavor){
             			var temp_disk = $scope.installConfig.vm_config.oam.flavor.disk;
-                		$scope.final_disk.oam.disk = Math.ceil((Number(temp_disk)*1024
-                						 		+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
-                						 		+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
-                						 		+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE))/1024);
+            			if(Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
+            					+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
+            					+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE) > 5000){
+            				$scope.final_disk.oam.disk = Math.ceil((Number(temp_disk)*1024
+            						+Number($scope.installConfig.app_install_options.BACKUP_SERVER_DISK_SPACE)
+            						+Number($scope.installConfig.app_install_options.CALL_TRACE_DISK_SPACE)
+            						+Number($scope.installConfig.app_install_options.CODE_SERVER_DISK_SPACE))/1024)-5;
+            			}else{
+            				$scope.final_disk.oam.disk = Number(temp_disk);
+            			}
             		}
             		
             };
@@ -73,12 +80,14 @@ angular.module('kvm', [ 'ui.router',
 					OMCCN_SUPPORT_SP_FM:'YES',
 					OMCCN_SUPPORT_SP_PM:'YES',
 					OMCCN_SUPPORT_SP_HVP:'NO',
+					OMCCN_SUPPORT_SP_LVP:'NO',
 					BACKUP_SERVER_IS_LOCAL:'YES',
 					SOFTWARE_SERVER_IS_LOCAL:'YES',
 					OMCCN_SUPPORT_3GPP:'true',
 					OMCCN_SUPPORT_SNMP_N_ITF:'true',
 					OMCCN_SUPPORT_GSST:'false',
 					OMCCN_SUPPORT_NETRA:'false',
+					OMCCN_SUPPORT_NE_TYPES:'all',
 					INSTALL_ETHEREAL:'YES'
 			};
 

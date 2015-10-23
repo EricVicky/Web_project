@@ -84,7 +84,9 @@ public class HostService {
 						continue;
 					}
 					log.info(file.getFilename());
-					images.add(file.getFilename());
+					if(!file.getFilename().contains("cksum")){
+						images.add(file.getFilename());	
+					}
 				}
 				
 				channel.disconnect();
@@ -101,7 +103,7 @@ public class HostService {
 		String[] files = dirFile.list();
 		List<String> images = new ArrayList();
 		for (String file : files) {
-			if (file.contains("qcow2")) {
+			if (file.contains("qcow2") && !file.contains("cksum")) {
 				images.add(file);
 			}
 		Collections.sort(images, new IMGComparator());

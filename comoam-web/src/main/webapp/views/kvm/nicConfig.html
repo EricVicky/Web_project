@@ -1,4 +1,4 @@
-
+<form name="$parent.nicconfig">
 <div class="modal-header">
 	<label><strong>{{vm}} VM</strong> Config</label>
 </div>
@@ -60,6 +60,7 @@
 </div>
 <div class="modal-footer">
     <span class="pull-left" ng-show="alert==true"><font color="red" translate="PLEASE_CONFIG_B_AND_A">Please Config Bridge and All IPV4 Items!</font></span>
-	<button class="btn btn-primary" ng-click="ok()" translate="OK">OK</button>
+	<button class="btn btn-primary" ng-disabled="$parent.nicconfig.oam_ipv4_address.$error.remote" ng-click="ok()" translate="OK">OK</button>
 	<button class="btn btn-warning" ng-click="cancel()" translate="CANCEL">Cancel</button>
 </div>
+</form>

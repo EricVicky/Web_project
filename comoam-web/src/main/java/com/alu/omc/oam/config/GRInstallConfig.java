@@ -24,6 +24,7 @@ private T sec;
 private GRTrafic gr_traffic = GRTrafic.SIMPlE;
 private boolean gr_install_active = true;
 private IPtype gr_ip_type = IPtype.ipv4;
+private String gr_activate_0310;
 private Map<String, GRIP> gr_ip_config = new HashMap<String, GRIP>();
 public GRTrafic getGr_traffic()
 {
@@ -49,6 +50,13 @@ public void setGr_ip_type(IPtype gr_ip_type)
 {
     this.gr_ip_type = gr_ip_type;
 }
+
+public String getGr_activate_0310() {
+	return gr_activate_0310;
+}
+public void setGr_activate_0310(String gr_activate_0310) {
+	this.gr_activate_0310 = gr_activate_0310;
+}
 @JsonIgnore
 @Override
 public Inventory getInventory()
@@ -67,6 +75,7 @@ public Inventory getInventory()
 public String getVars()
 {
     Map<String, Object> vars = new HashMap<String, Object>();
+    vars.put("gr_activate_0310", this.getGr_activate_0310());
     vars.put("gr_traffic", this.getGr_traffic());
     vars.put("vnf_type", this.getPri().getCOMType());
     vars.put("gr_ip_type", this.getGr_ip_type());

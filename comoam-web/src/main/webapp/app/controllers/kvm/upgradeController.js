@@ -18,33 +18,39 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 			OMCCN_SUPPORT_SP_FM:'YES',
 			OMCCN_SUPPORT_SP_PM:'YES',
 			OMCCN_SUPPORT_SP_HVP:'NO',
+			OMCCN_SUPPORT_SP_LVP:'NO',
 			BACKUP_SERVER_IS_LOCAL:'YES',
 			SOFTWARE_SERVER_IS_LOCAL:'YES',
 			OMCCN_SUPPORT_3GPP:'true',
 			OMCCN_SUPPORT_SNMP_N_ITF:'true',
 			OMCCN_SUPPORT_GSST:'false',
 			OMCCN_SUPPORT_NETRA:'false',
+			OMCCN_SUPPORT_NE_TYPES:'all',
 			INSTALL_ETHEREAL:'YES'
 
 	};
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
     		$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
+        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 3;
         	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
         	if($scope.installConfig.comType != "OAM"){
         		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
         	}
-        	//set default value if not set
-        	for(var attr in default_app_install_options){
-        		if(!$scope.installConfig.app_install_options[attr]){
-        			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
-        		}
-        	}
+            $scope.initistoption();
     	}
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
-    }
+    };
+    
+    $scope.initistoption = function(){
+    	//set default value if not set
+    	for(var attr in default_app_install_options){
+    		if(!$scope.installConfig.app_install_options[attr]){
+    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
+    		}
+    	}
+    };
     
     $scope.setDefaultInstace = function(){
     	var selectedKVMInstance = DashboardService.getSelectedInstance();
@@ -56,6 +62,8 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         		var com_config = JSON3.parse($scope.kvmcomInstance[inst].comConfig);
         		if(angular.equals(com_config,selectedKVMInstance)){
         		   $scope.com_instance = $scope.kvmcomInstance[inst];
+        		   $scope.kvmcomInstance = [];
+        		   $scope.kvmcomInstance.push($scope.com_instance);	
         		   $scope.installConfig = com_config;
         		   break;
         		}
@@ -69,6 +77,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+    	$scope.initistoption();
     }
    
 	$scope.doUpgrade = function (){
@@ -77,6 +86,8 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
      		$state.go("dashboard.monitor");
 		});
     };
+    
+    
     
     
     KVMService.getComInstance().then( function(data) {
@@ -88,7 +99,9 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 				if(KVMService.VNFType && $scope.comInstance[ci].comType != KVMService.VNFType){
 					continue;
 				}
-				$scope.kvmcomInstance.push($scope.comInstance[ci]);
+				if($scope.comInstance[ci].comType!='ATC'&&$scope.comInstance[ci].comType!='HPSIM'&&$scope.comInstance[ci].comType!='QOSAC'){
+					$scope.kvmcomInstance.push($scope.comInstance[ci]);		
+				}
 			}
 		}
 		$scope.setDefaultInstace();
@@ -108,6 +121,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
             		}
             	});
     }
+
 } );
 
 
