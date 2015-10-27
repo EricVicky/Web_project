@@ -78,7 +78,15 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
     	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
     	$scope.initistoption();
-    }
+    };
+    
+    $scope.update_image = function(){
+    	if($scope.installConfig.comType!='OAM'){
+    		$scope.installConfig.vm_config.cm.imgname = $scope.installConfig.vm_config.oam.imgname;	
+    	}
+    	$scope.installConfig.oam_cm_image = $scope.installConfig.vm_config.oam.imgname;
+		$scope.installConfig.db_image = $scope.installConfig.vm_config.db.imgname;
+    };
    
 	$scope.doUpgrade = function (){
 		KVMService.upgrade($scope.installConfig).then( function(){

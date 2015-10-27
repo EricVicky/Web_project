@@ -1,4 +1,4 @@
-angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
+angular.module('os').controller('ovmosctr', function($scope, $modal, $log, OSService, monitorService, timezoneService, $state, validationService){
      
 	$scope.genExport = function (){
     	$scope.export = !$scope.export;
@@ -92,9 +92,27 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     
     $scope.ping = function(ip){
     	return validationService.ping(ip);
-    }
+    };
+    
+    OSService.validateCred().then(function(data) {
+    	if(data.succeed == false){
+    		var errorMsg = data.message;
+    		var modalInstance = $modal.open({
+				animation: true,
+				backdrop:'static',
+				templateUrl: 'views/os/checkCred.html',
+				controller: 'checkCred',
+				resolve: {
+					msg: function() {
+       				 return errorMsg;
+       			 }
+    		    },  
+			});
+    	}
+	});
+
 })
-.controller('ovmosqosacctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
+.controller('ovmosqosacctr', function($scope, $modal, $log, OSService, monitorService, timezoneService, $state, validationService){
 	
 	OSService.getComTypeStore().then(function(data){
 		$scope.temp_comTypeStore = data.OVMType;
@@ -230,6 +248,23 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     	});
     };
     $scope.reloadimglist();
+    
+    OSService.validateCred().then(function(data) {
+    	if(data.succeed == false){
+    		var errorMsg = data.message;
+    		var modalInstance = $modal.open({
+				animation: true,
+				backdrop:'static',
+				templateUrl: 'views/os/checkCred.html',
+				controller: 'checkCred',
+				resolve: {
+					msg: function() {
+       				 return errorMsg;
+       			 }
+    		    },  
+			});
+    	}
+	});
 
 })
 .controller('ovmosarsctr', function($scope,  $log, OSService, monitorService, timezoneService, $state, validationService){
@@ -275,5 +310,14 @@ angular.module('os').controller('ovmosctr', function($scope,  $log, OSService, m
     };
     $scope.ping = function(ip){
     	return validationService.ping(ip);
-    }
+    };
+}).controller('checkCred', function($scope, $modalInstance,$state,msg){
+	$scope.ok = function(){
+		$state.go('dashboard.oscredential');
+		$modalInstance.close();
+	};
+	$scope.message = msg;
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
 });

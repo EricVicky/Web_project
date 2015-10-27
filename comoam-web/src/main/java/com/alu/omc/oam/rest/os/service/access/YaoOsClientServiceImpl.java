@@ -50,6 +50,15 @@ public class YaoOsClientServiceImpl implements YaoOsClientService {
         return osClient;
     }
     
+/*    @Override
+    public String getAccessValue() {
+        if (access == null) {
+            return "invalid access";
+        }else{
+        	return "valid access";      	
+        }
+    }*/
+    
     private YaoAccess genOsAccess() {
         return new YaoAccess(authenticate().getAccess());
     }

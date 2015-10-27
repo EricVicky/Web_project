@@ -3,7 +3,9 @@ package com.alu.omc.oam.rest.config;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.naming.AuthenticationException;
 
+import org.openstack4j.api.OSClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,11 +53,18 @@ public class OSConfigController
     	OpenstackConfig config = cOMStackService.getOpenstackConfig();
         if(config==null){
         	res.setSucceed(false);
-        	res.setMessage("No Cred");
+        	res.setMessage("Openstack credentail not config");
+        	return res;
         }else{
-        	
-        	res.setSucceed(true);
-        	res.setMessage("");
+        	try {
+				yaoOsClientService.getOsClient();
+			} catch (Exception e) {
+				log.error("Unable connect to openstack service", e);
+				res.setSucceed(false);
+				res.setMessage("Unable connect to openstack service");
+				return res;
+			}
+			res.setSucceed(true);
         }
     	return res;
     }

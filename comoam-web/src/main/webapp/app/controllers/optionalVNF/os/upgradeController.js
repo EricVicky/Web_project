@@ -1,5 +1,5 @@
 angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter,  $log, OSService,  
-		monitorService, DashboardService, $dialogs, $state) {
+		monitorService, DashboardService,$modal, $dialogs, $state) {
 
 	
 	$scope.setDefaultInstace = function(){
@@ -79,4 +79,30 @@ angular.module('os').controller('ovmqosacupgradectr', function($scope, $filter, 
     
     $scope.reloadimglist();
     
+    OSService.validateCred().then(function(data) {
+    	if(data.succeed == false){
+    		var errorMsg = data.message;
+    		var modalInstance = $modal.open({
+				animation: true,
+				backdrop:'static',
+				templateUrl: 'views/os/checkCred.html',
+				controller: 'checkCred',
+				resolve: {
+					msg: function() {
+       				 return errorMsg;
+       			 }
+    		    },  
+			});
+    	}
+	});
+    
+}).controller('checkCred', function($scope, $modalInstance,$state,msg){
+	$scope.ok = function(){
+		$state.go('dashboard.oscredential');
+		$modalInstance.close();
+	};
+	$scope.message = msg;
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
 });

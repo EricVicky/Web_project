@@ -57,6 +57,7 @@ angular.module('backup_restore', ['ui.router',
 		$scope.comInstance = comInstance;
 		$scope.setDefaultInstace();
     });
+
     $scope.backup = function(){
     	$scope.backupConfig.config = $scope.installConfig;
     	if($scope.backupConfig.config.environment=='KVM'){
