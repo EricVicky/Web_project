@@ -5,6 +5,7 @@ import os.path
 import yaml
 import json
 import time
+import re
 
 class Usage(Exception):
     def __init__(self, msg):
@@ -59,7 +60,10 @@ def reg(varfilename,host):
                 comConfig['active_host_ip'] = host
                 print 'create new com stack'
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
-                comStack.setComconfig(json.dumps(comConfig))
+                comConfigStr = json.dumps(comConfig)
+                p=re.compile("\{\{\s+deployment_prefix\s+\}\}")
+                comConfigStr = p.sub(comConfig['deployment_prefix'], comConfigStr)
+                comStack.setComconfig(comConfigStr)
                 comStack.append()
                 print 'stack created completed!'
         except Exception:
