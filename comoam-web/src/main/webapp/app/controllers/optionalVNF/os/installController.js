@@ -311,13 +311,4 @@ angular.module('os').controller('ovmosctr', function($scope, $modal, $log, OSSer
     $scope.ping = function(ip){
     	return validationService.ping(ip);
     };
-}).controller('checkCred', function($scope, $modalInstance,$state,msg){
-	$scope.ok = function(){
-		$state.go('dashboard.oscredential');
-		$modalInstance.close();
-	};
-	$scope.message = msg;
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-    };
 });
