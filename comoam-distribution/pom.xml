@@ -236,6 +236,9 @@
 								         <softlinkSource>
 								              <location>/opt/PlexView/ELCM/script/config_bond.sh</location>
 								         </softlinkSource>
+								         <softlinkSource>
+								              <location>/opt/PlexView/ELCM/script/checkLockedUser.sh</location>
+								         </softlinkSource>
 								     </sources>
 								</mapping>
 							</mappings>
