@@ -85,9 +85,9 @@ public class JsonDataSource
     		e.printStackTrace();
     	}
     	
-    	if(config == null){
-    		config = new OpenstackConfig();
-    	}
+//    	if(config == null){
+//    		config = new OpenstackConfig();
+//    	}
     	
     	return config;
     }

@@ -7,7 +7,7 @@ angular.module('os', [ 'ui.router',
                        'mgo-angular-wizard',
                        'ngFileUpload',
                        'validation',
-                       'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,
+                       'ngResource']).controller('osctr', function($scope, $q, $timeout, $log, OSService,$modal,
 		$state, websocketService, validationService, WizardHandler,monitorService,timezoneService, validationService) {
             OSService.getUpdateOSCred().then(function(data) {
                 $scope.crendential = data;
@@ -170,4 +170,30 @@ angular.module('os', [ 'ui.router',
             $scope.reloadkplist();
             $scope.reloadimglist();
             
-} );
+            OSService.validateCred().then(function(data) {
+            	if(data.succeed == false){
+            		var errorMsg = data.message;
+            		var modalInstance = $modal.open({
+    					animation: true,
+    					backdrop:'static',
+    					templateUrl: 'views/os/checkCred.html',
+    					controller: 'checkCred',
+    					resolve: {
+    						msg: function() {
+               				 return errorMsg;
+               			 }
+            		    },  
+    				});
+            	}
+			});
+            
+} ).controller('checkCred', function($scope, $modalInstance,$state,msg){
+	$scope.ok = function(){
+		$state.go('dashboard.oscredential');
+		$modalInstance.close();
+	};
+	$scope.message = msg;
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
+});

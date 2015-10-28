@@ -5,6 +5,8 @@ import os.path
 import yaml
 import json
 import time
+import re
+import socket
 
 class Usage(Exception):
     def __init__(self, msg):
@@ -45,6 +47,11 @@ class COMStack():
                 return comstacks
         return None
 
+def getRealIP(host):
+    if host == '127.0.0.1' or host == 'localhost': 
+        host = socket.gethostbyname(socket.gethostname())
+    return host
+
 def error(message):
     sys.stderr.write("error: %s\n" % message)
     sys.exit(1)
@@ -59,7 +66,10 @@ def reg(varfilename,host):
                 comConfig['active_host_ip'] = host
                 print 'create new com stack'
                 comStack = COMStack(comConfig['comType'], comConfig['deployment_prefix'])
-                comStack.setComconfig(json.dumps(comConfig))
+                comConfigStr = json.dumps(comConfig)
+                p=re.compile("\{\{\s+deployment_prefix\s+\}\}")
+                comConfigStr = p.sub(comConfig['deployment_prefix'], comConfigStr)
+                comStack.setComconfig(comConfigStr)
                 comStack.append()
                 print 'stack created completed!'
         except Exception:
@@ -85,6 +95,7 @@ def main(argv):
       elif opt in ("-i", "--ifile"):
          host = arg
    try:
+      host = getRealIP(host) 
       reg(varfilename, host)
    except Exception:
       traceback.print_exc(file=sys.stdout)
