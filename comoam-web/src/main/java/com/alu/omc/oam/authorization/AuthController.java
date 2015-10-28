@@ -91,14 +91,13 @@ public class AuthController {
 	    try
         {
 	        CommandResult res = comamnda.execute();
-	        if(res.getExitValue() != 1){
+	        if(res.getExitValue() != 0){
 	            locked = true;
 	        }
         }
         catch (IOException | InterruptedException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+           locked =true; 
         }
 	    return locked;
 	}
