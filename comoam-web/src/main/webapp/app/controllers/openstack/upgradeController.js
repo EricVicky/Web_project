@@ -1,5 +1,5 @@
 angular.module('os').controller('osupgradectr', function($scope, $filter,  $log 
-		,  OSService, monitorService, $dialogs, $state , DashboardService) {
+		,  OSService, monitorService, $dialogs, $state , $modal,DashboardService) {
    $scope.reloadimglist = function(){
           OSService.getImages().then(function(data){
             		$scope.oam_cm_images = data;
@@ -94,7 +94,33 @@ angular.module('os').controller('osupgradectr', function($scope, $filter,  $log
          $scope.doUpgrade();
     };
     
-} );
+    OSService.validateCred().then(function(data) {
+    	if(data.succeed == false){
+    		var errorMsg = data.message;
+    		var modalInstance = $modal.open({
+				animation: true,
+				backdrop:'static',
+				templateUrl: 'views/os/checkCred.html',
+				controller: 'checkCred',
+				resolve: {
+					msg: function() {
+       				 return errorMsg;
+       			 }
+    		    },  
+			});
+    	}
+	});
+    
+} ).controller('checkCred', function($scope, $modalInstance,$state,msg){
+	$scope.ok = function(){
+		$state.go('dashboard.oscredential');
+		$modalInstance.close();
+	};
+	$scope.message = msg;
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+    };
+});
 
 
 

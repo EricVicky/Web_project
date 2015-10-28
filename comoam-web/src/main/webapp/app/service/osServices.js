@@ -112,6 +112,10 @@ angular.module('os').factory('OSService', function($location, $resource, $log) {
 		deleteovm:function(config){
 			var deleteRes = $resource(restUrl + "os/ovm/" + config.comType + "delete");
 			return deleteRes.save(config).$promise;
+		},
+		validateCred:function(){
+			var CredRes = $resource(restUrl + "os/vCred");
+			return CredRes.get().$promise;
 		}
 	};
 });
