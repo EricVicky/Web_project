@@ -64,6 +64,9 @@ public ICommandExec create(PlaybookCall playbookCall, File runDir){
     }
 }
 
+public ICommandExec create(String command){
+       return new DefaultCommandExecutor(command, null, null); 
+}
 
 public ICommandExec create1(PlaybookCall playbookCall, File runDir){
     Map<String, String> envs = null;

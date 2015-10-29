@@ -34,12 +34,17 @@ public class DefaultCommandExecutor  implements ICommandExec
        this.envs = envs;
        this.workingDir = workingDir;
     }
+    
+ 
 
 
 
     @Override
     public CommandResult execute() throws IOException, InterruptedException
     {
-        // TODO Auto-generated method stub
-        return null;
+        CommandLine cmdLine = CommandLine.parse(this.commandLine);
+        DefaultExecutor executor = new DefaultExecutor();
+        int res = executor.execute(cmdLine);
+        CommandResult commandResult = new CommandResult(res, null);
+        return commandResult;
     }}
