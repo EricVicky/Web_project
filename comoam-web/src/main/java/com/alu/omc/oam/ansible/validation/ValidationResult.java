@@ -25,4 +25,9 @@ public void setMessage(String message) {
 public ValidationResult(){
 	
 }
+
+public ValidationResult(boolean succeed, String message){
+    this.succeed = succeed;
+    this.message = message;
+}
 }

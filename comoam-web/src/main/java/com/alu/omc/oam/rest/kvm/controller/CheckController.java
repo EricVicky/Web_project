@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alu.omc.oam.ansible.RunningComstackLock;
 import com.alu.omc.oam.ansible.validation.ValidationResult;
 import com.alu.omc.oam.config.COMStack;
+import com.alu.omc.oam.config.KVMCOMConfig;
 import com.alu.omc.oam.config.Status;
+import com.alu.omc.oam.config.VMConfig;
 import com.alu.omc.oam.kvm.model.StackStatus;
 import com.alu.omc.oam.service.COMStackService;
+import com.alu.omc.oam.service.COMValidationService;
 import com.alu.omc.oam.service.HostService;
+import com.alu.omc.oam.util.Json2Object;
 
 @RestController 
 public class CheckController 
@@ -27,7 +31,9 @@ public class CheckController
     COMStackService cOMStackService;
     @Resource
     RunningComstackLock runningComstackLock;
-
+    @Resource
+    COMValidationService cOMValidationService;
+    
     @RequestMapping(value="/check/ping", method=RequestMethod.GET)
     public ValidationResult  ping(@ModelAttribute("host") String host) 
     {
@@ -109,6 +115,31 @@ public class CheckController
     public StackStatus  checkHostStatus(@ModelAttribute("stackName") String  stackName) 
     {
         return runningComstackLock.getStatus(stackName);
+    }
+    
+    @RequestMapping(value="/kvm/checkcom", method=RequestMethod.GET)
+    public ValidationResult checkCOM(@ModelAttribute("stackName") String  stackName) 
+    {
+        COMStack comStack = cOMStackService.get(stackName);
+        if(comStack == null ||comStack.getActionResult() == null ){
+            return new ValidationResult(false, "in progress");
+        }
+        if(comStack.getActionResult().name().toLowerCase().indexOf("fail") != -1){
+            return new ValidationResult(false, "failed");
+        }
+        String comsStackStr = comStack.getComConfig();
+        KVMCOMConfig comConfig = new Json2Object<KVMCOMConfig>().toMap(comsStackStr);
+        VMConfig vmConfig =  comConfig.getVm_config().get("oam");
+        String ipaddress = vmConfig.getNic().get(0).getIp_v4().getIpaddress();
+        boolean processUp = cOMValidationService.checkIfCOMProcessUp(ipaddress);
+        ValidationResult rs = new ValidationResult();
+        rs.setSucceed(processUp);
+        if(processUp){
+            rs.setMessage("all processes up");
+        }else{
+            rs.setMessage("in progress");
+        }
+        return rs;
     }
 
 

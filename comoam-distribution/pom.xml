@@ -147,7 +147,7 @@
 									</sources>
 								</mapping>
 								<mapping>
-									<directory>/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/lib/amd64/</directory>
+									<directory>/usr/lib/jvm/jre/lib/amd64/</directory>
 									<username>root</username>
 									<groupname>root</groupname>
 									<sources>
