@@ -4,12 +4,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.springframework.stereotype.Service;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-
+@Service
 public class COMValidationService {
 	
 	private String username = "axadmin";
