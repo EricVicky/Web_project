@@ -150,6 +150,9 @@ angular.module('comoamApp').directive('networkTopo',function($log,KVMService){
     	            								var vnfcCOMStackY = 20;						//distance between first VNFC and COMStack on direction Y
     	            								
     	            							}	
+    	            						}else{
+    	            							var vnfcSize = new Size(vnfcWidth, vnfcHeight);
+    	            							var vnfcCOMStackY = 20;	
     	            						}
     	            						var vnfcPoint = new Point(this.networkTopologyStartX + comStackTopoX + vnfcCOMStackX,
     	            								this.networkTopologyStartY + comStackTopoY + (comStackHeight + comStackInterval) * comStacksNum + vnfcCOMStackY + (vnfcHeight + vnfcInterval) * j);
