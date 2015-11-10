@@ -104,7 +104,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         		}
         }
   
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+        //$scope.vm_img_dir = $scope.installConfig.vm_img_dir;
         $scope.reloadinstallconfig();
     };
 	
@@ -148,9 +148,13 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
     		$scope.installConfig.app_install_options.SOFTWARE_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.ip_address;
             $scope.installConfig.app_install_options.BACKUP_SERVER_ADDRESS = $scope.installConfig.vm_config.ovm.ip_address;
     	}
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-        $scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+        //$scope.vm_img_dir = $scope.installConfig.vm_img_dir;
+        //$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
     }; 
+    
+    $scope.submitComtype = function(){
+		$scope.loadimglist($scope.installConfig.active_host_ip, $scope.installConfig.vm_img_dir);
+	};
 
 	$scope.loadimglist = function(host, dir) {
 		KVMService.imagelist({
