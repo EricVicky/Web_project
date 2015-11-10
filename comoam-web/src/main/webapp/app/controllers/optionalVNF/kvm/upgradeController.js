@@ -179,6 +179,7 @@ angular.module('kvm').controller('ovmupgradectr', function($scope, $filter,  $lo
         });
 		
     $scope.doUpgrade = function (){
+    	$scope.installConfig.vm_config.ovm.imgname = $scope.imgname;
         KVMService.upgradeOVM($scope.installConfig).then( function(){
             	monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
              	$state.go("dashboard.monitor");
