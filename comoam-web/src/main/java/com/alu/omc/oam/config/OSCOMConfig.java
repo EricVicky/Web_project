@@ -41,11 +41,18 @@ public class OSCOMConfig extends COMConfig implements NetworkConfig, Serializabl
     private String oam_cm_image;
 	private String db_image;
 	private String key_name;
+	private String environment;
+	private String comtype;
+	private String stackName;
 	private boolean juno_base = false;
 	private static Logger log = LoggerFactory.getLogger(OSCOMConfig.class);	
 	
 
-    public Map<String, String> getApp_install_options() {
+    public void setEnvironment(String environment) {
+		this.environment = environment;
+	}
+
+	public Map<String, String> getApp_install_options() {
 		return app_install_options;
 	}
 

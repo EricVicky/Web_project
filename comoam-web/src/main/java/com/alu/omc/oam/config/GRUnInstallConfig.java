@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.alu.omc.oam.ansible.Group;
 import com.alu.omc.oam.ansible.Inventory;
 import com.alu.omc.oam.config.GRInstallConfig.GRIP;
+import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.util.Json2Object;
 import com.alu.omc.oam.util.JsonYamlConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,6 +24,7 @@ private T comConfig;
 private boolean forced= false;
 private String deployment_prefix;
 private String stack_name;
+public static final String SEC_OAM = "sec_oam";
 
 
 public String getDeployment_prefix() {
@@ -56,7 +59,14 @@ public Inventory getInventory()
 {
     Inventory  inv =comConfig.getInventory();
     inv.addNooamGroup();
+    Group hostg = new Group(SEC_OAM);
+    hostg.add(new Host(secOAMIP));
+    inv.addGroup(hostg);
     return inv;
+}
+String secOAMIP;
+public void secOAMIP(String IP){
+	this.secOAMIP = IP;
 }
 @Override
 @JsonIgnore 

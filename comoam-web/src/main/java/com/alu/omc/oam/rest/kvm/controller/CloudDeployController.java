@@ -33,10 +33,12 @@ import com.alu.omc.oam.config.GRUnInstallConfig;
 import com.alu.omc.oam.config.HpsimCOMConfig;
 import com.alu.omc.oam.config.HpsimOSCOMConfig;
 import com.alu.omc.oam.config.KVMCOMConfig;
+import com.alu.omc.oam.config.NIC;
 import com.alu.omc.oam.config.OSCOMConfig;
 import com.alu.omc.oam.config.OperationLog;
 import com.alu.omc.oam.config.QosacCOMConfig;
 import com.alu.omc.oam.config.QosacOSCOMConfig;
+import com.alu.omc.oam.config.VMConfig;
 import com.alu.omc.oam.kvm.model.Host;
 import com.alu.omc.oam.service.COMStackService;
 import com.alu.omc.oam.service.HostService;
@@ -362,6 +364,12 @@ public class CloudDeployController
        if(config.getComConfig().getVm_config() == null){
             config.setComConfig(getKVMCOMConfig(config.getStackName()));
         }
+        COMStack comStack = cOMStackService.get(config.getStackName());
+        COMStack mateStack = cOMStackService.get(comStack.getMate());  
+        KVMCOMConfig mateCOMConfig = new Json2Object<KVMCOMConfig>(){}.toMap(mateStack.getComConfig());
+        VMConfig vmconfig = mateCOMConfig.getVm_config().get("oam");
+        String secoamIP = vmconfig.getNic().get(0).getIp_v4().getIpaddress();
+        config.secOAMIP(secoamIP);
         ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     
@@ -372,6 +380,12 @@ public class CloudDeployController
         if(config.getComConfig().getVm_config() == null){
             config.setComConfig(getOSCOMConfig(config.getStackName()));
         }
+        COMStack comStack = cOMStackService.get(config.getDeployment_prefix());
+        COMStack mateStack = cOMStackService.get(comStack.getMate());
+        OSCOMConfig mateCOMConfig = new Json2Object<OSCOMConfig>(){}.toMap(mateStack.getComConfig());
+        NIC nic = mateCOMConfig.allInterface().get("oam").get(0);
+        String secoamIP = nic.getIp_v4().getIpaddress();
+        config.secOAMIP(secoamIP);
         ansibleDelegator.addAnsibleTask(Action.GRUNINST, config);
     } 
     

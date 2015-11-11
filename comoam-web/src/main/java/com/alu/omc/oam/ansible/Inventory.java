@@ -15,6 +15,7 @@ public class Inventory
     public static final String NO_OAM = "no_oam:children";
     public static final String OAM = "oam";
     public static final String HOST = "host";
+    
     public String toInf()
     {
         StringBuffer inf = new StringBuffer("");
@@ -58,7 +59,7 @@ public class Inventory
               nooamgroup.add(group); 
            } 
         }
-        this.addGroup(nooamgroup );
+        this.addGroup(nooamgroup);
     }
     
 }
