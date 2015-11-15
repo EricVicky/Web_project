@@ -33,6 +33,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 			INSTALL_ETHEREAL:'YES'
 
 	};
+    
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
     		$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
@@ -48,8 +49,21 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     	for(var attr in default_app_install_options){
     		if(!$scope.cl_installConfig.app_install_options[attr]){
     			$scope.cl_installConfig.app_install_options[attr] = default_app_install_options[attr];
+    			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
     		}
     	}
+    	if($scope.installConfig.comType == 'CM'){
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+        }else{
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+        }
+
     };
     
     $scope.setDefaultInstace = function(){
