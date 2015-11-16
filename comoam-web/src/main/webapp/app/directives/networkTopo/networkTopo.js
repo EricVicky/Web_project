@@ -581,7 +581,7 @@ function getNetmask(prefix){
 	var quotient = parseInt(prefix / 8);
 	var remainder = prefix % 8;
 	var not255 = '';
-	not255 = Math.pow(2, 8-remainder);
+	not255 = 256 - Math.pow(2, 8-remainder);
 	var netmask = '';
 	switch(quotient){
 	case 0:
