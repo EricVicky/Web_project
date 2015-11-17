@@ -136,7 +136,10 @@ angular.module('datatable',['ui.grid', 'ui.grid.resizeColumns']).controller('dat
 	  
 	  $scope.gobackup = function(row){
 		  DashboardService.setSelectedInstance(row.entity.comConfig);
-		  $state.go("dashboard.backup");			  
+		  comType = row.entity.comConfig.comType;
+		  if(comType && comType == 'QOSAC' && comType == 'OAM' || comType =='CM' || comType == 'FCAPS'){
+				 $state.go("dashboard.backup");			  
+		  } 			  
 	  };
 	  
 	  $scope.gorestore = function(row){

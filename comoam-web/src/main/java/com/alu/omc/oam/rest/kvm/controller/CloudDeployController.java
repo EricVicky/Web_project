@@ -267,6 +267,12 @@ public class CloudDeployController
     {
         ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
     }
+    
+    @RequestMapping(value="/kvm/qosacbackup", method=RequestMethod.POST)
+    public void qosackvmbackup( @RequestBody BACKUPConfig<QosacCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.BACKUP, config );
+    }
     @RequestMapping(value="/kvm/fullbackup", method=RequestMethod.POST)
     public void kvmfullbackup(@RequestBody FullBackupConfig<KVMCOMConfig> fullbackupconfig) throws Exception
     {
@@ -299,6 +305,12 @@ public class CloudDeployController
         ansibleDelegator.addAnsibleTask(Action.RESTORE, config );
     }
     
+    @RequestMapping(value="/kvm/qosacrestore", method=RequestMethod.POST)
+    public void kvmqosacrestore( @RequestBody BACKUPConfig<QosacCOMConfig> config) throws IOException, InterruptedException
+    {
+        ansibleDelegator.addAnsibleTask(Action.RESTORE, config );
+    }
+
     @RequestMapping(value="/kvm/instances", method=RequestMethod.GET)
     public List<COMStack>  kvminstances() throws IOException, InterruptedException
     {

@@ -11,6 +11,9 @@ angular.module('backup_restore').factory('Backup_ResService', function($location
 		},
 		kvmbackup:function(config){
 			var backupRes = $resource(restUrl + "rest/kvm/backup");
+			if(config.comType == 'QOSAC'){
+				backupRes = $resource(restUrl + "rest/kvm/qosacbackup");
+			}
 			return backupRes.save(config).$promise;
 		},
 		osbackup:function(config){
@@ -19,6 +22,9 @@ angular.module('backup_restore').factory('Backup_ResService', function($location
 		},
 		kvmrestore:function(config){
 			var restoreRes = $resource(restUrl + "rest/kvm/restore");
+			if(config.comType == 'QOSAC'){
+				backupRes = $resource(restUrl + "rest/kvm/qosacrestore");
+			}
 			return restoreRes.save(config).$promise;
 		},
 		osrestore:function(config){
