@@ -27,11 +27,11 @@ angular.module('gr', [ 'ui.router',
     		 }
     	 }); 
     	 $scope.invalideIPv6 = false;
-    	 $scope.all_gr_traffic_types = [ {"label":"Simple", "value": "SIMPlE", "index": 0}, 
+    	 $scope.all_gr_traffic_types = [ {"label":"Simple", "value": "SIMPLE", "index": 0}, 
     	                                 {"label":"Traffic Separation", "value":"SEPARATION", "index" :1},
     	                                 { "label":"Traffic Redundency", "value": "REDUDENCY", "index" :2}];
     	 $scope.grTrafficTypeMap = {
-    			 "SIMPlE":"1",
+    			 "SIMPLE":"1",
     			 "SEPARATION":"2",
     			 "REDUDENCY":"3"
     	 };
