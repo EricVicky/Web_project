@@ -98,7 +98,7 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     
     $scope.clone_installConfig = function(){
     	$scope.cl_installConfig = angular.copy($scope.installConfig);
-    	$scope.cl_installConfig.vm_img_dir = 'var/images';
+    	//$scope.cl_installConfig.vm_img_dir = 'var/images';
     	$scope.cl_installConfig.vm_config.oam.imgname = '';
     	$scope.cl_installConfig.vm_config.db.imgname = '';
     };
