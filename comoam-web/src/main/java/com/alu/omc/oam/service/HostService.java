@@ -100,6 +100,7 @@ public class HostService {
 
 	public List<String> getLocalImages(String dir) {
 		File dirFile = new File(dir);
+		log.info("load image list from: " + dirFile.getAbsolutePath());
 		String[] files = dirFile.list();
 		List<String> images = new ArrayList();
 		for (String file : files) {

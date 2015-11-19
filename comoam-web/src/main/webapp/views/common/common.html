@@ -28,13 +28,13 @@
 </div>
 <div class="form-group">
 	<label class="control-label" translate="NTP_SERVER">NTP Server</label> <input
-		name="NTP_SERVER" class="form-control" type="text" 
+		name="NTP_SERVER" class="form-control" type="text"  validation="required" 
         ng-model="installConfig.app_install_options.NTP_SERVER"
 		title="NTP Server" />
 </div>
 <div class="form-group" ng-if="installConfig.comType!='QOSAC'">
 	<label class="control-label" >Supported NE Types</label> <input
-		name="NTP_SERVER" class="form-control" type="text" 
+		name="NTP_SERVER" class="form-control" type="text"  validation="required" 
         ng-model="installConfig.app_install_options.OMCCN_SUPPORT_NE_TYPES"
 		title="NE types" />
 </div>

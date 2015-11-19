@@ -1,6 +1,10 @@
 angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, KVMService
 		,  monitorService, DashboardService, $dialogs, $state) {
 	
+	$scope.submitComtype = function(){
+		$scope.loadimglist($scope.cl_installConfig.active_host_ip, $scope.cl_installConfig.vm_img_dir);
+	};
+	
 	$scope.loadimglist = function(host, dir){
         	KVMService.imagelist({ "host":host, "dir":dir}).then(
                 	function(data) {
@@ -29,27 +33,37 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
 			INSTALL_ETHEREAL:'YES'
 
 	};
+    
     $scope.reloadimglist = function(){
     	if($scope.com_instance != null){
     		$scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-        	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 3;
-        	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-        	if($scope.installConfig.comType != "OAM"){
-        		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
-        	}
+    		//clone
+    		$scope.clone_installConfig();
             $scope.initistoption();
     	}
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+
     };
     
     $scope.initistoption = function(){
     	//set default value if not set
     	for(var attr in default_app_install_options){
-    		if(!$scope.installConfig.app_install_options[attr]){
+    		if(!$scope.cl_installConfig.app_install_options[attr]){
+    			$scope.cl_installConfig.app_install_options[attr] = default_app_install_options[attr];
     			$scope.installConfig.app_install_options[attr] = default_app_install_options[attr];
     		}
     	}
+    	if($scope.installConfig.comType == 'CM'){
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'NO';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'NO';
+        }else{
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+        	$scope.installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_FM = 'YES';
+        	$scope.cl_installConfig.app_install_options.OMCCN_SUPPORT_SP_PM = 'YES';
+        }
+
     };
     
     $scope.setDefaultInstace = function(){
@@ -69,35 +83,35 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
         		}
         }
         $scope.installConfig = JSON3.parse($scope.com_instance.comConfig);
-    	$scope.oamRowspan = $scope.installConfig.vm_config.oam.nic.length * 2 + 2;
-    	$scope.dbRowspan = $scope.installConfig.vm_config.db.nic.length * 2 + 2;
-    	if($scope.installConfig.comType != "OAM"){
-    		$scope.cmRowspan = $scope.installConfig.vm_config.cm.nic.length * 2 + 2;
-    	}
-    	
-        $scope.vm_img_dir = $scope.installConfig.vm_img_dir;
-    	$scope.loadimglist($scope.installConfig.active_host_ip, $scope.vm_img_dir);
+        //clone
+        $scope.clone_installConfig();
+
     	$scope.initistoption();
-    };
-    
-    $scope.update_image = function(){
-    	if($scope.installConfig.comType!='OAM'){
-    		$scope.installConfig.vm_config.cm.imgname = $scope.installConfig.vm_config.oam.imgname;	
-    	}
-    	$scope.installConfig.oam_cm_image = $scope.installConfig.vm_config.oam.imgname;
-		$scope.installConfig.db_image = $scope.installConfig.vm_config.db.imgname;
     };
    
 	$scope.doUpgrade = function (){
-		KVMService.upgrade($scope.installConfig).then( function(){
-            monitorService.monitor("KVM", "UPGRADE", $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
+		KVMService.upgrade($scope.cl_installConfig).then( function(){
+            monitorService.monitor("KVM", "UPGRADE", $scope.cl_installConfig.comType, $scope.cl_installConfig.deployment_prefix);
      		$state.go("dashboard.monitor");
 		});
     };
     
+    $scope.clone_installConfig = function(){
+    	$scope.cl_installConfig = angular.copy($scope.installConfig);
+    	//$scope.cl_installConfig.vm_img_dir = 'var/images';
+    	$scope.cl_installConfig.vm_config.oam.imgname = '';
+    	$scope.cl_installConfig.vm_config.db.imgname = '';
+    };
     
-    
-    
+    $scope.clone_installoptions = function(){
+    	$scope.cl_installConfig.app_install_options = $scope.installConfig.app_install_options;
+    	if($scope.cl_installConfig.comType!='OAM'){
+    		$scope.cl_installConfig.vm_config.cm.imgname = $scope.cl_installConfig.vm_config.oam.imgname;	
+    	}
+    	$scope.cl_installConfig.db_image = $scope.cl_installConfig.vm_config.db.imgname
+		$scope.cl_installConfig.oam_cm_image = 	$scope.cl_installConfig.vm_config.oam.imgname
+    };
+
     KVMService.getComInstance().then( function(data) {
 		$log.info(data);
 		$scope.comInstance = data;
@@ -117,11 +131,11 @@ angular.module('kvm').controller('upgradectr', function($scope, $filter,  $log, 
     });
     
     $scope.upgrade = function(){
-            	KVMService.comstackStatus($scope.installConfig.deployment_prefix).then(function(status){
+            	KVMService.comstackStatus($scope.cl_installConfig.deployment_prefix).then(function(status){
             		var ACTION_IN_PROGRESS = 2;
             		if(status.state == ACTION_IN_PROGRESS){
             			if(window.confirm("some operation  proceed on selected VNF instance, go to monitor?")){
-            				monitorService.monitor("KVM", status.lastaction, $scope.installConfig.comType, $scope.installConfig.deployment_prefix);
+            				monitorService.monitor("KVM", status.lastaction, $scope.cl_installConfig.comType, $scope.cl_installConfig.deployment_prefix);
             				$state.go('dashboard.monitor');
             			}
             		}else{

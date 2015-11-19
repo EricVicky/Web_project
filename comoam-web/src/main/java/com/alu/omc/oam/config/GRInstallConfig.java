@@ -21,7 +21,7 @@ public class GRInstallConfig<T extends COMConfig> extends COMConfig implements S
 private static final long serialVersionUID = 3890963920968307212L;
 private T pri;
 private T sec;
-private GRTrafic gr_traffic = GRTrafic.SIMPlE;
+private GRTrafic gr_traffic = GRTrafic.SIMPLE;
 private boolean gr_install_active = true;
 private IPtype gr_ip_type = IPtype.ipv4;
 private String gr_activate_0310;
@@ -159,7 +159,7 @@ public class GRIP implements Serializable{
     }
     
     public GRIP(List<NIC> actNics, List<NIC> stbNics,  boolean isIpv4, boolean installActive, GRTrafic grTrafic){
-        if(grTrafic == GRTrafic.SIMPlE){
+        if(grTrafic == GRTrafic.SIMPLE){
             if(actNics.size() >0 && stbNics.size() > 0){
                 simpleGR(actNics.get(0), stbNics.get(0), isIpv4);
             }
